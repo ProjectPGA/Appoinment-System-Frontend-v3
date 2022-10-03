@@ -1,7 +1,11 @@
 {
-  "name": "my-vue-app",
+  "name": "Appointment-System-Frontend",
   "private": true,
   "version": "0.0.0",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "OpenSlot Studio"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
