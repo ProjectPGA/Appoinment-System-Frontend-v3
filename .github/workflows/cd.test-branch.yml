@@ -26,4 +26,5 @@ jobs:
       - run: npm run format:scss
       - run: npm run lint
       - run: npm run lint:scss
+      - run: npm run test:unit
       - run: npm run build

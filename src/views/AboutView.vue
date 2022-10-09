@@ -2,9 +2,10 @@
   <div class="container">
     <section class="section">
       <h1 class="title">{{ $t('common.title.about') }}</h1>
-      <div class="user-data">
+      <div v-if="!authStore.isLoading" class="user-data">
         {{ authStore.userData }}
       </div>
+      <LoadingComponent v-else />
       <input v-model="email" type="text" class="input" />
       <input v-model="password" type="password" class="input" />
       <button
@@ -25,13 +26,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/auth';
+import LoadingComponent from '../components/common/LoadingComponent.vue';
 
 const email = ref<string>('test@test.com');
 const password = ref<string>('Tests.15');
 
 const authStore = useAuthStore();
-
-defineProps<{ msg: string }>();
 </script>
 
 <style lang="scss" scoped>

@@ -1,8 +1,8 @@
 // TODO. Just have this in a core module
-export const API_PREFIX =
+export const BASE_URL =
   'http://os-appointment-system-backend.herokuapp.com/api';
 
-export const apiPrefix = (url: string): any => API_PREFIX + url;
+export const apiPrefix = (url: string): any => BASE_URL + url;
 
 export const jsonHeaders = {
   headers: {
