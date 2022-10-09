@@ -18,11 +18,15 @@
   </b-field>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue';
 // import mainStore from '@/store/main-store/MainStore';
 
-// @Prop(String) private view: string;
+const props = defineProps({
+  view: String,
+});
+
+const emit = defineEmits(['enter', 'input', 'check-email']);
 
 // private mainStore = mainStore.context(this.$store);
 
@@ -31,7 +35,7 @@ const isValid = ref<boolean>(true);
 const errorMessage = ref<string>('');
 
 function onInput(): void {
-  // this.$emit('input', email.value);
+  emit('input', email.value);
 
   checkEmail();
 }
@@ -39,9 +43,9 @@ function onInput(): void {
 function onEnterEmail(): void {
   checkEmail();
 
-  // if (isValid.value) {
-  //   this.$emit('enter');
-  // }
+  if (isValid.value) {
+    emit('enter');
+  }
 }
 
 function checkEmail(): void {
@@ -51,7 +55,7 @@ function checkEmail(): void {
     ? inputValid()
     : inputEmailInvalid();
 
-  // this.$emit('check-email', isValid.value);
+  emit('check-email', isValid.value);
 }
 
 function inputEmpty(): void {
