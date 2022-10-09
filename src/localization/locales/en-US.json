@@ -1,7 +1,12 @@
 {
   "views": {
     "maintenancePage": {},
-    "home": {}
+    "home": {},
+    "login": {
+      "mailLoginForm": {
+        "button": "Login"
+      }
+    }
   },
   "common": {
     "components": {
@@ -11,7 +16,8 @@
     },
     "title": {
       "home": "Home",
-      "about": "About"
+      "about": "About",
+      "login": "Login"
     },
     "subtitle": {},
     "languages": {

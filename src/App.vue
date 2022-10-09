@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <!-- <nav>
     <div class="locale-changer">
       <select v-model="$i18n.locale">
         <option
@@ -15,9 +15,12 @@
     >&nbsp;
     <router-link to="/about">{{ $t('common.title.about') }}</router-link>
   </nav>
-  <router-view />
+  <router-view /> -->
+  <Login></Login>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Login from './views/LoginView.vue';
+</script>
 
 <style lang="scss" scoped></style>

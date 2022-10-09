@@ -1,1 +1,31 @@
-$main-color: red;
+$fallback-fonts: 'Libre Franklin', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+
+// z-index
+$z-layers: (
+  'tooltip': 3000,
+  'modal': 2000,
+  'menu': 1010,
+  'backdrop': 1000,
+  'navbar': 30,
+  'header': 20,
+  'footer': 20,
+  'floating': 15,
+  'content': 10,
+  'default': 1,
+  'below': -1,
+  'bottomless': -9000,
+);
+
+// App Colors
+$main-color: #e01f2f;
+$main-color-light: #ffffff;
+$main-color-dark: #172b3a;
+$main-color-medium-light: #cccccc;
+$main-color-medium-dark: #2b5973;
+$main-color-success: #12fd63;
+$main-color-fail: #e01f2f;
+
+// App Colors Lighters
+$main-color-success-lighter: #48c774;
+$main-color-fail-lighter: #e64c59;
