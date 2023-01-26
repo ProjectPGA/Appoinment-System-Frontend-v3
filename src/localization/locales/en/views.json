@@ -1,0 +1,26 @@
+{
+  "views": {
+    "maintenancePage": {},
+    "home": {
+      "counter": {
+        "counterTitle": "Counter: ",
+        "sumButton": "Sum"
+      }
+    },
+    "form": {
+      "title": "Form",
+      "nameInputLabel": "Name",
+      "surnameInputLabel": "Surname",
+      "nifInputLabel": "Nif",
+      "nameCompanyInputLabel": "Company",
+      "cifInputLabel": "CIF",
+      "addressInputLabel": "Address",
+      "postalCodeInputLabel": "Postal Code",
+      "cityInputLabel": "City",
+      "provinceInputLabel": "Province",
+      "emailInputLabel": "Email",
+      "sinatureInputLabel": "Signature",
+      "sendButtonLabel": "Send"
+    }
+  }
+}

@@ -2,7 +2,7 @@
 export const BASE_URL =
   'http://os-appointment-system-backend.herokuapp.com/api';
 
-export const apiPrefix = (url: string): any => BASE_URL + url;
+export const apiPrefix = (url: string): string => BASE_URL + url;
 
 export const jsonHeaders = {
   headers: {

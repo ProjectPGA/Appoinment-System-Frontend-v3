@@ -1,0 +1,25 @@
+{
+  "common": {
+    "components": {
+      "helloWorld": { "count": "La count is: " },
+      "test": { "label": "test" },
+      "validationInput": {
+        "errorInput": "Incorrect data",
+        "requiredInput": "This is required"
+      }
+    },
+    "title": {
+      "home": "Index",
+      "products": "Products",
+      "vue": "Vue 3 SPA",
+      "reactiveTitle": "Reactivity test (pinia store)",
+      "form": "Form"
+    },
+    "subtitle": {},
+    "languages": {
+      "spanish": "Spanish",
+      "english": "English"
+    },
+    "errors": {}
+  }
+}

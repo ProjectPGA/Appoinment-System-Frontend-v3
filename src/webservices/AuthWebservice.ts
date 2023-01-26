@@ -66,7 +66,8 @@ export const checkInvitationalCodeService: (
 export const deleteInvitationalCodeService: (
   params: InvitationalCodeRequest
 ) => Promise<InvitationalCodeRequest> = async params => {
-  const headers: any = jsonHeaders.headers;
+  const headers = jsonHeaders.headers;
+
   const response = await axios.delete<InvitationalCodeRequest>(
     `${baseUrl}/invitation`,
     {

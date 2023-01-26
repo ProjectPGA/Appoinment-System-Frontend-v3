@@ -1,9 +1,9 @@
 export enum Locales {
-  EN = 'en',
   ES = 'es',
+  EN = 'en',
 }
 
 export const LOCALES = [
-  { value: Locales.EN, caption: 'English' },
-  { value: Locales.ES, caption: 'Español' },
+  { value: Locales.ES, caenion: 'Español' },
+  { value: Locales.EN, caenion: 'Português' },
 ];

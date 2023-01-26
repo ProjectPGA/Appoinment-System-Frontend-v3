@@ -1,7 +1,31 @@
 <template>
-  <nav>
-    <div class="locale-changer">
-      <select v-model="$i18n.locale">
+  <header class="page-header">
+    <img
+      src="./assets/vue.svg"
+      class="logo"
+      alt="Vite logo"
+      width="66px"
+      height="64px"
+      data-cy="logo-app"
+    />
+    <p class="custom-text-font">{{ $t('common.title.vue') }}</p>
+    <nav id="navbar">
+      <ul
+        class="nav-container flex justify-center typography is-body is-large-semi custom-text-font"
+      >
+        <li class="nav-list flex-row">
+          <RouterLink class="link link" :to="{ name: 'Home' }">
+            {{ $t('common.title.home') }}
+          </RouterLink>
+        </li>
+
+        <li class="nav-list flex-row">
+          <RouterLink id="formLink" class="link link" :to="{ name: 'Form' }">
+            {{ $t('common.title.form') }}
+          </RouterLink>
+        </li>
+      </ul>
+      <select id="languageChangeSelect" v-model="$i18n.locale">
         <option
           v-for="locale in $i18n.availableLocales"
           :key="`locale-${locale}`"
@@ -10,14 +34,19 @@
           {{ locale }}
         </option>
       </select>
-    </div>
-    <router-link to="/">{{ $t('common.title.home') }}</router-link
-    >&nbsp;
-    <router-link to="/about">{{ $t('common.title.about') }}</router-link>
-  </nav>
-  <router-view />
+    </nav>
+  </header>
+  <main id="app-body">
+    <RouterView v-slot="{ Component }">
+      <component :is="Component" />
+    </RouterView>
+  </main>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+console.error('teestr');
+</script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// App styles
+</style>

@@ -1,0 +1,29 @@
+{
+  "views": {
+    "maintenancePage": {},
+    "home": {
+      "counter": {
+        "counterTitle": "Counter: ",
+        "sumButton": "Sum"
+      }
+    },
+    "form": {
+      "title": "Formulario",
+      "nameInputLabel": "Nombre",
+      "surnameInputLabel": "Apellido",
+      "nifInputLabel": "Nif",
+      "nameCompanyInputLabel": "Empresa",
+      "cifInputLabel": "CIF",
+      "addressInputLabel": "Dirección",
+      "postalCodeInputLabel": "Codigo postal",
+      "cityInputLabel": "Localidad",
+      "provinceInputLabel": "Provincia",
+      "emailInputLabel": "Email",
+      "sinatureInputLabel": "Firma",
+      "sendButtonLabel": "Enviar"
+    },
+    "product": {
+      "title": "Fetched from external API"
+    }
+  }
+}

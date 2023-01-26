@@ -1,6 +1,19 @@
 {
   "extends": [
     "stylelint-config-standard-scss",
-    "stylelint-config-prettier-scss"
-  ]
+    "stylelint-config-recommended-vue/scss"
+  ],
+  "rules": {
+    "selector-class-pattern": "^(?:(?:o|c|u|t|s|is|has|_|js|qa)-)?[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:--[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:\\[.+\\])?$",
+    "scss/double-slash-comment-whitespace-inside": null,
+    "selector-no-vendor-prefix": null,
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null,
+    "string-quotes": "single",
+    "declaration-colon-newline-after": null,
+    "selector-max-type": 0,
+    "declaration-property-unit-disallowed-list": {
+      "font-size": ["px", "%"]
+    }
+  }
 }

@@ -9,16 +9,21 @@ lerna-debug.log*
 
 node_modules
 dist
-dist-ssr
-*.local
+# *.local # Removed since its the base project
 
 # Editor directories and files
 .vscode/*
+!.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/core-vue-snippets.code-snippets
 .idea
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+coverage/**/*
+# Cypress directories
+cypress/screenshots/*
+cypress/videos/*
+cypress/downloads/*
