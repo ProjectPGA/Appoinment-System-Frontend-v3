@@ -33,7 +33,7 @@ useHead({
 });
 
 const changeValue = (value: number) => {
-  console.log('value', value);
+  console.error('value', value);
 };
 </script>
 

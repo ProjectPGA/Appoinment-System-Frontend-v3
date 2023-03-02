@@ -72,7 +72,7 @@ function isRequired(value: string): boolean | string {
   if (value && value.trim()) {
     if (props.regex) {
       const regex = new RegExp(props.regex);
-      console.log(regex.test(value));
+      console.error(regex.test(value));
 
       return regex.test(value)
         ? true

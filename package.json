@@ -81,8 +81,28 @@
     "vue-tsc": "^1.2.0"
   },
   "lint-staged": {
-    "./**/*.?(vue|ts|js|scss|html|json)": "prettier --list-different",
-    "./**/*.?(vue|scss|css)": "stylelint",
-    "./**/*.?(vue|ts|js)": "eslint --ext"
+    "*.vue": [
+      "prettier --list-different",
+      "eslint --ext",
+      "stylelint"
+    ],
+    "*.ts": [
+      "prettier --list-different",
+      "eslint --ext"
+    ],
+    "*.js": [
+      "prettier --list-different",
+      "eslint --ext"
+    ],
+    "*.scss": [
+      "prettier --list-different",
+      "stylelint"
+    ],
+    "*.css": [
+      "prettier --list-different",
+      "stylelint"
+    ],
+    "*.html": "prettier --list-different",
+    "*.json": "prettier --list-different"
   }
 }
