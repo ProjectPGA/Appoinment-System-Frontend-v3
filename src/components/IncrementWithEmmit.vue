@@ -3,7 +3,7 @@
   <p>{{ $t('views.home.counter.counterTitle') }}{{ counter }}</p>
   <button
     id="incrementProductBtn"
-    class="button is-info"
+    class="button is-danger"
     :class="props.extraStyle"
     label="Sum counter"
     @click="sumCounter()"

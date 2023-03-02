@@ -13,6 +13,7 @@
           type="text"
           :label="$t('views.form.nameInputLabel')"
         />
+        <font-awesome-icon icon="fa-solid fa-user-secret" />
         <validation-input
           v-model="surname"
           :cy="'-' + page"
