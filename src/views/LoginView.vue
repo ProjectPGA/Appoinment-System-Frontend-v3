@@ -18,22 +18,37 @@
           <div class="field">
             <label class="label">E-Mail </label>
             <div class="control is-medium is-clearfix">
-              <input type="email" placeholder="E-Mail" class="input is-medium"/>
+              <input
+                type="email"
+                placeholder="E-Mail"
+                class="input is-medium"
+              />
             </div>
           </div>
           <div class="field">
             <label class="label">Password</label>
             <div class="control password-input has-icons-right is-medium">
-              <input type="password" placeholder="Password" class="input is-medium"/>
+              <input
+                type="password"
+                placeholder="Password"
+                class="input is-medium"
+              />
             </div>
           </div>
           <div class="main-login__button-section columns is-vcentered">
             <div class="column is-3 is-2-fullhd">
-              <button type="button" disabled class="button is-medium is-danger is-outlined">Login</button>
+              <button
+                type="button"
+                disabled
+                class="button is-medium is-danger is-outlined"
+              >
+                Login
+              </button>
             </div>
             <div class="column">
               <p>
-                You dont have an account?<span class="main-login__invitation-link"
+                You dont have an account?<span
+                  class="main-login__invitation-link"
                   >Click here to redeem your invitational code.</span
                 >
               </p>
@@ -62,7 +77,7 @@
     margin-bottom: 3.12rem;
   }
 
-  &__button-section{
+  &__button-section {
     padding-top: 2.25rem;
   }
 
