@@ -1,5 +1,5 @@
 <template>
-  <header class="page-header">
+  <!-- <header class="page-header">
     <img
       src="./assets/vue.svg"
       class="logo"
@@ -39,13 +39,11 @@
   <main id="app-body">
     <RouterView v-slot="{ Component }">
       <component :is="Component" />
-    </RouterView>
-  </main>
+    </main> -->
+  <RouterView />
 </template>
 
-<script lang="ts" setup>
-console.error('teestr');
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 // App styles

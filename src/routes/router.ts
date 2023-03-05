@@ -12,6 +12,11 @@ export const routes: RouteRecordRaw[] = [
     name: 'Form',
     component: () => import('@/views/FormValidationPage.vue'),
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/LoginView.vue'),
+  },
 ];
 
 const router = createRouter({

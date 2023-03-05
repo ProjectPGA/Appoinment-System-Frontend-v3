@@ -6,10 +6,14 @@
       "validationInput": {
         "errorInput": "Dato incorrecto",
         "requiredInput": "Campo requerido"
+      },
+      "logoApp": {
+        "altText": "Logo barbería"
       }
     },
     "title": {
       "home": "Inicio",
+      "login": "Iniciar sesión",
       "products": "Productos",
       "vue": "Vue 3 SPA",
       "reactiveTitle": "Reactivity test (pinia store)",
