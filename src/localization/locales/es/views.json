@@ -25,6 +25,13 @@
       "sinatureInputLabel": "Firma",
       "sendButtonLabel": "Enviar"
     },
+    "login": {
+      "loginForm": {
+        "button": "Acceder",
+        "noAccount": "¿No tienes cuenta?",
+        "accessToInvitation": "Pulsa aquí para canjear tu código de invitación."
+      }
+    },
     "product": {
       "title": "Fetched from external API"
     }

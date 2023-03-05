@@ -23,7 +23,7 @@
         <h1 class="main-login_title title">
           {{ $t('common.title.login') }}
         </h1>
-        <form>
+        <form class="main-login__form">
           <validation-input
             v-model="email"
             :cy="'-' + page"
@@ -46,6 +46,27 @@
             input-classes="is-medium"
             regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
           />
+          <div class="columns is-vcentered main-login__button-section">
+            <div class="column is-3 is-2-fullhd">
+              <button
+                class="button is-medium is-danger is-outlined"
+                outlined
+                size="is-medium"
+                data-cy="submit"
+                disabled
+              >
+                {{ $t('views.login.loginForm.button') }}
+              </button>
+            </div>
+            <div class="column">
+              <p class="main-login__invitation" data-cy="invitation">
+                {{ $t('views.login.loginForm.noAccount') }}
+                <span class="main-login__invitation-link">
+                  {{ $t('views.login.loginForm.accessToInvitation') }}
+                </span>
+              </p>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -67,6 +88,23 @@ const page = ref<string>('login-page');
   &_logo {
     margin-top: 49.92px;
     margin-bottom: 49.92px;
+  }
+
+  &__button-section {
+    padding-top: 36px;
+  }
+
+  &__invitation-link {
+    cursor: pointer;
+    color: $main-color !important;
+
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+
+  &__invitation {
+    font-size: 1.25em;
   }
 }
 
