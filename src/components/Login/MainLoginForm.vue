@@ -20,7 +20,7 @@
     </div>
     <div class="columns is-centered is-mobile">
       <div class="column is-6-desktop is-10-mobile is-8-tablet container">
-        <h1 class="main-login-form_title title">
+        <h1 class="main-login_title title">
           {{ $t('common.title.login') }}
         </h1>
       </div>
