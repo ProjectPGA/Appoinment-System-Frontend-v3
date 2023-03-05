@@ -23,12 +23,44 @@
         <h1 class="main-login_title title">
           {{ $t('common.title.login') }}
         </h1>
+        <form>
+          <validation-input
+            v-model="email"
+            :cy="'-' + page"
+            name="email"
+            required
+            type="text"
+            :label="$t('views.form.emailInputLabel')"
+            :placeholder="$t('views.form.emailInputLabel')"
+            input-classes="is-medium"
+            regex="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+          />
+          <validation-input
+            v-model="password"
+            :cy="'-' + page"
+            name="password"
+            required
+            type="password"
+            :label="$t('views.form.passwordInputLabel')"
+            :placeholder="$t('views.form.passwordInputLabel')"
+            input-classes="is-medium"
+            regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+          />
+        </form>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { useFormStore } from '@/stores/form';
+
 import LogoApp from '../Navigation/LogoApp.vue';
+import ValidationInput from '../ValidationInput.vue';
+
+const email = ref<string>('');
+const password = ref<string>('');
+const page = ref<string>('login-page');
 </script>
 <style lang="scss" scoped>
 .main-login {

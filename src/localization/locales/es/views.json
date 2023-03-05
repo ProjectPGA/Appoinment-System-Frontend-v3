@@ -18,7 +18,10 @@
       "postalCodeInputLabel": "Codigo postal",
       "cityInputLabel": "Localidad",
       "provinceInputLabel": "Provincia",
-      "emailInputLabel": "Email",
+      "emailInputLabel": "E-Mail",
+      "emailPlaceholder": "E-Mail",
+      "passwordInputLabel": "Contraseña",
+      "passwordPlaceholder": "Contraseña",
       "sinatureInputLabel": "Firma",
       "sendButtonLabel": "Enviar"
     },

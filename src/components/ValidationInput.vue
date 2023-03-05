@@ -5,11 +5,15 @@
       <input
         :data-cy="`input-${name}${cy}`"
         v-bind="$attrs"
+        :placeholder="placeholder"
         :value="modelValue"
         :maxlength="maxlength"
         :type="props.type"
         class="input"
-        :class="{ 'is-danger': errorMessage, 'is-subtext': errorMessage }"
+        :class="[
+          { 'is-danger': errorMessage, 'is-subtext': errorMessage },
+          inputClasses,
+        ]"
         @input="handleChange"
         @blur="handleChange"
       />
@@ -39,6 +43,14 @@ const props = defineProps({
     type: String,
     required: true,
     default: 'input',
+  },
+  inputClasses: {
+    type: String,
+    default: '',
+  },
+  placeholder: {
+    type: String,
+    default: '',
   },
   label: {
     type: String,
