@@ -1,6 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import { RouteRecordRaw } from 'vue-router';
 
+import { useAuthStore } from '@/stores/auth';
+
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -22,6 +24,12 @@ export const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(async to => {
+  if (!useAuthStore().isLogged && to.name !== 'Login') {
+    return { name: 'Login' };
+  }
 });
 
 export default router;

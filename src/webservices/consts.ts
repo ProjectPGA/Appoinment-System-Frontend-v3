@@ -1,6 +1,6 @@
 // TODO. Just have this in a core module
 export const BASE_URL =
-  'http://os-appointment-system-backend.herokuapp.com/api';
+  'https://os-appointment-system-backend.onrender.com/api';
 
 export const apiPrefix = (url: string): string => BASE_URL + url;
 

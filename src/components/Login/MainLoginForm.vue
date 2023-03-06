@@ -23,7 +23,7 @@
         <h1 class="main-login_title title">
           {{ $t('common.title.login') }}
         </h1>
-        <form class="main-login__form">
+        <form class="main-login__form" @submit="onSubmit">
           <validation-input
             v-model="email"
             :cy="'-' + page"
@@ -44,7 +44,7 @@
             :label="$t('views.form.passwordInputLabel')"
             :placeholder="$t('views.form.passwordInputLabel')"
             input-classes="is-medium"
-            regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            regex="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
           />
           <div class="columns is-vcentered main-login__button-section">
             <div class="column is-3 is-2-fullhd">
@@ -53,7 +53,8 @@
                 outlined
                 size="is-medium"
                 data-cy="submit"
-                disabled
+                :disabled="!isValid && isDirty"
+                @click="login()"
               >
                 {{ $t('views.login.loginForm.button') }}
               </button>
@@ -74,14 +75,34 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useFormStore } from '@/stores/form';
+import { useAuthStore } from '@/stores/auth';
+import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
+import { useToast } from 'vue-toastification';
 
 import LogoApp from '../Navigation/LogoApp.vue';
 import ValidationInput from '../ValidationInput.vue';
 
+const { handleSubmit } = useForm();
+const isDirty = useIsFormDirty();
+const isValid = useIsFormValid();
+const toast = useToast();
+
+const authStore = useAuthStore();
+
 const email = ref<string>('');
 const password = ref<string>('');
 const page = ref<string>('login-page');
+
+function onInvalidSubmit() {
+  toast.error('Rellene los campos correctamente');
+}
+
+const onSubmit = handleSubmit(() => {
+  authStore.login({
+    email: email.value,
+    password: password.value,
+  });
+}, onInvalidSubmit);
 </script>
 <style lang="scss" scoped>
 .main-login {
