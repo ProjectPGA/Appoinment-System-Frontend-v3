@@ -54,7 +54,6 @@
                 size="is-medium"
                 data-cy="submit"
                 :disabled="!isValid && isDirty"
-                @click="login()"
               >
                 {{ $t('views.login.loginForm.button') }}
               </button>
