@@ -43,8 +43,7 @@
             type="password"
             :label="$t('views.form.passwordInputLabel')"
             :placeholder="$t('views.form.passwordInputLabel')"
-            input-classes="is-medium"
-            regex="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+            input-classes="is-medium is-password"
           />
           <div class="columns is-vcentered main-login__button-section">
             <div class="column is-3 is-2-fullhd">
@@ -79,7 +78,7 @@ import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
 import { useToast } from 'vue-toastification';
 
 import LogoApp from '../Navigation/LogoApp.vue';
-import ValidationInput from '../ValidationInput.vue';
+import ValidationInput from '@/components/ValidationInput.vue';
 
 const { handleSubmit } = useForm();
 const isDirty = useIsFormDirty();

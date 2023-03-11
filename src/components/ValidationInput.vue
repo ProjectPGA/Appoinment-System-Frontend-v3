@@ -1,14 +1,14 @@
 <template>
   <div class="field">
     <label class="label"> {{ label }}</label>
-    <div class="control">
+    <div class="control has-icons-right">
       <input
         :data-cy="`input-${name}${cy}`"
         v-bind="$attrs"
         :placeholder="placeholder"
         :value="modelValue"
         :maxlength="maxlength"
-        :type="props.type"
+        :type="inputStore.inputType"
         class="input"
         :class="[
           { 'is-danger': errorMessage, 'is-subtext': errorMessage },
@@ -17,15 +17,28 @@
         @input="handleChange"
         @blur="handleChange"
       />
-      <span class="help" :class="{ 'is-danger': errorMessage }">{{
-        errorMessage
-      }}</span>
+      <template v-if="errors.length && type != 'password'">
+        <span class="icon is-right has-text-danger">
+          <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
+        </span>
+        <span class="help" :class="{ 'is-danger': errorMessage }">
+          {{ errorMessage }}
+        </span>
+      </template>
+      <template v-if="type == 'password'">
+        <span class="icon is-right is-clickable" @click="toggleTypePassword">
+          <font-awesome-icon :icon="inputStore.eyeIcon" />
+        </span>
+        <span class="help" :class="{ 'is-danger': errorMessage }">
+          {{ errorMessage }}
+        </span>
+      </template>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import { useField } from 'vee-validate';
-import { toRef } from 'vue';
+import { toRef, ref, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -80,6 +93,21 @@ const emit = defineEmits<{
   (e: 'update:modelValue'): void;
 }>();
 
+const inputStore = reactive({
+  eyeIcon: 'fa-eye-low-vision',
+  inputType: props.type,
+});
+
+function toggleTypePassword() {
+  inputStore.inputType === 'password'
+    ? (inputStore.inputType = 'text')
+    : (inputStore.inputType = 'password');
+
+  inputStore.eyeIcon === 'fa-eye-low-vision'
+    ? (inputStore.eyeIcon = 'fa-eye')
+    : (inputStore.eyeIcon = 'fa-eye-low-vision');
+}
+
 function isRequired(value: string): boolean | string {
   if (value && value.trim()) {
     if (props.regex) {
@@ -100,9 +128,14 @@ function isRequired(value: string): boolean | string {
 }
 
 const nameRef = toRef(props, 'name');
-const { errorMessage, handleChange } = useField(nameRef, isRequired);
+const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
 </script>
 
 <style lang="scss" scoped>
 // Input validation styles
+.is-password {
+  & ~ .icon {
+    color: hsl(0deg 0% 86%) !important;
+  }
+}
 </style>

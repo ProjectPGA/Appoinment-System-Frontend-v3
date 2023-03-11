@@ -1,5 +1,6 @@
 import { createHead } from '@vueuse/head';
 import { createApp } from 'vue';
+import { createPersistedState } from 'pinia-plugin-persistedstate';
 import { createPinia } from 'pinia';
 import Toast, { PluginOptions } from 'vue-toastification';
 
@@ -25,7 +26,11 @@ const app = createApp(App);
 const head = createHead();
 
 library.add(fas, far, fab);
-
+pinia.use(
+  createPersistedState({
+    auto: true,
+  })
+);
 app.use(pinia).use(head).use(i18n).use(router).use(Toast, toastOptions);
 app.component('FontAwesomeIcon', FontAwesomeIcon);
 app.mount('#app');
