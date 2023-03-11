@@ -13,7 +13,6 @@
           { 'is-danger': errorMessage, 'is-subtext': errorMessage },
           inputClasses,
         ]"
-        required
         @input="handleChange"
         @blur="handleChange"
       />

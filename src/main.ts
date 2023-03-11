@@ -2,7 +2,8 @@ import { createHead } from '@vueuse/head';
 import { createApp } from 'vue';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
 import { createPinia } from 'pinia';
-import Toast, { PluginOptions } from 'vue-toastification';
+import Toast, { PluginOptions, POSITION } from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
 
 import router from './routes/router';
 import i18n from './localization';
@@ -17,8 +18,9 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 const toastOptions: PluginOptions = {
-  transition: 'fade',
+  transition: 'Vue-Toastification__bounce',
   timeout: 4000,
+  position: POSITION.BOTTOM_LEFT,
 };
 
 const pinia = createPinia();
