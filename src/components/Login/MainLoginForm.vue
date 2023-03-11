@@ -1,18 +1,12 @@
 <template>
   <div class="main-login">
-    <select
-      id="languageChangeSelect"
-      v-model="$i18n.locale"
-      class="button-translations"
+    <button
+      class="button is-danger button-translations"
+      @click="changeLanguage()"
     >
-      <option
-        v-for="locale in $i18n.availableLocales"
-        :key="`locale-${locale}`"
-        :value="locale"
-      >
-        {{ locale }}
-      </option>
-    </select>
+      <font-awesome-icon icon="fa-globe" />
+      <span class="button-translations__locale">{{ $i18n.locale }}</span>
+    </button>
     <div class="columns is-centered">
       <div class="column main-login_logo">
         <logo-app />
@@ -76,6 +70,7 @@ import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
 import { useToast } from 'vue-toastification';
+import { useI18n } from 'vue-i18n';
 
 import LogoApp from '../Navigation/LogoApp.vue';
 import ValidationInput from '@/components/ValidationInput.vue';
@@ -84,6 +79,7 @@ const { handleSubmit } = useForm();
 const isDirty = useIsFormDirty();
 const isValid = useIsFormValid();
 const toast = useToast();
+const i18n = useI18n();
 
 const authStore = useAuthStore();
 
@@ -93,6 +89,12 @@ const page = ref<string>('login-page');
 
 function onInvalidSubmit() {
   toast.error('Rellene los campos correctamente');
+}
+
+function changeLanguage() {
+  i18n.locale.value === 'es'
+    ? (i18n.locale.value = 'en')
+    : (i18n.locale.value = 'es');
 }
 
 const onSubmit = handleSubmit(() => {
@@ -136,16 +138,8 @@ const onSubmit = handleSubmit(() => {
   padding-right: 0.625rem;
   text-transform: uppercase;
 
-  //   ::v-deep > span {
-  //     display: flex;
-  //   }
-
-  &_icon {
-    margin-left: 0 !important;
-  }
-
-  &_language {
-    line-height: 22px;
+  &__locale {
+    margin-left: 8px;
   }
 }
 </style>
