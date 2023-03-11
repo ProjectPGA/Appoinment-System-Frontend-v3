@@ -2,7 +2,7 @@
   <div class="main-login">
     <button-translation />
     <div class="columns is-centered">
-      <div class="column main-login_logo">
+      <div class="column main-login__logo">
         <logo-app />
       </div>
     </div>
@@ -23,15 +23,10 @@
             input-classes="is-medium"
             regex="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
           />
-          <validation-input
+          <password-input
             v-model="password"
             :cy="'-' + page"
-            name="password"
-            required
-            type="password"
-            :label="$t('views.form.passwordInputLabel')"
-            :placeholder="$t('views.form.passwordInputLabel')"
-            input-classes="is-medium is-password"
+            input-classes="is-medium"
           />
           <div class="columns is-vcentered main-login__button-section">
             <div class="column is-3 is-2-fullhd">
@@ -68,6 +63,7 @@ import { useToast } from 'vue-toastification';
 import LogoApp from '../Navigation/LogoApp.vue';
 import ButtonTranslation from '../common/ButtonTranslation.vue';
 import ValidationInput from '@/components/ValidationInput.vue';
+import PasswordInput from '../FormUtils/PasswordInput.vue';
 
 const { handleSubmit } = useForm();
 const isDirty = useIsFormDirty();
@@ -93,7 +89,7 @@ const onSubmit = handleSubmit(() => {
 </script>
 <style lang="scss" scoped>
 .main-login {
-  &_logo {
+  &__logo {
     margin-top: 49.92px;
     margin-bottom: 49.92px;
   }

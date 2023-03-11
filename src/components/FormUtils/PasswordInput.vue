@@ -1,38 +1,28 @@
 <template>
   <div class="field">
-    <label class="label"> {{ label }}</label>
+    <label class="label"> {{ $t('views.form.passwordInputLabel') }}</label>
     <div class="control has-icons-right">
       <input
         :data-cy="`input-${name}${cy}`"
         v-bind="$attrs"
-        :placeholder="placeholder"
+        :placeholder="$t('views.form.passwordInputLabel')"
         :value="modelValue"
-        :maxlength="maxlength"
         :type="inputStore.inputType"
         class="input"
         :class="[
           { 'is-danger': errorMessage, 'is-subtext': errorMessage },
           inputClasses,
         ]"
+        required
         @input="handleChange"
         @blur="handleChange"
       />
-      <template v-if="errors.length && type != 'password'">
-        <span class="icon is-right has-text-danger">
-          <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
-        </span>
-        <span class="help" :class="{ 'is-danger': errorMessage }">
-          {{ errorMessage }}
-        </span>
-      </template>
-      <template v-if="type == 'password'">
-        <span class="icon is-right is-clickable" @click="toggleTypePassword">
-          <font-awesome-icon :icon="inputStore.eyeIcon" />
-        </span>
-        <span class="help" :class="{ 'is-danger': errorMessage }">
-          {{ errorMessage }}
-        </span>
-      </template>
+      <span class="icon is-right is-clickable" @click="toggleTypePassword">
+        <font-awesome-icon :icon="inputStore.eyeIcon" />
+      </span>
+      <span class="help" :class="{ 'is-danger': errorMessage }">
+        {{ errorMessage }}
+      </span>
     </div>
   </div>
 </template>
@@ -57,36 +47,15 @@ const props = defineProps({
     required: true,
     default: 'input',
   },
-  inputClasses: {
-    type: String,
-    default: '',
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  label: {
-    type: String,
-    required: true,
-    default: '',
-  },
   cy: {
     type: String,
     required: false,
     default: '',
   },
-  type: {
+  inputClasses: {
     type: String,
-    required: true,
+    required: false,
     default: '',
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  maxlength: {
-    type: String,
-    default: '255',
   },
 });
 const emit = defineEmits<{
@@ -95,7 +64,7 @@ const emit = defineEmits<{
 
 const inputStore = reactive({
   eyeIcon: 'fa-eye-low-vision',
-  inputType: props.type,
+  inputType: 'password',
 });
 
 function toggleTypePassword() {
@@ -112,7 +81,6 @@ function isRequired(value: string): boolean | string {
   if (value && value.trim()) {
     if (props.regex) {
       const regex = new RegExp(props.regex);
-      console.error(regex.test(value));
 
       return regex.test(value)
         ? true
@@ -120,11 +88,8 @@ function isRequired(value: string): boolean | string {
     }
     return true;
   }
-  if (props.required) {
-    return t('common.components.validationInput.requiredInput');
-  }
 
-  return true;
+  return t('common.components.validationInput.requiredInput');
 }
 
 const nameRef = toRef(props, 'name');
@@ -133,4 +98,9 @@ const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
 
 <style lang="scss" scoped>
 // Input validation styles
+.input {
+  & ~ .icon {
+    color: $main-color-medium-light !important;
+  }
+}
 </style>
