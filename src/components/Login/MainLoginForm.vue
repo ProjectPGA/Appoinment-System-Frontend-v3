@@ -1,12 +1,6 @@
 <template>
   <div class="main-login">
-    <button
-      class="button is-danger button-translations"
-      @click="changeLanguage()"
-    >
-      <font-awesome-icon icon="fa-globe" />
-      <span class="button-translations__locale">{{ $i18n.locale }}</span>
-    </button>
+    <button-translation />
     <div class="columns is-centered">
       <div class="column main-login_logo">
         <logo-app />
@@ -70,16 +64,15 @@ import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
 import { useToast } from 'vue-toastification';
-import { useI18n } from 'vue-i18n';
 
 import LogoApp from '../Navigation/LogoApp.vue';
+import ButtonTranslation from '../common/ButtonTranslation.vue';
 import ValidationInput from '@/components/ValidationInput.vue';
 
 const { handleSubmit } = useForm();
 const isDirty = useIsFormDirty();
 const isValid = useIsFormValid();
 const toast = useToast();
-const i18n = useI18n();
 
 const authStore = useAuthStore();
 
@@ -89,12 +82,6 @@ const page = ref<string>('login-page');
 
 function onInvalidSubmit() {
   toast.error('Rellene los campos correctamente');
-}
-
-function changeLanguage() {
-  i18n.locale.value === 'es'
-    ? (i18n.locale.value = 'en')
-    : (i18n.locale.value = 'es');
 }
 
 const onSubmit = handleSubmit(() => {
@@ -126,20 +113,6 @@ const onSubmit = handleSubmit(() => {
 
   &__invitation {
     font-size: 1.25em;
-  }
-}
-
-.button-translations {
-  position: fixed;
-  top: 1.25rem;
-  right: 1.25rem;
-  z-index: 1000;
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
-  text-transform: uppercase;
-
-  &__locale {
-    margin-left: 8px;
   }
 }
 </style>
