@@ -23,7 +23,8 @@
       "passwordInputLabel": "Contraseña",
       "passwordPlaceholder": "Contraseña",
       "sinatureInputLabel": "Firma",
-      "sendButtonLabel": "Enviar"
+      "sendButtonLabel": "Enviar",
+      "invalidSubmit": "Rellene los campos correctamente"
     },
     "login": {
       "loginForm": {

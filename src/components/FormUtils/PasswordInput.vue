@@ -92,7 +92,7 @@ function isRequired(value: string): boolean | string {
 }
 
 const nameRef = toRef(props, 'name');
-const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
+const { errorMessage, handleChange } = useField(nameRef, isRequired);
 </script>
 
 <style lang="scss" scoped>

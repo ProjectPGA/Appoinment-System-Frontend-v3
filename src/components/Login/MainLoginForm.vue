@@ -26,6 +26,7 @@
           <password-input
             v-model="password"
             :cy="'-' + page"
+            name="password"
             input-classes="is-medium"
           />
           <div class="columns is-vcentered main-login__button-section">
@@ -56,18 +57,26 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
-import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
 import { useToast } from 'vue-toastification';
+import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
 
 import LogoApp from '../Navigation/LogoApp.vue';
 import ButtonTranslation from '../common/ButtonTranslation.vue';
 import ValidationInput from '@/components/ValidationInput.vue';
 import PasswordInput from '../FormUtils/PasswordInput.vue';
 
-const { handleSubmit } = useForm();
+const { handleSubmit } = useForm({
+  initialValues: {
+    email: '',
+    password: '',
+  },
+});
+
 const isDirty = useIsFormDirty();
 const isValid = useIsFormValid();
+const { t } = useI18n();
 const toast = useToast();
 
 const authStore = useAuthStore();
@@ -76,8 +85,8 @@ const email = ref<string>('');
 const password = ref<string>('');
 const page = ref<string>('login-page');
 
-function onInvalidSubmit() {
-  toast.error('Rellene los campos correctamente');
+function onInvalidSubmit(): void {
+  toast.error(t('views.form.invalidSubmit'));
 }
 
 const onSubmit = handleSubmit(() => {

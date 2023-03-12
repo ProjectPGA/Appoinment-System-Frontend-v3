@@ -23,7 +23,8 @@
       "passwordInputLabel": "Password",
       "passwordPlaceholder": "Password",
       "sinatureInputLabel": "Signature",
-      "sendButtonLabel": "Send"
+      "sendButtonLabel": "Send",
+      "invalidSubmit": "Fill in fields correctly"
     },
     "login": {
       "loginForm": {

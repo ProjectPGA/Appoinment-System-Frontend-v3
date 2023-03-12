@@ -8,7 +8,7 @@
         :placeholder="placeholder"
         :value="modelValue"
         :maxlength="maxlength"
-        :type="inputStore.inputType"
+        :type="type"
         class="input"
         :class="[
           { 'is-danger': errorMessage, 'is-subtext': errorMessage },
@@ -17,17 +17,9 @@
         @input="handleChange"
         @blur="handleChange"
       />
-      <template v-if="errors.length && type != 'password'">
+      <template v-if="errors.length">
         <span class="icon is-right has-text-danger">
           <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
-        </span>
-        <span class="help" :class="{ 'is-danger': errorMessage }">
-          {{ errorMessage }}
-        </span>
-      </template>
-      <template v-if="type == 'password'">
-        <span class="icon is-right is-clickable" @click="toggleTypePassword">
-          <font-awesome-icon :icon="inputStore.eyeIcon" />
         </span>
         <span class="help" :class="{ 'is-danger': errorMessage }">
           {{ errorMessage }}
@@ -38,7 +30,7 @@
 </template>
 <script lang="ts" setup>
 import { useField } from 'vee-validate';
-import { toRef, reactive } from 'vue';
+import { toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -92,21 +84,6 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'update:modelValue'): void;
 }>();
-
-const inputStore = reactive({
-  eyeIcon: 'fa-eye-low-vision',
-  inputType: props.type,
-});
-
-function toggleTypePassword() {
-  inputStore.inputType === 'password'
-    ? (inputStore.inputType = 'text')
-    : (inputStore.inputType = 'password');
-
-  inputStore.eyeIcon === 'fa-eye-low-vision'
-    ? (inputStore.eyeIcon = 'fa-eye')
-    : (inputStore.eyeIcon = 'fa-eye-low-vision');
-}
 
 function isRequired(value: string): boolean | string {
   if (value && value.trim()) {
