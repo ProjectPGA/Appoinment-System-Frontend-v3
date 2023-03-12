@@ -60,12 +60,13 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
+import { RequestStatus } from '@/models/auth/RequestStatus';
 import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
 
-import LogoApp from '../Navigation/LogoApp.vue';
-import ButtonTranslation from '../common/ButtonTranslation.vue';
-import ValidationInput from '@/components/ValidationInput.vue';
-import PasswordInput from '../FormUtils/PasswordInput.vue';
+import LogoApp from '@/components/Navigation/LogoApp.vue';
+import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
+import ValidationInput from '@/components/FormUtils/ValidationInput.vue';
+import PasswordInput from '@/components/FormUtils/PasswordInput.vue';
 
 const { handleSubmit } = useForm({
   initialValues: {
@@ -89,11 +90,23 @@ function onInvalidSubmit(): void {
   toast.error(t('views.form.invalidSubmit'));
 }
 
-const onSubmit = handleSubmit(() => {
-  authStore.login({
+function loginFailure(): void {
+  toast.error('El E-Mail o la contraseña son incorrectos');
+}
+
+async function startLogin(): Promise<void> {
+  await authStore.login({
     email: email.value,
     password: password.value,
   });
+
+  if (authStore.loginRequestStatus === RequestStatus.FAILURE) {
+    loginFailure();
+  }
+}
+
+const onSubmit = handleSubmit(() => {
+  startLogin();
 }, onInvalidSubmit);
 </script>
 <style lang="scss" scoped>

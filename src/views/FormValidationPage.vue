@@ -105,7 +105,7 @@ import { useToast } from 'vue-toastification';
 
 import { useFormStore } from '@/stores/form';
 
-import ValidationInput from '@/components/ValidationInput.vue';
+import ValidationInput from '@/components/FormUtils/ValidationInput.vue';
 
 const formStore = useFormStore();
 

@@ -9,6 +9,9 @@
       },
       "logoApp": {
         "altText": "Barbershop logo"
+      },
+      "loading": {
+        "altText": "Load icon"
       }
     },
     "title": {

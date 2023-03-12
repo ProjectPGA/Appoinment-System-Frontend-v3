@@ -9,6 +9,9 @@
       },
       "logoApp": {
         "altText": "Logo barbería"
+      },
+      "loading": {
+        "altText": "Icono de carga"
       }
     },
     "title": {
