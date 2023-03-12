@@ -13,7 +13,7 @@ import { Locales } from '@/localization/locales';
 
 const i18n = useI18n();
 
-function changeLanguage() {
+function changeLanguage(): void {
   i18n.locale.value === Locales.ES
     ? (i18n.locale.value = Locales.EN)
     : (i18n.locale.value = Locales.ES);
@@ -22,11 +22,11 @@ function changeLanguage() {
 <style lang="scss" scoped>
 .button-translations {
   position: fixed;
-  top: 1.25rem;
-  right: 1.25rem;
+  top: 20px;
+  right: 20px;
   z-index: 1000;
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
+  padding-left: 10px;
+  padding-right: 10px;
   text-transform: uppercase;
 
   &__locale {

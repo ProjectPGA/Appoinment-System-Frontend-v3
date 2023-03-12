@@ -1,11 +1,11 @@
 .Vue-Toastification__toast--success {
   background-color: $main-color-success-lighter;
-  color: #fff;
+  color: $main-color-light;
 }
 
 .Vue-Toastification__toast--error {
   background-color: $main-color-fail-lighter;
-  color: #fff;
+  color: $main-color-light;
 }
 
 // .Vue-Toastification__toast--warning {

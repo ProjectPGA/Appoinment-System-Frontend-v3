@@ -17,6 +17,8 @@
     "@vue/typescript/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "plugin:vue/base",
+    "plugin:vue/vue3-strongly-recommended",
     "plugin:vue/vue3-recommended",
     "prettier",
     "plugin:cypress/recommended",

@@ -108,7 +108,7 @@ const onSubmit = handleSubmit(() => {
   }
 
   &__invitation {
-    font-size: 1.25em;
+    font-size: 1.25rem;
   }
 }
 </style>
