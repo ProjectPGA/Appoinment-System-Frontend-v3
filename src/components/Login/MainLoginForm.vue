@@ -21,7 +21,7 @@
             :label="$t('views.form.emailInputLabel')"
             :placeholder="$t('views.form.emailInputLabel')"
             input-classes="is-medium"
-            regex="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+            :regex="emailRegEx"
           />
           <password-input
             v-model="password"
@@ -63,17 +63,14 @@ import { useToast } from 'vue-toastification';
 import { RequestStatus } from '@/models/auth/RequestStatus';
 import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
 
+import { FormRegEx } from '@/models/formUtils/FormRegEx';
+
 import LogoApp from '@/components/Navigation/LogoApp.vue';
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import ValidationInput from '@/components/FormUtils/ValidationInput.vue';
 import PasswordInput from '@/components/FormUtils/PasswordInput.vue';
 
-const { handleSubmit } = useForm({
-  initialValues: {
-    email: '',
-    password: '',
-  },
-});
+const { handleSubmit } = useForm({});
 
 const isDirty = useIsFormDirty();
 const isValid = useIsFormValid();
@@ -81,6 +78,8 @@ const { t } = useI18n();
 const toast = useToast();
 
 const authStore = useAuthStore();
+
+const emailRegEx = FormRegEx.EMAIL;
 
 const email = ref<string>('');
 const password = ref<string>('');
