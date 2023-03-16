@@ -101,8 +101,8 @@ const emit = defineEmits<{
   (e: 'update:modelValue'): void;
 }>();
 
-const eyeIcon: Ref = ref('fa-eye-low-vision');
-const inputType: Ref = ref(props.name);
+const eyeIcon: Ref<string> = ref('fa-eye-low-vision');
+const inputType: Ref<string> = ref(props.name);
 const isPasswordType: boolean = props.name === 'password';
 
 function toggleTypePassword(): void {

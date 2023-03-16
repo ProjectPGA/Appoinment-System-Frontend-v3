@@ -24,7 +24,8 @@
       "passwordPlaceholder": "Contraseña",
       "sinatureInputLabel": "Firma",
       "sendButtonLabel": "Enviar",
-      "invalidSubmit": "Rellene los campos correctamente"
+      "invalidSubmit": "Rellene los campos correctamente",
+      "loginFailure": "El correo o la contraseña son incorrectos"
     },
     "login": {
       "loginForm": {

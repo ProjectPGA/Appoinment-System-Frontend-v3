@@ -29,8 +29,8 @@
             name="password"
             required
             type="password"
-            :label="$t('views.form.emailInputLabel')"
-            :placeholder="$t('views.form.emailInputLabel')"
+            :label="$t('views.form.passwordInputLabel')"
+            :placeholder="$t('views.form.passwordInputLabel')"
             input-classes="is-medium"
           />
           <div class="columns is-vcentered main-login__button-section">
@@ -60,7 +60,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
@@ -81,18 +81,18 @@ const toast = useToast();
 
 const authStore = useAuthStore();
 
-const emailRegEx = FormRegEx.EMAIL;
+const emailRegEx: FormRegEx = FormRegEx.EMAIL;
 
-const email = ref<string>('');
-const password = ref<string>('');
-const page = ref<string>('login-page');
+const email: Ref<string> = ref('');
+const password: Ref<string> = ref('');
+const page: Ref<string> = ref('login-page');
 
 function onInvalidSubmit(): void {
   toast.error(t('views.form.invalidSubmit'));
 }
 
 function loginFailure(): void {
-  toast.error('El E-Mail o la contraseña son incorrectos');
+  toast.error(t('views.form.loginFailure'));
 }
 
 async function startLogin(): Promise<void> {

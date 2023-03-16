@@ -24,7 +24,8 @@
       "passwordPlaceholder": "Password",
       "sinatureInputLabel": "Signature",
       "sendButtonLabel": "Send",
-      "invalidSubmit": "Fill in fields correctly"
+      "invalidSubmit": "Fill in fields correctly",
+      "logiFailure": "E-mail or password is incorrect"
     },
     "login": {
       "loginForm": {
