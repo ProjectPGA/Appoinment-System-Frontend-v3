@@ -23,10 +23,14 @@
             input-classes="is-medium"
             :regex="emailRegEx"
           />
-          <password-input
+          <validation-input
             v-model="password"
             :cy="'-' + page"
             name="password"
+            required
+            type="password"
+            :label="$t('views.form.emailInputLabel')"
+            :placeholder="$t('views.form.emailInputLabel')"
             input-classes="is-medium"
           />
           <div class="columns is-vcentered main-login__button-section">
@@ -36,7 +40,7 @@
                 outlined
                 size="is-medium"
                 data-cy="submit"
-                :disabled="!isValid && isDirty"
+                :disabled="!isValid"
               >
                 {{ $t('views.login.loginForm.button') }}
               </button>
@@ -61,18 +65,16 @@ import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
 import { RequestStatus } from '@/models/auth/RequestStatus';
-import { useForm, useIsFormDirty, useIsFormValid } from 'vee-validate';
+import { useForm, useIsFormValid } from 'vee-validate';
 
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
 
 import LogoApp from '@/components/Navigation/LogoApp.vue';
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import ValidationInput from '@/components/FormUtils/ValidationInput.vue';
-import PasswordInput from '@/components/FormUtils/PasswordInput.vue';
 
 const { handleSubmit } = useForm({});
 
-const isDirty = useIsFormDirty();
 const isValid = useIsFormValid();
 const { t } = useI18n();
 const toast = useToast();
