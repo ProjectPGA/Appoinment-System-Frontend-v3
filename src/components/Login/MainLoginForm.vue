@@ -69,16 +69,14 @@ import { useForm, useIsFormValid } from 'vee-validate';
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
 
 import LogoApp from '@/components/Navigation/LogoApp.vue';
-import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import ValidationInput from '@/components/FormUtils/ValidationInput.vue';
+import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 
-const { handleSubmit } = useForm({});
-
-const isValid = useIsFormValid();
 const { t } = useI18n();
 const toast = useToast();
-
+const isValid = useIsFormValid();
 const authStore = useAuthStore();
+const { handleSubmit } = useForm({});
 
 const emailRegEx: FormRegEx = FormRegEx.EMAIL;
 
