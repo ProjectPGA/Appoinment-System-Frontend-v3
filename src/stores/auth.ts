@@ -1,5 +1,7 @@
-import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { defineStore } from 'pinia';
+import { useToast } from 'vue-toastification';
 
 import { UserData } from '../models/user/UserData';
 
@@ -26,6 +28,9 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoading = ref<boolean>(false);
   const isRegisterProcess = ref<boolean>(false);
   const loginRequestStatus = ref<RequestStatus>(RequestStatus.IN_PROGRESS);
+
+  const toast = useToast();
+  const { t } = useI18n();
 
   // JTW Methods
   const saveJTWTokens = (authTockens: AuthTockens): void => {
@@ -84,6 +89,7 @@ export const useAuthStore = defineStore('auth', () => {
       response.user ? setIsLogged(response) : setUserNotisLogged();
     } catch (error) {
       setLoginFailed();
+      toast.error(t('views.form.loginFailure'));
     }
   };
 

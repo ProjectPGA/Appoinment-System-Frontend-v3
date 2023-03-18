@@ -64,7 +64,6 @@ import { Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
-import { RequestStatus } from '@/models/auth/RequestStatus';
 import { useForm, useIsFormValid } from 'vee-validate';
 
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
@@ -91,19 +90,11 @@ function onInvalidSubmit(): void {
   toast.error(t('views.form.invalidSubmit'));
 }
 
-function loginFailure(): void {
-  toast.error(t('views.form.loginFailure'));
-}
-
 async function startLogin(): Promise<void> {
   await authStore.login({
     email: email.value,
     password: password.value,
   });
-
-  if (authStore.loginRequestStatus === RequestStatus.FAILURE) {
-    loginFailure();
-  }
 }
 
 const onSubmit = handleSubmit(() => {
