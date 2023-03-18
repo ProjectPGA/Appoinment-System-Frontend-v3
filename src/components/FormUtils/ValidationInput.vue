@@ -24,7 +24,9 @@
       />
       <template v-if="errors.length && name !== 'password'">
         <span class="icon is-right has-text-danger">
-          <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
+          <font-awesome-icon
+            :icon="iconType.SOLID + ' ' + iconName.CIRCLE_EXCLAMATION"
+          />
         </span>
         <span class="help" :class="{ 'is-danger': errorMessage }">
           {{ errorMessage }}
@@ -35,7 +37,7 @@
           class="icon is-right has-text-danger is-clickable"
           @click="toggleTypePassword"
         >
-          <font-awesome-icon :icon="eyeIcon" />
+          <font-awesome-icon :icon="passIconType + ' ' + passIconName" />
         </span>
         <span class="help" :class="{ 'is-danger': errorMessage }">
           {{ errorMessage }}
@@ -48,6 +50,8 @@
 import { useField } from 'vee-validate';
 import { Ref, toRef, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+import { iconName, iconType } from '@/models/icons/fontawesome/iconsDictionary';
 
 const { t } = useI18n();
 
@@ -101,7 +105,8 @@ const emit = defineEmits<{
   (e: 'update:modelValue'): void;
 }>();
 
-const eyeIcon: Ref<string> = ref('fa-eye-low-vision');
+const passIconType: Ref<string> = ref(iconType.SOLID);
+const passIconName: Ref<string> = ref(iconName.EYE_LOW_VISION);
 const inputType: Ref<string> = ref(props.name);
 const isPasswordType: boolean = props.name === 'password';
 
@@ -110,9 +115,9 @@ function toggleTypePassword(): void {
     ? (inputType.value = 'text')
     : (inputType.value = 'password');
 
-  eyeIcon.value === 'fa-eye-low-vision'
-    ? (eyeIcon.value = 'fa-eye')
-    : (eyeIcon.value = 'fa-eye-low-vision');
+  passIconName.value === iconName.EYE_LOW_VISION
+    ? (passIconName.value = iconName.EYE)
+    : (passIconName.value = iconName.EYE_LOW_VISION);
 }
 
 function isRequired(value: string): boolean | string {

@@ -3,13 +3,14 @@
     class="button is-danger button-translations"
     @click="changeLanguage()"
   >
-    <font-awesome-icon icon="fa-globe" />
+    <font-awesome-icon :icon="iconType.SOLID + ' ' + iconName.GLOBE" />
     <span class="button-translations__locale">{{ $i18n.locale }}</span>
   </button>
 </template>
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 import { Locales } from '@/localization/locales';
+import { iconType, iconName } from '@/models/icons/fontawesome/iconsDictionary';
 
 const i18n = useI18n();
 
