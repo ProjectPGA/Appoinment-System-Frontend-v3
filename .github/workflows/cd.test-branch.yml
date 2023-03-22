@@ -20,10 +20,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm ci
-      - run: npm run format:check
-      - run: npm run lint:check
-      - run: npm run stylelint:check
-      - run: npm run test:unit
-      - run: npm run build
+      - run: npm install --global yarn
+      - run: yarn install
+      - run: yarn format:check
+      - run: yarn lint:check
+      - run: yarn stylelint:check
+      - run: yarn test:unit
+      - run: yarn build

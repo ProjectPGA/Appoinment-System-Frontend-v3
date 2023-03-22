@@ -18,7 +18,7 @@ export default defineConfig({
       // compositionOnly: false,
 
       // you need to set i18n resource including paths !
-      include: path.resolve(__dirname, './src/localization/locales/**/*'),
+      include: path.resolve(__dirname, './localization/locales/**/*'),
     }),
   ],
   css: {
