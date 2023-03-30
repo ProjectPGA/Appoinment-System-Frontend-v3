@@ -1,29 +1,12 @@
 {
   "views": {
     "maintenancePage": {},
-    "home": {
-      "counter": {
-        "counterTitle": "Counter: ",
-        "sumButton": "Sum"
-      }
-    },
+    "home": {},
     "form": {
-      "title": "Formulario",
-      "nameInputLabel": "Nombre",
-      "surnameInputLabel": "Apellido",
-      "nifInputLabel": "Nif",
-      "nameCompanyInputLabel": "Empresa",
-      "cifInputLabel": "CIF",
-      "addressInputLabel": "Dirección",
-      "postalCodeInputLabel": "Codigo postal",
-      "cityInputLabel": "Localidad",
-      "provinceInputLabel": "Provincia",
       "emailInputLabel": "E-Mail",
       "emailPlaceholder": "E-Mail",
       "passwordInputLabel": "Contraseña",
       "passwordPlaceholder": "Contraseña",
-      "sinatureInputLabel": "Firma",
-      "sendButtonLabel": "Enviar",
       "invalidSubmit": "Rellene los campos correctamente",
       "loginFailure": "El correo o la contraseña son incorrectos"
     },
@@ -33,9 +16,6 @@
         "noAccount": "¿No tienes cuenta?",
         "accessToInvitation": "Pulsa aquí para canjear tu código de invitación."
       }
-    },
-    "product": {
-      "title": "Fetched from external API"
     }
   }
 }

@@ -1,11 +1,6 @@
 @font-face {
   font-family: 'Libre Franklin';
-  src: url('../assets/fonts/LibreFranklin.eot');
-  src: url('../assets/fonts/LibreFranklin.eot?#iefix')
-      format('embedded-opentype'),
-    url('../assets/fonts/LibreFranklin.woff') format('woff'),
-    url('../assets/fonts/LibreFranklin.ttf') format('truetype'),
-    url('../assets/fonts/LibreFranklin.svg#LibreFranklin') format('svg');
+  src: url('../assets/fonts/LibreFranklin.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

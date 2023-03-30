@@ -1,32 +1,23 @@
 {
   "common": {
     "components": {
-      "helloWorld": { "count": "La count is: " },
-      "test": { "label": "test" },
       "validationInput": {
         "errorInput": "Incorrect data",
-        "requiredInput": "This is required"
+        "requiredInput": "Required field"
       },
       "logoApp": {
         "altText": "Barbershop logo"
       },
       "loading": {
-        "altText": "Load icon"
+        "altText": "Loading icon"
       }
     },
     "title": {
-      "home": "Index",
-      "login": "Login",
-      "products": "Products",
-      "vue": "Vue 3 SPA",
-      "reactiveTitle": "Reactivity test (pinia store)",
-      "form": "Form"
+      "home": "Home",
+      "login": "Login"
     },
     "subtitle": {},
-    "languages": {
-      "spanish": "Spanish",
-      "english": "English"
-    },
+    "languages": { "spanish": "Spanish", "english": "English" },
     "errors": {}
   }
 }

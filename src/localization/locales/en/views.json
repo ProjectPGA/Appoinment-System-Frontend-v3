@@ -1,37 +1,20 @@
 {
   "views": {
     "maintenancePage": {},
-    "home": {
-      "counter": {
-        "counterTitle": "Counter: ",
-        "sumButton": "Sum"
-      }
-    },
+    "home": {},
     "form": {
-      "title": "Form",
-      "nameInputLabel": "Name",
-      "surnameInputLabel": "Surname",
-      "nifInputLabel": "Nif",
-      "nameCompanyInputLabel": "Company",
-      "cifInputLabel": "CIF",
-      "addressInputLabel": "Address",
-      "postalCodeInputLabel": "Postal Code",
-      "cityInputLabel": "City",
-      "provinceInputLabel": "Province",
-      "emailInputLabel": "E-Mail",
-      "emailPlaceholder": "E-Mail",
+      "emailInputLabel": "Email",
+      "emailPlaceholder": "Email",
       "passwordInputLabel": "Password",
       "passwordPlaceholder": "Password",
-      "sinatureInputLabel": "Signature",
-      "sendButtonLabel": "Send",
-      "invalidSubmit": "Fill in fields correctly",
-      "loginFailure": "E-mail or password is incorrect"
+      "invalidSubmit": "Please fill in all required fields correctly",
+      "loginFailure": "The email or password is incorrect"
     },
     "login": {
       "loginForm": {
-        "button": "Login",
-        "noAccount": "You dont have an account?",
-        "accessToInvitation": "Click here to redeem your invitational code."
+        "button": "Log in",
+        "noAccount": "Don't have an account?",
+        "accessToInvitation": "Click here to redeem your invitation code."
       }
     }
   }

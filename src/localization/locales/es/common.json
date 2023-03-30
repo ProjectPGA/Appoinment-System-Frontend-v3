@@ -1,8 +1,6 @@
 {
   "common": {
     "components": {
-      "helloWorld": { "count": "La cuenta es: " },
-      "test": { "label": "test" },
       "validationInput": {
         "errorInput": "Dato incorrecto",
         "requiredInput": "Campo requerido"
@@ -16,14 +14,10 @@
     },
     "title": {
       "home": "Inicio",
-      "login": "Iniciar sesión",
-      "products": "Productos",
-      "vue": "Vue 3 SPA",
-      "reactiveTitle": "Reactivity test (pinia store)",
-      "form": "Formulario"
+      "login": "Iniciar sesión"
     },
     "subtitle": {},
-    "languages": { "spanish": "Español", "portuguese": "Portugués" },
+    "languages": { "spanish": "Español", "english": "Inglés" },
     "errors": {}
   }
 }

@@ -5,16 +5,6 @@ import { useAuthStore } from '@/stores/auth';
 
 export const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'Home',
-    component: () => import('@/views/HomePage.vue'),
-  },
-  {
-    path: '/form',
-    name: 'Form',
-    component: () => import('@/views/FormValidationPage.vue'),
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/LoginView.vue'),

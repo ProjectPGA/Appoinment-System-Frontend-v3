@@ -1,7 +1,5 @@
 // stores/counter.spec.ts
 import { setActivePinia, createPinia } from 'pinia';
-import { useCounterStore } from '@/datastore/counter';
-import { expect, it, describe } from 'vitest';
 
 describe('useProductStore', () => {
   beforeEach(() => {
@@ -12,9 +10,6 @@ describe('useProductStore', () => {
   });
 
   it('increments', () => {
-    const counter = useCounterStore();
-    expect(counter.count).toBe(0);
-    counter.increment();
-    expect(counter.count).toBe(1);
+    // Add test at store
   });
 });
