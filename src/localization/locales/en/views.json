@@ -2,17 +2,8 @@
   "views": {
     "maintenancePage": {},
     "home": {},
-    "form": {
-      "emailInputLabel": "Email",
-      "emailPlaceholder": "Email",
-      "passwordInputLabel": "Password",
-      "passwordPlaceholder": "Password",
-      "invalidSubmit": "Please fill in all required fields correctly",
-      "loginFailure": "The email or password is incorrect"
-    },
     "login": {
       "loginForm": {
-        "button": "Log in",
         "noAccount": "Don't have an account?",
         "accessToInvitation": "Click here to redeem your invitation code."
       }

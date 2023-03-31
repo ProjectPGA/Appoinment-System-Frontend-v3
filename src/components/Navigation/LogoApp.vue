@@ -5,7 +5,7 @@
       width="340"
       class="logo"
       src="../../assets/img/logo.svg"
-      :alt="$t('common.components.logoApp.altText')"
+      :alt="$t('common.images.logoApp.altText')"
     />
   </div>
 </template>

@@ -6,8 +6,8 @@
       name="email"
       required
       type="text"
-      :label="$t('views.form.emailInputLabel')"
-      :placeholder="$t('views.form.emailInputLabel')"
+      :label="$t('common.inputs.emailInputLabel')"
+      :placeholder="$t('common.inputs.emailInputLabel')"
       input-classes="is-medium"
       :regex="emailRegEx"
     />
@@ -17,8 +17,8 @@
       name="password"
       required
       type="password"
-      :label="$t('views.form.passwordInputLabel')"
-      :placeholder="$t('views.form.passwordInputLabel')"
+      :label="$t('common.inputs.passwordInputLabel')"
+      :placeholder="$t('common.inputs.passwordInputLabel')"
       input-classes="is-medium"
     />
     <div class="columns is-vcentered main-login-form__button-section">
@@ -30,7 +30,7 @@
           data-cy="submit"
           :disabled="!isValid"
         >
-          {{ $t('views.login.loginForm.button') }}
+          {{ $t('common.buttons.loginButton') }}
         </button>
       </div>
       <div class="column">
@@ -69,7 +69,7 @@ const password: Ref<string> = ref('');
 const page: Ref<string> = ref('login-page');
 
 function onInvalidSubmit(): void {
-  toast.error(t('views.form.invalidSubmit'));
+  toast.error(t('common.notifications.invalidSubmit'));
 }
 
 async function startLogin(): Promise<void> {

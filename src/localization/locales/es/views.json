@@ -2,17 +2,8 @@
   "views": {
     "maintenancePage": {},
     "home": {},
-    "form": {
-      "emailInputLabel": "E-Mail",
-      "emailPlaceholder": "E-Mail",
-      "passwordInputLabel": "Contraseña",
-      "passwordPlaceholder": "Contraseña",
-      "invalidSubmit": "Rellene los campos correctamente",
-      "loginFailure": "El correo o la contraseña son incorrectos"
-    },
     "login": {
       "loginForm": {
-        "button": "Acceder",
         "noAccount": "¿No tienes cuenta?",
         "accessToInvitation": "Pulsa aquí para canjear tu código de invitación."
       }
