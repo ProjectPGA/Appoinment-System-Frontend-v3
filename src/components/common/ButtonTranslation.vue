@@ -25,7 +25,7 @@ function changeLanguage(): void {
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 1000;
+  z-index: 20;
   padding-left: 10px;
   padding-right: 10px;
   text-transform: uppercase;

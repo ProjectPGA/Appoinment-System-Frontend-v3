@@ -5,7 +5,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import LoadingComponent from './components/Utils/LoadingComponent.vue';
+import LoadingComponent from './components/common/LoadingComponent.vue';
 
 import { useAuthStore } from './stores/auth';
 

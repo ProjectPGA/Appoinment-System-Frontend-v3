@@ -10,3 +10,9 @@
 .title {
   font-size: 2.38rem !important;
 }
+
+.progress.is-small {
+  @include mobile {
+    height: 8px;
+  }
+}
