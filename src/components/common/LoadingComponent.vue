@@ -2,7 +2,7 @@
   <section class="loading-container">
     <article class="loading-content">
       <img
-        class="loading-content__image"
+        class="loading-content__image mb-5"
         src="../../assets/img/hipster.svg"
         :alt="$t('common.components.loading.altText')"
       />
@@ -34,10 +34,10 @@
   align-items: center;
 
   &__image {
-    width: 300px;
+    width: 200px;
 
     @include mobile {
-      width: 200px;
+      width: 150px;
     }
   }
 }

@@ -22,7 +22,7 @@
       input-classes="is-medium-tablet"
     />
     <div class="columns is-vcentered main-login-form__button-section">
-      <div class="column is-3 is-2-fullhd">
+      <div class="column is-3">
         <button
           class="button is-medium is-danger is-outlined is-size-6-mobile"
           outlined

@@ -1,7 +1,10 @@
 <template>
   <div class="field">
     <label class="label"> {{ label }}</label>
-    <div class="control has-icons-right">
+    <div
+      class="control"
+      :class="{ 'has-icons-right': inputError || isPasswordType }"
+    >
       <input
         :data-cy="`input-${name}${cy}`"
         v-bind="$attrs"
@@ -22,7 +25,7 @@
         @input="handleChange"
         @blur="handleChange"
       />
-      <template v-if="errors.length && name !== 'password'">
+      <template v-if="inputError">
         <span class="icon is-right has-text-danger">
           <font-awesome-icon
             :icon="iconType.SOLID + ' ' + iconName.CIRCLE_EXCLAMATION"
@@ -32,7 +35,7 @@
           {{ errorMessage }}
         </span>
       </template>
-      <template v-if="name === 'password'">
+      <template v-if="isPasswordType">
         <span
           class="icon is-right has-text-danger is-clickable"
           @click="toggleTypePassword"
@@ -48,7 +51,7 @@
 </template>
 <script lang="ts" setup>
 import { useField } from 'vee-validate';
-import { Ref, toRef, ref } from 'vue';
+import { Ref, toRef, ref, computed, ComputedRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { iconName, iconType } from '@/models/icons/fontawesome/iconsDictionary';
@@ -110,6 +113,13 @@ const passIconName: Ref<string> = ref(iconName.EYE_LOW_VISION);
 const inputType: Ref<string> = ref(props.name);
 const isPasswordType: boolean = props.name === 'password';
 
+const nameRef: Ref = toRef(props, 'name');
+const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
+
+const inputError: ComputedRef<boolean> = computed(() => {
+  return errors.value.length && props.name !== 'password' ? true : false;
+});
+
 function toggleTypePassword(): void {
   inputType.value === 'password'
     ? (inputType.value = 'text')
@@ -137,9 +147,6 @@ function isRequired(value: string): boolean | string {
 
   return true;
 }
-
-const nameRef: Ref = toRef(props, 'name');
-const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
 </script>
 
 <style lang="scss" scoped>
