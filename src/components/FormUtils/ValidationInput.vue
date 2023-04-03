@@ -117,7 +117,7 @@ const nameRef: Ref = toRef(props, 'name');
 const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
 
 const inputError: ComputedRef<boolean> = computed(() => {
-  return errors.value.length && props.name !== 'password' ? true : false;
+  return errors.value.length > 0 && props.name !== 'password';
 });
 
 function toggleTypePassword(): void {
