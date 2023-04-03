@@ -17,8 +17,7 @@
   cursor: pointer;
 
   @include mobile {
-    width: 50%;
-    height: 50%;
+    width: 60%;
   }
 }
 </style>

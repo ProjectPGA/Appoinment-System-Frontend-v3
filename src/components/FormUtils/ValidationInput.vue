@@ -148,4 +148,17 @@ const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
     color: $main-color-medium-light !important;
   }
 }
+
+@include tablet {
+  .is-medium-tablet {
+    font-size: $size-5;
+  }
+
+  // Start Bulma elements selecion
+  .control.has-icons-right .input.is-medium-tablet ~ .icon {
+    font-size: $size-5;
+  }
+
+  // End Bulma elements selection
+}
 </style>

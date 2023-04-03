@@ -8,7 +8,7 @@
       type="text"
       :label="$t('common.inputs.emailInputLabel')"
       :placeholder="$t('common.inputs.emailInputLabel')"
-      input-classes="is-medium"
+      input-classes="is-medium-tablet"
       :regex="emailRegEx"
     />
     <validation-input
@@ -19,12 +19,12 @@
       type="password"
       :label="$t('common.inputs.passwordInputLabel')"
       :placeholder="$t('common.inputs.passwordInputLabel')"
-      input-classes="is-medium"
+      input-classes="is-medium-tablet"
     />
     <div class="columns is-vcentered main-login-form__button-section">
       <div class="column is-3 is-2-fullhd">
         <button
-          class="button is-medium is-danger is-outlined"
+          class="button is-medium is-danger is-outlined is-size-6-mobile"
           outlined
           size="is-medium"
           data-cy="submit"
@@ -87,6 +87,10 @@ const onSubmit = handleSubmit(() => {
 .main-login-form {
   &__button-section {
     padding-top: 36px;
+
+    @include mobile {
+      padding-top: 12px;
+    }
   }
 
   &__invitation-link {
@@ -99,7 +103,11 @@ const onSubmit = handleSubmit(() => {
   }
 
   &__invitation {
-    font-size: 1.25rem;
+    font-size: $size-5;
+
+    @include mobile {
+      font-size: $size-6;
+    }
   }
 }
 </style>
