@@ -13,20 +13,20 @@
         :maxlength="maxlength"
         :type="inputType"
         class="input"
-        :class="[
-          {
-            'is-danger': errorMessage,
-            'is-subtext': errorMessage,
-            'is-password': isPasswordType,
-          },
-          ,
-          inputClasses,
-        ]"
+        :class="{
+          'is-danger': errorMessage,
+          'is-subtext': errorMessage,
+          'is-password': isPasswordType,
+          'is-medium': isTablet,
+        }"
         @input="handleChange"
         @blur="handleChange"
       />
       <template v-if="inputError">
-        <span class="icon is-right has-text-danger">
+        <span
+          class="icon is-right has-text-danger"
+          :class="{ 'is-size-5': isTablet }"
+        >
           <font-awesome-icon
             :icon="iconType.SOLID + ' ' + iconName.CIRCLE_EXCLAMATION"
           />
@@ -38,9 +38,13 @@
       <template v-if="isPasswordType">
         <span
           class="icon is-right has-text-danger is-clickable"
+          :class="{ 'is-size-5': isTablet }"
           @click="toggleTypePassword"
         >
-          <font-awesome-icon :icon="passIconType + ' ' + passIconName" />
+          <font-awesome-icon
+            :icon="passIconType + ' ' + passIconName"
+            :style="{ color: passIconColor }"
+          />
         </span>
         <span class="help" :class="{ 'is-danger': errorMessage }">
           {{ errorMessage }}
@@ -52,10 +56,12 @@
 <script lang="ts" setup>
 import { useField } from 'vee-validate';
 import { Ref, toRef, ref, computed, ComputedRef } from 'vue';
+import { useMediaQuery } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 
+import { appColors } from '@/models/AppColors';
 import { iconName, iconType } from '@/models/icons/fontawesome/iconsDictionary';
-
+import { MediaQueries } from '@/models/utils/MediaQueries';
 const { t } = useI18n();
 
 const props = defineProps({
@@ -104,14 +110,14 @@ const props = defineProps({
     default: '255',
   },
 });
-const emit = defineEmits<{
-  (e: 'update:modelValue'): void;
-}>();
+
+const passIconColor: string = appColors.MAIN_COLOR_MEDIUM_LIGHT;
 
 const passIconType: Ref<string> = ref(iconType.SOLID);
 const passIconName: Ref<string> = ref(iconName.EYE_LOW_VISION);
 const inputType: Ref<string> = ref(props.name);
 const isPasswordType: boolean = props.name === 'password';
+const isTablet: Ref<boolean> = useMediaQuery(MediaQueries.TABLET);
 
 const nameRef: Ref = toRef(props, 'name');
 const { errorMessage, handleChange, errors } = useField(nameRef, isRequired);
@@ -120,6 +126,11 @@ const inputError: ComputedRef<boolean> = computed(() => {
   return errors.value.length > 0 && props.name !== 'password';
 });
 
+/**
+ * This function toggles the input type of a password field between "password" and "text" and also
+ * toggles the icon displayed next to the input field between an eye icon and an eye with a slash icon.
+ * It is used in a Vue component to allow users to show or hide the password they are entering.
+ */
 function toggleTypePassword(): void {
   inputType.value === 'password'
     ? (inputType.value = 'text')
@@ -130,6 +141,11 @@ function toggleTypePassword(): void {
     : (passIconName.value = iconName.EYE_LOW_VISION);
 }
 
+/**
+ * The `isRequired` function is a validation function that is used with the `useField` function from
+ * the `vee-validate` library to validate the input value of a form field.
+ * @param {string} value Input field being validated.
+ */
 function isRequired(value: string): boolean | string {
   if (value && value.trim()) {
     if (props.regex) {
@@ -150,22 +166,5 @@ function isRequired(value: string): boolean | string {
 </script>
 
 <style lang="scss" scoped>
-.is-password {
-  & ~ .icon {
-    color: $main-color-medium-light !important;
-  }
-}
-
-@include tablet {
-  .is-medium-tablet {
-    font-size: $size-5;
-  }
-
-  // Start Bulma elements selecion
-  .control.has-icons-right .input.is-medium-tablet ~ .icon {
-    font-size: $size-5;
-  }
-
-  // End Bulma elements selection
-}
+// Styles
 </style>

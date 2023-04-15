@@ -89,7 +89,7 @@ export const useAuthStore = defineStore('auth', () => {
       response.user ? setIsLogged(response) : setUserNotisLogged();
     } catch (error) {
       setLoginFailed();
-      toast.error(t('common.notifications.loginFailure'));
+      toast.error(t('common.notifications.error.loginFailure'));
     }
   };
 

@@ -24,8 +24,11 @@
       "loginButton": "Acceder"
     },
     "notifications": {
-      "invalidSubmit": "Rellene los campos correctamente",
-      "loginFailure": "El correo o la contraseña son incorrectos"
+      "success": {},
+      "error": {
+        "invalidSubmit": "Rellene los campos correctamente",
+        "loginFailure": "El correo o la contraseña son incorrectos"
+      }
     },
     "images": {
       "logoApp": {

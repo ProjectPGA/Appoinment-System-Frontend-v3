@@ -24,8 +24,11 @@
       "loginButton": "Log in"
     },
     "notifications": {
-      "invalidSubmit": "Please fill in all required fields correctly",
-      "loginFailure": "The email or password is incorrect"
+      "success": {},
+      "error": {
+        "invalidSubmit": "Please fill in all required fields correctly",
+        "loginFailure": "The email or password is incorrect"
+      }
     },
     "images": {
       "logoApp": {
