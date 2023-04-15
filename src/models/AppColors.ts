@@ -1,4 +1,4 @@
-export enum appColors {
+export enum AppColors {
   MAIN_COLOR = '#e01f2f',
   MAIN_COLOR_LIGHT = '#fff',
   MAIN_COLOR_DARK = '#172b3a',
@@ -8,7 +8,7 @@ export enum appColors {
   MAIN_COLOR_FAIL = '#e01f2f',
 }
 
-export enum appColorsLigther {
+export enum AppColorsLigther {
   MAIN_COLOR_SUCCESS = '#48c774',
   MAIN_COLOR_FAIL = '#e64c59',
 }

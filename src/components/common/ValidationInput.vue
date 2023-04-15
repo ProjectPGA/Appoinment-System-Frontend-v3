@@ -59,7 +59,7 @@ import { Ref, toRef, ref, computed, ComputedRef } from 'vue';
 import { useMediaQuery } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 
-import { appColors } from '@/models/AppColors';
+import { AppColors } from '@/models/AppColors';
 import { iconName, iconType } from '@/models/icons/fontawesome/iconsDictionary';
 import { MediaQueries } from '@/models/utils/MediaQueries';
 const { t } = useI18n();
@@ -111,7 +111,7 @@ const props = defineProps({
   },
 });
 
-const passIconColor: string = appColors.MAIN_COLOR_MEDIUM_LIGHT;
+const passIconColor: string = AppColors.MAIN_COLOR_MEDIUM_LIGHT;
 
 const passIconType: Ref<string> = ref(iconType.SOLID);
 const passIconName: Ref<string> = ref(iconName.EYE_LOW_VISION);
