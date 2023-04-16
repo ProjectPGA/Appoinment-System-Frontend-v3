@@ -1,12 +1,4 @@
 // Bulma overrides
-.html-container {
-  background-color: #f3f8fb;
-}
-
-.body-container {
-  font-family: 'Libre Franklin', Helvetica, Arial, Verdana, Tahoma, sans-serif;
-}
-
 .progress.is-small {
   @include mobile {
     height: 8px;

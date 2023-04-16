@@ -5,9 +5,9 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import LoadingComponent from './components/common/LoadingComponent.vue';
+import LoadingComponent from '@/components/common/LoadingComponent.vue';
 
-import { useAuthStore } from './stores/auth';
+import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();
 

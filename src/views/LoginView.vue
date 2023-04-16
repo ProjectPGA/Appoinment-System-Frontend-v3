@@ -32,12 +32,10 @@ import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
   }
 
   &__logo {
-    margin-top: 49.92px;
-    margin-bottom: 49.92px;
+    margin-block: 49.92px;
 
     @include mobile {
-      margin-top: 25px;
-      margin-bottom: 25px;
+      margin-block: 25px;
     }
   }
 }
