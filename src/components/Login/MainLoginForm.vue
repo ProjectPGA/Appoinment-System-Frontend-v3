@@ -87,6 +87,10 @@ async function startLogin(): Promise<void> {
   });
 }
 
+// `const onSubmit` is a function that is created using the `handleSubmit` function provided by the
+// `vee-validate` library. It takes two arguments: the first argument is a callback function that is
+// executed when the form is submitted and passes validation, and the second argument is a callback
+// function that is executed when the form is submitted but fails validation.
 const onSubmit = handleSubmit(() => {
   startLogin();
 }, onInvalidSubmit);
