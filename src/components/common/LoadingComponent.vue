@@ -3,10 +3,10 @@
     <article class="loading-content">
       <img
         class="loading-content__image mb-5"
-        src="../../assets/img/hipster.svg"
+        src="@/assets/img/hipster.svg"
         :alt="$t('common.components.loading.altText')"
       />
-      <progress class="progress is-small is-info" max="100">10%</progress>
+      <progress class="progress is-small is-info" max="100"></progress>
     </article>
   </section>
 </template>

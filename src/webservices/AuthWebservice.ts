@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { apiPrefix, jsonHeaders } from './consts';
 
-import { UserData } from '../models/user/UserData';
+import { UserData } from '@/models/user/UserData';
 import { LoginRequest } from './models/auth/LoginRequest';
 import { TokenRequest } from './models/auth/TokenRequest';
 import { TokenResponse } from './models/auth/TokenResponse';

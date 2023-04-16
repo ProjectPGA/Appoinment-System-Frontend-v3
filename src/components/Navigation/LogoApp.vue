@@ -4,7 +4,7 @@
       height="115"
       width="340"
       class="logo"
-      src="../../assets/img/logo.svg"
+      src="@/assets/img/logo.svg"
       :alt="$t('common.images.logoApp.altText')"
     />
   </div>

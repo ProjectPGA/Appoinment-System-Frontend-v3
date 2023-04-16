@@ -22,7 +22,7 @@
       "left": ["rem", "%", "em"]
     },
     "scale-unlimited/declaration-strict-value": [
-      ["/color$"],
+      ["/color$/"],
       { "disableFix": true }
     ]
   }
