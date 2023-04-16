@@ -1,8 +1,9 @@
-import { createHead } from '@vueuse/head';
-import { createApp } from 'vue';
-import { createPersistedState } from 'pinia-plugin-persistedstate';
-import { createPinia } from 'pinia';
 import Toast, { PluginOptions, POSITION } from 'vue-toastification';
+import { createPersistedState } from 'pinia-plugin-persistedstate';
+import { createHead } from '@vueuse/head';
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
+
 import 'vue-toastification/dist/index.css';
 
 import router from './routes/router';
@@ -11,15 +12,17 @@ import i18n from './localization';
 import './styles/main.scss';
 import App from './App.vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { Timeout, Transition } from '@/models/VueToastOptions';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 const toastOptions: PluginOptions = {
-  transition: 'Vue-Toastification__bounce',
-  timeout: 4000,
+  transition: Transition.BOUNCE,
+  timeout: Timeout.DEFAULT,
   position: POSITION.BOTTOM_LEFT,
 };
 
