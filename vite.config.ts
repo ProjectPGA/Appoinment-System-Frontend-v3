@@ -2,6 +2,7 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import eslint from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,6 +21,7 @@ export default defineConfig({
       // you need to set i18n resource including paths !
       include: path.resolve(__dirname, './localization/locales/**/*'),
     }),
+    eslint(),
   ],
   css: {
     preprocessorOptions: {
