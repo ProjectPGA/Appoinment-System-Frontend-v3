@@ -14,18 +14,18 @@ This is a project designed to manage appointments in a simple and efficient way 
 
 **Below is the framework used for the project and the libraries used in the project.**
 
-* [Vue 3][vue]
-* [Pinia][pinia]
-* [Typescrypt][typescript]
-* [VeeValidate][vee-validate]
-* [VueUse][vue-use]
-* [Fontawesome]
-* [Sass][sass]
-* [Prettier][prettier]
-* [Eslint][eslint]
-* [Stylelint][stylelint]
-* [Cypress][cypress]
-* [Vitest][vitest]
+> * [Vue 3][vue]
+> * [Pinia][pinia]
+> * [Typescrypt][typescript]
+> * [VeeValidate][vee-validate]
+> * [VueUse][vue-use]
+> * [Fontawesome]
+> * [Sass][sass]
+> * [Prettier][prettier]
+> * [Eslint][eslint]
+> * [Stylelint][stylelint]
+> * [Cypress][cypress]
+> * [Vitest][vitest]
 
 ![product-technologies]
 
