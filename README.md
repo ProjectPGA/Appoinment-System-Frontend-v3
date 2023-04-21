@@ -1,12 +1,40 @@
-# 📃Appointment System (Frontend)
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
 
-### **Welcome to Appointment System 👋.**
+1. [About The Project](#appointment-system)
+2. [Built With](#built-with)
+3. [Getting Started](#getting-started)
+# <span id="appointment-system">📃Appointment System</span>
+
+<font size="4">**Welcome to Appointment System 👋.**</font>
 
 This is a project designed to manage appointments in a simple and efficient way and with many functionalities.
 
-# ⚙️Getting Started
+## <span>🏗️Built with</span>
+
+**Below is the framework used for the project and the libraries used in the project.**
+
+* [Vue 3][vue]
+* [Pinia][pinia]
+* [Typescrypt][typescript]
+* [VeeValidate][vee-validate]
+* [VueUse][vue-use]
+* [Fontawesome]
+* [Sass][sass]
+* [Prettier][prettier]
+* [Eslint][eslint]
+* [Stylelint][stylelint]
+* [Cypress][cypress]
+* [Vitest][vitest]
+
+![product-technologies]
+
+
+**[Back to top](#table-of-contents)**
+
+## <span id="getting-started">⚙️Getting Started</span>
 The following details everything you need to have installed in order to install the project and also the steps to follow for the installation
-## 🚩Prerequisites
+### 🚩Prerequisites
 >* **Recomends**: Is recommended use [Vs Code Text Editor] and [Vue Language Features (Volar) extension]
 >* **WSL 2** *(Only Windows)* : Is necessary have a [WSL 2] installed and configured
 >    * Run as Administrator in Powershell the command `wsl --install`, if WSL is installed this will show a message indicating that is installed.
@@ -20,7 +48,7 @@ The following details everything you need to have installed in order to install 
 >   * To install Git here is the official documentation [download git].
 >   * Another option to install git is to run the command `npm install -g git` (must be installed npm).
 
-## 🖥️Project instalation
+### 🖥️Project instalation
 
 **Before starting the installation make sure that the terminal is in the folder where you want to have your projects.**
 
@@ -36,9 +64,10 @@ The following details everything you need to have installed in order to install 
     ```sh
     yarn install
     ```
-## 🚀Build and Start the service
+    
+### 🚀Build and Start the service
 
-### 💻Vite localhost
+#### 💻Vite localhost
 1.  Builds and starts containers for the service
     ```sh
     yarn dev
@@ -48,7 +77,7 @@ The following details everything you need to have installed in order to install 
      http://localhost:5173/
     ```
 
-<!-- Markdown links -->
+<!-- Start Markdown links -->
 [Git]: https://git-scm.com
 [Node JS]: https://nodejs.org/es/about
 [download git]: https://git-scm.com/downloads
@@ -59,3 +88,20 @@ The following details everything you need to have installed in order to install 
 [Vue Language Features (Volar) extension]: https://marketplace.visualstudio.com/items?itemName=Vue.volar
 [install NVM Linux]: https://learn.microsoft.com/es-es/windows/dev-environment/javascript/nodejs-on-wsl#install-nvm-nodejs-and-npm
 [Ubuntu 22.04.02 LTS]: https://apps.microsoft.com/store/detail/ubuntu-22042-lts/9PN20MSR04DW?hl=en-us&gl=us&activetab=pivot%3Aoverviewtab
+[vue]: https://vuejs.org/guide/quick-start.html
+[typescript]: https://www.typescriptlang.org/
+[sass]: https://sass-lang.com/
+[prettier]: https://prettier.io/
+[pinia]: https://pinia.vuejs.org/introduction.html
+[eslint]: https://eslint.org/docs/latest/user-guide/getting-started
+[stylelint]: https://stylelint.io/
+[cypress]: https://docs.cypress.io/
+[vitest]: https://vitest.dev/api/
+[vee-validate]: https://vee-validate.logaretm.com/v4/
+[vue-use]: https://vueuse.org/
+[fontawesome]: https://fontawesome.com/
+<!-- End Markdown links -->
+
+<!-- Start Markdown images -->
+[product-technologies]: docs/img/ProjectTechnologies.png
+<!-- End Markdown images -->
