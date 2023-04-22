@@ -31,7 +31,7 @@
     "test:prod:e2e-cy": "export NODE_ENV=production && cypress open",
     "test:prod:e2e-cy-cli": "export NODE_ENV=production && cypress run --browser chrome",
     "test": "vue-tsc --declaration --emitDeclarationOnly",
-    "prepare": "husky install"
+    "husky:prepare": "husky install && chmod ug+x .husky/*"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
