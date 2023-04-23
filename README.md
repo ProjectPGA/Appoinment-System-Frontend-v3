@@ -114,7 +114,8 @@ Start Vite dev server in the current directory.
 Testing is an important part of our project, so we have prepared simple testing and formatting commands to make our project more coherent.
 ### <span id="formatting-code">🖊️Formatting the code</span>
 **Below is the differents commands to check and format the code**
-1. Run the lint
+1. **Run the lint**
+
     * Check lint
         ```sh
         yarn lint:check
@@ -123,7 +124,8 @@ Testing is an important part of our project, so we have prepared simple testing 
         ```sh
         yarn lint
         ```
-2. Run the stylelint
+2. **Run the stylelint**
+
     * Check stylelint
         ```sh
         yarn stylelint:check
@@ -132,7 +134,8 @@ Testing is an important part of our project, so we have prepared simple testing 
         ```sh
         yarn stylelint
         ```
-3. Run the format
+3. **Run the format**
+
     * Check format
         ```sh
         yarn format:check
@@ -141,7 +144,8 @@ Testing is an important part of our project, so we have prepared simple testing 
         ```sh
         yarn format
         ```
-4. Run all
+4. **Run all**
+
     * Check all (Lint, stylelint and format)
     ```sh
     yarn check:all
