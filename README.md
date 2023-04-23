@@ -5,13 +5,15 @@
 2. [Built With](#built-with)
 3. [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
-    * [Project instalation](#project-instalation)
+    * [Project installation](#project-installation)
     * [Build and start the service](#build-and-start-service)
         * [Vite localhost](#vite-localhost)
-        * [Vite localhost](#vite-build-and-preview)
+        * [Vite build and preview](#vite-build-and-preview)
+    * [Commit recommendations](#commit-recomendations)
 4. [Testing](#testing)
     * [Formatting the code](#formatting-code)
-    * [Testing the project](#testing-code)
+    * [Testing the project](#testing-project)
+5. [Folder Structure](#folder-structure)
 # <span id="appointment-system">📃Appointment System</span>
 
 <font size="4">**Welcome to Appointment System 👋.**</font>
@@ -36,7 +38,7 @@ This is a project designed to manage appointments in a simple and efficient way 
 > * [Cypress][cypress]
 > * [Vitest][vitest]
 
-![product-technologies]
+![project-technologies]
 
 
 **[Back to top](#table-of-contents)**
@@ -44,6 +46,7 @@ This is a project designed to manage appointments in a simple and efficient way 
 ## <span id="getting-started">⚙️Getting Started</span>
 The following details everything you need to have installed in order to install the project and also the steps to follow for the installation
 ### <span id="prerequisites">🚩Prerequisites</span>
+---
 >* **Recomends**: Is recommended use [Vs Code Text Editor] and [Vue Language Features (Volar) extension]
 >* **WSL 2** *(Only Windows)* : Is necessary have a [WSL 2] installed and configured
 >    * Run as Administrator in Powershell the command `wsl --install`, if WSL is installed this will show a message indicating that is installed.
@@ -56,9 +59,12 @@ The following details everything you need to have installed in order to install 
 >* **Git**: Have installed [Git] control version
 >   * To install Git here is the official documentation [download git].
 >   * Another option to install git is to run the command `npm install -g git` (must be installed npm).
+>* **Type Support For `.vue` Imports in TS**: Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+>   * Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
+>   * Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
-### <span id="project-instalation">🖥️Project instalation</span>
-
+### <span id="project-installation">🖥️Project installation</span>
+---
 **Before starting the installation make sure that the terminal is in the folder where you want to have your projects.**
 
 1. Clone the repository
@@ -78,7 +84,7 @@ The following details everything you need to have installed in order to install 
     yarn kusky:prepare
     ```
 ### <span id="build-and-start-service">🚀Build and Start the service</span>
-
+---
 #### <span id="vite-localhost">💻Vite localhost</span>
 Start Vite dev server in the current directory.
 1.  Builds and starts containers for the service
@@ -100,11 +106,17 @@ Start Vite dev server in the current directory.
     ```sh
     yarn preview
     ```
+### <span id="commit-recomendations">🔔Recommendations before open PR or upload a commit</span>
+---
+**When a new PR is opened or a commit is uploaded to an open PR, a pipeline will be run to check for changes, this pipeline includes formatting, stylelint and lint checks.
+If the result of the check is an error, the pipeline will return an error and the code will need to be revised. To avoid this, it is recommended to execute the commands to format the code and correct it.
+The commands are explained in the following section** -> **[Formatting the code](#formatting-code)**
 
 **[Back to top](#table-of-contents)**
 ## <span id="testing">🧪Testing and formatting</span>
 Testing is an important part of our project, so we have prepared simple testing and formatting commands to make our project more coherent.
 ### <span id="formatting-code">🖊️Formatting the code</span>
+---
 **Below is the differents commands to check and format the code**
 1. Run the lint
     * Check lint
@@ -143,6 +155,7 @@ Testing is an important part of our project, so we have prepared simple testing 
     yarn fix:all
     ```
 ### <span id="testing-project">🔬Testing the project</span>
+---
 1. Unit Test
     ```sh
     yarn test:unit
@@ -156,7 +169,7 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 **[Back to top](#table-of-contents)**
 
-## <span id="#folder-structure">📂Folder structure</span>
+## <span id="folder-structure">📂Folder structure</span>
 ```
 .Appointment-System-Frontend-v3
 ├── cypress                  // Cypress test files
@@ -165,6 +178,7 @@ Testing is an important part of our project, so we have prepared simple testing 
 │   │   └── utilities              // E2e utilities (i.e: Constants with selectors)
 │   ├── fixtures             // Cypress fixtures
 │   └── support              // Cypress examples
+├── dist                     // Compiled files (only when the project has been compiled)
 ├── docs                     // Documentation files
 │   └── img                     // README.md images
 ├── public                   // Content of application public data
@@ -205,9 +219,14 @@ Testing is an important part of our project, so we have prepared simple testing 
         └── models                  // Models to api connections
             └── auth                    // Api auth connection models
 ```
+![project-structure]
+
+
+**[Back to top](#table-of-contents)**
 
 <!-- Start Markdown images -->
-[product-technologies]: docs/img/ProjectTechnologies.png
+[project-technologies]: docs/img/ProjectTechnologies.png
+[project-structure]: docs/img/ProjectStructure.png
 <!-- End Markdown images -->
 
 <!-- Start Markdown links -->
