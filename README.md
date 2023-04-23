@@ -1,4 +1,4 @@
-<!-- TABLE OF CONTENTS -->
+<!-- Start table of contents -->
 ## Table of Contents
 
 1. [About The Project](#appointment-system)
@@ -10,17 +10,18 @@
         * [Vite localhost](#vite-localhost)
         * [Vite build and preview](#vite-build-and-preview)
     * [Commit recommendations](#commit-recomendations)
-4. [Testing](#testing)
+4. [Testing and formatting](#testing)
     * [Formatting the code](#formatting-code)
     * [Testing the project](#testing-project)
 5. [Folder Structure](#folder-structure)
+<!-- End table of contents -->
 # <span id="appointment-system">📃Appointment System</span>
 
 <font size="4">**Welcome to Appointment System 👋.**</font>
 
 This is a project designed to manage appointments in a simple and efficient way and with many functionalities.
 
-## <span id="build-with">🏗️Built with</span>
+## <span id="built-with">🏗️Built with</span>
 
 **Below is the framework used for the project and the libraries used in the project.**
 
@@ -46,7 +47,6 @@ This is a project designed to manage appointments in a simple and efficient way 
 ## <span id="getting-started">⚙️Getting Started</span>
 The following details everything you need to have installed in order to install the project and also the steps to follow for the installation
 ### <span id="prerequisites">🚩Prerequisites</span>
----
 >* **Recomends**: Is recommended use [Vs Code Text Editor] and [Vue Language Features (Volar) extension]
 >* **WSL 2** *(Only Windows)* : Is necessary have a [WSL 2] installed and configured
 >    * Run as Administrator in Powershell the command `wsl --install`, if WSL is installed this will show a message indicating that is installed.
@@ -64,7 +64,6 @@ The following details everything you need to have installed in order to install 
 >   * Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
 ### <span id="project-installation">🖥️Project installation</span>
----
 **Before starting the installation make sure that the terminal is in the folder where you want to have your projects.**
 
 1. Clone the repository
@@ -84,7 +83,6 @@ The following details everything you need to have installed in order to install 
     yarn kusky:prepare
     ```
 ### <span id="build-and-start-service">🚀Build and Start the service</span>
----
 #### <span id="vite-localhost">💻Vite localhost</span>
 Start Vite dev server in the current directory.
 1.  Builds and starts containers for the service
@@ -107,16 +105,14 @@ Start Vite dev server in the current directory.
     yarn preview
     ```
 ### <span id="commit-recomendations">🔔Recommendations before open PR or upload a commit</span>
----
-**When a new PR is opened or a commit is uploaded to an open PR, a pipeline will be run to check for changes, this pipeline includes formatting, stylelint and lint checks.
-If the result of the check is an error, the pipeline will return an error and the code will need to be revised. To avoid this, it is recommended to execute the commands to format the code and correct it.
-The commands are explained in the following section** -> **[Formatting the code](#formatting-code)**
+> **When a new PR is opened or a commit is uploaded to an open PR, a pipeline will be run to check for changes, this pipeline includes formatting, stylelint and lint checks.
+> If the result of the check is an error, the pipeline will return an error and the code will need to be revised. To avoid this, it is recommended to execute the commands to format the code and > correct it.
+> The commands are explained in the following section** -> **[Formatting the code](#formatting-code)**
 
 **[Back to top](#table-of-contents)**
 ## <span id="testing">🧪Testing and formatting</span>
 Testing is an important part of our project, so we have prepared simple testing and formatting commands to make our project more coherent.
 ### <span id="formatting-code">🖊️Formatting the code</span>
----
 **Below is the differents commands to check and format the code**
 1. Run the lint
     * Check lint
@@ -155,7 +151,6 @@ Testing is an important part of our project, so we have prepared simple testing 
     yarn fix:all
     ```
 ### <span id="testing-project">🔬Testing the project</span>
----
 1. Unit Test
     ```sh
     yarn test:unit
