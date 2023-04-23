@@ -25,6 +25,7 @@ This is a project designed to manage appointments in a simple and efficient way 
 > * [Vue 3][vue]
 > * [Pinia][pinia]
 > * [Typescrypt][typescript]
+> * [Bulma][bulma]
 > * [VeeValidate][vee-validate]
 > * [VueUse][vue-use]
 > * [Fontawesome]
@@ -155,6 +156,55 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 **[Back to top](#table-of-contents)**
 
+## <span id="#folder-structure">📂Folder structure</span>
+```
+.Appointment-System-Frontend-v3
+├── cypress                  // Cypress test files
+│   ├── component               // Test files for components
+│   ├── e2e                  // E2e test files
+│   │   └── utilities              // E2e utilities (i.e: Constants with selectors)
+│   ├── fixtures             // Cypress fixtures
+│   └── support              // Cypress examples
+├── docs                     // Documentation files
+│   └── img                     // README.md images
+├── public                   // Content of application public data
+└── src                      // Content of application code
+    ├── assets                  // All assets used by the application
+    │   ├── fonts                   // Font files (woff2, ttf...)
+    │   └── img                     // Project images
+    ├── components              // Reusable Components
+    │   ├── common                  // Common components
+    │   ├── Login                   // Login component
+    │   └── Navigation              // Navigation component
+    ├── localization            // All translations
+    │   └── locales
+    │       ├── en             // All translations from English
+    │       └── es             // All translations from Spanish
+    ├── models                  // Common models to code structure
+    │   ├── appointment             // Appointment models
+    │   ├── auth                    // Auth models
+    │   ├── formUtils               // Form models
+    │   ├── icons                   // Icons models
+    │   │   └── fontawesome             // Fontawesome models
+    │   ├── user                    // User models
+    │   └── utils                   // Common models
+    ├── routes                  // All routes 
+    ├── stores                  // Common data
+    ├── styles                  // All global directories from the styles
+    │   ├── animations              // All global animations
+    │   ├── mixins                  // All global mixins
+    │   ├── modifiers               // All global modifiers
+    │   ├── modules                 // All global modules
+    │   ├── transitions             // All global transitions
+    │   └── variables               // All global variables
+    ├── tests                   // Unit tests
+    │   ├── components              // Components unit tests files
+    │   └── datastore               // Data unit tests files
+    ├── views                   // Components with the views
+    └── webservices             // Api connections files
+        └── models                  // Models to api connections
+            └── auth                    // Api auth connection models
+```
 
 <!-- Start Markdown images -->
 [product-technologies]: docs/img/ProjectTechnologies.png
@@ -162,6 +212,7 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 <!-- Start Markdown links -->
 [Git]: https://git-scm.com
+[bulma]: https://bulma.io/
 [sass]: https://sass-lang.com/
 [vue-use]: https://vueuse.org/
 [prettier]: https://prettier.io/
