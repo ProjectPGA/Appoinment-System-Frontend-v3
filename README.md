@@ -186,9 +186,6 @@ Testing is an important part of our project, so we have prepared simple testing 
     │   ├── fonts                   // Font files (woff2, ttf...)
     │   └── img                     // Project images
     ├── components              // Reusable Components
-    │   ├── common                  // Common components
-    │   ├── Login                   // Login component
-    │   └── Navigation              // Navigation component
     ├── localization            // All translations
     │   └── locales
     │       ├── en             // All translations from English
