@@ -1,17 +1,25 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/HomeView.vue';
-import About from '../views/AboutView.vue';
+import { createWebHistory, createRouter } from 'vue-router';
+import { RouteRecordRaw } from 'vue-router';
 
-const routes = [
-  { path: '/', component: Home },
-  { path: '/about', component: About },
+import { useAuthStore } from '@/stores/auth';
+
+export const routes: RouteRecordRaw[] = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/LoginView.vue'),
+  },
 ];
 
-const history = createWebHistory();
-
 const router = createRouter({
-  history,
+  history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(async to => {
+  if (!useAuthStore().isLogged && to.name !== 'Login') {
+    return { name: 'Login' };
+  }
 });
 
 export default router;

@@ -1,0 +1,12 @@
+{
+  "views": {
+    "maintenancePage": {},
+    "home": {},
+    "login": {
+      "loginForm": {
+        "noAccount": "Don't have an account?",
+        "accessToInvitation": "Click here to redeem your invitation code."
+      }
+    }
+  }
+}

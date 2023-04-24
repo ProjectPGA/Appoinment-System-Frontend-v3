@@ -1,23 +1,19 @@
 <template>
-  <nav>
-    <div class="locale-changer">
-      <select v-model="$i18n.locale">
-        <option
-          v-for="locale in $i18n.availableLocales"
-          :key="`locale-${locale}`"
-          :value="locale"
-        >
-          {{ locale }}
-        </option>
-      </select>
-    </div>
-    <router-link to="/">{{ $t('common.title.home') }}</router-link
-    >&nbsp;
-    <router-link to="/about">{{ $t('common.title.about') }}</router-link>
-  </nav>
-  <router-view />
+  <RouterView />
+  <loading-component v-if="isLoading" />
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import { computed } from 'vue';
+import LoadingComponent from '@/components/common/LoadingComponent.vue';
 
-<style lang="scss" scoped></style>
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
+
+const isLoading = computed(() => authStore.isLoading);
+</script>
+
+<style lang="scss" scoped>
+// App styles
+</style>

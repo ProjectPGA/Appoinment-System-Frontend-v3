@@ -1,0 +1,12 @@
+{
+  "views": {
+    "maintenancePage": {},
+    "home": {},
+    "login": {
+      "loginForm": {
+        "noAccount": "¿No tienes cuenta?",
+        "accessToInvitation": "Pulsa aquí para canjear tu código de invitación."
+      }
+    }
+  }
+}

@@ -1,18 +1,18 @@
 import { createI18n } from 'vue-i18n';
 import { Locales } from './locales';
 
-import en from './locales/en-US.json';
-import es from './locales/es-ES.json';
+import es from './locales/es/main';
+import en from './locales/en/main';
 
 const messages = {
-  [Locales.EN]: en,
   [Locales.ES]: es,
+  [Locales.EN]: en,
 };
 
-const defaultLocale = Locales.EN;
+const defaultLocale = Locales.ES;
 
-type LocalesSchema = Locales.EN | Locales.ES;
-type MessageSchema = typeof en;
+type LocalesSchema = Locales.ES | Locales.EN;
+type MessageSchema = typeof es;
 
 const i18n = createI18n<[MessageSchema], LocalesSchema>({
   locale: defaultLocale,

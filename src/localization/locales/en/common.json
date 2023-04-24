@@ -1,0 +1,41 @@
+{
+  "common": {
+    "components": {
+      "validationInput": {
+        "errorInput": "Incorrect data",
+        "requiredInput": "Required field"
+      },
+      "loading": {
+        "altText": "Loading icon"
+      }
+    },
+    "title": {
+      "home": "Home",
+      "login": "Login"
+    },
+    "subtitle": {},
+    "inputs": {
+      "emailInputLabel": "Email",
+      "emailPlaceholder": "Email",
+      "passwordInputLabel": "Password",
+      "passwordPlaceholder": "Password"
+    },
+    "buttons": {
+      "loginButton": "Log in"
+    },
+    "notifications": {
+      "success": {},
+      "error": {
+        "invalidSubmit": "Please fill in all required fields correctly",
+        "loginFailure": "The email or password is incorrect"
+      }
+    },
+    "images": {
+      "logoApp": {
+        "altText": "Barbershop logo"
+      }
+    },
+    "languages": { "spanish": "Spanish", "english": "English" },
+    "errors": {}
+  }
+}

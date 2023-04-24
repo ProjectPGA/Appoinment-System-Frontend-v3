@@ -1,0 +1,41 @@
+{
+  "common": {
+    "components": {
+      "validationInput": {
+        "errorInput": "Dato incorrecto",
+        "requiredInput": "Campo requerido"
+      },
+      "loading": {
+        "altText": "Icono de carga"
+      }
+    },
+    "title": {
+      "home": "Inicio",
+      "login": "Iniciar sesión"
+    },
+    "subtitle": {},
+    "inputs": {
+      "emailInputLabel": "Correo electrónico",
+      "emailPlaceholder": "Correo electrónico",
+      "passwordInputLabel": "Contraseña",
+      "passwordPlaceholder": "Contraseña"
+    },
+    "buttons": {
+      "loginButton": "Acceder"
+    },
+    "notifications": {
+      "success": {},
+      "error": {
+        "invalidSubmit": "Rellene los campos correctamente",
+        "loginFailure": "El correo o la contraseña son incorrectos"
+      }
+    },
+    "images": {
+      "logoApp": {
+        "altText": "Logo barbería"
+      }
+    },
+    "languages": { "spanish": "Español", "english": "Inglés" },
+    "errors": {}
+  }
+}
