@@ -1,5 +1,5 @@
 <template>
-  <form class="main-login-form" @submit="onSubmit">
+  <form @submit="onSubmit">
     <validation-input
       v-model="email"
       :cy="'-' + page"
@@ -19,22 +19,16 @@
       :label="$t('common.inputs.passwordInputLabel')"
       :placeholder="$t('common.inputs.passwordInputLabel')"
     />
-    <div class="columns is-vcentered main-login-form__button-section">
-      <div class="column is-3">
-        <button
-          class="button is-medium is-danger is-outlined is-size-6-mobile"
-          outlined
-          size="is-medium"
-          data-cy="submit"
-          :disabled="!isValid"
-        >
+    <div>
+      <div>
+        <button outlined size="is-medium" data-cy="submit" :disabled="!isValid">
           {{ $t('common.buttons.loginButton') }}
         </button>
       </div>
-      <div class="column">
-        <p class="main-login-form__invitation" data-cy="invitation">
+      <div>
+        <p data-cy="invitation">
           {{ $t('views.login.loginForm.noAccount') }}
-          <span class="main-login-form__invitation-link">
+          <span>
             {{ $t('views.login.loginForm.accessToInvitation') }}
           </span>
         </p>
@@ -96,30 +90,5 @@ const onSubmit = handleSubmit(() => {
 }, onInvalidSubmit);
 </script>
 <style lang="scss" scoped>
-.main-login-form {
-  &__button-section {
-    padding-top: 36px;
-
-    @include mobile {
-      padding-top: 12px;
-    }
-  }
-
-  &__invitation-link {
-    cursor: pointer;
-    color: $main-color !important;
-
-    &:hover {
-      text-decoration-line: underline;
-    }
-  }
-
-  &__invitation {
-    font-size: $size-5;
-
-    @include mobile {
-      font-size: $size-6;
-    }
-  }
-}
+// Styles
 </style>

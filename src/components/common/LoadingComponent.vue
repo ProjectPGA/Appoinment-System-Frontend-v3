@@ -6,7 +6,7 @@
         src="@/assets/img/hipster.svg"
         :alt="$t('common.components.loading.altText')"
       />
-      <progress class="progress is-small is-info" max="100"></progress>
+      <progress max="100"></progress>
     </article>
   </section>
 </template>
@@ -35,10 +35,6 @@
 
   &__image {
     width: 200px;
-
-    @include mobile {
-      width: 150px;
-    }
   }
 }
 </style>

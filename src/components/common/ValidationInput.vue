@@ -1,10 +1,7 @@
 <template>
-  <div class="field">
-    <label class="label"> {{ label }}</label>
-    <div
-      class="control"
-      :class="{ 'has-icons-right': inputError || isPasswordType }"
-    >
+  <div>
+    <label> {{ label }}</label>
+    <div :class="{ 'has-icons-right': inputError || isPasswordType }">
       <input
         :data-cy="`input-${name}${cy}`"
         v-bind="$attrs"
@@ -12,7 +9,6 @@
         :value="modelValue"
         :maxlength="maxlength"
         :type="inputType"
-        class="input"
         :class="{
           'is-danger': errorMessage,
           'is-subtext': errorMessage,
@@ -23,30 +19,23 @@
         @blur="handleChange"
       />
       <template v-if="inputError">
-        <span
-          class="icon is-right has-text-danger"
-          :class="{ 'is-size-5': isTablet }"
-        >
+        <span :class="{ 'is-size-5': isTablet }">
           <font-awesome-icon
             :icon="iconType.SOLID + ' ' + iconName.CIRCLE_EXCLAMATION"
           />
         </span>
-        <span class="help" :class="{ 'is-danger': errorMessage }">
+        <span :class="{ 'is-danger': errorMessage }">
           {{ errorMessage }}
         </span>
       </template>
       <template v-if="isPasswordType">
-        <span
-          class="icon is-right has-text-danger is-clickable"
-          :class="{ 'is-size-5': isTablet }"
-          @click="toggleTypePassword"
-        >
+        <span :class="{ 'is-size-5': isTablet }" @click="toggleTypePassword">
           <font-awesome-icon
             :icon="passIconType + ' ' + passIconName"
             :style="{ color: passIconColor }"
           />
         </span>
-        <span class="help" :class="{ 'is-danger': errorMessage }">
+        <span :class="{ 'is-danger': errorMessage }">
           {{ errorMessage }}
         </span>
       </template>
