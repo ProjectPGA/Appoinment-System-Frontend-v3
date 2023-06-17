@@ -1,11 +1,10 @@
 import loginSelectors from './utilities/login/login.selectors';
 import loginFunctions from './utilities/login/login.functions';
-import { Routes } from './utilities/models/Routes';
 import { RequestStatus } from './utilities/models/RequestStatus';
 
 describe('01 View', () => {
   beforeEach(() => {
-    cy.visit(Routes.BASE_URL);
+    cy.visit('/');
   });
   it('01 Login with wrong credentials and failure login', () => {
     cy.get(loginSelectors.emailInputLoginPage).type('test@test.com');

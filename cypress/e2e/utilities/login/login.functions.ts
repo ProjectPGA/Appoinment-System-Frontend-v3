@@ -1,5 +1,6 @@
 import { RequestStatus } from '../models/RequestStatus';
-import { Routes } from '../models/Routes';
+
+const BASE_URL = Cypress.env('base_url');
 
 /**
  * This function waits for a change in login status and returns the updated status.
@@ -9,14 +10,14 @@ import { Routes } from '../models/Routes';
  */
 function waitForLoginStatusChange(): Cypress.Chainable<string> {
   return cy.getAllLocalStorage().then(result => {
-    const resultJSON = result[Routes.BASE_URL].auth;
-    const loginRequestStatus = resultJSON
+    const resultJSON: Cypress.Storable = result[BASE_URL].auth;
+    const loginRequestStatus: string | null = resultJSON
       ? JSON.parse(resultJSON.toString()).loginRequestStatus
       : null;
 
     return loginRequestStatus === RequestStatus.IN_PROGRESS
       ? cy.then(waitForLoginStatusChange)
-      : loginRequestStatus;
+      : cy.wrap(loginRequestStatus);
   });
 }
 

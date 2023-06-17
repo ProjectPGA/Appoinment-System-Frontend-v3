@@ -19,4 +19,7 @@ export default defineConfig({
       return config;
     },
   },
+  env: {
+    base_url: process.env.CYPRESS_BASE_URL,
+  },
 });
