@@ -1,19 +1,22 @@
 import loginConstants from './login.constants';
+import commonConstants from '../common.constants';
 
-function waitForLoginStatusChange(): any {
+/**
+ * This function waits for a change in login status and returns the updated status.
+ * @returns a Cypress chainable object, which can be used to perform further Cypress commands. The
+ * final value returned by the function is either the login request status (a string) or a promise that
+ * resolves to the login request status.
+ */
+function waitForLoginStatusChange(): Cypress.Chainable<string> {
   return cy.getAllLocalStorage().then(result => {
-    const resultJSON = result['http://localhost:5173'].auth;
+    const resultJSON = result[commonConstants.BASE_URL].auth;
     const loginRequestStatus = resultJSON
-      ? JSON.parse(resultJSON.toString())
+      ? JSON.parse(resultJSON.toString()).loginRequestStatus
       : null;
 
-    if (
-      loginRequestStatus.loginRequestStatus === loginConstants.LOGIN_IN_PROGRESS
-    ) {
-      return cy.then(waitForLoginStatusChange);
-    }
-
-    return cy.wrap(loginRequestStatus.loginRequestStatus);
+    return loginRequestStatus === loginConstants.LOGIN_IN_PROGRESS
+      ? cy.then(waitForLoginStatusChange)
+      : loginRequestStatus;
   });
 }
 

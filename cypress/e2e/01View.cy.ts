@@ -7,7 +7,6 @@ describe('01 View', () => {
     cy.visit(commonConstants.BASE_URL);
   });
   it('01 Login with wrong credentials and failure login', () => {
-    cy.wait(500);
     cy.get(loginSelectors.emailInputLoginPage).type('test@test.com');
     cy.get(loginSelectors.passwordInputLoginPage).type('test@test.com');
     cy.get(loginSelectors.submitLoginPage).click();
@@ -18,7 +17,6 @@ describe('01 View', () => {
       });
   });
   it('01 Login with correct credentials and success login', () => {
-    cy.wait(500);
     cy.get(loginSelectors.emailInputLoginPage).type('test@test.com');
     cy.get(loginSelectors.passwordInputLoginPage).type('Tests.15');
     cy.get(loginSelectors.submitLoginPage).click();
