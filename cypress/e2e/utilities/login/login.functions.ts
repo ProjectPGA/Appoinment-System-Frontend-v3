@@ -1,5 +1,5 @@
-import loginConstants from './login.constants';
-import commonConstants from '../common.constants';
+import { RequestStatus } from '../models/RequestStatus';
+import { Routes } from '../models/Routes';
 
 /**
  * This function waits for a change in login status and returns the updated status.
@@ -9,12 +9,12 @@ import commonConstants from '../common.constants';
  */
 function waitForLoginStatusChange(): Cypress.Chainable<string> {
   return cy.getAllLocalStorage().then(result => {
-    const resultJSON = result[commonConstants.BASE_URL].auth;
+    const resultJSON = result[Routes.BASE_URL].auth;
     const loginRequestStatus = resultJSON
       ? JSON.parse(resultJSON.toString()).loginRequestStatus
       : null;
 
-    return loginRequestStatus === loginConstants.LOGIN_IN_PROGRESS
+    return loginRequestStatus === RequestStatus.IN_PROGRESS
       ? cy.then(waitForLoginStatusChange)
       : loginRequestStatus;
   });

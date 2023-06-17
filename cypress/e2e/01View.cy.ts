@@ -1,10 +1,11 @@
 import loginSelectors from './utilities/login/login.selectors';
 import loginFunctions from './utilities/login/login.functions';
-import loginConstants from './utilities/login/login.constants';
-import commonConstants from './utilities/common.constants';
+import { Routes } from './utilities/models/Routes';
+import { RequestStatus } from './utilities/models/RequestStatus';
+
 describe('01 View', () => {
   beforeEach(() => {
-    cy.visit(commonConstants.BASE_URL);
+    cy.visit(Routes.BASE_URL);
   });
   it('01 Login with wrong credentials and failure login', () => {
     cy.get(loginSelectors.emailInputLoginPage).type('test@test.com');
@@ -12,8 +13,8 @@ describe('01 View', () => {
     cy.get(loginSelectors.submitLoginPage).click();
     loginFunctions
       .waitForLoginStatusChange()
-      .then((finalLoginStatus: string | null) => {
-        expect(finalLoginStatus).to.deep.equal(loginConstants.LOGIN_FAILURE);
+      .then((finalLoginStatus: string) => {
+        expect(finalLoginStatus).to.deep.equal(RequestStatus.FAILURE);
       });
   });
   it('01 Login with correct credentials and success login', () => {
@@ -22,8 +23,8 @@ describe('01 View', () => {
     cy.get(loginSelectors.submitLoginPage).click();
     loginFunctions
       .waitForLoginStatusChange()
-      .then((finalLoginStatus: string | null) => {
-        expect(finalLoginStatus).to.deep.equal(loginConstants.LOGIN_SUCCESS);
+      .then((finalLoginStatus: string) => {
+        expect(finalLoginStatus).to.deep.equal(RequestStatus.SUCCESS);
       });
   });
 });
