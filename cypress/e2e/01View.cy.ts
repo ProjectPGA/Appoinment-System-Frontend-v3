@@ -1,7 +1,7 @@
 import loginSelectors from './utilities/login/login.selectors';
 import loginFunctions from './utilities/login/login.functions';
 import { RequestStatus } from './utilities/models/RequestStatus';
-import { LoginCredentials } from './utilities/utils/consts/LoginCredentials';
+import { LoginCredentials } from './utilities/utils/LoginCredentials';
 
 describe('01 View', () => {
   beforeEach(() => {

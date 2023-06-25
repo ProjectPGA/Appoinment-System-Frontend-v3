@@ -20,10 +20,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+        env:
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL}}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD}}
       - run: npm install --global yarn
       - run: yarn install
       - run: yarn format:check
       - run: yarn lint:check
       - run: yarn stylelint:check
+      - run: yarn dev
       - run: yarn test:unit
+      - run: yarn test:e2e-cy-cli
       - run: yarn build
