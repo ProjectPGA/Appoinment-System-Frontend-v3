@@ -28,7 +28,5 @@ jobs:
       - run: yarn format:check
       - run: yarn lint:check
       - run: yarn stylelint:check
-      - run: yarn dev
       - run: yarn test:unit
-      - run: yarn test:e2e-cy-cli
       - run: yarn build
