@@ -43,7 +43,6 @@
     "@vueuse/core": "^10.2.1",
     "@vueuse/head": "^1.1.26",
     "axios": "^1.4.0",
-    "bulma": "^0.9.4",
     "dotenv": "^16.3.1",
     "pinia": "^2.1.4",
     "pinia-plugin-persistedstate": "^3.1.0",
