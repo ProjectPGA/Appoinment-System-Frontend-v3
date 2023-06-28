@@ -19,4 +19,9 @@ export default defineConfig({
       return config;
     },
   },
+  env: {
+    base_url: process.env.CYPRESS_BASE_URL,
+    user_test_email: process.env.USER_TEST_EMAIL,
+    user_test_password: process.env.USER_TEST_PASSWORD,
+  },
 });

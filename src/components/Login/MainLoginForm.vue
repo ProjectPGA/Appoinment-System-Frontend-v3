@@ -19,9 +19,15 @@
       :label="$t('common.inputs.passwordInputLabel')"
       :placeholder="$t('common.inputs.passwordInputLabel')"
     />
-    <div>
-      <div>
-        <button outlined size="is-medium" data-cy="submit" :disabled="!isValid">
+    <div class="columns is-vcentered main-login-form__button-section">
+      <div class="column is-3">
+        <button
+          class="button is-medium is-danger is-outlined is-size-6-mobile"
+          outlined
+          size="is-medium"
+          :data-cy="'submit-' + page"
+          :disabled="!isValid"
+        >
           {{ $t('common.buttons.loginButton') }}
         </button>
       </div>
