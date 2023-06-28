@@ -25,7 +25,7 @@
           class="button is-medium is-danger is-outlined is-size-6-mobile"
           outlined
           size="is-medium"
-          data-cy="submit"
+          :data-cy="'submit-' + page"
           :disabled="!isValid"
         >
           {{ $t('common.buttons.loginButton') }}
