@@ -169,7 +169,6 @@ Testing is an important part of our project, so we have prepared simple testing 
     USER_TEST_PASSWORD=<password>
     ```
 
-
     ```sh
     yarn test:e2e-cy
     yarn test:e2e-cy-cli
