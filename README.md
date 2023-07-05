@@ -156,18 +156,23 @@ Testing is an important part of our project, so we have prepared simple testing 
     ```
 ### <span id="testing-project">🔬Testing the project</span>
 1. Unit Test
+   
+    Commands:
+
     ```sh
     yarn test:unit
     yarn test:coverage
     ```
 2. Unit e2e
 
-    **¡Important!** Before run e2e test is necessary add an email user and password valid in the file `.env.local`. The values where you must add the email and password are:
+    **¡Important!** Before running e2e test it is necessary to add a valid user email and password in the `.env.local` file. The values where you must add the email and password are:
 
     ```sh
     USER_TEST_EMAIL=<email>
     USER_TEST_PASSWORD=<password>
     ```
+
+    Commands:
 
     ```sh
     yarn test:e2e-cy
