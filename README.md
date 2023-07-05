@@ -161,6 +161,15 @@ Testing is an important part of our project, so we have prepared simple testing 
     yarn test:coverage
     ```
 2. Unit e2e
+
+    **¡Important!** Before run e2e test is necessary add an email user and password valid in the file `.env.local`. The values where you must add the email and password are:
+
+    ```sh
+    USER_TEST_EMAIL=<email>
+    USER_TEST_PASSWORD=<password>
+    ```
+
+
     ```sh
     yarn test:e2e-cy
     yarn test:e2e-cy-cli
