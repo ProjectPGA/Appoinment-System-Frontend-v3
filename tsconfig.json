@@ -12,17 +12,16 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["cypress", "node", "vue", "vitest/globals"],
+    "types": ["node", "vue", "jest"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "cypress/**/*.ts"
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": [
+    "cypress.config.ts",
+    "cypress/**/*.ts",
+    "../node_modules/cypress/**/*.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
