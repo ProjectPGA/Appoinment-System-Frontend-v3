@@ -1,10 +1,7 @@
 <template>
-  <button
-    class="button is-danger button-translations"
-    @click="changeLanguage()"
-  >
+  <button @click="changeLanguage()">
     <font-awesome-icon :icon="iconType.SOLID + ' ' + iconName.GLOBE" />
-    <span class="button-translations__locale">{{ $i18n.locale }}</span>
+    <span>{{ $i18n.locale }}</span>
   </button>
 </template>
 <script lang="ts" setup>
