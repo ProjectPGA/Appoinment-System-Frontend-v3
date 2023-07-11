@@ -1,44 +1,33 @@
 <template>
-  <form class="main-login-form" @submit="onSubmit">
-    <validation-input
-      v-model="email"
-      :cy="'-' + page"
-      name="email"
-      required
-      type="text"
+  <form @submit="onSubmit">
+    <input
+      type="email"
+      v-bind="email"
+      :data-cy="'input-email-' + page"
       :label="$t('common.inputs.emailInputLabel')"
       :placeholder="$t('common.inputs.emailInputLabel')"
-      :regex="emailRegEx"
     />
-    <validation-input
-      v-model="password"
-      :cy="'-' + page"
-      name="password"
-      required
+    <div>{{ errors.email }}</div>
+
+    <input
       type="password"
+      v-bind="password"
+      :data-cy="'input-password-' + page"
       :label="$t('common.inputs.passwordInputLabel')"
       :placeholder="$t('common.inputs.passwordInputLabel')"
     />
-    <div class="columns is-vcentered main-login-form__button-section">
-      <div class="column is-3">
-        <button
-          class="button is-medium is-danger is-outlined is-size-6-mobile"
-          outlined
-          size="is-medium"
-          :data-cy="'submit-' + page"
-          :disabled="!isValid"
-        >
-          {{ $t('common.buttons.loginButton') }}
-        </button>
-      </div>
-      <div class="column">
-        <p class="main-login-form__invitation" data-cy="invitation">
-          {{ $t('views.login.loginForm.noAccount') }}
-          <span class="main-login-form__invitation-link">
-            {{ $t('views.login.loginForm.accessToInvitation') }}
-          </span>
-        </p>
-      </div>
+    <div>{{ errors.password }}</div>
+
+    <button outlined :data-cy="'submit-' + page">
+      {{ $t('common.buttons.loginButton') }}
+    </button>
+    <div>
+      <p data-cy="invitation">
+        {{ $t('views.login.loginForm.noAccount') }}
+        <span>
+          {{ $t('views.login.loginForm.accessToInvitation') }}
+        </span>
+      </p>
     </div>
   </form>
 </template>
@@ -47,23 +36,33 @@ import { Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
-import { useForm, useIsFormValid } from 'vee-validate';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
-
-import ValidationInput from '@/components/common/ValidationInput.vue';
 
 const { t } = useI18n();
 const toast = useToast();
 
-const { handleSubmit } = useForm();
-const isValid = useIsFormValid();
 const authStore = useAuthStore();
 
-const emailRegEx: FormRegEx = FormRegEx.EMAIL;
+const emailRegEx: RegExp = new RegExp(FormRegEx.EMAIL);
 
-const email: Ref<string> = ref('');
-const password: Ref<string> = ref('');
+const { errors, handleSubmit, defineInputBinds } = useForm({
+  validationSchema: yup.object({
+    email: yup
+      .string()
+      .required(t('common.notifications.error.invalidSubmit'))
+      .matches(emailRegEx, t('common.notifications.error.invalidSubmit')),
+    password: yup
+      .string()
+      .min(6, t('common.notifications.error.invalidSubmit'))
+      .required(t('common.notifications.error.invalidSubmit')),
+  }),
+});
+
+const email = defineInputBinds('email');
+const password = defineInputBinds('password');
 const page: Ref<string> = ref('login-page');
 
 // The `onInvalidSubmit()` function is called when the form is submitted and is invalid, meaning that
@@ -82,8 +81,8 @@ function onInvalidSubmit(): void {
  */
 async function startLogin(): Promise<void> {
   await authStore.login({
-    email: email.value,
-    password: password.value,
+    email: email.value.value,
+    password: password.value.value,
   });
 }
 
@@ -91,35 +90,8 @@ async function startLogin(): Promise<void> {
 // `vee-validate` library. It takes two arguments: the first argument is a callback function that is
 // executed when the form is submitted and passes validation, and the second argument is a callback
 // function that is executed when the form is submitted but fails validation.
-const onSubmit = handleSubmit(() => {
-  startLogin();
-}, onInvalidSubmit);
+const onSubmit = handleSubmit(startLogin, onInvalidSubmit);
 </script>
 <style lang="scss" scoped>
-.main-login-form {
-  &__button-section {
-    padding-top: 36px;
-
-    @include mobile {
-      padding-top: 12px;
-    }
-  }
-
-  &__invitation-link {
-    cursor: pointer;
-    color: $main-color !important;
-
-    &:hover {
-      text-decoration-line: underline;
-    }
-  }
-
-  &__invitation {
-    font-size: $size-5;
-
-    @include mobile {
-      font-size: $size-6;
-    }
-  }
-}
+// Styles
 </style>

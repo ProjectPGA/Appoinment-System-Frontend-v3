@@ -1,20 +1,22 @@
 <!-- Start table of contents -->
+
 ## Table of Contents
 
 1. [About The Project](#appointment-system)
 2. [Built With](#built-with)
 3. [Getting Started](#getting-started)
-    * [Prerequisites](#prerequisites)
-    * [Project installation](#project-installation)
-    * [Build and start the service](#build-and-start-service)
-        * [Vite localhost](#vite-localhost)
-        * [Vite build and preview](#vite-build-and-preview)
-    * [Commit recommendations](#commit-recomendations)
+   - [Prerequisites](#prerequisites)
+   - [Project installation](#project-installation)
+   - [Build and start the service](#build-and-start-service)
+     - [Vite localhost](#vite-localhost)
+     - [Vite build and preview](#vite-build-and-preview)
+   - [Commit recommendations](#commit-recomendations)
 4. [Testing and formatting](#testing)
-    * [Formatting the code](#formatting-code)
-    * [Testing the project](#testing-project)
+   - [Formatting the code](#formatting-code)
+   - [Testing the project](#testing-project)
 5. [Folder Structure](#folder-structure)
 <!-- End table of contents -->
+
 # <span id="appointment-system">📃Appointment System</span>
 
 <font size="4">**Welcome to Appointment System 👋.**</font>
@@ -25,150 +27,207 @@ This is a project designed to manage appointments in a simple and efficient way 
 
 **Below is the framework used for the project and the libraries used in the project.**
 
-> * [Vue 3][vue]
-> * [Pinia][pinia]
-> * [Typescrypt][typescript]
-> * [Bulma][bulma]
-> * [VeeValidate][vee-validate]
-> * [VueUse][vue-use]
-> * [Fontawesome]
-> * [Sass][sass]
-> * [Prettier][prettier]
-> * [Eslint][eslint]
-> * [Stylelint][stylelint]
-> * [Cypress][cypress]
-> * [Vitest][vitest]
+> - [Vue 3][vue]
+> - [Pinia][pinia]
+> - [Typescrypt][typescript]
+> - [Bulma][bulma]
+> - [VeeValidate][vee-validate]
+> - [VueUse][vue-use]
+> - [Fontawesome]
+> - [Sass][sass]
+> - [Prettier][prettier]
+> - [Eslint][eslint]
+> - [Stylelint][stylelint]
+> - [Cypress][cypress]
+> - [Vitest][vitest]
 
 ![project-technologies]
-
 
 **[Back to top](#table-of-contents)**
 
 ## <span id="getting-started">⚙️Getting Started</span>
+
 The following details everything you need to have installed in order to install the project and also the steps to follow for the installation
+
 ### <span id="prerequisites">🚩Prerequisites</span>
->* **Recomends**: Is recommended use [Vs Code Text Editor] and [Vue Language Features (Volar) extension]
->* **WSL 2** *(Only Windows)* : Is necessary have a [WSL 2] installed and configured
->    * Run as Administrator in Powershell the command `wsl --install`, if WSL is installed this will show a message indicating that is installed.
->    * Download in VS Code the extension [WSL Extension].
->    * Install a Ubuntu version for windows, for example [Ubuntu 22.04.02 LTS]
->* **Node.js**: Have installed [Node JS] and [NPM] (Normally NPM is included with Node JS)
->   * To install Node.js it is highly recommended to use NVM, with NVM it will be easier to manage the different versions of Node.
->   * To install NVM in Linux (WSL) open the link [install NVM Linux]
->   * **The Node version required to this project is** `18.15`
->* **Git**: Have installed [Git] control version
->   * To install Git here is the official documentation [download git].
->   * Another option to install git is to run the command `npm install -g git` (must be installed npm).
->* **Type Support For `.vue` Imports in TS**: Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
->   * Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
->   * Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+
+> - **Recomends**: Is recommended use [Vs Code Text Editor] and [Vue Language Features (Volar) extension]
+> - **WSL 2** _(Only Windows)_ : Is necessary have a [WSL 2] installed and configured
+>   - Run as Administrator in Powershell the command `wsl --install`, if WSL is installed this will show a message indicating that is installed.
+>   - Download in VS Code the extension [WSL Extension].
+>   - Install a Ubuntu version for windows, for example [Ubuntu 22.04.02 LTS]
+> - **Node.js**: Have installed [Node JS] and [NPM] (Normally NPM is included with Node JS)
+>   - To install Node.js it is highly recommended to use NVM, with NVM it will be easier to manage the different versions of Node.
+>   - To install NVM in Linux (WSL) open the link [install NVM Linux]
+>   - **The Node version required to this project is** `18.15`
+> - **Git**: Have installed [Git] control version
+>   - To install Git here is the official documentation [download git].
+>   - Another option to install git is to run the command `npm install -g git` (must be installed npm).
+> - **Type Support For `.vue` Imports in TS**: Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+>   - Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
+>   - Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
 ### <span id="project-installation">🖥️Project installation</span>
+
 **Before starting the installation make sure that the terminal is in the folder where you want to have your projects.**
 
 1. Clone the repository
-    ```sh
-    git clone https://github.com/ProjectPGA/Appoinment-System-Frontend-v3.git
-    ```
+   ```sh
+   git clone https://github.com/ProjectPGA/Appoinment-System-Frontend-v3.git
+   ```
 2. Open the folder generated, if you are using the terminal could be:
-    ```sh
-    cd Appointment-System-Frontend-v3
-    ```
+   ```sh
+   cd Appointment-System-Frontend-v3
+   ```
 3. When you are in the folder of the project (<path>/Appointment-System-Frontend-v3/) run the command
-    ```sh
-    yarn install
-    ```
+   ```sh
+   yarn install
+   ```
 4. Now you need to prepare husky with the correct permissions, run the command
-    ```sh
-    yarn kusky:prepare
-    ```
+   ```sh
+   yarn kusky:prepare
+   ```
+
 ### <span id="build-and-start-service">🚀Build and Start the service</span>
+
 #### <span id="vite-localhost">💻Vite localhost</span>
+
 Start Vite dev server in the current directory.
+
 1.  Builds and starts containers for the service
     ```sh
     yarn dev
     ```
-2. Check that the service is running
+2.  Check that the service is running
     ```sh
      http://localhost:5173/
     ```
+
 #### <span id="vite-build-and-preview">🧱Vite build and preview</span>
+
 1. Build for environments
-    ```sh
-    yarn build
-    yarn build:development
-    yarn build:production
-    ```
+   ```sh
+   yarn build
+   yarn build:development
+   yarn build:production
+   ```
 2. Locally preview environment build.
-    ```sh
-    yarn preview
-    ```
+   ```sh
+   yarn preview
+   ```
+
 ### <span id="commit-recomendations">🔔Recommendations before open PR or upload a commit</span>
+
 > **When a new PR is opened or a commit is uploaded to an open PR, a pipeline will be run to check for changes, this pipeline includes formatting, stylelint and lint checks.
 > If the result of the check is an error, the pipeline will return an error and the code will need to be revised. To avoid this, it is recommended to execute the commands to format the code and > correct it.
 > The commands are explained in the following section** -> **[Formatting the code](#formatting-code)**
 
 **[Back to top](#table-of-contents)**
+
 ## <span id="testing">🧪Testing and formatting</span>
+
 Testing is an important part of our project, so we have prepared simple testing and formatting commands to make our project more coherent.
+
 ### <span id="formatting-code">🖊️Formatting the code</span>
+
 **Below is the differents commands to check and format the code**
+
 1. **Run the lint**
 
-    * Check lint
-        ```sh
-        yarn lint:check
-        ```
-    * Check and fix lint
-        ```sh
-        yarn lint
-        ```
+   - Check lint
+     ```sh
+     yarn lint:check
+     ```
+   - Check and fix lint
+     ```sh
+     yarn lint
+     ```
+
 2. **Run the stylelint**
 
-    * Check stylelint
-        ```sh
-        yarn stylelint:check
-        ```
-    * Check and fix stylelint
-        ```sh
-        yarn stylelint
-        ```
+   - Check stylelint
+     ```sh
+     yarn stylelint:check
+     ```
+   - Check and fix stylelint
+     ```sh
+     yarn stylelint
+     ```
+
 3. **Run the format**
 
-    * Check format
-        ```sh
-        yarn format:check
-        ```
-    * Check and fix format
-        ```sh
-        yarn format
-        ```
+   - Check format
+     ```sh
+     yarn format:check
+     ```
+   - Check and fix format
+     ```sh
+     yarn format
+     ```
+
 4. **Run all**
 
-    * Check all (Lint, stylelint and format)
-    ```sh
-    yarn check:all
-    ```
-    * Check and fix all (Lint, stylelint and format)
-    ```sh
-    yarn fix:all
-    ```
+   - Check all (Lint, stylelint and format)
+
+   ```sh
+   yarn check:all
+   ```
+
+   - Check and fix all (Lint, stylelint and format)
+
+   ```sh
+   yarn fix:all
+   ```
+
 ### <span id="testing-project">🔬Testing the project</span>
+
 1. Unit Test
-    ```sh
-    yarn test:unit
-    yarn test:coverage
-    ```
+
+   Commands:
+
+   ```sh
+   yarn test:unit
+   yarn test:coverage
+   ```
+
 2. Unit e2e
-    ```sh
-    yarn test:e2e-cy
-    yarn test:e2e-cy-cli
-    ```
+
+   **¡Important!** Before running e2e test it is necessary to add a valid user email and password in the `.env.local` file. The values where you must add the email and password are:
+
+   ```sh
+   USER_TEST_EMAIL=<email>
+   USER_TEST_PASSWORD=<password>
+   ```
+
+   Commands:
+
+   ```sh
+   yarn test:e2e-cy
+   yarn test:e2e-cy-cli
+   ```
+
+   **¡Important! with Cypress** If you use Linux you will need install any dependencies:
+
+   ```sh
+   sudo apt update
+
+   sudo apt upgrade
+
+   sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
+   sudo apt install wget
+
+   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+   sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+   sudo apt-get install -f
+   ```
 
 **[Back to top](#table-of-contents)**
 
 ## <span id="folder-structure">📂Folder structure</span>
+
 ```
 .Appointment-System-Frontend-v3
 ├── cypress                  // Cypress test files
@@ -198,7 +257,7 @@ Testing is an important part of our project, so we have prepared simple testing 
     │   │   └── fontawesome             // Fontawesome models
     │   ├── user                    // User models
     │   └── utils                   // Common models
-    ├── routes                  // All routes 
+    ├── routes                  // All routes
     ├── stores                  // Common data
     ├── styles                  // All global directories from the styles
     │   ├── animations              // All global animations
@@ -215,17 +274,20 @@ Testing is an important part of our project, so we have prepared simple testing 
         └── models                  // Models to api connections
             └── auth                    // Api auth connection models
 ```
-![project-structure]
 
+![project-structure]
 
 **[Back to top](#table-of-contents)**
 
 <!-- Start Markdown images -->
+
 [project-technologies]: docs/img/ProjectTechnologies.png
 [project-structure]: docs/img/ProjectStructure.png
+
 <!-- End Markdown images -->
 
 <!-- Start Markdown links -->
+
 [Git]: https://git-scm.com
 [bulma]: https://bulma.io/
 [sass]: https://sass-lang.com/
@@ -249,4 +311,5 @@ Testing is an important part of our project, so we have prepared simple testing 
 [Vue Language Features (Volar) extension]: https://marketplace.visualstudio.com/items?itemName=Vue.volar
 [install NVM Linux]: https://learn.microsoft.com/es-es/windows/dev-environment/javascript/nodejs-on-wsl#install-nvm-nodejs-and-npm
 [Ubuntu 22.04.02 LTS]: https://apps.microsoft.com/store/detail/ubuntu-22042-lts/9PN20MSR04DW?hl=en-us&gl=us&activetab=pivot%3Aoverviewtab
+
 <!-- End Markdown links -->
