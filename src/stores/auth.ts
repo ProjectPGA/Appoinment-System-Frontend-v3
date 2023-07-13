@@ -8,18 +8,18 @@ import { UserData } from '@/models/user/UserData';
 import { AuthTockens } from '@/models/auth/AuthTockens';
 import { RequestStatus } from '@/models/auth/RequestStatus';
 
-import { TokenResponse } from '@/webservices/models/auth/TokenResponse';
+// import { TokenResponse } from '@/webservices/models/auth/TokenResponse';
 
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
-import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
+// import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
 
 import {
   loginService,
-  logoutService,
-  registerService,
-  renewTokenService,
-  checkUserTokenService,
-  checkInvitationalCodeService,
+  // logoutService,
+  // registerService,
+  // renewTokenService,
+  // checkUserTokenService,
+  // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -51,11 +51,11 @@ export const useAuthStore = defineStore('auth', () => {
    * represents a JSON Web Token (JWT) access token. It is used to authenticate and authorize a user's
    * access to protected resources on a web application.
    */
-  const saveJTWAccessToken = (accessToken: string | null): void => {
-    if (accessToken !== null) {
-      localStorage.setItem('accessToken', accessToken);
-    }
-  };
+  // const saveJTWAccessToken = (accessToken: string | null): void => {
+  //   if (accessToken !== null) {
+  //     localStorage.setItem('accessToken', accessToken);
+  //   }
+  // };
 
   // Common private Methods
 
@@ -135,22 +135,22 @@ export const useAuthStore = defineStore('auth', () => {
    * This function logs out the user by removing their refresh token and access token from local
    * storage and setting the user as not logged in.
    */
-  const logout = async (): Promise<void> => {
-    try {
-      const refreshToken: string | null = localStorage.getItem('refreshToken');
+  // const logout = async (): Promise<void> => {
+  //   try {
+  //     const refreshToken: string | null = localStorage.getItem('refreshToken');
 
-      if (refreshToken) {
-        await logoutService({ refreshToken });
+  //     if (refreshToken) {
+  //       await logoutService({ refreshToken });
 
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('accessToken');
+  //       localStorage.removeItem('refreshToken');
+  //       localStorage.removeItem('accessToken');
 
-        setUserNotisLogged();
-      }
-    } catch (error) {
-      setUserNotisLogged();
-    }
-  };
+  //       setUserNotisLogged();
+  //     }
+  //   } catch (error) {
+  //     setUserNotisLogged();
+  //   }
+  // };
 
   /**
    * This is an asynchronous function that registers a user and sets their login status based on the
@@ -159,66 +159,66 @@ export const useAuthStore = defineStore('auth', () => {
    * contains the data required for user registration. It may include fields such as `email`, `password`,
    * `firstName`, `lastName`, etc.
    */
-  const register = async (registerData: RegisterRequest): Promise<void> => {
-    try {
-      setLoginInProgress();
+  // const register = async (registerData: RegisterRequest): Promise<void> => {
+  //   try {
+  //     setLoginInProgress();
 
-      const response: UserData = await registerService(registerData);
+  //     const response: UserData = await registerService(registerData);
 
-      response.user ? setIsLogged(response) : setUserNotisLogged();
-    } catch (error) {
-      setUserNotisLogged();
-    }
-  };
+  //     response.user ? setIsLogged(response) : setUserNotisLogged();
+  //   } catch (error) {
+  //     setUserNotisLogged();
+  //   }
+  // };
 
   // TOKENS
   /**
    * This function renews the JWT access token using the refresh token stored in local storage.
    */
-  const renewToken = async (): Promise<void> => {
-    try {
-      const refreshToken: string | null = localStorage.getItem('refreshToken');
+  // const renewToken = async (): Promise<void> => {
+  //   try {
+  //     const refreshToken: string | null = localStorage.getItem('refreshToken');
 
-      if (refreshToken) {
-        const response: TokenResponse = await renewTokenService({
-          token: refreshToken,
-        });
+  //     if (refreshToken) {
+  //       const response: TokenResponse = await renewTokenService({
+  //         token: refreshToken,
+  //       });
 
-        response
-          ? saveJTWAccessToken(response.accessToken)
-          : setUserNotisLogged();
-      } else {
-        setUserNotisLogged();
-      }
-    } catch (exception) {
-      // TODO. Show error
-      setUserNotisLogged();
-    }
-  };
+  //       response
+  //         ? saveJTWAccessToken(response.accessToken)
+  //         : setUserNotisLogged();
+  //     } else {
+  //       setUserNotisLogged();
+  //     }
+  //   } catch (exception) {
+  //     // TODO. Show error
+  //     setUserNotisLogged();
+  //   }
+  // };
 
   /**
    * This function checks if a user's token is valid and logs them in if it is.
    */
-  const checkUserToken = async (): Promise<void> => {
-    try {
-      setLoginInProgress();
+  // const checkUserToken = async (): Promise<void> => {
+  //   try {
+  //     setLoginInProgress();
 
-      const refreshToken: string | null = localStorage.getItem('refreshToken');
+  //     const refreshToken: string | null = localStorage.getItem('refreshToken');
 
-      if (refreshToken) {
-        const response: UserData = await checkUserTokenService({
-          token: refreshToken,
-        });
+  //     if (refreshToken) {
+  //       const response: UserData = await checkUserTokenService({
+  //         token: refreshToken,
+  //       });
 
-        response ? setIsLogged(response) : setUserNotisLogged();
-      } else {
-        setUserNotisLogged();
-      }
-    } catch (exception) {
-      // TODO. Show error
-      setLoginFailed();
-    }
-  };
+  //       response ? setIsLogged(response) : setUserNotisLogged();
+  //     } else {
+  //       setUserNotisLogged();
+  //     }
+  //   } catch (exception) {
+  //     // TODO. Show error
+  //     setLoginFailed();
+  //   }
+  // };
 
   // Invitational Code
 
@@ -228,23 +228,23 @@ export const useAuthStore = defineStore('auth', () => {
    * code that is being checked for validity. It is passed as an argument to the
    * `checkInvitationalCode` function.
    */
-  const checkInvitationalCode = async (
-    invitationCode: string
-  ): Promise<void> => {
-    try {
-      await checkInvitationalCodeService({ invitationCode });
+  // const checkInvitationalCode = async (
+  //   invitationCode: string
+  // ): Promise<void> => {
+  //   try {
+  //     await checkInvitationalCodeService({ invitationCode });
 
-      isRegisterProcess.value = true;
-      isLoading.value = true;
+  //     isRegisterProcess.value = true;
+  //     isLoading.value = true;
 
-      // TODO: Add router
-      // router.push('/register');
-    } catch (exception) {
-      // TODO. Show error
-      isRegisterProcess.value = false;
-      isLoading.value = false;
-    }
-  };
+  //     // TODO: Add router
+  //     // router.push('/register');
+  //   } catch (exception) {
+  //     // TODO. Show error
+  //     isRegisterProcess.value = false;
+  //     isLoading.value = false;
+  //   }
+  // };
 
   return {
     login,
