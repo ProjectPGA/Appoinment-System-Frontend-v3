@@ -23,7 +23,6 @@ jobs:
         env:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL}}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD}}
-      - run: wget -qO- https://get.pnpm.io/install.sh | sh -
       - run: npm install -g pnpm
       - run: pnpm install
       - run: pnpm format:check
