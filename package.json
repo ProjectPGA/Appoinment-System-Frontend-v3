@@ -18,8 +18,8 @@
     "format": "prettier --write \"./**/*.?(vue|ts|js|scss|html|json)\"",
     "stylelint:check": "stylelint \"{,!(node_modules|dist)/**/}*.{css,scss,vue}\"",
     "stylelint": "stylelint --fix \"{,!(node_modules|dist)/**/}*.{css,scss,vue}\"",
-    "fix:all": "yarn format && yarn lint && yarn stylelint",
-    "check:all": "yarn format:check && yarn lint:check && yarn stylelint:check",
+    "fix:all": "pnpm format && pnpm lint && pnpm stylelint",
+    "check:all": "pnpm format:check && pnpm lint:check && pnpm stylelint:check",
     "test:unit": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e-cy": "export NODE_ENV=local && cypress open",
@@ -115,7 +115,7 @@
   },
   "engines": {
     "npm": "please-use-pnpm",
-    "yarn": "please-use-pnpm",
+    "pnpm": "please-use-pnpm",
     "pnpm": "*",
     "node": ">=18"
   }
