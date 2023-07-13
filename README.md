@@ -81,11 +81,11 @@ The following details everything you need to have installed in order to install 
    ```
 3. When you are in the folder of the project (<path>/Appointment-System-Frontend-v3/) run the command
    ```sh
-   yarn install
+   pnpm install
    ```
 4. Now you need to prepare husky with the correct permissions, run the command
    ```sh
-   yarn kusky:prepare
+   pnpm kusky:prepare
    ```
 
 ### <span id="build-and-start-service">🚀Build and Start the service</span>
@@ -96,7 +96,7 @@ Start Vite dev server in the current directory.
 
 1.  Builds and starts containers for the service
     ```sh
-    yarn dev
+    pnpm dev
     ```
 2.  Check that the service is running
     ```sh
@@ -107,13 +107,13 @@ Start Vite dev server in the current directory.
 
 1. Build for environments
    ```sh
-   yarn build
-   yarn build:development
-   yarn build:production
+   pnpm build
+   pnpm build:development
+   pnpm build:production
    ```
 2. Locally preview environment build.
    ```sh
-   yarn preview
+   pnpm preview
    ```
 
 ### <span id="commit-recomendations">🔔Recommendations before open PR or upload a commit</span>
@@ -136,33 +136,33 @@ Testing is an important part of our project, so we have prepared simple testing 
 
    - Check lint
      ```sh
-     yarn lint:check
+     pnpm lint:check
      ```
    - Check and fix lint
      ```sh
-     yarn lint
+     pnpm lint
      ```
 
 2. **Run the stylelint**
 
    - Check stylelint
      ```sh
-     yarn stylelint:check
+     pnpm stylelint:check
      ```
    - Check and fix stylelint
      ```sh
-     yarn stylelint
+     pnpm stylelint
      ```
 
 3. **Run the format**
 
    - Check format
      ```sh
-     yarn format:check
+     pnpm format:check
      ```
    - Check and fix format
      ```sh
-     yarn format
+     pnpm format
      ```
 
 4. **Run all**
@@ -170,13 +170,13 @@ Testing is an important part of our project, so we have prepared simple testing 
    - Check all (Lint, stylelint and format)
 
    ```sh
-   yarn check:all
+   pnpm check:all
    ```
 
    - Check and fix all (Lint, stylelint and format)
 
    ```sh
-   yarn fix:all
+   pnpm fix:all
    ```
 
 ### <span id="testing-project">🔬Testing the project</span>
@@ -186,8 +186,8 @@ Testing is an important part of our project, so we have prepared simple testing 
    Commands:
 
    ```sh
-   yarn test:unit
-   yarn test:coverage
+   pnpm test:unit
+   pnpm test:coverage
    ```
 
 2. Unit e2e
@@ -202,8 +202,8 @@ Testing is an important part of our project, so we have prepared simple testing 
    Commands:
 
    ```sh
-   yarn test:e2e-cy
-   yarn test:e2e-cy-cli
+   pnpm test:e2e-cy
+   pnpm test:e2e-cy-cli
    ```
 
    **¡Important! with Cypress** If you use Linux you will need install any dependencies:

@@ -1,6 +1,6 @@
 export enum Timeout {
   DEFAULT = 4000,
-  ERROR = 3000,
+  ERROR = 3500,
   SUCCESS = 3000,
 }
 
