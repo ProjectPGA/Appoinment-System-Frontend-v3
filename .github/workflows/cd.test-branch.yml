@@ -23,10 +23,11 @@ jobs:
         env:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL}}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD}}
-      - run: npm install --global yarn
-      - run: yarn install
-      - run: yarn format:check
-      - run: yarn lint:check
-      - run: yarn stylelint:check
-      - run: yarn test:unit
-      - run: yarn build
+      - run: wget -qO- https://get.pnpm.io/install.sh | sh -
+      - run: npm install -g pnpm
+      - run: pnpm install
+      - run: pnpm format:check
+      - run: pnpm lint:check
+      - run: pnpm stylelint:check
+      - run: pnpm test:unit
+      - run: pnpm build
