@@ -42,6 +42,6 @@ jobs:
           wait-on: 'http://localhost:5173'
           wait-on-timeout: 120
         env:
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL}}
-          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD}}
+          TEST_USER_EMAIL: 'test@test.com'
+          TEST_USER_PASSWORD: 'Tests.15'
           CYPRESS_BASE_URL: 'http://localhost:5173'
