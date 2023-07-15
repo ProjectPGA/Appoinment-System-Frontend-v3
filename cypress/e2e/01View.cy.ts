@@ -7,7 +7,7 @@ describe('01 View', () => {
   beforeEach(() => {
     cy.visit('/');
   });
-  it('Show BASE_URL value', () => {
+  it(loginFunctions.BASE_URL, () => {
     cy.log(loginFunctions.BASE_URL);
   });
   // it('01 Login with wrong credentials and failure login', () => {
