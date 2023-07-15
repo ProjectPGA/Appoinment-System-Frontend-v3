@@ -16,8 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        name: Use Node.js ${{ matrix.node-version }}
-      - uses: actions/setup-node@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
         env:
@@ -32,8 +32,8 @@ jobs:
       - run: pnpm stylelint:check
       - run: pnpm test:unit
       - run: pnpm build
-      - uses: cypress-io/github-action@v5
-        name: Cypress run
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
         with:
           env: TEST_USER_EMAIL=test@test.com,TEST_USER_PASSWORD=Tests.15,BASE_URL=http://localhost:5173/
           install: false
@@ -41,13 +41,9 @@ jobs:
           start: |
             pnpm dev 
             pnpm test:e2e-cy-cli-action
-          wait-on: 'http://localhost:5173'
+          wait-on: 'http://[::1]:3000'
           wait-on-timeout: 120
-      - uses: actions/upload-artifact@v3
-        name: Cypress video
-        with:
-          name: cypress-videos
-          path: cypress/videos
+          
         # env:
         #   TEST_USER_EMAIL: test@test.com
         #   TEST_USER_PASSWORD: Tests.15
