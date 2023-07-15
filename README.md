@@ -195,7 +195,7 @@ Testing is an important part of our project, so we have prepared simple testing 
    **¡Important!** Before running e2e test it is necessary to add a valid user email and password in the `.env.local` file. The values where you must add the email and password are:
 
    ```sh
-   USER_TEST_EMAIL=<email>
+   CYPRESS_USER_TEST_EMAIL=<email>
    CYPRESS_USER_TEST_PASSWORD=<password>
    ```
 
