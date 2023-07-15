@@ -7,8 +7,12 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
@@ -17,7 +21,6 @@ jobs:
           install: false
           project: ./
           start: |
-            npm install -g pnpm
             pnpm dev 
             pnpm test:e2e-cy-cli-action
           wait-on: 'http://[::1]:5173'
@@ -41,7 +44,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install -g pnpm
+          cache: 'pnpm'
       - run: pnpm install
       - run: pnpm format:check
       - run: pnpm lint:check
