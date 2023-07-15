@@ -23,6 +23,7 @@ function waitForLoginStatusChange(): Cypress.Chainable<string> {
 
 const loginFunctions = {
   waitForLoginStatusChange,
+  BASE_URL,
 };
 
 export default loginFunctions;

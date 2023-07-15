@@ -196,7 +196,7 @@ Testing is an important part of our project, so we have prepared simple testing 
 
    ```sh
    USER_TEST_EMAIL=<email>
-   USER_TEST_PASSWORD=<password>
+   CYPRESS_USER_TEST_PASSWORD=<password>
    ```
 
    Commands:

@@ -1,29 +1,67 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: Check lints and Cypress Tests with Dependency and Artifact Caching
 
-name: Test branch
-
-on: [push, pull_request]
+on: push
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  cypress-run:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i -g pnpm
+      - run: pnpm install
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        env:
+          CYPRESS_USER_TEST_EMAIL: ${{ secrets.USER_TEST_EMAIL }}
+          CYPRESS_USER_TEST_PASSWORD: ${{ secrets.USER_TEST_PASSWORD }}
+          CYPRESS_BASE_URL: http://localhost:5173
+        with:
+          install: false
+          project: ./
+          start: |
+            pnpm dev
+          wait-on: 'http://[::1]:5173'
+          wait-on-timeout: 120
+      - name: Show e2e video
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: videos
+          path: cypress/videos
+  checks-lints:
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-        env:
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL}}
-          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD}}
-      - run: npm install -g pnpm
+      - run: npm i -g pnpm
       - run: pnpm install
       - run: pnpm format:check
       - run: pnpm lint:check
