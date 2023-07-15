@@ -25,12 +25,12 @@ jobs:
             pnpm test:e2e-cy-cli-action
           wait-on: 'http://[::1]:5173'
           wait-on-timeout: 120
-      - name: Save build folder
+      - name: Show e2e video
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: videos
-          if-no-files-found: error
-          path: cypress/videos/
+          path: cypress/videos
   lints:
     runs-on: ubuntu-latest
 
