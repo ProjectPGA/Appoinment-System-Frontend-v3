@@ -30,3 +30,16 @@ jobs:
       - run: pnpm stylelint:check
       - run: pnpm test:unit
       - run: pnpm build
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          project: ./
+          start: |
+            pnpm dev 
+            pnpm test:e2e-cy-cli
+          wait-on: 'http://localhost:5173'
+          wait-on-timeout: 120
+        env:
+          EMAIL: $TEST_USER_EMAIL
+          PASSWORD: $TEST_USER_PASSWORD
