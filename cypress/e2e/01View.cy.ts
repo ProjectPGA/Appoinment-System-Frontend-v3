@@ -8,6 +8,7 @@ describe('01 View', () => {
     cy.visit('/');
   });
   it('01 Login with wrong credentials and failure login', () => {
+    cy.log(loginFunctions.BASE_URL);
     cy.get(loginSelectors.emailInputLoginPage).type(
       loginCredentials.USER_TEST_EMAIL
     );
