@@ -17,7 +17,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          env: CYPRESS_USER_TEST_EMAIL=test@test.com,CYPRESS_USER_TEST_PASSWORD=Tests.15,CYPRESS_BASE_URL='http://localhost:5173/'
+          env: CYPRESS_USER_TEST_EMAIL=test@test.com,CYPRESS_USER_TEST_PASSWORD=Tests.15,CYPRESS_BASE_URL=http://localhost:5173/
           install: false
           project: ./
           start: |
