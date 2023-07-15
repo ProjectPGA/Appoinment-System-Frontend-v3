@@ -8,6 +8,17 @@ module.exports = {
       'ts-jest',
       {
         tsconfig: 'tsconfig.json',
+        diagnostics: {
+          ignoreCodes: [1343],
+        },
+        astTransformers: {
+          before: [
+            {
+              path: 'ts-jest-mock-import-meta', // or, alternatively, 'ts-jest-mock-import-meta' directly, without node_modules.
+              options: { metaObjectReplacement: { env: { VITE_API_URL: '' } } },
+            },
+          ],
+        },
       },
     ],
   },
