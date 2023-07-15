@@ -24,7 +24,7 @@ jobs:
             pnpm dev
           wait-on: 'http://[::1]:5173'
           wait-on-timeout: 120
-          config: baseUrl=http://localhost:5173/
+          config: baseUrl=http://localhost:5173/,env:{TEST_USER_EMAIL:test@test.com,TEST_USER_PASSWORD:Tests.15}
       - name: Show e2e video
         uses: actions/upload-artifact@v3
         if: always()
