@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -23,6 +23,7 @@ jobs:
         env:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL}}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD}}
+          CYPRESS_BASE_URL: 'http://localhost:5173'
       - run: npm install -g pnpm
       - run: pnpm install
       - run: pnpm format:check
@@ -37,9 +38,10 @@ jobs:
           project: ./
           start: |
             pnpm dev 
-            cypress run --browser chrome
+            pnpm test:e2e-cy-cli
           wait-on: 'http://localhost:5173'
           wait-on-timeout: 120
         env:
-          EMAIL: $TEST_USER_EMAIL
-          PASSWORD: $TEST_USER_PASSWORD
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL}}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD}}
+          CYPRESS_BASE_URL: 'http://localhost:5173'
