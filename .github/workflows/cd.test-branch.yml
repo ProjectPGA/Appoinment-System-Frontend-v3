@@ -1,4 +1,4 @@
-name: Cypress Tests with Dependency and Artifact Caching
+name: Check lints and Cypress Tests with Dependency and Artifact Caching
 
 on: push
 
@@ -40,7 +40,7 @@ jobs:
         with:
           name: videos
           path: cypress/videos
-  lints:
+  checks-lints:
     runs-on: ubuntu-22.04
 
     strategy:
