@@ -37,7 +37,7 @@ jobs:
           project: ./
           start: |
             pnpm dev 
-            pnpm test:e2e-cy-cli
+            cypress run --browser chrome
           wait-on: 'http://localhost:5173'
           wait-on-timeout: 120
         env:
