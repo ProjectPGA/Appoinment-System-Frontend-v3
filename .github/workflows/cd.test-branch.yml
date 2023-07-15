@@ -21,10 +21,10 @@ jobs:
           install: false
           project: ./
           start: |
-            pnpm dev 
-            pnpm test:e2e-cy-cli-action
+            pnpm dev
           wait-on: 'http://[::1]:5173'
           wait-on-timeout: 120
+          config: baseUrl=http://localhost:5173/
       - name: Show e2e video
         uses: actions/upload-artifact@v3
         if: always()
