@@ -12,7 +12,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
@@ -21,6 +20,7 @@ jobs:
           install: false
           project: ./
           start: |
+            npm i -g pnpm
             pnpm dev 
             pnpm test:e2e-cy-cli-action
           wait-on: 'http://[::1]:5173'
@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+      - run: npm i -g pnpm
       - run: pnpm install
       - run: pnpm format:check
       - run: pnpm lint:check
