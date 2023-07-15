@@ -38,7 +38,7 @@ jobs:
           project: ./
           start: |
             pnpm dev 
-            pnpm test:e2e-cy-cli
+            pnpm test:e2e-cy-cli-action
           wait-on: 'http://localhost:5173'
           wait-on-timeout: 120
         env:
