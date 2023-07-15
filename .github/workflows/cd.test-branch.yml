@@ -23,7 +23,7 @@ jobs:
         env:
           TEST_USER_EMAIL: test@test.com
           TEST_USER_PASSWORD: Tests.15
-          CYPRESS_BASE_URL: http://localhost:5173
+          BASE_URL: http://localhost:5173
           VITE_SERVE_PORT: 5173
       - run: npm install -g pnpm
       - run: pnpm install
@@ -35,7 +35,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          env: TEST_USER_EMAIL=test@test.com,TEST_USER_PASSWORD=Tests.15,CYPRESS_BASE_URL=http://localhost:5173/
+          env: TEST_USER_EMAIL=test@test.com,TEST_USER_PASSWORD=Tests.15,BASE_URL=http://localhost:5173/
           install: false
           project: ./
           start: |
