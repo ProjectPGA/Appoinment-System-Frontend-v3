@@ -7,8 +7,10 @@ describe('01 View', () => {
   beforeEach(() => {
     cy.visit('/');
   });
-  it('01 Login with wrong credentials and failure login', () => {
+  it('Show BASE_URL value', () => {
     cy.log(loginFunctions.BASE_URL);
+  });
+  it('01 Login with wrong credentials and failure login', () => {
     cy.get(loginSelectors.emailInputLoginPage).type(
       loginCredentials.USER_TEST_EMAIL
     );
