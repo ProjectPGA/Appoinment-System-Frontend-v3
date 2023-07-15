@@ -1,37 +1,41 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: Cypress Tests with Dependency and Artifact Caching
 
-name: Test branch
-
-on: [push, pull_request]
+on: push
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+  install:
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cypress install
+        uses: cypress-io/github-action@v5
         with:
-          node-version: ${{ matrix.node-version }}
-        env:
-          TEST_USER_EMAIL: test@test.com
-          TEST_USER_PASSWORD: Tests.15
-          BASE_URL: http://localhost:5173
-          VITE_SERVE_PORT: 5173
-      - run: npm install -g pnpm
-      - run: pnpm install
-      - run: pnpm format:check
-      - run: pnpm lint:check
-      - run: pnpm stylelint:check
-      - run: pnpm test:unit
-      - run: pnpm build
+          # Disable running of tests within install job
+          runTests: false
+          build: npm run build
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
+
+  cypress-run:
+    runs-on: ubuntu-22.04
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download the build folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
@@ -43,8 +47,23 @@ jobs:
             pnpm test:e2e-cy-cli-action
           wait-on: 'http://[::1]:5173'
           wait-on-timeout: 120
-          
-        # env:
-        #   TEST_USER_EMAIL: test@test.com
-        #   TEST_USER_PASSWORD: Tests.15
-        #   CYPRESS_BASE_URL: http://localhost:5173
+  lints:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g pnpm
+      - run: pnpm install
+      - run: pnpm format:check
+      - run: pnpm lint:check
+      - run: pnpm stylelint:check
+      - run: pnpm test:unit
+      - run: pnpm build
