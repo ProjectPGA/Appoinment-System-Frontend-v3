@@ -1,26 +1,37 @@
 name: Check lints and Cypress Tests with Dependency and Artifact Caching
-
-on: push
+on:
+  push:
 
 jobs:
-  cypress-run:
+  setup:
     runs-on: ubuntu-22.04
-
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.key }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm i -g pnpm
-      - run: pnpm install
+          node-version: '${{ matrix.node-version }}'
+      - name: Install pnpm
+        run: npm i -g pnpm
+      - name: Get cache key
+        id: cache-key
+        run: echo "::set-output name=key::${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}"
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: '~/.pnpm-store'
+          key: ${{ steps.cache-key.outputs.key }}
+          restore-keys: '${{ runner.os }}-node-\n'
+      - name: Install dependencies
+        run: pnpm install
+
+  cypress-run:
+    needs: setup
+    runs-on: ubuntu-22.04
+    steps:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         env:
@@ -28,43 +39,32 @@ jobs:
           CYPRESS_USER_TEST_PASSWORD: Tests.15
           CYPRESS_BASE_URL: http://localhost:5173
         with:
-          install: false
-          project: ./
-          start: |
-            pnpm dev
+          install: False
+          project: './'
+          start: 'pnpm dev\n'
           wait-on: 'http://[::1]:5173'
           wait-on-timeout: 120
       - name: Show e2e video
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: videos
-          path: cypress/videos
-  checks-lints:
-    runs-on: ubuntu-22.04
+          name: 'videos'
+          path: 'cypress/videos'
 
+  checks-lints:
+    needs: setup
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [18.x]
-
+        node-version: ['18.x']
     steps:
-      - uses: actions/checkout@v3
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm i -g pnpm
-      - run: pnpm install
-      - run: pnpm format:check
-      - run: pnpm lint:check
-      - run: pnpm stylelint:check
-      - run: pnpm test:unit
-      - run: pnpm build
+      - name: Format check
+        run: pnpm format:check
+      - name: Lint check
+        run: pnpm lint:check
+      - name: Stylelint check
+        run: pnpm stylelint:check
+      - name: Unit tests
+        run: pnpm test:unit
+      - name: Build
+        run: pnpm build
