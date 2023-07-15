@@ -1,9 +1,10 @@
 {
   "extends": "../tsconfig.json",
-  "types": ["cypress"],
-  "include": [
-    "../cypress/**/*.ts",
-    "../cypress.config.ts",
-    "../node_modules/cypress/**/*.ts"
-  ]
+  "compilerOptions": {
+    "noEmit": true,
+    // be explicit about types included
+    // to avoid clashing with Jest types
+    "types": ["cypress"]
+  },
+  "include": ["../node_modules/cypress", "./**/*.ts"]
 }
