@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
   env: {
-    base_url: process.env.BASE_URL,
+    base_url: 'http://localhost:5173',
     user_test_email: process.env.USER_TEST_EMAIL,
     user_test_password: process.env.USER_TEST_PASSWORD,
   },
