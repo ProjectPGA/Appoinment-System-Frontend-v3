@@ -34,6 +34,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
+          env: TEST_USER_EMAIL=test@test.com,TEST_USER_PASSWORD=Tests.15,CYPRESS_BASE_URL=http://localhost:5173
           install: false
           project: ./
           start: |
@@ -41,7 +42,7 @@ jobs:
             pnpm test:e2e-cy-cli-action
           wait-on: 'http://localhost:5173'
           wait-on-timeout: 120
-        env:
-          TEST_USER_EMAIL: test@test.com
-          TEST_USER_PASSWORD: Tests.15
-          CYPRESS_BASE_URL: http://localhost:5173
+        # env:
+        #   TEST_USER_EMAIL: test@test.com
+        #   TEST_USER_PASSWORD: Tests.15
+        #   CYPRESS_BASE_URL: http://localhost:5173
