@@ -8,9 +8,8 @@ describe('01 View', () => {
     cy.visit('/');
   });
   it('01 Login with wrong credentials and failure login', () => {
-    cy.log('baseurl', loginFunctions.BASE_URL);
     cy.get(loginSelectors.emailInputLoginPage).type(
-      loginCredentials.USER_TEST_EMAIL
+      loginCredentials.CYPRESS_USER_TEST_EMAIL
     );
     cy.get(loginSelectors.passwordInputLoginPage).type(
       loginCredentials.USER_TEST_WRONG_PASSWORD
@@ -24,10 +23,10 @@ describe('01 View', () => {
   });
   it('01 Login with correct credentials and success login', () => {
     cy.get(loginSelectors.emailInputLoginPage).type(
-      loginCredentials.USER_TEST_EMAIL
+      loginCredentials.CYPRESS_USER_TEST_EMAIL
     );
     cy.get(loginSelectors.passwordInputLoginPage).type(
-      loginCredentials.USER_TEST_PASSWORD
+      loginCredentials.CYPRESS_USER_TEST_PASSWORD
     );
     cy.get(loginSelectors.submitLoginPage).click();
     loginFunctions

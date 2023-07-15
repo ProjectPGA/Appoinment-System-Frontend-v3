@@ -8,7 +8,7 @@ dotenv.config({
 
 export default defineConfig({
   e2e: {
-    baseUrl: process.env.BASE_URL,
+    baseUrl: process.env.CYPRESS_BASE_URL,
     setupNodeEvents(on, config) {
       // Makes process.env visible on the Cypress.env context
       config.env = {
@@ -20,8 +20,8 @@ export default defineConfig({
     },
   },
   env: {
-    base_url: process.env.BASE_URL,
-    user_test_email: process.env.USER_TEST_EMAIL,
-    user_test_password: process.env.USER_TEST_PASSWORD,
+    base_url: process.env.CYPRESS_BASE_URL,
+    user_test_email: process.env.CYPRESS_USER_TEST_EMAIL,
+    user_test_password: process.env.CYPRESS_USER_TEST_PASSWORD,
   },
 });
