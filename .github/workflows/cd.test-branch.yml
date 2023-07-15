@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cypress install
         uses: cypress-io/github-action@v5
@@ -28,7 +28,7 @@ jobs:
     needs: install
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download the build folder
         uses: actions/download-artifact@v3
@@ -43,6 +43,7 @@ jobs:
           install: false
           project: ./
           start: |
+            npm install -g pnpm
             pnpm dev 
             pnpm test:e2e-cy-cli-action
           wait-on: 'http://[::1]:5173'
