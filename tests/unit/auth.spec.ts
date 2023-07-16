@@ -42,9 +42,11 @@ describe('Auth store', () => {
     const authStore = useAuthStore();
 
     loginServiceMock.mockRejectedValue(new Error('Login Failed'));
+    const consoleErrorSpy = jest.spyOn(console, 'error');
 
     await authStore.login(mockUserLoginValue);
 
+    expect(consoleErrorSpy).toHaveBeenCalledWith(new Error('Login Failed'));
     expect(authStore.loginRequestStatus).toBe(RequestStatus.FAILURE);
     expect(authStore.isLogged).toBe(false);
     expect(authStore.isLoading).toBe(false);
