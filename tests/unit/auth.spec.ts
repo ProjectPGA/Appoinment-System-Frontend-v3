@@ -2,10 +2,9 @@ import { useAuthStore } from '../../src/stores/auth';
 import * as AuthWebservice from '../../src/webservices/AuthWebservice';
 import { setActivePinia, createPinia } from 'pinia';
 import { RequestStatus } from '../../src/models/auth/RequestStatus';
-import {
-  mockLoginSuccessResponse,
-  mockUserLoginValue,
-} from '../utils/mocks/authStoreMocks';
+
+import { createRandomUserData } from '../../src/utils/mocks/user/mockUserData';
+import { createRandomUser } from '../../src/utils/mocks/user/mockUser';
 
 jest.mock('../../src/webservices/AuthWebservice');
 jest.mock('vue-i18n', () => ({
@@ -15,6 +14,9 @@ jest.mock('vue-i18n', () => ({
 }));
 
 const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
+
+const mockLoginSuccessResponse = createRandomUserData();
+const mockUserLoginValue = createRandomUser();
 
 describe('Auth store', () => {
   beforeEach(() => {
@@ -39,7 +41,7 @@ describe('Auth store', () => {
   it('Should change store values to failure login', async () => {
     const authStore = useAuthStore();
 
-    loginServiceMock.mockRejectedValue('');
+    loginServiceMock.mockRejectedValue(new Error('Login Failed'));
 
     await authStore.login(mockUserLoginValue);
 
