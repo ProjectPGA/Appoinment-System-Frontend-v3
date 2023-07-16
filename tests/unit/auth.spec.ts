@@ -14,6 +14,8 @@ jest.mock('vue-i18n', () => ({
   }),
 }));
 
+const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
+
 describe('Auth store', () => {
   beforeEach(() => {
     // creates a fresh pinia and make it active so it's automatically picked
@@ -24,7 +26,6 @@ describe('Auth store', () => {
   it('Should change store values to success login', async () => {
     const authStore = useAuthStore();
 
-    const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
     loginServiceMock.mockResolvedValue(mockLoginSuccessResponse);
 
     await authStore.login(mockUserLoginValue);
@@ -37,8 +38,6 @@ describe('Auth store', () => {
 
   it('Should change store values to failure login', async () => {
     const authStore = useAuthStore();
-
-    const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
 
     loginServiceMock.mockRejectedValue('');
 
