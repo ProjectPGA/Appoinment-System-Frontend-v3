@@ -1,8 +1,11 @@
 import { useAuthStore } from '../../src/stores/auth';
 import * as AuthWebservice from '../../src/webservices/AuthWebservice';
 import { setActivePinia, createPinia } from 'pinia';
-
-import { UserData, UserRoles } from '../../src/models/user/UserData';
+import { RequestStatus } from '../../src/models/auth/RequestStatus';
+import {
+  mockLoginSuccessResponse,
+  mockUserLoginValue,
+} from '../utils/mocks/authStoreMocks';
 
 jest.mock('../../src/webservices/AuthWebservice');
 jest.mock('vue-i18n', () => ({
@@ -11,37 +14,39 @@ jest.mock('vue-i18n', () => ({
   }),
 }));
 
-describe('login', () => {
+describe('Auth store', () => {
   beforeEach(() => {
     // creates a fresh pinia and make it active so it's automatically picked
     // up by any useStore() call without having to pass it to it:
     // `useStore(pinia)`
     setActivePinia(createPinia());
   });
-  it('should handle successful login', async () => {
+  it('Should change store values to success login', async () => {
     const authStore = useAuthStore();
 
-    const mockResponse: UserData = {
-      accessToken: 'mock',
-      refreshToken: 'mock',
-      user: {
-        email: 'test@test.com',
-        password: '',
-        name: 'test',
-        surname: 'test',
-        roles: [UserRoles.ADMIN],
-      },
-    };
+    const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
+    loginServiceMock.mockResolvedValue(mockLoginSuccessResponse);
+
+    await authStore.login(mockUserLoginValue);
+
+    expect(authStore.loginRequestStatus).toBe(RequestStatus.SUCCESS);
+    expect(authStore.isLogged).toBe(true);
+    expect(authStore.isLoading).toBe(false);
+    expect(authStore.userData).toEqual(mockLoginSuccessResponse);
+  });
+
+  it('Should change store values to failure login', async () => {
+    const authStore = useAuthStore();
 
     const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
-    loginServiceMock.mockResolvedValue(mockResponse);
 
-    await authStore.login({
-      email: 'test@example.com',
-      password: 'password123',
-    });
+    loginServiceMock.mockRejectedValue('');
 
-    expect(authStore.isLogged).toBe(true);
-    expect(authStore.userData).toEqual(mockResponse);
+    await authStore.login(mockUserLoginValue);
+
+    expect(authStore.loginRequestStatus).toBe(RequestStatus.FAILURE);
+    expect(authStore.isLogged).toBe(false);
+    expect(authStore.isLoading).toBe(false);
+    expect(authStore.userData).toBeNull();
   });
 });
