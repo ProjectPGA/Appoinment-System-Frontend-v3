@@ -1,12 +1,12 @@
-import { useAuthStore } from '../../src/stores/auth';
-import * as AuthWebservice from '../../src/webservices/AuthWebservice';
+import { useAuthStore } from './auth';
+import * as AuthWebservice from '@/webservices/AuthWebservice';
 import { setActivePinia, createPinia } from 'pinia';
-import { RequestStatus } from '../../src/models/auth/RequestStatus';
+import { RequestStatus } from '@/models/auth/RequestStatus';
 
-import { createRandomUserData } from '../../src/utils/mocks/user/mockUserData';
-import { createRandomUser } from '../../src/utils/mocks/user/mockUser';
+import { createRandomUserData } from '@/utils/mocks/user/mockUserData';
+import { createRandomUser } from '@/utils/mocks/user/mockUser';
 
-jest.mock('../../src/webservices/AuthWebservice');
+jest.mock('@/webservices/AuthWebservice');
 jest.mock('vue-i18n', () => ({
   useI18n: () => ({
     t: (key: string) => key,

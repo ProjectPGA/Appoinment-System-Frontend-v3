@@ -1,6 +1,6 @@
 // stores/counter.spec.ts
 import { setActivePinia, createPinia } from 'pinia';
-import { useTestCounterStore } from '../../src/stores/testCounter';
+import { useTestCounterStore } from './testCounter';
 
 describe('Test counter store', () => {
   beforeEach(() => {

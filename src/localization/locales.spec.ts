@@ -1,5 +1,5 @@
-import i18n from '../../src/localization/index';
-import { Locales } from '../../src/localization/locales';
+import i18n from './index';
+import { Locales } from './locales';
 
 /**
  * The `changeLanguage()` function is toggling between two language locales (Spanish and English) using
