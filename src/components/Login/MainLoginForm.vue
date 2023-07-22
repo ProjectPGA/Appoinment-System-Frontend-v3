@@ -33,15 +33,15 @@
 </template>
 <script lang="ts" setup>
 import { Ref, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
+import { i18nGlobal } from '@/localization/i18n';
 
-const { t } = useI18n();
+const { t } = i18nGlobal;
 const toast = useToast();
 
 const authStore = useAuthStore();
