@@ -1,5 +1,5 @@
 import { i18nGlobal } from '@/localization/i18n';
-import { Locales } from '@/localization/locales';
+import { Locales } from '@/localization/locales/locales';
 
 /**
  * The `changeLanguage()` function is toggling between two language locales (Spanish and English) using
