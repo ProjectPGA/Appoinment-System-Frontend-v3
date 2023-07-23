@@ -33,7 +33,7 @@ describe('Basic translations test', () => {
       en.common.languages.spanish
     );
     expect(i18n.t('common.languages.english')).toBe(
-      en.common.languages.spanish
+      en.common.languages.english
     );
   });
 });
