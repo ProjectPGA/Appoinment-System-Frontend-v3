@@ -1,17 +1,19 @@
 import { faker } from '@faker-js/faker';
 
 import { UserData } from '@/models/user/UserData';
-import { createRandomUser } from './mockUser';
+import { createRandomUser, randomUserParams } from './mockUser';
 
 /**
- * The function `createRandomUserData` generates random user data including access token, refresh
- * token, and user information.
- * @returns The function `createRandomUserData` returns an object of type `UserData`.
+ * The function creates random user data including access and refresh tokens.
+ * @param {randomUserParams} [params] - The `params` parameter is an optional object that can be passed
+ * to the `createRandomUserData` function. It is used to customize the random user data that is
+ * generated.
+ * @returns an object of type UserData.
  */
-export function createRandomUserData(): UserData {
+export function createRandomUserData(params?: randomUserParams): UserData {
   return {
     accessToken: faker.string.uuid(),
     refreshToken: faker.string.uuid(),
-    user: createRandomUser(),
+    user: createRandomUser(params),
   };
 }
