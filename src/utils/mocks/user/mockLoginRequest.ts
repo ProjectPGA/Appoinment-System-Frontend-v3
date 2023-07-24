@@ -15,7 +15,7 @@ export function createRandomLoginRequest(
   params?: randomLoginRequestParams
 ): LoginRequest {
   return {
-    email: params?.email ? params?.email : faker.internet.email(),
-    password: params?.password ? params?.password : faker.internet.password(),
+    email: params?.email ? params.email : faker.internet.email(),
+    password: params?.password ? params.password : faker.internet.password(),
   };
 }

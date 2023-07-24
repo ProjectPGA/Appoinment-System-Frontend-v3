@@ -7,7 +7,7 @@ export type randomUserParams = {
   name?: string;
   surname?: string;
   roles?: UserRoles[];
-  password: string;
+  password?: string;
 };
 
 /**
@@ -19,10 +19,10 @@ export type randomUserParams = {
  */
 export function createRandomUser(params?: randomUserParams): User {
   return {
-    email: params?.email ? params?.email : faker.internet.email(),
+    email: params?.email ? params.email : faker.internet.email(),
     name: params?.name ? params.name : faker.person.firstName(),
     surname: params?.surname ? params.surname : faker.person.lastName(),
-    roles: params?.roles ? params?.roles : [faker.helpers.enumValue(UserRoles)],
+    roles: params?.roles ? params.roles : [faker.helpers.enumValue(UserRoles)],
     password: params?.password ? params.password : faker.internet.password(),
   };
 }
