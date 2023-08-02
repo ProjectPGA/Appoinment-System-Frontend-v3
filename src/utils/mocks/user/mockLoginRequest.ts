@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
-export type randomLoginRequestParams = {
+export type RandomLoginRequestParams = {
   email?: string;
   password?: string;
 };
@@ -12,10 +12,14 @@ export type randomLoginRequestParams = {
  * `password` properties.
  */
 export function createRandomLoginRequest(
-  params?: randomLoginRequestParams
+  params?: RandomLoginRequestParams
 ): LoginRequest {
+  const {
+    email = faker.internet.email(),
+    password = faker.internet.password(),
+  } = params || {};
   return {
-    email: params?.email ? params.email : faker.internet.email(),
-    password: params?.password ? params.password : faker.internet.password(),
+    email,
+    password,
   };
 }
