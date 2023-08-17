@@ -234,8 +234,12 @@ Testing is an important part of our project, so we have prepared simple testing 
 │   ├── component               // Test files for components
 │   ├── e2e                  // E2e test files
 │   │   └── utilities              // E2e utilities (i.e: Constants with selectors)
+│   │       ├── login              // E2e login functions and constants
+│   │       ├── models             // E2e models
+│   │       └── utils              // E2e common utils
 │   ├── fixtures             // Cypress fixtures
-│   └── support              // Cypress examples
+│   ├── support              // Cypress examples
+│   └── videos               // Cypress test videos
 ├── dist                     // Compiled files (only when the project has been compiled)
 ├── docs                     // Documentation files
 │   └── img                     // README.md images
@@ -245,10 +249,10 @@ Testing is an important part of our project, so we have prepared simple testing 
     │   ├── fonts                   // Font files (woff2, ttf...)
     │   └── img                     // Project images
     ├── components              // Reusable Components
-    ├── localization            // All translations
-    │   └── locales
-    │       ├── en             // All translations from English
-    │       └── es             // All translations from Spanish
+    ├── localization            // Contain translations and translations config
+    │   └── locales                 // Locales functionality and translations
+    │       ├── en                     // All translations from English
+    │       └── es                     // All translations from Spanish
     ├── models                  // Common models to code structure
     │   ├── appointment             // Appointment models
     │   ├── auth                    // Auth models
@@ -266,9 +270,10 @@ Testing is an important part of our project, so we have prepared simple testing 
     │   ├── modules                 // All global modules
     │   ├── transitions             // All global transitions
     │   └── variables               // All global variables
-    ├── tests                   // Unit tests
-    │   ├── components              // Components unit tests files
-    │   └── datastore               // Data unit tests files
+    ├── utils                       // General utils to developments
+    │   ├── functionUtils           // Function utils to developments
+    │   └── mocks                   // Diferents mocks
+    │       └── user                // Diferents user models mocks (User, LoginRequest..)
     ├── views                   // Components with the views
     └── webservices             // Api connections files
         └── models                  // Models to api connections
@@ -281,8 +286,8 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 <!-- Start Markdown images -->
 
-[project-technologies]: docs/img/ProjectTechnologies.png
-[project-structure]: docs/img/ProjectStructure.png
+[project-technologies]: docs/img/ProjectTechnologies.jpg
+[project-structure]: docs/img/ProjectStructure.jpg
 
 <!-- End Markdown images -->
 

@@ -18,14 +18,18 @@ const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
 const mockLoginSuccessResponse = createRandomUserData();
 const mockUserLoginValue = createRandomUser();
 
-describe('Auth store', () => {
+describe('01 Auth store', () => {
   beforeEach(() => {
     // creates a fresh pinia and make it active so it's automatically picked
     // up by any useStore() call without having to pass it to it:
     // `useStore(pinia)`
     setActivePinia(createPinia());
   });
-  it('Should change store values to success login', async () => {
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+  it('01 - 1 Should change store values to success login', async () => {
     const authStore = useAuthStore();
 
     loginServiceMock.mockResolvedValue(mockLoginSuccessResponse);
@@ -38,7 +42,7 @@ describe('Auth store', () => {
     expect(authStore.userData).toEqual(mockLoginSuccessResponse);
   });
 
-  it('Should change store values to failure login', async () => {
+  it('01 - 2 Should change store values to failure login', async () => {
     const authStore = useAuthStore();
 
     loginServiceMock.mockRejectedValue(new Error('Login Failed'));

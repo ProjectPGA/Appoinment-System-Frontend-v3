@@ -5,13 +5,20 @@ import { changeLanguage } from '@/utils/functionUtils/localizationFunctions';
 
 const i18n = i18nGlobal;
 
-describe('Basic translations test', () => {
-  it('Default ES locale is working', () => {
+const originalLocale = i18n.locale; // Save initial languaje
+
+// Restore initial languaje
+afterEach(() => {
+  i18n.locale = originalLocale;
+});
+
+describe('01 Basic translations test', () => {
+  it('01 - 1 Default ES locale is working', () => {
     expect(i18n.locale).toBe(Locales.ES);
     expect(i18n.t('common.title.home')).toBe(messages.es.common.title.home);
   });
 
-  it('Basic change of language is working', () => {
+  it('01 - 2 Basic change of language is working', () => {
     expect(i18n.locale).toBe(Locales.ES);
     expect(i18n.t('common.inputs.emailInputLabel')).toBe(
       messages.es.common.inputs.emailInputLabel

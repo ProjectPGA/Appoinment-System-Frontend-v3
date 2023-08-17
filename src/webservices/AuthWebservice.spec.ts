@@ -11,12 +11,12 @@ import { LoginRequest } from './models/auth/LoginRequest';
 
 const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
 
-describe('AuthWebservice: Check loginService', () => {
+describe('01 AuthWebservice: Check loginService', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  it('Should succeed on login request', async () => {
+  it('01 - 1 Should succeed on login request', async () => {
     const randomUser: User = createRandomUser();
     const loginRequestParams: RandomLoginRequestParams = {
       email: randomUser.email,
@@ -32,9 +32,10 @@ describe('AuthWebservice: Check loginService', () => {
     );
 
     expect(response.user).toEqual(randomUser);
+    expect(loginServiceMock).toBeCalledWith(loginRequestMock);
   });
 
-  it('Should fail on login request', async () => {
+  it('01 - 2 Should fail on login request', async () => {
     const loginRequestMock: LoginRequest = createRandomLoginRequest();
     const errorMessage: string = 'Login Failed';
     loginServiceMock.mockRejectedValue(new Error(errorMessage));
