@@ -16,7 +16,7 @@ string value that is obtained by calling the `apiPrefix` function with the argum
 `apiPrefix` function is likely used to add a prefix to the base URL of the API endpoint, which can
 be useful for managing different environments (e.g. development, staging, production) with different
 base URLs. */
-export const baseUrl: string = apiPrefix('/auth');
+const baseUrl: string = apiPrefix('/auth');
 
 /**
  * This is a function that sends a login request to a server and returns user data.
