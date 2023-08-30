@@ -128,6 +128,7 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (error) {
       setLoginFailed();
       toast.error(t('common.notifications.error.loginFailure'));
+      console.error(error);
     }
   };
 
