@@ -28,7 +28,8 @@ const axiosDeleteSpy = jest.spyOn(axios, 'delete');
 const axiosMock: MockAdapter = new MockAdapter(axios);
 
 // Primitive global constants
-const errorMessage: string = 'Request failed with status code 401';
+const errorMessage401: string = 'Request failed with status code 401';
+const errorMessage404: string = 'Request failed with status code 404';
 
 beforeEach(() => {
   axiosMock.reset();
@@ -70,7 +71,7 @@ describe('01 AuthWebservice: Check loginService', () => {
 
     axiosMock.onPost(loginBaseUrl, loginRequestMock).reply(401);
     await expect(AuthWebservice.loginService(loginRequestMock)).rejects.toThrow(
-      errorMessage
+      errorMessage401
     );
 
     expect(axiosPostSpy).toBeCalledWith(
@@ -106,7 +107,7 @@ describe('02 AuthWebservice: Check logout service', () => {
     axiosMockPost.reply(401);
 
     await expect(AuthWebservice.logoutService(logoutRequest)).rejects.toThrow(
-      errorMessage
+      errorMessage401
     );
 
     checkTobeCalledWith();
@@ -148,7 +149,7 @@ describe('03 AuthWebservice: Check user token service', () => {
 
     await expect(
       AuthWebservice.checkUserTokenService(userTokenRequestMock)
-    ).rejects.toThrow(errorMessage);
+    ).rejects.toThrow(errorMessage401);
 
     checkTobeCalledWith();
   });
@@ -188,7 +189,7 @@ describe('04 AuthWebservice: Check renew token service', () => {
 
     await expect(
       AuthWebservice.renewTokenService(userTokenRequestMock)
-    ).rejects.toThrow(errorMessage);
+    ).rejects.toThrow(errorMessage401);
 
     checkTobeCalledWith();
   });
@@ -229,7 +230,7 @@ describe('05 AuthWebservice: Check invitational code service', () => {
 
     await expect(
       AuthWebservice.checkInvitationalCodeService(invitationalCodeRequestMock)
-    ).rejects.toThrow(errorMessage);
+    ).rejects.toThrow(errorMessage401);
 
     checkTobeCalledWith();
   });
@@ -270,15 +271,13 @@ describe('06 AuthWebservice: Check delete invitational code service', () => {
     checkTobeCalledWith();
   });
   it('06 - 2 Should fail delete invitational code request', async () => {
-    const errorMessage = 'Request failed with status code 401';
-
     axiosMockDelete.reply(401);
 
     await expect(
       AuthWebservice.deleteInvitationalCodeService(
         invitationalCodeRequestMockData
       )
-    ).rejects.toThrowError(errorMessage);
+    ).rejects.toThrowError(errorMessage401);
 
     checkTobeCalledWith();
   });
@@ -312,13 +311,11 @@ describe('07 AuthWebservice: Check if email already exist service', () => {
   });
 
   it('07 - 2 Should fail check if email already exist request', async () => {
-    const errorMessage = 'Request failed with status code 404';
-
     axioMockPost.reply(404);
 
     await expect(
       AuthWebservice.checkIfEmailAlreadyExistService(checkMailRequestMock)
-    ).rejects.toThrowError(errorMessage);
+    ).rejects.toThrowError(errorMessage404);
 
     checkTobeCalledWith();
   });
@@ -360,7 +357,7 @@ describe('08 AuthWebservice: Check register service', () => {
 
     await expect(
       AuthWebservice.registerService(registerRequestMock)
-    ).rejects.toThrowError(errorMessage);
+    ).rejects.toThrowError(errorMessage401);
 
     checkTobeCalledWith();
   });
