@@ -40,6 +40,7 @@ This is a project designed to manage appointments in a simple and efficient way 
 > - [Stylelint][stylelint]
 > - [Cypress][cypress]
 > - [Jest][jest]
+> - [Faker][faker]
 
 ![project-technologies]
 
@@ -295,6 +296,7 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 [Git]: https://git-scm.com
 [bulma]: https://bulma.io/
+[faker]: https://fakerjs.dev/
 [sass]: https://sass-lang.com/
 [vue-use]: https://vueuse.org/
 [prettier]: https://prettier.io/
