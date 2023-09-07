@@ -48,11 +48,11 @@ describe('01 AuthWebservice: Check loginService', () => {
     };
     const loginRequestMock: LoginRequest =
       createRandomLoginRequest(loginRequestParams);
-    const succesResponseData: UserData = createRandomUserData(randomUser);
+    const successResponseData: UserData = createRandomUserData(randomUser);
 
     axiosMock
       .onPost(loginBaseUrl, loginRequestParams)
-      .reply(200, succesResponseData);
+      .reply(200, successResponseData);
 
     const response: UserData = await AuthWebservice.loginService(
       loginRequestMock
@@ -91,7 +91,7 @@ describe('02 AuthWebservice: Check logout service', () => {
     logoutRequest
   );
 
-  const checkTobeCalledWith = () => {
+  const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
       logoutBaseUrl,
       logoutRequest,
@@ -104,7 +104,7 @@ describe('02 AuthWebservice: Check logout service', () => {
 
     await AuthWebservice.logoutService(logoutRequest);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 
   it('02 - 2 Should fail on logout request', async () => {
@@ -114,7 +114,7 @@ describe('02 AuthWebservice: Check logout service', () => {
       errorMessage401
     );
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 });
 
@@ -126,7 +126,7 @@ describe('03 AuthWebservice: Check user token service', () => {
     userTokenRequestMock
   );
 
-  const checkTobeCalledWith = () => {
+  const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
       userTokenCheckBaseUrl,
       userTokenRequestMock,
@@ -135,17 +135,17 @@ describe('03 AuthWebservice: Check user token service', () => {
   };
 
   it('03 - 1 Should succeed check user token request', async () => {
-    const succesResponseData: UserData = createRandomUserData();
+    const successResponseData: UserData = createRandomUserData();
 
-    axiosMockPost.reply(200, succesResponseData);
+    axiosMockPost.reply(200, successResponseData);
 
     const response: UserData = await AuthWebservice.checkUserTokenService(
       userTokenRequestMock
     );
 
-    expect(response).toEqual(succesResponseData);
+    expect(response).toEqual(successResponseData);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 
   it('03 - 2 Should fail check user token request', async () => {
@@ -155,7 +155,7 @@ describe('03 AuthWebservice: Check user token service', () => {
       AuthWebservice.checkUserTokenService(userTokenRequestMock)
     ).rejects.toThrow(errorMessage401);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 });
 
@@ -167,7 +167,7 @@ describe('04 AuthWebservice: Check renew token service', () => {
     userTokenRequestMock
   );
 
-  const checkTobeCalledWith = () => {
+  const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
       tokenBaseUrl,
       userTokenRequestMock,
@@ -176,19 +176,19 @@ describe('04 AuthWebservice: Check renew token service', () => {
   };
 
   it('04 - 1 Should succeed check renew token request', async () => {
-    const succesResponseData: TokenResponse = {
+    const successResponseData: TokenResponse = {
       accessToken: mockJWT,
     };
 
-    axiosMockPost.reply(200, succesResponseData);
+    axiosMockPost.reply(200, successResponseData);
 
     const response: TokenResponse = await AuthWebservice.renewTokenService(
       userTokenRequestMock
     );
 
-    expect(response).toEqual(succesResponseData);
+    expect(response).toEqual(successResponseData);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 
   it('04 - 2 Should fail check renew token request', async () => {
@@ -198,7 +198,7 @@ describe('04 AuthWebservice: Check renew token service', () => {
       AuthWebservice.renewTokenService(userTokenRequestMock)
     ).rejects.toThrow(errorMessage401);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 });
 
@@ -212,7 +212,7 @@ describe('05 AuthWebservice: Check invitational code service', () => {
     invitationalCodeRequestMock
   );
 
-  const checkTobeCalledWith = () => {
+  const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
       invitationBaseUrl,
       invitationalCodeRequestMock,
@@ -220,19 +220,19 @@ describe('05 AuthWebservice: Check invitational code service', () => {
     );
   };
   it('05 - 1 Should succeed check invitational code', async () => {
-    const succesResponseData: InvitationalCodeRequest =
+    const successResponseData: InvitationalCodeRequest =
       invitationalCodeRequestMock;
 
-    axiosMockPost.reply(200, succesResponseData);
+    axiosMockPost.reply(200, successResponseData);
 
     const response: InvitationalCodeRequest =
       await AuthWebservice.checkInvitationalCodeService(
         invitationalCodeRequestMock
       );
 
-    expect(response).toEqual(succesResponseData);
+    expect(response).toEqual(successResponseData);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 
   it('05 - 2 Sould fail check invitational code', async () => {
@@ -242,7 +242,7 @@ describe('05 AuthWebservice: Check invitational code service', () => {
       AuthWebservice.checkInvitationalCodeService(invitationalCodeRequestMock)
     ).rejects.toThrow(errorMessage401);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 });
 
@@ -260,7 +260,7 @@ describe('06 AuthWebservice: Check delete invitational code service', () => {
     deleteInvitationalCodeRequesMock
   );
 
-  const checkTobeCalledWith = () => {
+  const checkToBeCalledWith = () => {
     expect(axiosDeleteSpy).toBeCalledWith(
       invitationBaseUrl,
       deleteInvitationalCodeRequesMock
@@ -278,7 +278,7 @@ describe('06 AuthWebservice: Check delete invitational code service', () => {
 
     expect(response).toEqual(successResponseData);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
   it('06 - 2 Should fail delete invitational code request', async () => {
     axiosMockDelete.reply(401);
@@ -289,7 +289,7 @@ describe('06 AuthWebservice: Check delete invitational code service', () => {
       )
     ).rejects.toThrowError(errorMessage401);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 });
 
@@ -303,7 +303,7 @@ describe('07 AuthWebservice: Check if email already exist service', () => {
     checkMailRequestMock
   );
 
-  const checkTobeCalledWith = () => {
+  const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
       checkmailBaseUrl,
       checkMailRequestMock,
@@ -320,7 +320,7 @@ describe('07 AuthWebservice: Check if email already exist service', () => {
 
     expect(response).toEqual(successResponseData);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 
   it('07 - 2 Should fail check if email already exist request', async () => {
@@ -330,7 +330,7 @@ describe('07 AuthWebservice: Check if email already exist service', () => {
       AuthWebservice.checkIfEmailAlreadyExistService(checkMailRequestMock)
     ).rejects.toThrowError(errorMessage404);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 });
 
@@ -345,7 +345,7 @@ describe('08 AuthWebservice: Check register service', () => {
     registerRequestMock
   );
 
-  const checkTobeCalledWith = () => {
+  const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
       registerBaseUrl,
       registerRequestMock,
@@ -365,7 +365,7 @@ describe('08 AuthWebservice: Check register service', () => {
 
     expect(response).toEqual(successResponseData);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 
   it('08 - 2 Should fail register service request', async () => {
@@ -375,6 +375,6 @@ describe('08 AuthWebservice: Check register service', () => {
       AuthWebservice.registerService(registerRequestMock)
     ).rejects.toThrowError(errorMessage401);
 
-    checkTobeCalledWith();
+    checkToBeCalledWith();
   });
 });
