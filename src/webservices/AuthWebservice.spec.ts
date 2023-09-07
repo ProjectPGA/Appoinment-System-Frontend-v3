@@ -7,7 +7,7 @@ import {
   RandomLoginRequestParams,
 } from '@/utils/mocks/user/mockLoginRequest';
 import { User } from '@/models/user/User';
-import { apiPrefix, jsonHeaders } from './consts';
+import { jsonHeaders } from './consts';
 import { UserData } from '@/models/user/UserData';
 import * as AuthWebservice from './AuthWebservice';
 import { TokenRequest } from './models/auth/TokenRequest';
@@ -19,11 +19,11 @@ import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import { RegisterRequest } from './models/auth/RegisterRequest';
 import { CheckMailRequest } from './models/auth/CheckMailRequest';
 import { createRandomUserData } from '@/utils/mocks/user/mockUserData';
+import { authWebserviceBaseUrls } from './models/auth/AuthWebServiceBaseUrls';
 import { InvitationalCodeRequest } from './models/auth/InvitationalCodeRequest';
 
 // Global constants
 const mockJWT: string = generateMockJWT();
-const baseUrl: string = apiPrefix('/auth');
 const axiosPostSpy = jest.spyOn(axios, 'post');
 const axiosDeleteSpy = jest.spyOn(axios, 'delete');
 const axiosMock: MockAdapter = new MockAdapter(axios);
@@ -38,8 +38,6 @@ beforeEach(() => {
 });
 
 describe('01 AuthWebservice: Check loginService', () => {
-  const loginBaseUrl: string = `${baseUrl}/login`;
-
   it('01 - 1 Should succeed on login request', async () => {
     const randomUser: User = createRandomUser();
     const loginRequestParams: RandomLoginRequestParams = {
@@ -51,7 +49,7 @@ describe('01 AuthWebservice: Check loginService', () => {
     const successResponseData: UserData = createRandomUserData(randomUser);
 
     axiosMock
-      .onPost(loginBaseUrl, loginRequestParams)
+      .onPost(authWebserviceBaseUrls.login, loginRequestParams)
       .reply(200, successResponseData);
 
     const response: UserData = await AuthWebservice.loginService(
@@ -61,7 +59,7 @@ describe('01 AuthWebservice: Check loginService', () => {
     expect(response.user).toEqual(randomUser);
 
     expect(axiosPostSpy).toBeCalledWith(
-      loginBaseUrl,
+      authWebserviceBaseUrls.login,
       loginRequestParams,
       jsonHeaders
     );
@@ -70,13 +68,13 @@ describe('01 AuthWebservice: Check loginService', () => {
   it('01 - 2 Should fail on login request', async () => {
     const loginRequestMock: LoginRequest = createRandomLoginRequest();
 
-    axiosMock.onPost(loginBaseUrl, loginRequestMock).reply(401);
+    axiosMock.onPost(authWebserviceBaseUrls.login, loginRequestMock).reply(401);
     await expect(AuthWebservice.loginService(loginRequestMock)).rejects.toThrow(
       errorMessage401
     );
 
     expect(axiosPostSpy).toBeCalledWith(
-      loginBaseUrl,
+      authWebserviceBaseUrls.login,
       loginRequestMock,
       jsonHeaders
     );
@@ -85,15 +83,14 @@ describe('01 AuthWebservice: Check loginService', () => {
 
 describe('02 AuthWebservice: Check logout service', () => {
   const logoutRequest: LogoutRequest = { refreshToken: mockJWT };
-  const logoutBaseUrl: string = `${baseUrl}/logout`;
   const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    logoutBaseUrl,
+    authWebserviceBaseUrls.logout,
     logoutRequest
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
-      logoutBaseUrl,
+      authWebserviceBaseUrls.logout,
       logoutRequest,
       jsonHeaders
     );
@@ -119,16 +116,15 @@ describe('02 AuthWebservice: Check logout service', () => {
 });
 
 describe('03 AuthWebservice: Check user token service', () => {
-  const userTokenCheckBaseUrl: string = `${baseUrl}/userTokenCheck`;
   const userTokenRequestMock: TokenRequest = { token: mockJWT };
   const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    userTokenCheckBaseUrl,
+    authWebserviceBaseUrls.userTokenCheck,
     userTokenRequestMock
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
-      userTokenCheckBaseUrl,
+      authWebserviceBaseUrls.userTokenCheck,
       userTokenRequestMock,
       jsonHeaders
     );
@@ -161,15 +157,14 @@ describe('03 AuthWebservice: Check user token service', () => {
 
 describe('04 AuthWebservice: Check renew token service', () => {
   const userTokenRequestMock: TokenRequest = { token: mockJWT };
-  const tokenBaseUrl: string = `${baseUrl}/token`;
   const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    tokenBaseUrl,
+    authWebserviceBaseUrls.token,
     userTokenRequestMock
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
-      tokenBaseUrl,
+      authWebserviceBaseUrls.token,
       userTokenRequestMock,
       jsonHeaders
     );
@@ -206,15 +201,14 @@ describe('05 AuthWebservice: Check invitational code service', () => {
   const invitationalCodeRequestMock: InvitationalCodeRequest = {
     invitationCode: faker.string.alphanumeric(),
   };
-  const invitationBaseUrl: string = `${baseUrl}/invitation`;
   const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    invitationBaseUrl,
+    authWebserviceBaseUrls.invitation,
     invitationalCodeRequestMock
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
-      invitationBaseUrl,
+      authWebserviceBaseUrls.invitation,
       invitationalCodeRequestMock,
       jsonHeaders
     );
@@ -250,19 +244,18 @@ describe('06 AuthWebservice: Check delete invitational code service', () => {
   const invitationalCodeRequestMockData: InvitationalCodeRequest = {
     invitationCode: faker.internet.password(),
   };
-  const invitationBaseUrl: string = `${baseUrl}/invitation`;
   const deleteInvitationalCodeRequesMock = {
     headers: jsonHeaders.headers,
     data: invitationalCodeRequestMockData,
   };
   const axiosMockDelete: MockAdapter.RequestHandler = axiosMock.onDelete(
-    invitationBaseUrl,
+    authWebserviceBaseUrls.invitation,
     deleteInvitationalCodeRequesMock
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosDeleteSpy).toBeCalledWith(
-      invitationBaseUrl,
+      authWebserviceBaseUrls.invitation,
       deleteInvitationalCodeRequesMock
     );
   };
@@ -297,15 +290,14 @@ describe('07 AuthWebservice: Check if email already exist service', () => {
   const checkMailRequestMock: CheckMailRequest = {
     email: faker.internet.email(),
   };
-  const checkmailBaseUrl: string = `${baseUrl}/checkmail`;
   const axioMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    checkmailBaseUrl,
+    authWebserviceBaseUrls.checkmail,
     checkMailRequestMock
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
-      checkmailBaseUrl,
+      authWebserviceBaseUrls.checkmail,
       checkMailRequestMock,
       jsonHeaders
     );
@@ -339,15 +331,14 @@ describe('08 AuthWebservice: Check register service', () => {
   const registerRequestMock: RegisterRequest = {
     user: registerUserMock,
   };
-  const registerBaseUrl: string = `${baseUrl}/register`;
   const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    registerBaseUrl,
+    authWebserviceBaseUrls.register,
     registerRequestMock
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toBeCalledWith(
-      registerBaseUrl,
+      authWebserviceBaseUrls.register,
       registerRequestMock,
       jsonHeaders
     );
