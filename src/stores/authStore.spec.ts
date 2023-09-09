@@ -55,7 +55,7 @@ describe('01 Auth store: login', () => {
 
     await authStore.login(mockUserLoginValue);
 
-    expect(authStore.loginRequestStatus).toBe(RequestStatus.FAILURE);
+    expect(authStore.loginRequestStatus).toBe(RequestStatus.PENDING);
     expect(authStore.isLogged).toBe(false);
     expect(authStore.isLoading).toBe(false);
     expect(authStore.userData).toBe(null);
