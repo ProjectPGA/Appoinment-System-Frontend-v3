@@ -1,7 +1,6 @@
 import { BASE_URL, apiPrefix } from './consts';
 
 describe('01 BASE_URL const', () => {
-  // TODO: Check why 'test:coverage' does not detect that we cover the two possible cases in this test
   it('01 - 1 Should be the value of VITE_API_URL', () => {
     expect(BASE_URL).toBe(import.meta.env.VITE_API_URL);
   });
