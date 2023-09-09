@@ -6,7 +6,7 @@ describe('01 BASE_URL const', () => {
     expect(BASE_URL).toBe(import.meta.env.VITE_API_URL);
   });
 
-  it('01 - 1 Should be empty when the value of VITE_API_URL is not valid', () => {
+  it('01 - 2 Should be empty when the value of VITE_API_URL is not valid', () => {
     const originalEnv = import.meta.env.VITE_API_URL;
 
     import.meta.env.VITE_API_URL = null;
