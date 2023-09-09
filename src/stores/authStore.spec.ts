@@ -1,11 +1,12 @@
-import { useAuthStore } from './auth';
-import * as AuthWebservice from '@/webservices/AuthWebservice';
-import { setActivePinia, createPinia } from 'pinia';
-import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createTestingPinia } from '@pinia/testing';
-import { LocalStorageAuthKeys } from '@/models/auth/LocalStorageAuthKeys';
-import { createRandomUserData } from '@/utils/mocks/user/mockUserData';
+import { setActivePinia, createPinia } from 'pinia';
+
+import { useAuthStore } from './auth';
+import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
+import * as AuthWebservice from '@/webservices/AuthWebservice';
+import { createRandomUserData } from '@/utils/mocks/user/mockUserData';
+import { LocalStorageAuthKeys } from '@/models/auth/LocalStorageAuthKeys';
 
 jest.mock('@/webservices/AuthWebservice');
 jest.mock('vue-i18n', () => ({
@@ -42,6 +43,24 @@ describe('01 Auth store: login', () => {
     expect(authStore.userData).toEqual(mockUserData);
     /* TODO: Add check to verify that 'setIsLogged' has been called,
       spy doesn't work and doesn't return when 'setIsLogged' is called inside the login function
+    */
+  });
+
+  it('01 - 2 When receive null user value, should change store values to failure login', async () => {
+    const authStore = useAuthStore();
+
+    loginServiceMock.mockResolvedValue(
+      createRandomUserData({ nullUser: true })
+    );
+
+    await authStore.login(mockUserLoginValue);
+
+    expect(authStore.loginRequestStatus).toBe(RequestStatus.FAILURE);
+    expect(authStore.isLogged).toBe(false);
+    expect(authStore.isLoading).toBe(false);
+    expect(authStore.userData).toBe(null);
+    /* TODO: Add check to verify that 'setUserIsNotLogged' has been called,
+      spy doesn't work and doesn't return when 'setUserIsNotLogged' is called inside the login function
     */
   });
 

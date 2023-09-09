@@ -40,5 +40,15 @@ describe('01 Basic translations test', () => {
     expect(i18n.t('common.languages.english')).toBe(
       messages.en.common.languages.english
     );
+    changeLanguage();
+    expect(i18n.t('common.inputs.emailInputLabel')).toBe(
+      messages.es.common.inputs.emailInputLabel
+    );
+    expect(i18n.t('common.languages.spanish')).toBe(
+      messages.es.common.languages.spanish
+    );
+    expect(i18n.t('common.languages.english')).toBe(
+      messages.es.common.languages.english
+    );
   });
 });

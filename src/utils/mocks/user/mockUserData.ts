@@ -14,6 +14,6 @@ export function createRandomUserData(params?: RandomUserParams): UserData {
   return {
     accessToken: faker.string.uuid(),
     refreshToken: faker.string.uuid(),
-    user: createRandomUser(params),
+    user: params?.nullUser ? null : createRandomUser(params),
   };
 }
