@@ -64,7 +64,7 @@ describe('01 Auth store: login', () => {
     */
   });
 
-  it('01 - 2 Should change store values to failure login', async () => {
+  it('01 - 3 Should change store values to failure login', async () => {
     const authStore = useAuthStore();
 
     loginServiceMock.mockRejectedValue(new Error('Login Failed'));
