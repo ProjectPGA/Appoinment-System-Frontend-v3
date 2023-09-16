@@ -8,6 +8,7 @@ export type RandomUserParams = {
   surname?: string;
   roles?: UserRoles[];
   password?: string;
+  nullUser?: boolean;
 };
 
 /**

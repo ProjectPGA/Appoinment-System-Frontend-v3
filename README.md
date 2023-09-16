@@ -39,7 +39,8 @@ This is a project designed to manage appointments in a simple and efficient way 
 > - [Eslint][eslint]
 > - [Stylelint][stylelint]
 > - [Cypress][cypress]
-> - [Vitest][vitest]
+> - [Jest][jest]
+> - [Faker][faker]
 
 ![project-technologies]
 
@@ -295,11 +296,12 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 [Git]: https://git-scm.com
 [bulma]: https://bulma.io/
+[faker]: https://fakerjs.dev/
 [sass]: https://sass-lang.com/
 [vue-use]: https://vueuse.org/
 [prettier]: https://prettier.io/
 [stylelint]: https://stylelint.io/
-[vitest]: https://vitest.dev/api/
+[jest]: https://jestjs.io/docs/api
 [cypress]: https://docs.cypress.io/
 [fontawesome]: https://fontawesome.com/
 [Node JS]: https://nodejs.org/es/about
