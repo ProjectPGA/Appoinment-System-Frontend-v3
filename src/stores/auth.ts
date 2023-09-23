@@ -5,7 +5,7 @@ import { useToast } from 'vue-toastification';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 
-import { AuthTockens } from '@/models/auth/AuthTockens';
+import { AuthTokens } from '@/models/auth/AuthTokens';
 import { RequestStatus } from '@/models/auth/RequestStatus';
 
 // import { TokenResponse } from '@/webservices/models/auth/TokenResponse';
@@ -35,19 +35,19 @@ export const useAuthStore = defineStore('auth', () => {
   // JTW Methods
   /**
    * This function saves JWT access and refresh tokens to local storage if they are not null.
-   * @param {AuthTockens} authTockens - `authTockens` is an object that contains two properties:
+   * @param {AuthTokens} authTokens - `authTokens` is an object that contains two properties:
    * `accessToken` and `refreshToken`. These properties are of type `string | null`, which means they can
    * either be a string or null. The function `saveJWTTokens` takes this object as a parameter.
    */
-  const saveJWTTokens = (authTockens: AuthTockens): void => {
-    if (authTockens.accessToken !== null && authTockens.refreshToken !== null) {
+  const saveJWTTokens = (authTokens: AuthTokens): void => {
+    if (authTokens.accessToken !== null && authTokens.refreshToken !== null) {
       localStorage.setItem(
         LocalStorageAuthKeys.ACCESS_TOKEN,
-        authTockens.accessToken
+        authTokens.accessToken
       );
       localStorage.setItem(
         LocalStorageAuthKeys.REFRESH_TOKEN,
-        authTockens.refreshToken
+        authTokens.refreshToken
       );
     }
   };
