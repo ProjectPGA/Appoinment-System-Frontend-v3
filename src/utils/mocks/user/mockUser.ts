@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { User } from '@/models/user/User';
-import { UserRoles } from '@/models/user/UserData';
+import { UserRoles } from '@/models/user/UserRoles';
 
 export type RandomUserParams = {
   email?: string;
