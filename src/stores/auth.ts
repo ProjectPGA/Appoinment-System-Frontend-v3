@@ -3,9 +3,9 @@ import { useI18n } from 'vue-i18n';
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';
 
-import { UserData } from '@/models/user/UserData';
+import { UserAuthData } from '@/models/user/UserAuthData';
 
-import { AuthTockens } from '@/models/auth/AuthTockens';
+import { AuthTokens } from '@/models/auth/AuthTokens';
 import { RequestStatus } from '@/models/auth/RequestStatus';
 
 // import { TokenResponse } from '@/webservices/models/auth/TokenResponse';
@@ -23,7 +23,7 @@ import {
 } from '@/webservices/AuthWebservice';
 
 export const useAuthStore = defineStore('auth', () => {
-  const userData = ref<UserData | null>(null);
+  const userAuthData = ref<UserAuthData | null>(null);
   const isLogged = ref<boolean>(false);
   const isLoading = ref<boolean>(false);
   const isRegisterProcess = ref<boolean>(false);
@@ -35,19 +35,19 @@ export const useAuthStore = defineStore('auth', () => {
   // JTW Methods
   /**
    * This function saves JWT access and refresh tokens to local storage if they are not null.
-   * @param {AuthTockens} authTockens - `authTockens` is an object that contains two properties:
+   * @param {AuthTokens} authTokens - `authTokens` is an object that contains two properties:
    * `accessToken` and `refreshToken`. These properties are of type `string | null`, which means they can
    * either be a string or null. The function `saveJWTTokens` takes this object as a parameter.
    */
-  const saveJWTTokens = (authTockens: AuthTockens): void => {
-    if (authTockens.accessToken !== null && authTockens.refreshToken !== null) {
+  const saveJWTTokens = (authTokens: AuthTokens): void => {
+    if (authTokens.accessToken !== null && authTokens.refreshToken !== null) {
       localStorage.setItem(
         LocalStorageAuthKeys.ACCESS_TOKEN,
-        authTockens.accessToken
+        authTokens.accessToken
       );
       localStorage.setItem(
         LocalStorageAuthKeys.REFRESH_TOKEN,
-        authTockens.refreshToken
+        authTokens.refreshToken
       );
     }
   };
@@ -72,7 +72,7 @@ export const useAuthStore = defineStore('auth', () => {
     loginRequestStatus.value = RequestStatus.PENDING;
     isLoading.value = false;
     isLogged.value = false;
-    userData.value = null;
+    userAuthData.value = null;
   };
 
   /**
@@ -83,7 +83,7 @@ export const useAuthStore = defineStore('auth', () => {
     loginRequestStatus.value = RequestStatus.FAILURE;
     isLoading.value = false;
     isLogged.value = false;
-    userData.value = null;
+    userAuthData.value = null;
   };
 
   /**
@@ -96,14 +96,14 @@ export const useAuthStore = defineStore('auth', () => {
 
   /**
    * The function sets the user as logged in and saves their JWT tokens.
-   * @param {UserData} user - UserData, which is likely an interface or type defining the shape of user
+   * @param {UserAuthData} user - UserAuthData, which is likely an interface or type defining the shape of user
    * data, such as an object with properties like name, email, and access tokens.
    */
-  const setIsLogged = (user: UserData): void => {
+  const setIsLogged = (user: UserAuthData): void => {
     loginRequestStatus.value = RequestStatus.SUCCESS;
     isLoading.value = false;
     isLogged.value = true;
-    userData.value = user;
+    userAuthData.value = user;
 
     saveJWTTokens({
       accessToken: user.accessToken,
@@ -125,7 +125,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       setLoginInProgress();
 
-      const response: UserData = await loginService({
+      const response: UserAuthData = await loginService({
         email: loginData.email,
         password: loginData.password,
       });
@@ -170,7 +170,7 @@ export const useAuthStore = defineStore('auth', () => {
   //   try {
   //     setLoginInProgress();
 
-  //     const response: UserData = await registerService(registerData);
+  //     const response: UserAuthData = await registerService(registerData);
 
   //     response.user ? setIsLogged(response) : setUserNotisLogged();
   //   } catch (error) {
@@ -213,7 +213,7 @@ export const useAuthStore = defineStore('auth', () => {
   //     const refreshToken: string | null = localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN);
 
   //     if (refreshToken) {
-  //       const response: UserData = await checkUserTokenService({
+  //       const response: UserAuthData = await checkUserTokenService({
   //         token: refreshToken,
   //       });
 
@@ -255,7 +255,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     login,
-    userData,
+    userAuthData,
     isLogged,
     isLoading,
     setIsLogged,
