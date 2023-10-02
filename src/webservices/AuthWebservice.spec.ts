@@ -53,9 +53,8 @@ describe('01 AuthWebservice: Check loginService', () => {
       .onPost(authWebserviceBaseUrls.login, loginRequestParams)
       .reply(200, successResponseData);
 
-    const response: UserAuthData = await AuthWebservice.loginService(
-      loginRequestMock
-    );
+    const response: UserAuthData =
+      await AuthWebservice.loginService(loginRequestMock);
 
     expect(response.user).toEqual(randomUser);
 
@@ -136,9 +135,8 @@ describe('03 AuthWebservice: Check user token service', () => {
 
     axiosMockPost.reply(200, successResponseData);
 
-    const response: UserAuthData = await AuthWebservice.checkUserTokenService(
-      userTokenRequestMock
-    );
+    const response: UserAuthData =
+      await AuthWebservice.checkUserTokenService(userTokenRequestMock);
 
     expect(response).toEqual(successResponseData);
 
@@ -178,9 +176,8 @@ describe('04 AuthWebservice: Check renew token service', () => {
 
     axiosMockPost.reply(200, successResponseData);
 
-    const response: TokenResponse = await AuthWebservice.renewTokenService(
-      userTokenRequestMock
-    );
+    const response: TokenResponse =
+      await AuthWebservice.renewTokenService(userTokenRequestMock);
 
     expect(response).toEqual(successResponseData);
 
@@ -307,9 +304,10 @@ describe('07 AuthWebservice: Check if email already exist service', () => {
     const successResponseData: CheckMailRequest = checkMailRequestMock;
 
     axioMockPost.reply(200, successResponseData);
-    const response = await AuthWebservice.checkIfEmailAlreadyExistService(
-      checkMailRequestMock
-    );
+    const response =
+      await AuthWebservice.checkIfEmailAlreadyExistService(
+        checkMailRequestMock
+      );
 
     expect(response).toEqual(successResponseData);
 
@@ -351,9 +349,8 @@ describe('08 AuthWebservice: Check register service', () => {
 
     axiosMockPost.reply(200, successResponseData);
 
-    const response: UserAuthData = await AuthWebservice.registerService(
-      registerRequestMock
-    );
+    const response: UserAuthData =
+      await AuthWebservice.registerService(registerRequestMock);
 
     expect(response).toEqual(successResponseData);
 
