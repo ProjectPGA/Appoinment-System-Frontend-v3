@@ -5,7 +5,7 @@ import { useAuthStore } from './auth';
 import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as AuthWebservice from '@/webservices/AuthWebservice';
-import { createRandomUserData } from '@/utils/mocks/user/mockUserData';
+import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { LocalStorageAuthKeys } from '@/models/auth/LocalStorageAuthKeys';
 
 jest.mock('@/webservices/AuthWebservice');
@@ -17,7 +17,7 @@ jest.mock('vue-i18n', () => ({
 
 const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
 
-const mockUserData = createRandomUserData();
+const mockUserAuthData = createRandomUserAuthData();
 const mockUserLoginValue = createRandomUser();
 
 describe('01 Auth store: login', () => {
@@ -33,14 +33,14 @@ describe('01 Auth store: login', () => {
   it('01 - 1 Should change store values to success login', async () => {
     const authStore = useAuthStore();
 
-    loginServiceMock.mockResolvedValue(mockUserData);
+    loginServiceMock.mockResolvedValue(mockUserAuthData);
 
     await authStore.login(mockUserLoginValue);
 
     expect(authStore.loginRequestStatus).toBe(RequestStatus.SUCCESS);
     expect(authStore.isLogged).toBe(true);
     expect(authStore.isLoading).toBe(false);
-    expect(authStore.userData).toEqual(mockUserData);
+    expect(authStore.userAuthData).toEqual(mockUserAuthData);
     /* TODO: Add check to verify that 'setIsLogged' has been called,
       spy doesn't work and doesn't return when 'setIsLogged' is called inside the login function
     */
@@ -50,7 +50,7 @@ describe('01 Auth store: login', () => {
     const authStore = useAuthStore();
 
     loginServiceMock.mockResolvedValue(
-      createRandomUserData({ nullUser: true })
+      createRandomUserAuthData({ nullUser: true })
     );
 
     await authStore.login(mockUserLoginValue);
@@ -58,7 +58,7 @@ describe('01 Auth store: login', () => {
     expect(authStore.loginRequestStatus).toBe(RequestStatus.PENDING);
     expect(authStore.isLogged).toBe(false);
     expect(authStore.isLoading).toBe(false);
-    expect(authStore.userData).toBe(null);
+    expect(authStore.userAuthData).toBe(null);
     /* TODO: Add check to verify that 'setUserIsNotLogged' has been called,
       spy doesn't work and doesn't return when 'setUserIsNotLogged' is called inside the login function
     */
@@ -78,7 +78,7 @@ describe('01 Auth store: login', () => {
     expect(authStore.loginRequestStatus).toBe(RequestStatus.FAILURE);
     expect(authStore.isLogged).toBe(false);
     expect(authStore.isLoading).toBe(false);
-    expect(authStore.userData).toBeNull();
+    expect(authStore.userAuthData).toBeNull();
   });
 });
 
@@ -121,7 +121,7 @@ describe('03 Auth store: setLoginFailed', () => {
     expect(authStore.loginRequestStatus).toBe(RequestStatus.FAILURE);
     expect(authStore.isLoading).toBe(false);
     expect(authStore.isLogged).toBe(false);
-    expect(authStore.userData).toBeNull();
+    expect(authStore.userAuthData).toBeNull();
   });
 });
 describe('03 Auth store: setUserNotIsLogged', () => {
@@ -143,7 +143,7 @@ describe('03 Auth store: setUserNotIsLogged', () => {
     expect(authStore.loginRequestStatus).toBe(RequestStatus.PENDING);
     expect(authStore.isLoading).toBe(false);
     expect(authStore.isLogged).toBe(false);
-    expect(authStore.userData).toBeNull();
+    expect(authStore.userAuthData).toBeNull();
   });
 });
 
@@ -167,14 +167,14 @@ describe('03 Auth store: saveJWTTokens', () => {
     expect(window.localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN))
       .toBeNull;
 
-    authStore.saveJWTTokens(mockUserData);
+    authStore.saveJWTTokens(mockUserAuthData);
 
     expect(window.localStorage.getItem(LocalStorageAuthKeys.ACCESS_TOKEN)).toBe(
-      mockUserData.accessToken
+      mockUserAuthData.accessToken
     );
     expect(
       window.localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN)
-    ).toBe(mockUserData.refreshToken);
+    ).toBe(mockUserAuthData.refreshToken);
   });
 });
 
@@ -189,20 +189,20 @@ describe('04 Auth store: setIsLogged', () => {
       stubActions: false,
     });
     const authStore = useAuthStore(pinia);
-    authStore.setIsLogged(mockUserData);
+    authStore.setIsLogged(mockUserAuthData);
 
     expect(authStore.isLogged).toBe(true);
     expect(authStore.isLoading).toBe(false);
     expect(authStore.loginRequestStatus).toBe(RequestStatus.SUCCESS);
-    expect(authStore.userData).toStrictEqual(mockUserData);
+    expect(authStore.userAuthData).toStrictEqual(mockUserAuthData);
     /* TODO: Add check to verify that 'saveJWTTokens' has been called,
       spy doesn't work and doesn't return when 'saveJWTTokens' is called inside the setIsLogged function
     */
     expect(window.localStorage.getItem(LocalStorageAuthKeys.ACCESS_TOKEN)).toBe(
-      mockUserData.accessToken
+      mockUserAuthData.accessToken
     );
     expect(
       window.localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN)
-    ).toBe(mockUserData.refreshToken);
+    ).toBe(mockUserAuthData.refreshToken);
   });
 });

@@ -1,4 +1,4 @@
-import { UserRoles } from './UserData';
+import { UserRoles } from './UserRoles';
 
 export interface User {
   email: string;

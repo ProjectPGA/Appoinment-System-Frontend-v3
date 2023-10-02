@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { apiPrefix, jsonHeaders } from './consts';
 
-import { UserData } from '@/models/user/UserData';
+import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from './models/auth/LoginRequest';
 import { TokenRequest } from './models/auth/TokenRequest';
 import { TokenResponse } from './models/auth/TokenResponse';
@@ -21,14 +21,14 @@ const baseUrl: string = apiPrefix('/auth');
 /**
  * This is a function that sends a login request to a server and returns user data.
  * @returns The `loginService` function is returning a Promise that resolves to an object of type
- * `UserData`. This object is obtained by making a POST request to the `/login` endpoint with
+ * `UserAuthData`. This object is obtained by making a POST request to the `/login` endpoint with
  * the `params` object as the request body and `jsonHeaders` as the request headers. The
  * `response.data` property is then returned as the result of the Promise.
  */
 export const loginService: (
   params: LoginRequest
-) => Promise<UserData> = async params => {
-  const response = await axios.post<UserData>(
+) => Promise<UserAuthData> = async params => {
+  const response = await axios.post<UserAuthData>(
     `${baseUrl}/login`,
     params,
     jsonHeaders
@@ -49,12 +49,12 @@ export const logoutService: (
 /**
  * This is a function that checks a user's token and returns their data.
  * @returns The `checkUserTokenService` function is returning a Promise that resolves to an object of
- * type `UserData`.
+ * type `UserAuthData`.
  */
 export const checkUserTokenService: (
   params: TokenRequest
-) => Promise<UserData> = async params => {
-  const response = await axios.post<UserData>(
+) => Promise<UserAuthData> = async params => {
+  const response = await axios.post<UserAuthData>(
     `${baseUrl}/userTokenCheck`,
     params,
     jsonHeaders
@@ -137,14 +137,14 @@ export const checkIfEmailAlreadyExistService: (
  * This is a function that sends a POST request to register a user and returns the user
  * data.
  * @returns The `registerService` function is returning a `Promise` that resolves to an object of type
- * `UserData`. This object is obtained by making a POST request to the `/register` endpoint
+ * `UserAuthData`. This object is obtained by making a POST request to the `/register` endpoint
  * with the `params` object as the request body and `jsonHeaders` as the request headers. The
  * `response.data` property is then returned as the result of the `Promise`.
  */
 export const registerService: (
   params: RegisterRequest
-) => Promise<UserData> = async params => {
-  const response = await axios.post<UserData>(
+) => Promise<UserAuthData> = async params => {
+  const response = await axios.post<UserAuthData>(
     `${baseUrl}/register`,
     params,
     jsonHeaders
