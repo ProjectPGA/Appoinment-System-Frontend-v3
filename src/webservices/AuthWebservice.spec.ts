@@ -34,7 +34,7 @@ const errorMessage404: string = 'Request failed with status code 404';
 
 beforeEach(() => {
   axiosMock.reset();
-  jest.resetAllMocks();
+  jest.clearAllMocks();
 });
 
 describe('01 AuthWebservice: Check loginService', () => {
