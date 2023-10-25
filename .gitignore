@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+storybook-static
 # *.local # Removed since its the base project
 
 # Editor directories and files
