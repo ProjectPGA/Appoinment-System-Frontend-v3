@@ -19,6 +19,7 @@
     <div>{{ errors.password }}</div>
 
     <as-button
+      :data-cy="'submit-' + page"
       :primary="false"
       :label="$t('common.buttons.loginButton')"
       size="medium"
