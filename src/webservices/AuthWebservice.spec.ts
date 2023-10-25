@@ -53,7 +53,7 @@ describe('01 AuthWebservice: Check loginService', () => {
       .onPost(authWebserviceBaseUrls.login, loginRequestParams)
       .reply(200, successResponseData);
 
-    const response: UserData =
+    const response: UserAuthData =
       await AuthWebservice.loginService(loginRequestMock);
 
     expect(response.user).toEqual(randomUser);
@@ -135,7 +135,7 @@ describe('03 AuthWebservice: Check user token service', () => {
 
     axiosMockPost.reply(200, successResponseData);
 
-    const response: UserData =
+    const response: UserAuthData =
       await AuthWebservice.checkUserTokenService(userTokenRequestMock);
 
     expect(response).toEqual(successResponseData);
@@ -349,7 +349,7 @@ describe('08 AuthWebservice: Check register service', () => {
 
     axiosMockPost.reply(200, successResponseData);
 
-    const response: UserData =
+    const response: UserAuthData =
       await AuthWebservice.registerService(registerRequestMock);
 
     expect(response).toEqual(successResponseData);
