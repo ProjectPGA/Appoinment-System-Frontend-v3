@@ -8,7 +8,7 @@ import {
 } from '@/utils/mocks/user/mockLoginRequest';
 import { User } from '@/models/user/User';
 import { jsonHeaders } from './consts';
-import { UserData } from '@/models/user/UserData';
+import { UserAuthData } from '@/models/user/UserAuthData';
 import * as AuthWebservice from './AuthWebservice';
 import { TokenRequest } from './models/auth/TokenRequest';
 import { LoginRequest } from './models/auth/LoginRequest';
@@ -18,7 +18,7 @@ import { generateMockJWT } from '@/utils/mocks/user/mockJWT';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import { RegisterRequest } from './models/auth/RegisterRequest';
 import { CheckMailRequest } from './models/auth/CheckMailRequest';
-import { createRandomUserData } from '@/utils/mocks/user/mockUserData';
+import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { authWebserviceBaseUrls } from './models/auth/AuthWebServiceBaseUrls';
 import { InvitationalCodeRequest } from './models/auth/InvitationalCodeRequest';
 
@@ -46,7 +46,8 @@ describe('01 AuthWebservice: Check loginService', () => {
     };
     const loginRequestMock: LoginRequest =
       createRandomLoginRequest(loginRequestParams);
-    const successResponseData: UserData = createRandomUserData(randomUser);
+    const successResponseData: UserAuthData =
+      createRandomUserAuthData(randomUser);
 
     axiosMock
       .onPost(authWebserviceBaseUrls.login, loginRequestParams)
@@ -130,7 +131,7 @@ describe('03 AuthWebservice: Check user token service', () => {
   };
 
   it('03 - 1 Should succeed check user token request', async () => {
-    const successResponseData: UserData = createRandomUserData();
+    const successResponseData: UserAuthData = createRandomUserAuthData();
 
     axiosMockPost.reply(200, successResponseData);
 
@@ -343,8 +344,8 @@ describe('08 AuthWebservice: Check register service', () => {
   };
 
   it('08 - 1 Should succeed register service request', async () => {
-    const successResponseData: UserData =
-      createRandomUserData(registerUserMock);
+    const successResponseData: UserAuthData =
+      createRandomUserAuthData(registerUserMock);
 
     axiosMockPost.reply(200, successResponseData);
 
