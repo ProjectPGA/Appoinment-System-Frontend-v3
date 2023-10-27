@@ -27,7 +27,7 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  (e: 'click', id: number): void;
+  (e: 'click'): void;
 }>();
 
 const classes = computed(() => ({
@@ -38,6 +38,6 @@ const classes = computed(() => ({
 }));
 
 const onClick = () => {
-  emit('click', 1);
+  emit('click');
 };
 </script>

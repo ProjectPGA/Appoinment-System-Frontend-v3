@@ -23,6 +23,7 @@
       :primary="false"
       :label="$t('common.buttons.loginButton')"
       size="medium"
+      @click="onSubmit"
     />
     <div>
       <p data-cy="invitation">
