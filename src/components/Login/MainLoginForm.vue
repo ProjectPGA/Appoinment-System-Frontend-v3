@@ -18,9 +18,13 @@
     />
     <div>{{ errors.password }}</div>
 
-    <button outlined :data-cy="'submit-' + page">
-      {{ $t('common.buttons.loginButton') }}
-    </button>
+    <as-button
+      :data-cy="'submit-' + page"
+      :primary="false"
+      :label="$t('common.buttons.loginButton')"
+      size="medium"
+      @click="onSubmit"
+    />
     <div>
       <p data-cy="invitation">
         {{ $t('views.login.loginForm.noAccount') }}
@@ -40,6 +44,9 @@ import * as yup from 'yup';
 
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
 import { i18nGlobal } from '@/localization/i18n';
+
+// import AsButton from '@/library/atoms/AsButton.vue';
+import AsButton from '@/library/atoms/as-button/AsButton.vue';
 
 const { t } = i18nGlobal;
 const toast = useToast();

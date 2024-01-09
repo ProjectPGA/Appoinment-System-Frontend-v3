@@ -1,0 +1,26 @@
+.as-button {
+  background-color: $main-color;
+  color: $main-color-light;
+  font-size: 1rem;
+  border-radius: 8px;
+  padding: 7px 15px;
+  border: 0;
+  cursor: pointer;
+
+  &.is-primary {
+    background-color: $main-color-dark;
+  }
+
+  &.is-secondary {
+    background-color: $main-color-medium-dark;
+  }
+
+  &.is-large {
+    font-size: 1.25rem;
+    padding: 10px 20px;
+  }
+
+  &.is-small {
+    font-size: 0.75rem;
+  }
+}
