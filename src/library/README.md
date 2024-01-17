@@ -17,29 +17,32 @@
 5. [Folder Structure](#folder-structure)
 <!-- End table of contents -->
 
-# <span id="appointment-system">📃Appointment System</span>
+# <span id="appointment-system">📃Appointment System Components Library</span>
 
-<font size="4">**Welcome to Appointment System 👋.**</font>
+<font size="4">**Welcome to Appointment System Components Library👋.**</font>
 
-This is a project designed to manage appointments in a simple and efficient way and with many functionalities.
+This document serves as a guide and reference for the Component Library used in the "Appointment System". This library is built on Vue 3, leveraging the modern capabilities of this framework, and integrates with Storybook for interactive visualization and testing of components. We use SASS for more powerful and flexible style management, and TypeScript for adding static typing, thus improving code quality and maintainability.
 
+## Component Architecture: Atomic Design
+
+The library adopts an atomic design approach, where components are classified into atoms, molecules, and organisms:
+
+> - **Atoms**: These are the basic building blocks of the UI, such as buttons, text labels, icons, etc. They are standalone elements that can be used in isolation.
+> - **Molecules**: Groups of atoms that function together as a unit. Examples include a form field with its label and button, or a set of social media icons.
+> - **Organisms**: More complex combinations of atoms and molecules that form sections of the interface, such as headers, footers, or intricate booking forms.
+
+[Link][atomic design]
 ## <span id="built-with">🏗️Built with</span>
 
 **Below is the framework used for the project and the libraries used in the project.**
 
 > - [Vue 3][vue]
-> - [Pinia][pinia]
 > - [Typescrypt][typescript]
-> - [VeeValidate][vee-validate]
-> - [VueUse][vue-use]
-> - [Fontawesome]
 > - [Sass][sass]
+> - [Storybook][storybook]
 > - [Prettier][prettier]
 > - [Eslint][eslint]
 > - [Stylelint][stylelint]
-> - [Cypress][cypress]
-> - [Jest][jest]
-> - [Faker][faker]
 
 ![project-technologies]
 
@@ -96,7 +99,7 @@ Start Vite dev server in the current directory.
 
 1.  Builds and starts containers for the service
     ```sh
-    pnpm dev
+    pnpm storybook
     ```
 2.  Check that the service is running
     ```sh
@@ -107,13 +110,7 @@ Start Vite dev server in the current directory.
 
 1. Build for environments
    ```sh
-   pnpm build
-   pnpm build:development
-   pnpm build:production
-   ```
-2. Locally preview environment build.
-   ```sh
-   pnpm preview
+   pnpm build:storybook
    ```
 
 ### <span id="commit-recomendations">🔔Recommendations before open PR or upload a commit</span>
@@ -192,98 +189,19 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 2. Unit e2e
 
-   **¡Important!** Before running e2e test it is necessary to add a valid user email and password in the `.env.local` file. The values where you must add the email and password are:
-
-   ```sh
-   CYPRESS_USER_TEST_EMAIL=<email>
-   CYPRESS_USER_TEST_PASSWORD=<password>
-   ```
-
-   Commands:
-
-   ```sh
-   pnpm test:e2e-cy
-   pnpm test:e2e-cy-cli
-   ```
-
-   **¡Important! with Cypress** If you use Linux you will need install any dependencies:
-
-   ```sh
-   sudo apt update
-
-   sudo apt upgrade
-
-   sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-
-   sudo apt install wget
-
-   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-
-   sudo dpkg -i google-chrome-stable_current_amd64.deb
-
-   sudo apt-get install -f
-   ```
-
-**[Back to top](#table-of-contents)**
-## <span id="library-components">🎨Library Components</span>
-
-[This document][library-components] serves as a guide and reference for the Component Library used in the "Appointment System". This library is built on Vue 3, leveraging the modern capabilities of this framework, and integrates with Storybook for interactive visualization and testing of components. We use SASS for more powerful and flexible style management, and TypeScript for adding static typing, thus improving code quality and maintainability.
+   **¡We currently have no unit test!** 
 
 **[Back to top](#table-of-contents)**
 
 ## <span id="folder-structure">📂Folder structure</span>
 
 ```
-.Appointment-System-Frontend-v3
-├── cypress                  // Cypress test files
-│   ├── component               // Test files for components
-│   ├── e2e                  // E2e test files
-│   │   └── utilities              // E2e utilities (i.e: Constants with selectors)
-│   │       ├── login              // E2e login functions and constants
-│   │       ├── models             // E2e models
-│   │       └── utils              // E2e common utils
-│   ├── fixtures             // Cypress fixtures
-│   ├── support              // Cypress examples
-│   └── videos               // Cypress test videos
-├── dist                     // Compiled files (only when the project has been compiled)
-├── docs                     // Documentation files
-│   └── img                     // README.md images
-├── public                   // Content of application public data
-└── src                      // Content of application code
-    ├── assets                  // All assets used by the application
-    │   ├── fonts                   // Font files (woff2, ttf...)
-    │   └── img                     // Project images
-    ├── components              // Reusable Components
-    ├── library                 // Library components
-    ├── localization            // Contain translations and translations config
-    │   └── locales                 // Locales functionality and translations
-    │       ├── en                     // All translations from English
-    │       └── es                     // All translations from Spanish
-    ├── models                  // Common models to code structure
-    │   ├── appointment             // Appointment models
-    │   ├── auth                    // Auth models
-    │   ├── formUtils               // Form models
-    │   ├── icons                   // Icons models
-    │   │   └── fontawesome             // Fontawesome models
-    │   ├── user                    // User models
-    │   └── utils                   // Common models
-    ├── routes                  // All routes
-    ├── stores                  // Common data
-    ├── styles                  // All global directories from the styles
-    │   ├── animations              // All global animations
-    │   ├── mixins                  // All global mixins
-    │   ├── modifiers               // All global modifiers
-    │   ├── modules                 // All global modules
-    │   ├── transitions             // All global transitions
-    │   └── variables               // All global variables
-    ├── utils                       // General utils to developments
-    │   ├── functionUtils           // Function utils to developments
-    │   └── mocks                   // Diferents mocks
-    │       └── user                // Diferents user models mocks (User, LoginRequest..)
-    ├── views                   // Components with the views
-    └── webservices             // Api connections files
-        └── models                  // Models to api connections
-            └── auth                    // Api auth connection models
+.Appointment-System-Frontend-v3-library
+├── Atoms                  // Atom components
+│   └── Buttons               // Button component
+├── Molecules              // Molecules components
+├── Organisms              // Organisms components
+└── Templates              // Templates components
 ```
 
 ![project-structure]
@@ -298,26 +216,22 @@ Testing is an important part of our project, so we have prepared simple testing 
 <!-- End Markdown images -->
 
 <!-- Start Markdown links -->
+
 [Git]: https://git-scm.com
-[bulma]: https://bulma.io/
-[faker]: https://fakerjs.dev/
 [sass]: https://sass-lang.com/
-[vue-use]: https://vueuse.org/
 [prettier]: https://prettier.io/
 [stylelint]: https://stylelint.io/
-[jest]: https://jestjs.io/docs/api
-[cypress]: https://docs.cypress.io/
+[storybook]: https://storybook.js.org/
 [fontawesome]: https://fontawesome.com/
 [Node JS]: https://nodejs.org/es/about
-[library-components]: src/library/README.md
 [download git]: https://git-scm.com/downloads
 [typescript]: https://www.typescriptlang.org/
 [vue]: https://vuejs.org/guide/quick-start.html
-[pinia]: https://pinia.vuejs.org/introduction.html
 [Vs Code Text Editor]: https://code.visualstudio.com/
 [vee-validate]: https://vee-validate.logaretm.com/v4/
 [NPM]: https://www.bambu-mobile.com/que-es-npm-de-node-js/
 [WSL 2]: https://learn.microsoft.com/es-es/windows/wsl/about
+[atomic design]:https://bradfrost.com/blog/post/atomic-web-design/
 [eslint]: https://eslint.org/docs/latest/user-guide/getting-started
 [WSL Extension]: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl
 [Vue Language Features (Volar) extension]: https://marketplace.visualstudio.com/items?itemName=Vue.volar
