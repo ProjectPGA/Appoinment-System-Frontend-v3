@@ -222,13 +222,11 @@ Testing is an important part of our project, so we have prepared simple testing 
 [prettier]: https://prettier.io/
 [stylelint]: https://stylelint.io/
 [storybook]: https://storybook.js.org/
-[fontawesome]: https://fontawesome.com/
 [Node JS]: https://nodejs.org/es/about
 [download git]: https://git-scm.com/downloads
 [typescript]: https://www.typescriptlang.org/
 [vue]: https://vuejs.org/guide/quick-start.html
 [Vs Code Text Editor]: https://code.visualstudio.com/
-[vee-validate]: https://vee-validate.logaretm.com/v4/
 [NPM]: https://www.bambu-mobile.com/que-es-npm-de-node-js/
 [WSL 2]: https://learn.microsoft.com/es-es/windows/wsl/about
 [atomic design]:https://bradfrost.com/blog/post/atomic-web-design/
