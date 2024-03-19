@@ -299,7 +299,6 @@ Testing is an important part of our project, so we have prepared simple testing 
 
 <!-- Start Markdown links -->
 [Git]: https://git-scm.com
-[bulma]: https://bulma.io/
 [faker]: https://fakerjs.dev/
 [sass]: https://sass-lang.com/
 [vue-use]: https://vueuse.org/
