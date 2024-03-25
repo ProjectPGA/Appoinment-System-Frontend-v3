@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';
 
@@ -31,6 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const toast = useToast();
   const { t } = useI18n();
+  const router = useRouter();
 
   // JTW Methods
   /**
@@ -105,6 +107,8 @@ export const useAuthStore = defineStore('auth', () => {
     isLogged.value = true;
     userAuthData.value = user;
 
+    router.push({ name: 'home' });
+
     saveJWTTokens({
       accessToken: user.accessToken,
       refreshToken: user.refreshToken,
@@ -130,7 +134,7 @@ export const useAuthStore = defineStore('auth', () => {
         password: loginData.password,
       });
 
-      response.user ? setIsLogged(response) : setUserNotisLogged();
+      response ? setIsLogged(response) : setUserNotisLogged();
     } catch (error) {
       setLoginFailed();
       toast.error(t('common.notifications.error.loginFailure'));
