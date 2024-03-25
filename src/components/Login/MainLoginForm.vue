@@ -63,7 +63,7 @@ const { errors, handleSubmit, defineInputBinds } = useForm({
       .matches(emailRegEx, t('common.notifications.error.invalidSubmit')),
     password: yup
       .string()
-      .min(6, t('common.notifications.error.invalidSubmit'))
+      .min(3, t('common.notifications.error.invalidSubmit'))
       .required(t('common.notifications.error.invalidSubmit')),
   }),
 });

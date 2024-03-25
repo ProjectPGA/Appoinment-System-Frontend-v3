@@ -9,6 +9,11 @@ export const routes: RouteRecordRaw[] = [
     name: 'Login',
     component: () => import('@/views/LoginView.vue'),
   },
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('@/views/HomeView.vue'),
+  },
 ];
 
 const router = createRouter({
@@ -19,6 +24,8 @@ const router = createRouter({
 router.beforeEach(async to => {
   if (!useAuthStore().isLogged && to.name !== 'Login') {
     return { name: 'Login' };
+  } else if (useAuthStore().isLogged && to.name === 'Login') {
+    return { name: 'home' };
   }
 });
 
