@@ -13,7 +13,3 @@ const authStore = useAuthStore();
 
 const isLoading = computed(() => authStore.isLoading);
 </script>
-
-<style lang="scss" scoped>
-// App styles
-</style>

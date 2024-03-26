@@ -99,6 +99,3 @@ async function startLogin(): Promise<void> {
 // function that is executed when the form is submitted but fails validation.
 const onSubmit = handleSubmit(startLogin, onInvalidSubmit);
 </script>
-<style lang="scss" scoped>
-// Styles
-</style>

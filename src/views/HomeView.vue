@@ -50,8 +50,3 @@ const logout = () => {
   router.push({ name: 'Login' });
 };
 </script>
-
-<style lang="scss" scoped>
-// Styles
-</style>
-vue

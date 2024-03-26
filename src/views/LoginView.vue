@@ -24,7 +24,3 @@ import LogoApp from '@/components/Navigation/LogoApp.vue';
 import MainLoginForm from '@/components/Login/MainLoginForm.vue';
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 </script>
-
-<style lang="scss" scoped>
-// Styles
-</style>
