@@ -4,8 +4,6 @@ import { apiPrefix, jsonHeaders } from './consts';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from './models/auth/LoginRequest';
-import { TokenRequest } from './models/auth/TokenRequest';
-import { TokenResponse } from './models/auth/TokenResponse';
 import { LogoutRequest } from './models/auth/LogoutRequest';
 import { InvitationalCodeRequest } from './models/auth/InvitationalCodeRequest';
 import { CheckMailRequest } from './models/auth/CheckMailRequest';
@@ -27,7 +25,7 @@ const baseUrl: string = apiPrefix('/auth');
  */
 export const loginService: (
   params: LoginRequest
-) => Promise<UserAuthData> = async params => {
+) => Promise<UserAuthData | null> = async params => {
   const response = await axios.post<UserAuthData>(
     `${baseUrl}/login`,
     params,
@@ -44,40 +42,6 @@ export const logoutService: (
   params: LogoutRequest
 ) => Promise<void> = async params => {
   await axios.post<void>(`${baseUrl}/logout`, params, jsonHeaders);
-};
-
-/**
- * This is a function that checks a user's token and returns their data.
- * @returns The `checkUserTokenService` function is returning a Promise that resolves to an object of
- * type `UserAuthData`.
- */
-export const checkUserTokenService: (
-  params: TokenRequest
-) => Promise<UserAuthData> = async params => {
-  const response = await axios.post<UserAuthData>(
-    `${baseUrl}/userTokenCheck`,
-    params,
-    jsonHeaders
-  );
-  return response.data;
-};
-
-/**
- * This is a function that sends a POST request to renew a token and returns a Promise with
- * the token response data.
- * @returns The `renewTokenService` function is returning a Promise that resolves to a `TokenResponse`
- * object. The `TokenResponse` object is the data returned from the `axios.post` request to the
- * `/token` endpoint with the `params` and `jsonHeaders` provided as arguments.
- */
-export const renewTokenService: (
-  params: TokenRequest
-) => Promise<TokenResponse> = async params => {
-  const response = await axios.post<TokenResponse>(
-    `${baseUrl}/token`,
-    params,
-    jsonHeaders
-  );
-  return response.data;
 };
 
 /**

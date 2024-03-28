@@ -10,9 +10,7 @@ import { User } from '@/models/user/User';
 import { jsonHeaders } from './consts';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import * as AuthWebservice from './AuthWebservice';
-import { TokenRequest } from './models/auth/TokenRequest';
 import { LoginRequest } from './models/auth/LoginRequest';
-import { TokenResponse } from './models/auth/TokenResponse';
 import { LogoutRequest } from './models/auth/LogoutRequest';
 import { generateMockJWT } from '@/utils/mocks/user/mockJWT';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
@@ -46,17 +44,17 @@ describe('01 AuthWebservice: Check loginService', () => {
     };
     const loginRequestMock: LoginRequest =
       createRandomLoginRequest(loginRequestParams);
-    const successResponseData: UserAuthData =
+    const successResponseData: UserAuthData | null =
       createRandomUserAuthData(randomUser);
 
     axiosMock
       .onPost(authWebserviceBaseUrls.login, loginRequestParams)
       .reply(200, successResponseData);
 
-    const response: UserAuthData =
+    const response: UserAuthData | null =
       await AuthWebservice.loginService(loginRequestMock);
 
-    expect(response.user).toEqual(randomUser);
+    expect(response).toEqual(randomUser);
 
     expect(axiosPostSpy).toBeCalledWith(
       authWebserviceBaseUrls.login,
@@ -110,86 +108,6 @@ describe('02 AuthWebservice: Check logout service', () => {
     await expect(AuthWebservice.logoutService(logoutRequest)).rejects.toThrow(
       errorMessage401
     );
-
-    checkToBeCalledWith();
-  });
-});
-
-describe('03 AuthWebservice: Check user token service', () => {
-  const userTokenRequestMock: TokenRequest = { token: mockJWT };
-  const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    authWebserviceBaseUrls.userTokenCheck,
-    userTokenRequestMock
-  );
-
-  const checkToBeCalledWith = () => {
-    expect(axiosPostSpy).toBeCalledWith(
-      authWebserviceBaseUrls.userTokenCheck,
-      userTokenRequestMock,
-      jsonHeaders
-    );
-  };
-
-  it('03 - 1 Should succeed check user token request', async () => {
-    const successResponseData: UserAuthData = createRandomUserAuthData();
-
-    axiosMockPost.reply(200, successResponseData);
-
-    const response: UserAuthData =
-      await AuthWebservice.checkUserTokenService(userTokenRequestMock);
-
-    expect(response).toEqual(successResponseData);
-
-    checkToBeCalledWith();
-  });
-
-  it('03 - 2 Should fail check user token request', async () => {
-    axiosMockPost.reply(401);
-
-    await expect(
-      AuthWebservice.checkUserTokenService(userTokenRequestMock)
-    ).rejects.toThrow(errorMessage401);
-
-    checkToBeCalledWith();
-  });
-});
-
-describe('04 AuthWebservice: Check renew token service', () => {
-  const userTokenRequestMock: TokenRequest = { token: mockJWT };
-  const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    authWebserviceBaseUrls.token,
-    userTokenRequestMock
-  );
-
-  const checkToBeCalledWith = () => {
-    expect(axiosPostSpy).toBeCalledWith(
-      authWebserviceBaseUrls.token,
-      userTokenRequestMock,
-      jsonHeaders
-    );
-  };
-
-  it('04 - 1 Should succeed check renew token request', async () => {
-    const successResponseData: TokenResponse = {
-      accessToken: mockJWT,
-    };
-
-    axiosMockPost.reply(200, successResponseData);
-
-    const response: TokenResponse =
-      await AuthWebservice.renewTokenService(userTokenRequestMock);
-
-    expect(response).toEqual(successResponseData);
-
-    checkToBeCalledWith();
-  });
-
-  it('04 - 2 Should fail check renew token request', async () => {
-    axiosMockPost.reply(401);
-
-    await expect(
-      AuthWebservice.renewTokenService(userTokenRequestMock)
-    ).rejects.toThrow(errorMessage401);
 
     checkToBeCalledWith();
   });
@@ -344,7 +262,7 @@ describe('08 AuthWebservice: Check register service', () => {
   };
 
   it('08 - 1 Should succeed register service request', async () => {
-    const successResponseData: UserAuthData =
+    const successResponseData: UserAuthData | null =
       createRandomUserAuthData(registerUserMock);
 
     axiosMockPost.reply(200, successResponseData);

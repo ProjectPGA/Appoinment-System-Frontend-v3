@@ -10,26 +10,26 @@
       <div>
         <p>
           email:
-          {{ authStore?.userAuthData?.user?.email }}
+          {{ authStore.userAuthData?.email }}
         </p>
         <p>
           name:
-          {{ authStore.userAuthData?.user?.name }}
+          {{ authStore.userAuthData?.name }}
         </p>
         <p>
           surname:
-          {{ authStore?.userAuthData?.user?.surname }}
+          {{ authStore.userAuthData?.surname }}
         </p>
         <p>
           roles:
           <span
-            v-for="(items, index) in authStore?.userAuthData?.user?.roles"
+            v-for="(items, index) in authStore.userAuthData?.roles"
             :key="index"
           >
             {{ items }}-
           </span>
         </p>
-        <as-button label="Cerrar sesion" size="medium" @click="logout()" />
+        <as-button label="Close session" size="medium" @click="logout()" />
       </div>
     </section>
   </div>

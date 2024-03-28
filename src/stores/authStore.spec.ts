@@ -6,12 +6,16 @@ import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as AuthWebservice from '@/webservices/AuthWebservice';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
-import { LocalStorageAuthKeys } from '@/models/auth/LocalStorageAuthKeys';
 
 jest.mock('@/webservices/AuthWebservice');
 jest.mock('vue-i18n', () => ({
   useI18n: () => ({
     t: (key: string) => key,
+  }),
+}));
+jest.mock('vue-router', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
   }),
 }));
 
@@ -147,37 +151,6 @@ describe('03 Auth store: setUserNotIsLogged', () => {
   });
 });
 
-describe('03 Auth store: saveJWTTokens', () => {
-  beforeEach(() => {
-    // creates a fresh pinia and make it active so it's automatically picked
-    // up by any useStore() call without having to pass it to it:
-    // `useStore(pinia)`
-    setActivePinia(createPinia());
-  });
-
-  afterEach(() => {
-    window.localStorage.clear();
-  });
-
-  it('01 - 1 Should change store values to set user not logged', () => {
-    const authStore = useAuthStore();
-
-    expect(window.localStorage.getItem(LocalStorageAuthKeys.ACCESS_TOKEN))
-      .toBeNull;
-    expect(window.localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN))
-      .toBeNull;
-
-    authStore.saveJWTTokens(mockUserAuthData);
-
-    expect(window.localStorage.getItem(LocalStorageAuthKeys.ACCESS_TOKEN)).toBe(
-      mockUserAuthData.accessToken
-    );
-    expect(
-      window.localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN)
-    ).toBe(mockUserAuthData.refreshToken);
-  });
-});
-
 describe('04 Auth store: setIsLogged', () => {
   afterEach(() => {
     jest.resetAllMocks();
@@ -189,20 +162,11 @@ describe('04 Auth store: setIsLogged', () => {
       stubActions: false,
     });
     const authStore = useAuthStore(pinia);
-    authStore.setIsLogged(mockUserAuthData);
+    authStore.setIsLogged(mockUserAuthData!);
 
     expect(authStore.isLogged).toBe(true);
     expect(authStore.isLoading).toBe(false);
     expect(authStore.loginRequestStatus).toBe(RequestStatus.SUCCESS);
     expect(authStore.userAuthData).toStrictEqual(mockUserAuthData);
-    /* TODO: Add check to verify that 'saveJWTTokens' has been called,
-      spy doesn't work and doesn't return when 'saveJWTTokens' is called inside the setIsLogged function
-    */
-    expect(window.localStorage.getItem(LocalStorageAuthKeys.ACCESS_TOKEN)).toBe(
-      mockUserAuthData.accessToken
-    );
-    expect(
-      window.localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN)
-    ).toBe(mockUserAuthData.refreshToken);
   });
 });

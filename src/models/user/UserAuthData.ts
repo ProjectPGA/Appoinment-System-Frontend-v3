@@ -1,7 +1,3 @@
 import { User } from './User';
 
-export interface UserAuthData {
-  user: User | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-}
+export interface UserAuthData extends User {}
