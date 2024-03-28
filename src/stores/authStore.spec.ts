@@ -13,6 +13,11 @@ jest.mock('vue-i18n', () => ({
     t: (key: string) => key,
   }),
 }));
+jest.mock('vue-router', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
 
 const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
 
@@ -143,23 +148,6 @@ describe('03 Auth store: setUserNotIsLogged', () => {
     expect(authStore.isLoading).toBe(false);
     expect(authStore.isLogged).toBe(false);
     expect(authStore.userAuthData).toBeNull();
-  });
-});
-
-describe('03 Auth store: saveJWTTokens', () => {
-  beforeEach(() => {
-    // creates a fresh pinia and make it active so it's automatically picked
-    // up by any useStore() call without having to pass it to it:
-    // `useStore(pinia)`
-    setActivePinia(createPinia());
-  });
-
-  afterEach(() => {
-    window.localStorage.clear();
-  });
-
-  it('01 - 1 Should change store values to set user not logged', () => {
-    // TODO: Add test to check
   });
 });
 
