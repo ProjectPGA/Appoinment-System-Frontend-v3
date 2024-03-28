@@ -1,5 +1,3 @@
-import { faker } from '@faker-js/faker';
-
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { createRandomUser, RandomUserParams } from './mockUser';
 
@@ -12,10 +10,6 @@ import { createRandomUser, RandomUserParams } from './mockUser';
  */
 export function createRandomUserAuthData(
   params?: RandomUserParams
-): UserAuthData {
-  return {
-    accessToken: faker.string.uuid(),
-    refreshToken: faker.string.uuid(),
-    user: params?.nullUser ? null : createRandomUser(params),
-  };
+): UserAuthData | null {
+  return params?.nullUser ? null : createRandomUser(params);
 }
