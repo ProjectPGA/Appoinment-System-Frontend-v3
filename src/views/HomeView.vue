@@ -10,20 +10,20 @@
       <div>
         <p>
           email:
-          {{ authStore.userAuthData.email }}
+          {{ authStore?.userAuthData?.user?.email }}
         </p>
         <p>
           name:
-          {{ authStore.userAuthData.name }}
+          {{ authStore.userAuthData?.user?.name }}
         </p>
         <p>
           surname:
-          {{ authStore.userAuthData.surname }}
+          {{ authStore?.userAuthData?.user?.surname }}
         </p>
         <p>
           roles:
           <span
-            v-for="(items, index) in authStore.userAuthData.roles"
+            v-for="(items, index) in authStore?.userAuthData?.user?.roles"
             :key="index"
           >
             {{ items }}-
