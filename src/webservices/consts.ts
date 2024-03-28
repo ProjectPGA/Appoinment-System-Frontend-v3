@@ -17,6 +17,7 @@ export const jsonHeaders = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
+  withCredentials: true,
 };
 /* `export const htmlHeaders` is a constant variable that contains an object with headers for making
 HTTP requests that expect to receive HTML data in response. The `Accept` header specifies that the

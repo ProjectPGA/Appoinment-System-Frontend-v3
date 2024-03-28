@@ -6,20 +6,14 @@ import { useToast } from 'vue-toastification';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 
-import { AuthTokens } from '@/models/auth/AuthTokens';
 import { RequestStatus } from '@/models/auth/RequestStatus';
 
-// import { TokenResponse } from '@/webservices/models/auth/TokenResponse';
-
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
-// import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
-import { LocalStorageAuthKeys } from '@/models/auth/LocalStorageAuthKeys';
+
 import {
   loginService,
   // logoutService,
   // registerService,
-  // renewTokenService,
-  // checkUserTokenService,
   // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
 
@@ -33,37 +27,6 @@ export const useAuthStore = defineStore('auth', () => {
   const toast = useToast();
   const { t } = useI18n();
   const router = useRouter();
-
-  // JTW Methods
-  /**
-   * This function saves JWT access and refresh tokens to local storage if they are not null.
-   * @param {AuthTokens} authTokens - `authTokens` is an object that contains two properties:
-   * `accessToken` and `refreshToken`. These properties are of type `string | null`, which means they can
-   * either be a string or null. The function `saveJWTTokens` takes this object as a parameter.
-   */
-  const saveJWTTokens = (authTokens: AuthTokens): void => {
-    if (authTokens.accessToken !== null && authTokens.refreshToken !== null) {
-      localStorage.setItem(
-        LocalStorageAuthKeys.ACCESS_TOKEN,
-        authTokens.accessToken
-      );
-      localStorage.setItem(
-        LocalStorageAuthKeys.REFRESH_TOKEN,
-        authTokens.refreshToken
-      );
-    }
-  };
-  /**
-   * This function saves a JWT access token to local storage if it is not null.
-   * @param {string | null} accessToken - The `accessToken` parameter is a string or null value that
-   * represents a JSON Web Token (JWT) access token. It is used to authenticate and authorize a user's
-   * access to protected resources on a web application.
-   */
-  // const saveJTWAccessToken = (accessToken: string | null): void => {
-  //   if (accessToken !== null) {
-  //     localStorage.setItem(LocalStorageAuthKeys.ACCESS_TOKEN, accessToken);
-  //   }
-  // };
 
   // Common private Methods
 
@@ -108,11 +71,6 @@ export const useAuthStore = defineStore('auth', () => {
     userAuthData.value = user;
 
     router.push({ name: 'home' });
-
-    saveJWTTokens({
-      accessToken: user.accessToken,
-      refreshToken: user.refreshToken,
-    });
   };
 
   // GLOBAL METHODS
@@ -129,7 +87,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       setLoginInProgress();
 
-      const response: UserAuthData = await loginService({
+      const response: UserAuthData | null = await loginService({
         email: loginData.email,
         password: loginData.password,
       });
@@ -148,16 +106,9 @@ export const useAuthStore = defineStore('auth', () => {
    */
   // const logout = async (): Promise<void> => {
   //   try {
-  //     const refreshToken: string | null = localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN);
+  //     await logoutService();
 
-  //     if (refreshToken) {
-  //       await logoutService({ refreshToken });
-
-  //       localStorage.removeItem(LocalStorageAuthKeys.REFRESH_TOKEN);
-  //       localStorage.removeItem(LocalStorageAuthKeys.ACCESS_TOKEN);
-
-  //       setUserNotisLogged();
-  //     }
+  //     setUserNotisLogged();
   //   } catch (error) {
   //     setUserNotisLogged();
   //   }
@@ -179,55 +130,6 @@ export const useAuthStore = defineStore('auth', () => {
   //     response.user ? setIsLogged(response) : setUserNotisLogged();
   //   } catch (error) {
   //     setUserNotisLogged();
-  //   }
-  // };
-
-  // TOKENS
-  /**
-   * This function renews the JWT access token using the refresh token stored in local storage.
-   */
-  // const renewToken = async (): Promise<void> => {
-  //   try {
-  //     const refreshToken: string | null = localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN);
-
-  //     if (refreshToken) {
-  //       const response: TokenResponse = await renewTokenService({
-  //         token: refreshToken,
-  //       });
-
-  //       response
-  //         ? saveJTWAccessToken(response.accessToken)
-  //         : setUserNotisLogged();
-  //     } else {
-  //       setUserNotisLogged();
-  //     }
-  //   } catch (exception) {
-  //     // TODO. Show error
-  //     setUserNotisLogged();
-  //   }
-  // };
-
-  /**
-   * This function checks if a user's token is valid and logs them in if it is.
-   */
-  // const checkUserToken = async (): Promise<void> => {
-  //   try {
-  //     setLoginInProgress();
-
-  //     const refreshToken: string | null = localStorage.getItem(LocalStorageAuthKeys.REFRESH_TOKEN);
-
-  //     if (refreshToken) {
-  //       const response: UserAuthData = await checkUserTokenService({
-  //         token: refreshToken,
-  //       });
-
-  //       response ? setIsLogged(response) : setUserNotisLogged();
-  //     } else {
-  //       setUserNotisLogged();
-  //     }
-  //   } catch (exception) {
-  //     // TODO. Show error
-  //     setLoginFailed();
   //   }
   // };
 
@@ -263,7 +165,6 @@ export const useAuthStore = defineStore('auth', () => {
     isLogged,
     isLoading,
     setIsLogged,
-    saveJWTTokens,
     setLoginFailed,
     isRegisterProcess,
     loginRequestStatus,

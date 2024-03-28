@@ -16,5 +16,4 @@ export const authWebserviceBaseUrls = {
   register: `${authBaseUrl}/register`,
   checkmail: `${authBaseUrl}/checkmail`,
   invitation: `${authBaseUrl}/invitation`,
-  userTokenCheck: `${authBaseUrl}/userTokenCheck`,
 };

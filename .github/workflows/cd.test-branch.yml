@@ -1,71 +1,167 @@
-name: Check lints and Cypress Tests with Dependency and Artifact Caching
+name: Check lints, Cypress Tests, Unit Tests, and Build with Caching
 
 on: push
 
+env:
+  CYPRESS_BASE_URL: http://localhost:5173
+  NODE_VERSION: '18.x'
+  PNPM_STORE: '~/.pnpm-store'
+
 jobs:
-  cypress-run:
+  setup:
     runs-on: ubuntu-22.04
+    outputs:
+      cache-key: ${{ steps.cache-keys.outputs.key }}
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Generate cache key
+        id: cache-keys
+        run: echo "::set-output name=key::$(echo ${{ runner.os }}-node-$(sha256sum **/pnpm-lock.yaml | sha256sum | cut -d ' ' -f 1))"
+
       - name: Cache node modules
         uses: actions/cache@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ${{ env.PNPM_STORE }}
+          key: ${{ steps.cache-keys.outputs.key }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Use Node.js ${{ matrix.node-version }}
+
+  cypress-run:
+    needs: setup
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PNPM_STORE }}
+          key: ${{ needs.setup.outputs.cache-key }}
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm i -g pnpm
-      - run: pnpm install
-      - name: Cypress run
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v5
         env:
           CYPRESS_USER_TEST_EMAIL: ${{ secrets.USER_TEST_EMAIL }}
           CYPRESS_USER_TEST_PASSWORD: ${{ secrets.USER_TEST_PASSWORD }}
-          CYPRESS_BASE_URL: http://localhost:5173
         with:
           install: false
           project: ./
-          start: |
-            pnpm dev
-          wait-on: 'http://[::1]:5173'
+          start: pnpm dev
+          wait-on: ${{ env.CYPRESS_BASE_URL }}
           wait-on-timeout: 120
-      - name: Show e2e video
+
+      - name: Upload e2e videos
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: videos
           path: cypress/videos
-  checks-lints:
+
+  lints-checks:
+    needs: setup
     runs-on: ubuntu-22.04
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Cache node modules
         uses: actions/cache@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          path: ${{ env.PNPM_STORE }}
+          key: ${{ needs.setup.outputs.cache-key }}
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm i -g pnpm
-      - run: pnpm install
-      - run: pnpm format:check
-      - run: pnpm lint:check
-      - run: pnpm stylelint:check
-      - run: pnpm test:unit
-      - run: pnpm run test:coverage
-      - run: pnpm build
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check code formatting
+        run: pnpm format:check
+
+      - name: Check code linting
+        run: pnpm lint:check
+
+      - name: Check code style
+        run: pnpm stylelint:check
+
+  unit-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PNPM_STORE }}
+          key: ${{ needs.setup.outputs.cache-key }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run unit tests
+        run: pnpm test:unit
+
+      - name: Run test coverage
+        run: pnpm run test:coverage
+
+  build-project:
+    needs: [lints-checks, unit-tests]
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PNPM_STORE }}
+          key: ${{ needs.setup.outputs.cache-key }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build project
+        run: pnpm build
