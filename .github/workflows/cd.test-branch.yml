@@ -1,4 +1,4 @@
-name: Check lints, Cypress Tests, Unit Tests, and Build with Caching
+name: CI/CD Workflow
 
 on: push
 
