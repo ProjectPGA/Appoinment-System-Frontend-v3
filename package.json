@@ -7,7 +7,7 @@
     "dev": "vite --open --mode sandbox --host",
     "dev:development": "vite --open --mode development --host",
     "dev:staging": "vite --open --mode staging",
-    "build": "export NODE_ENV=sandbox && rm -rf /dist && vue-tsc && vite build",
+    "build": "export NODE_ENV=sandbox; if [ -d dist ]; then rm -rf dist; fi; vue-tsc && vite build",
     "preview": "export NODE_ENV=sandbox && rm -rf /dist && vite preview",
     "build:development": "export NODE_ENV=development && rm -rf /dist && vue-tsc && vite build",
     "build:staging": "export NODE_ENV=staging &&  rm -rf /dist && vue-tsc && vite build",
