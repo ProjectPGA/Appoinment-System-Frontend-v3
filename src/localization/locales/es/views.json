@@ -1,7 +1,14 @@
 {
   "views": {
     "maintenancePage": {},
-    "home": {},
+    "home": {
+      "userData": {
+        "name": "Nombre:",
+        "email": "Email:",
+        "surname": "Apellido:",
+        "roles": "Roles"
+      }
+    },
     "login": {
       "loginForm": {
         "noAccount": "¿No tienes cuenta?",

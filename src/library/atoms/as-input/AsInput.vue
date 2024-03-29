@@ -34,6 +34,10 @@ const props = withDefaults(
      */
     isInvalid?: boolean;
     /**
+     * invalid input
+     */
+    isExtended?: boolean;
+    /**
      * size of the input
      */
     size?: 'small' | 'medium' | 'large';
@@ -62,6 +66,7 @@ const props = withDefaults(
     primary: false,
     secondary: false,
     isInvalid: false,
+    isExtended: false,
     size: 'medium',
     placeholder: '',
     type: 'text',
@@ -78,6 +83,7 @@ const classes = computed(() => ({
   'is-primary': props.primary,
   'is-secondary': props.secondary,
   'is-invalid': props.isInvalid,
+  'is-extended': props.isExtended,
   [`is-${props.size || 'medium'}`]: true,
 }));
 

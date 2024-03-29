@@ -3,3 +3,5 @@ cache/*
 /dist
 /node_modules
 /storybook-static
+
+src/styles/modifiers/global.scss

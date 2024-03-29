@@ -21,7 +21,8 @@
       "passwordPlaceholder": "Password"
     },
     "buttons": {
-      "loginButton": "Log in"
+      "loginButton": "Log in",
+      "logoutButton": "Logout"
     },
     "notifications": {
       "success": {},

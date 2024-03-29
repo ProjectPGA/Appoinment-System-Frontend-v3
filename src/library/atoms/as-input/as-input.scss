@@ -46,4 +46,9 @@
   &.is-secondary {
     border-color: $main-color;
   }
+
+  &.is-extended {
+    width: 100%;
+    border-radius: 0;
+  }
 }

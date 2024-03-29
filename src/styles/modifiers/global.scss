@@ -1,9 +1,13 @@
 // This file is only to apply styles on
 // html, body or global httml tags
-.html-container {
+html {
   background-color: $main-color-background;
 }
 
-.body-container {
+body {
   font-family: $main-font, $main-font-default;
+}
+
+p {
+  margin: unset;
 }
