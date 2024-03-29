@@ -1,38 +1,35 @@
 <template>
   <form @submit="onSubmit">
-    <input
+    <as-input
+      id="email-input-login"
+      v-model="email"
+      v-bind="emailAttrs"
+      class="login-form__input"
       type="email"
-      v-bind="email"
+      :is-invalid="errors.email ? true : false"
+      :subtag="errors.email"
       :data-cy="'input-email-' + page"
       :label="$t('common.inputs.emailInputLabel')"
       :placeholder="$t('common.inputs.emailInputLabel')"
     />
-    <div>{{ errors.email }}</div>
-
-    <input
+    <as-input
+      id="password-input-login"
+      v-model="password"
+      v-bind="passwordAttrs"
+      class="login-form__input"
       type="password"
-      v-bind="password"
+      :subtag="errors.password"
+      :is-invalid="errors.password ? true : false"
       :data-cy="'input-password-' + page"
       :label="$t('common.inputs.passwordInputLabel')"
       :placeholder="$t('common.inputs.passwordInputLabel')"
     />
-    <div>{{ errors.password }}</div>
-
     <as-button
       :data-cy="'submit-' + page"
-      :primary="false"
       :label="$t('common.buttons.loginButton')"
       size="medium"
       @click="onSubmit"
     />
-    <div>
-      <p data-cy="invitation">
-        {{ $t('views.login.loginForm.noAccount') }}
-        <span>
-          {{ $t('views.login.loginForm.accessToInvitation') }}
-        </span>
-      </p>
-    </div>
   </form>
 </template>
 <script lang="ts" setup>
@@ -45,8 +42,8 @@ import * as yup from 'yup';
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
 import { i18nGlobal } from '@/localization/i18n';
 
-// import AsButton from '@/library/atoms/AsButton.vue';
 import AsButton from '@/library/atoms/as-button/AsButton.vue';
+import AsInput from '@/library/atoms/as-input/AsInput.vue';
 
 const { t } = i18nGlobal;
 const toast = useToast();
@@ -55,7 +52,7 @@ const authStore = useAuthStore();
 
 const emailRegEx: RegExp = new RegExp(FormRegEx.EMAIL);
 
-const { errors, handleSubmit, defineInputBinds } = useForm({
+const { errors, handleSubmit, defineField } = useForm({
   validationSchema: yup.object({
     email: yup
       .string()
@@ -68,8 +65,8 @@ const { errors, handleSubmit, defineInputBinds } = useForm({
   }),
 });
 
-const email = defineInputBinds('email');
-const password = defineInputBinds('password');
+const [email, emailAttrs] = defineField('email');
+const [password, passwordAttrs] = defineField('password');
 const page: Ref<string> = ref('login-page');
 
 // The `onInvalidSubmit()` function is called when the form is submitted and is invalid, meaning that
@@ -88,8 +85,8 @@ function onInvalidSubmit(): void {
  */
 async function startLogin(): Promise<void> {
   await authStore.login({
-    email: email.value.value,
-    password: password.value.value,
+    email: email.value,
+    password: password.value,
   });
 }
 
@@ -99,3 +96,11 @@ async function startLogin(): Promise<void> {
 // function that is executed when the form is submitted but fails validation.
 const onSubmit = handleSubmit(startLogin, onInvalidSubmit);
 </script>
+
+<style lang="scss" scoped>
+.login-form {
+  &__input {
+    margin-bottom: 16px;
+  }
+}
+</style>

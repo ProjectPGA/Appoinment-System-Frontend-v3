@@ -1,0 +1,125 @@
+/* Variables definition */
+:root {
+  /* Colors */
+  --primary-color: #172b3a;
+  --secondary-color: #ffffff;
+
+  /* Typografy */
+  --principal-typografy: 'Libre Franklin', helvetica, arial, verdana, tahoma,
+    sans-serif;
+}
+
+/* Margin and padding reset for all labels */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+*::before,
+*::after {
+  display: block;
+}
+
+/* Avoid image issues */
+img,
+picture,
+video,
+iframe,
+figure {
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Reset anchor text decoration */
+a {
+  text-decoration: none;
+}
+
+/* Remove list style */
+li {
+  list-style-type: none;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reset default styles of principal text labels */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+strong,
+blockquote,
+i,
+b,
+u,
+em {
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
+}
+
+/* Avoid pseudoelements of quotes issues */
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: '';
+  content: none;
+}
+
+/* Set default selection styles */
+::selection {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/* Addressing typography and form layout issues */
+form,
+input,
+textarea,
+select,
+button,
+label {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  display: block;
+}
+
+/* Tables reset */
+table,
+tr,
+td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Typography configuration for the web */
+body {
+  min-height: 100vh;
+  font-family: var(--principal-typografy);
+  color: var(--primary-color);
+
+  /* (Optional) */
+  font-smooth: always;
+
+  /* (Optional) */
+  -webkit-font-smoothing: antialiased;
+
+  /* (Optional) */
+  -moz-osx-font-smoothing: grayscale;
+}

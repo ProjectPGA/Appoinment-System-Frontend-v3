@@ -1,0 +1,29 @@
+.as-card {
+  display: flex;
+  flex-direction: column;
+  background-color: $main-color-light;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  width: 250px;
+  margin: 12px;
+
+  // Sizes
+  &.is-small {
+    width: 200px;
+  }
+
+  &.is-medium {
+    width: 250px;
+  }
+
+  &.is-large {
+    width: 300px;
+  }
+
+  &.is-extended {
+    width: 100%;
+  }
+}

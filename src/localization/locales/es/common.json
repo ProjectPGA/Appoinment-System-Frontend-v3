@@ -21,7 +21,8 @@
       "passwordPlaceholder": "Contraseña"
     },
     "buttons": {
-      "loginButton": "Acceder"
+      "loginButton": "Acceder",
+      "logoutButton": "Cerrar sesión"
     },
     "notifications": {
       "success": {},

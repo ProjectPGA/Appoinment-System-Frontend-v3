@@ -1,8 +1,9 @@
 .as-button {
-  background-color: $main-color;
+  background-color: $main-color-dark;
   color: $main-color-light;
+  width: fit-content;
   font-size: 1rem;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 7px 15px;
   border: 0;
   cursor: pointer;
