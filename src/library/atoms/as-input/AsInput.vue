@@ -71,7 +71,7 @@ const props = withDefaults(
   }
 );
 
-const emit = defineEmits(['update:modelValue', 'change', 'blur']);
+const emit = defineEmits(['update:modelValue', 'change', 'blur', 'input']);
 
 const classes = computed(() => ({
   'as-input': true,
@@ -84,6 +84,7 @@ const classes = computed(() => ({
 const onInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit('update:modelValue', target?.value);
+  emit('input');
 };
 const onChange = () => {
   emit('change');
