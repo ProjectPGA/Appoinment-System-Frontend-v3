@@ -3,10 +3,10 @@
     "maintenancePage": {},
     "home": {
       "userData": {
-        "name": "Name:",
-        "email": "Email:",
-        "surname": "Surname:",
-        "roles": "Roles"
+        "name": "Name: ",
+        "email": "Email: ",
+        "surname": "Surname: ",
+        "roles": "Roles: "
       }
     },
     "login": {
