@@ -82,7 +82,8 @@ const classes = computed(() => ({
 }));
 
 const onInput = (event: Event) => {
-  emit('update:modelValue', event.target?.value);
+  const target = event.target as HTMLInputElement;
+  emit('update:modelValue', target?.value);
 };
 const onChange = () => {
   emit('change');
