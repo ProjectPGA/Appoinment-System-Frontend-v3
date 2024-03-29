@@ -1,5 +1,5 @@
 <template>
-  <article :class="classes">
+  <article class="as-card" :class="classes">
     <slot />
   </article>
 </template>
@@ -26,7 +26,6 @@ const props = withDefaults(
 );
 
 const classes = computed(() => ({
-  'as-card': true,
   'is-extended': props.isExtended,
   [`is-${props.size || 'medium'}`]: true,
 }));

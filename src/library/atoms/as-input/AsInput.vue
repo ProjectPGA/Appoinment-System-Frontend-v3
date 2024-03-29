@@ -3,6 +3,7 @@
     <label class="as-input__label" :for="id">{{ label }}</label>
     <input
       :id="id"
+      class="as-input"
       :class="classes"
       :value="modelValue"
       :placeholder="placeholder"
@@ -93,7 +94,6 @@ const props = withDefaults(
 const emit = defineEmits(['update:modelValue', 'change', 'blur', 'input']);
 
 const classes = computed(() => ({
-  'as-input': true,
   'is-primary': props.primary,
   'is-secondary': props.secondary,
   'is-invalid': props.isInvalid,
