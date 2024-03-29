@@ -5,3 +5,4 @@ cache/*
 /storybook-static
 
 src/styles/modifiers/global.scss
+src/styles/_reset.scss
