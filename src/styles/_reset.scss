@@ -1,12 +1,12 @@
 /* Variables definition */
 :root {
   /* Colors */
-  --primary-color: #181818;
+  --primary-color: #172b3a;
   --secondary-color: #f0f0f0;
 
-  /* Tipografía */
-  --principal-typografy: helvetica, arial, sans-serif;
-  --secondary-typografy: verdana;
+  /* Typografy */
+  --principal-typografy: 'Libre Franklin', helvetica, arial, verdana, tahoma,
+    sans-serif;
 }
 
 /* Margin and padding reset for all labels */
@@ -114,12 +114,12 @@ body {
   font-family: var(--principal-typografy);
   color: var(--primary-color);
 
-  /* (Opcional) */
+  /* (Optional) */
   font-smooth: always;
 
-  /* (Opcional) */
+  /* (Optional) */
   -webkit-font-smoothing: antialiased;
 
-  /* (Opcional) */
+  /* (Optional) */
   -moz-osx-font-smoothing: grayscale;
 }
