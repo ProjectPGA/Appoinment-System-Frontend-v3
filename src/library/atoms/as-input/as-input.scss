@@ -1,0 +1,49 @@
+.as-input {
+  display: block;
+  padding: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: $main-color-light;
+  background-clip: padding-box;
+  border: 1px solid $main-color-medium-light;
+  border-radius: 4px;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &:focus {
+    border-color: $main-color-dark;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem $main-color-dark-10;
+  }
+
+  // States
+  &.is-invalid {
+    border-color: $main-color-fail;
+  }
+
+  // Sizes
+  &.is-small {
+    padding: 4px;
+    font-size: 0.875rem;
+  }
+
+  &.is-medium {
+    padding: 8px;
+    font-size: 1rem;
+  }
+
+  &.is-large {
+    padding: 12px;
+    font-size: 1.25rem;
+  }
+
+  // Types
+  &.is-primary {
+    border-color: $main-color-success;
+  }
+
+  &.is-secondary {
+    border-color: $main-color;
+  }
+}

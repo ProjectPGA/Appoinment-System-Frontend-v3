@@ -1,6 +1,7 @@
 <template>
   <button type="button" :class="classes" @click="onClick">
     {{ label }}
+    <slot />
   </button>
 </template>
 
@@ -13,17 +14,21 @@ const props = withDefaults(
     /**
      * The label of the button
      */
-    label: string;
+    label?: string;
     /**
      * primary or secondary button
      */
     primary?: boolean;
     /**
+     * secondary button
+     */
+    secondary?: boolean;
+    /**
      * size of the button
      */
     size?: 'small' | 'medium' | 'large';
   }>(),
-  { primary: false, size: 'medium' }
+  { primary: false, secondary: false, label: '', size: 'medium' }
 );
 
 const emit = defineEmits<{
@@ -33,7 +38,7 @@ const emit = defineEmits<{
 const classes = computed(() => ({
   'as-button': true,
   'is-primary': props.primary,
-  'is-secondary': !props.primary,
+  'is-secondary': props.secondary,
   [`is-${props.size || 'medium'}`]: true,
 }));
 

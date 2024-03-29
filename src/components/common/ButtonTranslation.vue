@@ -1,12 +1,18 @@
 <template>
-  <button @click="changeLanguage()">
+  <as-button
+    class="button-translations"
+    size="medium"
+    @click="changeLanguage()"
+  >
     <font-awesome-icon :icon="iconType.SOLID + ' ' + iconName.GLOBE" />
-    <span>{{ $i18n.locale }}</span>
-  </button>
+    <span class="button-translations__locale">{{ $i18n.locale }}</span>
+  </as-button>
 </template>
 <script lang="ts" setup>
 import { changeLanguage } from '@/utils/functionUtils/localizationFunctions';
 import { iconType, iconName } from '@/models/icons/fontawesome/iconsDictionary';
+
+import AsButton from '@/library/atoms/as-button/AsButton.vue';
 </script>
 <style lang="scss" scoped>
 .button-translations {
@@ -19,7 +25,7 @@ import { iconType, iconName } from '@/models/icons/fontawesome/iconsDictionary';
   text-transform: uppercase;
 
   &__locale {
-    margin-left: 8px;
+    margin-left: 4px;
   }
 }
 </style>
