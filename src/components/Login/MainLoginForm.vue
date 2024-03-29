@@ -1,43 +1,35 @@
 <template>
   <form @submit="onSubmit">
     <as-input
+      id="email-input-login"
       v-model="email"
       v-bind="emailAttrs"
       class="login-form__input"
       type="email"
       :is-invalid="errors.email ? true : false"
+      :subtag="errors.email"
       :data-cy="'input-email-' + page"
       :label="$t('common.inputs.emailInputLabel')"
       :placeholder="$t('common.inputs.emailInputLabel')"
-    >
-      <div>{{ errors.email }}</div>
-    </as-input>
+    />
     <as-input
+      id="password-input-login"
       v-model="password"
       v-bind="passwordAttrs"
       class="login-form__input"
       type="password"
+      :subtag="errors.password"
       :is-invalid="errors.password ? true : false"
       :data-cy="'input-password-' + page"
       :label="$t('common.inputs.passwordInputLabel')"
       :placeholder="$t('common.inputs.passwordInputLabel')"
-    >
-      <div>{{ errors.password }}</div>
-    </as-input>
+    />
     <as-button
       :data-cy="'submit-' + page"
       :label="$t('common.buttons.loginButton')"
       size="medium"
       @click="onSubmit"
     />
-    <div>
-      <p data-cy="invitation">
-        {{ $t('views.login.loginForm.noAccount') }}
-        <span>
-          {{ $t('views.login.loginForm.accessToInvitation') }}
-        </span>
-      </p>
-    </div>
   </form>
 </template>
 <script lang="ts" setup>

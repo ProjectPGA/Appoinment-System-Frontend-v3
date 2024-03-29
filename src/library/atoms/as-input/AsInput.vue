@@ -1,7 +1,8 @@
 <template>
   <div>
-    <label :for="dataCy">{{ label }}</label>
+    <label class="as-input__label" :for="id">{{ label }}</label>
     <input
+      :id="id"
       :class="classes"
       :value="modelValue"
       :placeholder="placeholder"
@@ -11,6 +12,9 @@
       @change="onChange"
       @blur="onBlur"
     />
+    <sub class="as-input__subtag" :class="{ 'is-invalid': isInvalid }">
+      {{ subtag }}</sub
+    >
     <slot />
   </div>
 </template>
@@ -58,6 +62,14 @@ const props = withDefaults(
      */
     label?: string;
     /**
+     * subtag of the input
+     */
+    subtag?: string;
+    /**
+     * id of the input
+     */
+    id: string;
+    /**
      * label of the input
      */
     modelValue?: string;
@@ -71,6 +83,8 @@ const props = withDefaults(
     placeholder: '',
     type: 'text',
     dataCy: '',
+    subtag: '',
+    id: '',
     label: '',
     modelValue: '',
   }
