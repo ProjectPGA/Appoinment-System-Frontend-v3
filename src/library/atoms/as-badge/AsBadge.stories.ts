@@ -17,7 +17,7 @@ const meta = {
     size: { control: 'select', options: ['small', 'medium', 'large'] },
     highlight: boolean,
   },
-  args: { type: 'info' }, // default value
+  args: { label: 'Badge', type: 'info', size: 'medium' }, // default value
 } satisfies Meta<typeof AsBadge>;
 
 export default meta;
