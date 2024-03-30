@@ -1,9 +1,7 @@
 <template>
   <span class="as-badge" :class="classes">
-    <span class="as-badge__label">
-      {{ label }}
-      <slot />
-    </span>
+    <span v-if="label">{{ label }}</span>
+    <slot />
   </span>
 </template>
 
@@ -30,7 +28,7 @@ const props = withDefaults(
      */
     size?: 'small' | 'medium';
   }>(),
-  { label: 'Badge', type: 'info', size: 'medium' }
+  { label: '', type: 'info', size: 'medium' }
 );
 
 const classes = computed(() => ({
