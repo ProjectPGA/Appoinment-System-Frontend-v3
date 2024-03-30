@@ -1,6 +1,6 @@
 <template>
   <span class="as-badge" :class="classes">
-    <span v-if="label">{{ label }}</span>
+    {{ label }}
     <slot />
   </span>
 </template>
