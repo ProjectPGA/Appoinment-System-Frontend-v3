@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - test/deploy-library
+env:
+  NODE_VERSION: '18.x'
 
 jobs:
   deploy:
@@ -16,16 +18,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        run: npm i -g pnpm
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build project
-        run: npm run build
+        run: pnpm build:storybook
 
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@1.3.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          script: deploy
+          workingDirectory: "appoinment-system-library"
