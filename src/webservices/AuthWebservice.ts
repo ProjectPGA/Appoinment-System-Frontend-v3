@@ -34,8 +34,8 @@ export const loginService: (
 };
 
 /**
- * This is a function that logs out a user by sending a POST request to a specified URL with
- * provided parameters and headers.
+ * This function sends a request to the server to log out the user.
+ * @returns The function `logoutService` returns a Promise that resolves to `void`. It sends a GET
  */
 export const logoutService: () => Promise<void> = async () => {
   await axios.get<void>(`${baseUrl}/logout`, {
