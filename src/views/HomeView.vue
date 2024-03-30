@@ -16,11 +16,13 @@
       </p>
       <p class="home-view__data">
         <strong>{{ $t('views.home.userData.roles') }}</strong>
-        <span
-          v-for="(items, index) in authStore.userAuthData?.roles"
-          :key="index"
-        >
-          {{ items + '/' }}
+        <span class="home-view__roles-badges">
+          <AsBadge
+            v-for="(items, index) in authStore.userAuthData?.roles"
+            :key="index"
+            :label="items"
+            :class="{ 'is-success': items === 'ADMIN' }"
+          />
         </span>
       </p>
       <as-button
@@ -36,6 +38,7 @@
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import AsButton from '@/library/atoms/as-button/AsButton.vue';
 import AsCard from '@/library/atoms/as-card/AsCard.vue';
+import AsBadge from '@/library/atoms/as-badge/AsBadge.vue';
 
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
@@ -54,6 +57,11 @@ const logout = () => {
 
   &__data {
     margin-bottom: 12px;
+  }
+
+  &__roles-badges {
+    display: inline-flex;
+    gap: 8px;
   }
 }
 </style>
