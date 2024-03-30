@@ -29,8 +29,10 @@ jobs:
       - name: Build project
         run: pnpm build:storybook
 
-      - name: Deploy to Cloudflare
-        uses: cloudflare/wrangler-action@v3
+      - name: Publish
+        uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          packageManager: pnpm
+          accountId: db17b9c07d3143836467071da77560d9
+          projectName: 'appoinment-system-library'
+          directory: 'storybook-static'
