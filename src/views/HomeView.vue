@@ -41,13 +41,11 @@ import AsCard from '@/library/atoms/as-card/AsCard.vue';
 import AsBadge from '@/library/atoms/as-badge/AsBadge.vue';
 
 import { useAuthStore } from '@/stores/auth';
-import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
-const router = useRouter();
+
 const logout = () => {
-  authStore.setLoginFailed();
-  router.push({ name: 'Login' });
+  authStore.logout();
 };
 </script>
 

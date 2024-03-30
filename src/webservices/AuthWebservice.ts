@@ -4,7 +4,6 @@ import { apiPrefix, jsonHeaders } from './consts';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from './models/auth/LoginRequest';
-import { LogoutRequest } from './models/auth/LogoutRequest';
 import { InvitationalCodeRequest } from './models/auth/InvitationalCodeRequest';
 import { CheckMailRequest } from './models/auth/CheckMailRequest';
 import { RegisterRequest } from './models/auth/RegisterRequest';
@@ -35,13 +34,13 @@ export const loginService: (
 };
 
 /**
- * This is a function that logs out a user by sending a POST request to a specified URL with
- * provided parameters and headers.
+ * This function sends a request to the server to log out the user.
+ * @returns The function `logoutService` returns a Promise that resolves to `void`. It sends a GET
  */
-export const logoutService: (
-  params: LogoutRequest
-) => Promise<void> = async params => {
-  await axios.post<void>(`${baseUrl}/logout`, params, jsonHeaders);
+export const logoutService: () => Promise<void> = async () => {
+  await axios.get<void>(`${baseUrl}/logout`, {
+    withCredentials: true,
+  });
 };
 
 /**
