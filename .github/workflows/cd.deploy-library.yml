@@ -3,7 +3,7 @@ name: CD Deploy Library
 on:
   push:
     branches:
-      - test/deploy-library
+      - main
 env:
   NODE_VERSION: '18.x'
 
