@@ -11,8 +11,6 @@ import { jsonHeaders } from './consts';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import * as AuthWebservice from './AuthWebservice';
 import { LoginRequest } from './models/auth/LoginRequest';
-import { LogoutRequest } from './models/auth/LogoutRequest';
-import { generateMockJWT } from '@/utils/mocks/user/mockJWT';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import { RegisterRequest } from './models/auth/RegisterRequest';
 import { CheckMailRequest } from './models/auth/CheckMailRequest';
@@ -21,7 +19,6 @@ import { authWebserviceBaseUrls } from './models/auth/AuthWebServiceBaseUrls';
 import { InvitationalCodeRequest } from './models/auth/InvitationalCodeRequest';
 
 // Global constants
-const mockJWT: string = generateMockJWT();
 const axiosPostSpy = jest.spyOn(axios, 'post');
 const axiosDeleteSpy = jest.spyOn(axios, 'delete');
 const axiosMock: MockAdapter = new MockAdapter(axios);
@@ -80,35 +77,33 @@ describe('01 AuthWebservice: Check loginService', () => {
 });
 
 describe('02 AuthWebservice: Check logout service', () => {
-  const logoutRequest: LogoutRequest = { refreshToken: mockJWT };
-  const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
-    authWebserviceBaseUrls.logout,
-    logoutRequest
+  const axiosMockGet: MockAdapter.RequestHandler = axiosMock.onGet(
+    `${authWebserviceBaseUrls.logout}`,
+    { withCredentials: true }
   );
 
+  const axiosGetSpy = jest.spyOn(axios, 'get');
+
   const checkToBeCalledWith = () => {
-    expect(axiosPostSpy).toBeCalledWith(
-      authWebserviceBaseUrls.logout,
-      logoutRequest,
-      jsonHeaders
+    expect(axiosGetSpy).toHaveBeenCalledWith(
+      `${authWebserviceBaseUrls.logout}`,
+      {
+        withCredentials: true,
+      }
     );
   };
 
   it('02 - 1 Should succeed on logout request', async () => {
-    axiosMockPost.reply(200);
-
-    await AuthWebservice.logoutService(logoutRequest);
-
+    axiosMockGet.reply(200);
+    await AuthWebservice.logoutService();
     checkToBeCalledWith();
   });
 
   it('02 - 2 Should fail on logout request', async () => {
-    axiosMockPost.reply(401);
-
-    await expect(AuthWebservice.logoutService(logoutRequest)).rejects.toThrow(
+    axiosMockGet.reply(401);
+    await expect(AuthWebservice.logoutService()).rejects.toThrow(
       errorMessage401
     );
-
     checkToBeCalledWith();
   });
 });

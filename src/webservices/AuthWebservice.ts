@@ -4,7 +4,6 @@ import { apiPrefix, jsonHeaders } from './consts';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from './models/auth/LoginRequest';
-// import { LogoutRequest } from './models/auth/LogoutRequest';
 import { InvitationalCodeRequest } from './models/auth/InvitationalCodeRequest';
 import { CheckMailRequest } from './models/auth/CheckMailRequest';
 import { RegisterRequest } from './models/auth/RegisterRequest';
