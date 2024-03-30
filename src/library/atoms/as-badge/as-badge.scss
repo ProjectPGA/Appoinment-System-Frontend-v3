@@ -1,0 +1,55 @@
+.as-badge {
+  background-color: $main-color-medium-dark;
+  color: $main-color-light;
+  width: fit-content;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  padding: 4px 8px;
+  border: 0;
+  cursor: pointer;
+
+  &.is-info {
+    background-color: $main-color-medium-dark;
+    color: $main-color-light;
+
+    &.is-highlight {
+      background-color: $main-color-medium-highlight;
+      color: $main-color-medium-dark;
+    }
+  }
+
+  &.is-warning {
+    background-color: $main-color-warn;
+    color: $main-color-dark;
+
+    &.is-highlight {
+      background-color: $main-color-warn-highlight;
+      color: $main-color-warn-dark;
+    }
+  }
+
+  &.is-success {
+    background-color: $main-color-success-dark;
+    color: $main-color-light;
+
+    &.is-highlight {
+      background-color: $main-color-success-highlight;
+      color: $main-color-success-dark;
+    }
+  }
+
+  &.is-error {
+    background-color: $main-color-fail;
+    color: $main-color-light;
+
+    &.is-highlight {
+      background-color: $main-color-fail-highlight;
+      color: $main-color-fail;
+    }
+  }
+
+  &.is-small {
+    padding: 2px 6px;
+    font-size: 0.75rem;
+  }
+}
