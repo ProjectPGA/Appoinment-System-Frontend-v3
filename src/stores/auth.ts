@@ -12,7 +12,7 @@ import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
 import {
   loginService,
-  // logoutService,
+  logoutService,
   // registerService,
   // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
@@ -104,15 +104,16 @@ export const useAuthStore = defineStore('auth', () => {
    * This function logs out the user by removing their refresh token and access token from local
    * storage and setting the user as not logged in.
    */
-  // const logout = async (): Promise<void> => {
-  //   try {
-  //     await logoutService();
+  const logout = async (): Promise<void> => {
+    try {
+      await logoutService();
 
-  //     setUserNotisLogged();
-  //   } catch (error) {
-  //     setUserNotisLogged();
-  //   }
-  // };
+      setUserNotisLogged();
+      router.push({ name: 'Login' });
+    } catch (error) {
+      setUserNotisLogged();
+    }
+  };
 
   /**
    * This is an asynchronous function that registers a user and sets their login status based on the
@@ -160,6 +161,7 @@ export const useAuthStore = defineStore('auth', () => {
   // };
 
   return {
+    logout,
     login,
     userAuthData,
     isLogged,
