@@ -13,12 +13,14 @@ import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 import {
   loginService,
   logoutService,
+  getAllUsersService,
   // registerService,
   // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
 
 export const useAuthStore = defineStore('auth', () => {
   const userAuthData = ref<UserAuthData | null>(null);
+  const users = ref<UserAuthData[]>([]);
   const isLogged = ref<boolean>(false);
   const isLoading = ref<boolean>(false);
   const isRegisterProcess = ref<boolean>(false);
@@ -134,36 +136,22 @@ export const useAuthStore = defineStore('auth', () => {
   //   }
   // };
 
-  // Invitational Code
+  const getAllUsers = async (): Promise<void> => {
+    try {
+      const response: UserAuthData[] = await getAllUsersService();
 
-  /**
-   * This is a function that checks an invitation code and sets some values accordingly.
-   * @param {string} invitationCode - The `invitationCode` parameter is a string that represents the
-   * code that is being checked for validity. It is passed as an argument to the
-   * `checkInvitationalCode` function.
-   */
-  // const checkInvitationalCode = async (
-  //   invitationCode: string
-  // ): Promise<void> => {
-  //   try {
-  //     await checkInvitationalCodeService({ invitationCode });
-
-  //     isRegisterProcess.value = true;
-  //     isLoading.value = true;
-
-  //     // TODO: Add router
-  //     // router.push('/register');
-  //   } catch (exception) {
-  //     // TODO. Show error
-  //     isRegisterProcess.value = false;
-  //     isLoading.value = false;
-  //   }
-  // };
+      users.value = response;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return {
+    users,
     logout,
     login,
     userAuthData,
+    getAllUsers,
     isLogged,
     isLoading,
     setIsLogged,
