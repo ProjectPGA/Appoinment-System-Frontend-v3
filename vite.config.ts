@@ -2,6 +2,7 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import VitePluginInjectPreload from 'vite-plugin-inject-preload';
 import eslint from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
@@ -22,6 +23,18 @@ export default defineConfig({
       include: path.resolve(__dirname, './localization/locales/**/*'),
     }),
     eslint(),
+    VitePluginInjectPreload({
+      files: [
+        {
+          match: /LibreFranklin-[A-Za-z0-9]+.woff2$/,
+          attributes: {
+            type: 'font/woff2',
+            as: 'font',
+            crossorigin: 'anonymous',
+          },
+        },
+      ],
+    }),
   ],
   css: {
     preprocessorOptions: {

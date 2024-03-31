@@ -1,19 +1,27 @@
 <template>
   <as-card class="user-data">
     <p class="user-data__data">
-      <strong>{{ $t('views.home.userData.email') }}</strong>
+      <span class="user-data__data-title">{{
+        $t('views.home.userData.email')
+      }}</span>
       {{ props.user?.email }}
     </p>
     <p class="user-data__data">
-      <strong>{{ $t('views.home.userData.name') }}</strong>
+      <span class="user-data__data-title">{{
+        $t('views.home.userData.name')
+      }}</span>
       {{ props.user?.name }}
     </p>
     <p class="user-data__data">
-      <strong>{{ $t('views.home.userData.surname') }}</strong>
+      <span class="user-data__data-title">{{
+        $t('views.home.userData.surname')
+      }}</span>
       {{ props.user?.surname }}
     </p>
     <p class="user-data__data">
-      <strong>{{ $t('views.home.userData.roles') }}</strong>
+      <span class="user-data__data-title">{{
+        $t('views.home.userData.roles')
+      }}</span>
       <span class="user-data__roles-badges">
         <AsBadge
           v-for="(items, index) in props.user?.roles"
@@ -49,6 +57,10 @@ const props = defineProps<{
   &__roles-badges {
     display: inline-flex;
     gap: 8px;
+  }
+
+  &__data-title {
+    @include font-sizing-selector('body/large/semi');
   }
 }
 </style>

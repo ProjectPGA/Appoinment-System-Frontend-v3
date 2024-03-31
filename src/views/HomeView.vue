@@ -51,6 +51,8 @@ const logout = () => {
 
   &__title {
     width: 100%;
+
+    @include font-sizing-selector('heading/small');
   }
 
   &__button {
