@@ -3,19 +3,27 @@
   <section class="home-view">
     <AsCard>
       <p class="home-view__data">
-        <strong>{{ $t('views.home.userData.email') }}</strong>
+        <span class="home-view__data-title">{{
+          $t('views.home.userData.email')
+        }}</span>
         {{ authStore.userAuthData?.email }}
       </p>
       <p class="home-view__data">
-        <strong>{{ $t('views.home.userData.name') }}</strong>
+        <span class="home-view__data-title">{{
+          $t('views.home.userData.name')
+        }}</span>
         {{ authStore.userAuthData?.name }}
       </p>
       <p class="home-view__data">
-        <strong>{{ $t('views.home.userData.surname') }}</strong>
+        <span class="home-view__data-title">{{
+          $t('views.home.userData.surname')
+        }}</span>
         {{ authStore.userAuthData?.surname }}
       </p>
       <p class="home-view__data">
-        <strong>{{ $t('views.home.userData.roles') }}</strong>
+        <span class="home-view__data-title">{{
+          $t('views.home.userData.roles')
+        }}</span>
         <span class="home-view__roles-badges">
           <AsBadge
             v-for="(items, index) in authStore.userAuthData?.roles"
@@ -60,6 +68,10 @@ const logout = () => {
   &__roles-badges {
     display: inline-flex;
     gap: 8px;
+  }
+
+  &__data-title {
+    @include font-sizing-selector('body/medium/semi');
   }
 }
 </style>
