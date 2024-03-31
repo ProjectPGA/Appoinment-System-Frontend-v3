@@ -100,6 +100,8 @@ $line-height-map: (
   'button/small/bold': $line-height-button-small-bold
 );
 
+@use 'sass:map';
+
 /// Returns font style result based in the maps
 /// @example scss - Example of using
 /// font-sizing-selector('body/extralarge/regular') - will return by default font-family: Libre Frankling and font-style: normal
