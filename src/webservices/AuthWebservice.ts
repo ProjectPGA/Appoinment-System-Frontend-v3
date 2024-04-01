@@ -45,7 +45,9 @@ export const logoutService: () => Promise<void> = async () => {
  * The function getAllUsersService makes a GET request to retrieve all users from a specified API
  * endpoint.
  */
-export const getAllUsersService: () => Promise<UserAuthData[]> = async () => {
+export const getAllUsersService: () => Promise<
+  UserAuthData[] | null
+> = async () => {
   const response = await axios.get<UserAuthData[]>(`${baseUrl}/users/all`, {
     withCredentials: true,
   });

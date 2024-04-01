@@ -13,4 +13,5 @@ export const authWebserviceBaseUrls = {
   login: `${authBaseUrl}/login`,
   logout: `${authBaseUrl}/logout`,
   register: `${authBaseUrl}/register`,
+  getAllUsers: `${authBaseUrl}/users/all`,
 };

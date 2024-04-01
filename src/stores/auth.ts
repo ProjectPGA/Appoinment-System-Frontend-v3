@@ -20,7 +20,7 @@ import {
 
 export const useAuthStore = defineStore('auth', () => {
   const userAuthData = ref<UserAuthData | null>(null);
-  const users = ref<UserAuthData[]>([]);
+  const users = ref<UserAuthData[] | null>([]);
   const isLogged = ref<boolean>(false);
   const isLoading = ref<boolean>(false);
   const isRegisterProcess = ref<boolean>(false);
@@ -113,6 +113,7 @@ export const useAuthStore = defineStore('auth', () => {
       setUserNotisLogged();
       router.push({ name: 'Login' });
     } catch (error) {
+      console.error(error);
       setUserNotisLogged();
     }
   };
@@ -136,9 +137,13 @@ export const useAuthStore = defineStore('auth', () => {
   //   }
   // };
 
+  /**
+   * The function `getAllUsers` asynchronously fetches user authentication data and updates the `users`
+   * value with the response.
+   */
   const getAllUsers = async (): Promise<void> => {
     try {
-      const response: UserAuthData[] = await getAllUsersService();
+      const response: UserAuthData[] | null = await getAllUsersService();
 
       users.value = response;
     } catch (error) {

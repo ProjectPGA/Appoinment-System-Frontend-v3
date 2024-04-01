@@ -103,7 +103,7 @@ describe('02 AuthWebservice: Check logout service', () => {
   });
 });
 
-describe('08 AuthWebservice: Check register service', () => {
+describe('03 AuthWebservice: Check register service', () => {
   const registerUserMock: User = createRandomUser();
   const registerRequestMock: RegisterRequest = {
     user: registerUserMock,
@@ -121,7 +121,7 @@ describe('08 AuthWebservice: Check register service', () => {
     );
   };
 
-  it('08 - 1 Should succeed register service request', async () => {
+  it('03 - 1 Should succeed register service request', async () => {
     const successResponseData: UserAuthData | null =
       createRandomUserAuthData(registerUserMock);
 
@@ -135,13 +135,45 @@ describe('08 AuthWebservice: Check register service', () => {
     checkToBeCalledWith();
   });
 
-  it('08 - 2 Should fail register service request', async () => {
+  it('03 - 2 Should fail register service request', async () => {
     axiosMockPost.reply(401);
 
     await expect(
       AuthWebservice.registerService(registerRequestMock)
     ).rejects.toThrowError(errorMessage401);
 
+    checkToBeCalledWith();
+  });
+});
+
+describe('04 AuthWebservice: Check get All users service', () => {
+  const axiosMockGet: MockAdapter.RequestHandler = axiosMock.onGet(
+    `${authWebserviceBaseUrls.getAllUsers}`,
+    { withCredentials: true }
+  );
+
+  const axiosGetSpy = jest.spyOn(axios, 'get');
+
+  const checkToBeCalledWith = () => {
+    expect(axiosGetSpy).toHaveBeenCalledWith(
+      `${authWebserviceBaseUrls.getAllUsers}`,
+      {
+        withCredentials: true,
+      }
+    );
+  };
+
+  it('04 - 1 Should succeed on get all users request', async () => {
+    axiosMockGet.reply(200);
+    await AuthWebservice.getAllUsersService();
+    checkToBeCalledWith();
+  });
+
+  it('04 - 2 Should fail on get all users request', async () => {
+    axiosMockGet.reply(401);
+    await expect(AuthWebservice.getAllUsersService()).rejects.toThrow(
+      errorMessage401
+    );
     checkToBeCalledWith();
   });
 });
