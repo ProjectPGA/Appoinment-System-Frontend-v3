@@ -219,7 +219,9 @@ describe('05 Auth store: getAllUsers', () => {
     });
     const authStore = useAuthStore(pinia);
 
-    getAllUsersServiceMock.mockRejectedValue({ nullUser: true });
+    getAllUsersServiceMock.mockRejectedValue(
+      createRandomUsers({ nullUser: true })
+    );
 
     await authStore.getAllUsers();
 
