@@ -6,7 +6,7 @@ import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as AuthWebservice from '@/webservices/AuthWebservice';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
-import { createRandomUsers } from '@/utils/mocks/user/mockUsers';
+import { createRandomUsersList } from '@/utils/mocks/user/mockUsers';
 
 jest.mock('@/webservices/AuthWebservice');
 jest.mock('vue-i18n', () => ({
@@ -26,7 +26,7 @@ const getAllUsersServiceMock = jest.spyOn(AuthWebservice, 'getAllUsersService');
 
 const mockUserAuthData = createRandomUserAuthData();
 const mockUserLoginValue = createRandomUser();
-const mockUsers = createRandomUsers();
+const mockUsers = createRandomUsersList();
 
 describe('01 Auth store: login', () => {
   beforeEach(() => {
@@ -220,7 +220,7 @@ describe('05 Auth store: getAllUsers', () => {
     const authStore = useAuthStore(pinia);
 
     getAllUsersServiceMock.mockRejectedValue(
-      createRandomUsers({ nullUser: true })
+      createRandomUsersList({ nullUser: true })
     );
 
     await authStore.getAllUsers();

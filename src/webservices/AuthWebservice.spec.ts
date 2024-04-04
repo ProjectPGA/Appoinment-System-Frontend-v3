@@ -48,7 +48,7 @@ describe('01 AuthWebservice: Check loginService', () => {
 
     expect(response).toEqual(randomUser);
 
-    expect(axiosPostSpy).toBeCalledWith(
+    expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.login,
       loginRequestParams,
       jsonHeaders
@@ -63,7 +63,7 @@ describe('01 AuthWebservice: Check loginService', () => {
       errorMessage401
     );
 
-    expect(axiosPostSpy).toBeCalledWith(
+    expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.login,
       loginRequestMock,
       jsonHeaders
@@ -114,7 +114,7 @@ describe('03 AuthWebservice: Check register service', () => {
   );
 
   const checkToBeCalledWith = () => {
-    expect(axiosPostSpy).toBeCalledWith(
+    expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.register,
       registerRequestMock,
       jsonHeaders
@@ -148,7 +148,7 @@ describe('03 AuthWebservice: Check register service', () => {
 
 describe('04 AuthWebservice: Check get All users service', () => {
   const axiosMockGet: MockAdapter.RequestHandler = axiosMock.onGet(
-    `${authWebserviceBaseUrls.getAllUsers}`,
+    authWebserviceBaseUrls.getAllUsers,
     { withCredentials: true }
   );
 
@@ -156,7 +156,7 @@ describe('04 AuthWebservice: Check get All users service', () => {
 
   const checkToBeCalledWith = () => {
     expect(axiosGetSpy).toHaveBeenCalledWith(
-      `${authWebserviceBaseUrls.getAllUsers}`,
+      authWebserviceBaseUrls.getAllUsers,
       {
         withCredentials: true,
       }
