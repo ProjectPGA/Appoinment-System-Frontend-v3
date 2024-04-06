@@ -44,9 +44,9 @@
 
 <script lang="ts" setup>
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
-import AsButton from '@/library/atoms/as-button/AsButton.vue';
-import AsCard from '@/library/atoms/as-card/AsCard.vue';
-import AsBadge from '@/library/atoms/as-badge/AsBadge.vue';
+import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
+import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
+import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
 
 import { useAuthStore } from '@/stores/auth';
 
