@@ -112,7 +112,7 @@ $line-height-map: (
 @mixin font-sizing-selector(
   $font-sizing,
   $family: $main-font,
-  $font-style: 'normal'
+  $font-style: normal
 ) {
   font-family: map.get($font-family-map, $family);
   font-size: map.get($font-size-map, $font-sizing);
