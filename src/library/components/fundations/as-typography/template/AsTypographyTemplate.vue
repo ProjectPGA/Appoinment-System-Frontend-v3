@@ -1,3 +1,4 @@
+<!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
 <template>
   <section class="story">
     <h1 class="story__title as-typography is-heading is-medium">
