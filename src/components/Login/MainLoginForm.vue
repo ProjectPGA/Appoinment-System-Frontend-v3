@@ -42,8 +42,8 @@ import * as yup from 'yup';
 import { FormRegEx } from '@/models/formUtils/FormRegEx';
 import { i18nGlobal } from '@/localization/i18n';
 
-import AsButton from '@/library/atoms/as-button/AsButton.vue';
-import AsInput from '@/library/atoms/as-input/AsInput.vue';
+import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
+import AsInput from '@/library/components/atoms/as-input/AsInput.vue';
 
 const { t } = i18nGlobal;
 const toast = useToast();

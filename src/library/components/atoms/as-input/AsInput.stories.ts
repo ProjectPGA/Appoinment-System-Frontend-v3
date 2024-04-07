@@ -1,18 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import AsCard from './AsCard.vue';
+import AsInput from './AsInput.vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta = {
-  title: 'Appointment System/AsCard',
-  component: AsCard,
+  title: 'Atoms/AsInput',
+  component: AsInput,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
     size: { control: 'select', options: ['small', 'medium', 'large'] },
+    onInput: { action: 'input' },
   },
-  args: { isExtended: false }, // default value
-} satisfies Meta<typeof AsCard>;
+  args: { primary: false, secondary: false }, // default value
+} satisfies Meta<typeof AsInput>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -21,14 +22,32 @@ type Story = StoryObj<typeof meta>;
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Normal: Story = {
+export const Primary: Story = {
+  args: {
+    primary: true,
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    secondary: true,
+  },
+};
+
+export const Small: Story = {
+  args: {
+    size: 'small',
+  },
+};
+
+export const Medium: Story = {
   args: {
     size: 'medium',
   },
 };
 
-export const Extended: Story = {
+export const Large: Story = {
   args: {
-    isExtended: true,
+    size: 'large',
   },
 };

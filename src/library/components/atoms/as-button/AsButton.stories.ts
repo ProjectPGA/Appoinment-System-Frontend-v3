@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import AsInput from './AsInput.vue';
+import AsButton from './AsButton.vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta = {
-  title: 'Appointment System/AsInput',
-  component: AsInput,
+  title: 'Atoms/AsButton',
+  component: AsButton,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
     size: { control: 'select', options: ['small', 'medium', 'large'] },
-    onInput: { action: 'input' },
+    onClick: { action: 'clicked' },
   },
-  args: { primary: false, secondary: false }, // default value
-} satisfies Meta<typeof AsInput>;
+  args: { secondary: false }, // default value
+} satisfies Meta<typeof AsButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -25,29 +25,29 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     primary: true,
+    label: 'Primary',
   },
 };
 
 export const Secondary: Story = {
   args: {
     secondary: true,
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: 'small',
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    size: 'medium',
+    label: 'Secondary',
   },
 };
 
 export const Large: Story = {
   args: {
+    primary: true,
+    label: 'Large',
     size: 'large',
+  },
+};
+
+export const Small: Story = {
+  args: {
+    primary: true,
+    label: 'Small',
+    size: 'small',
   },
 };

@@ -36,8 +36,8 @@
 </template>
 
 <script lang="ts" setup>
-import AsCard from '@/library/atoms/as-card/AsCard.vue';
-import AsBadge from '@/library/atoms/as-badge/AsBadge.vue';
+import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
+import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 

@@ -12,7 +12,7 @@
 import { changeLanguage } from '@/utils/functionUtils/localizationFunctions';
 import { iconType, iconName } from '@/models/icons/fontawesome/iconsDictionary';
 
-import AsButton from '@/library/atoms/as-button/AsButton.vue';
+import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 </script>
 <style lang="scss" scoped>
 .button-translations {

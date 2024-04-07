@@ -1,0 +1,121 @@
+.as-typography {
+  &.is-heading {
+    &.is-extralarge {
+      @include font-sizing-selector('heading/extralarge');
+    }
+
+    &.is-large {
+      @include font-sizing-selector('heading/large');
+    }
+
+    &.is-medium {
+      @include font-sizing-selector('heading/medium');
+    }
+
+    &.is-small {
+      @include font-sizing-selector('heading/small');
+    }
+  }
+
+  &.is-body {
+    &.is-extralarge {
+      &.is-regular {
+        @include font-sizing-selector('body/extralarge/regular');
+      }
+
+      &.is-semi {
+        @include font-sizing-selector('body/extralarge/semi');
+      }
+
+      &.is-bold {
+        @include font-sizing-selector('body/extralarge/bold');
+      }
+    }
+
+    &.is-large {
+      &.is-regular {
+        @include font-sizing-selector('body/large/regular');
+      }
+
+      &.is-semi {
+        @include font-sizing-selector('body/large/semi');
+      }
+
+      &.is-bold {
+        @include font-sizing-selector('body/large/bold');
+      }
+    }
+
+    &.is-medium {
+      &.is-regular {
+        @include font-sizing-selector('body/medium/regular');
+      }
+
+      &.is-semi {
+        @include font-sizing-selector('body/medium/semi');
+      }
+
+      &.is-bold {
+        @include font-sizing-selector('body/medium/bold');
+      }
+    }
+
+    &.is-small {
+      &.is-regular {
+        @include font-sizing-selector('body/small/regular');
+      }
+
+      &.is-semi {
+        @include font-sizing-selector('body/small/semi');
+      }
+
+      &.is-bold {
+        @include font-sizing-selector('body/small/bold');
+      }
+    }
+  }
+
+  &.is-button {
+    &.is-large {
+      &.is-regular {
+        @include font-sizing-selector('button/large/regular');
+      }
+
+      &.is-semi {
+        @include font-sizing-selector('button/large/semi');
+      }
+
+      &.is-bold {
+        @include font-sizing-selector('button/large/bold');
+      }
+    }
+
+    &.is-medium {
+      &.is-regular {
+        @include font-sizing-selector('button/medium/regular');
+      }
+
+      &.is-semi {
+        @include font-sizing-selector('button/medium/semi');
+      }
+
+      &.is-bold {
+        @include font-sizing-selector('button/medium/bold');
+      }
+    }
+
+    &.is-small {
+      &.is-regular {
+        @include font-sizing-selector('button/small/regular');
+      }
+
+      &.is-semi {
+        @include font-sizing-selector('button/small/semi');
+      }
+
+      &.is-bold {
+        @include font-sizing-selector('button/small/bold');
+      }
+    }
+  }
+}
