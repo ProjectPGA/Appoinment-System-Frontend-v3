@@ -1,52 +1,36 @@
 <template>
   <button-translation />
-  <section class="home-view">
-    <AsCard>
-      <p class="home-view__data">
-        <span class="home-view__data-title">{{
-          $t('views.home.userData.email')
-        }}</span>
-        {{ authStore.userAuthData?.email }}
-      </p>
-      <p class="home-view__data">
-        <span class="home-view__data-title">{{
-          $t('views.home.userData.name')
-        }}</span>
-        {{ authStore.userAuthData?.name }}
-      </p>
-      <p class="home-view__data">
-        <span class="home-view__data-title">{{
-          $t('views.home.userData.surname')
-        }}</span>
-        {{ authStore.userAuthData?.surname }}
-      </p>
-      <p class="home-view__data">
-        <span class="home-view__data-title">{{
-          $t('views.home.userData.roles')
-        }}</span>
-        <span class="home-view__roles-badges">
-          <AsBadge
-            v-for="(items, index) in authStore.userAuthData?.roles"
-            :key="index"
-            :label="items"
-            :class="{ 'is-success': items === 'ADMIN' }"
-          />
-        </span>
-      </p>
+  <section class="home-view__section">
+    <h1 class="home-view__title">
+      {{ $t('views.home.titles.currentUserTitle') }}
+    </h1>
+    <user-data :user="authStore.userAuthData">
       <as-button
         :label="$t('common.buttons.logoutButton')"
         size="medium"
+        class="home-view__button"
         @click="logout()"
       />
-    </AsCard>
+      <as-button
+        class="home-view__button"
+        secondary
+        label="Get all users"
+        @click="authStore.getAllUsers"
+      />
+    </user-data>
+  </section>
+  <section class="home-view__section">
+    <h2 class="home-view__title">{{ $t('views.home.titles.usersTitle') }}</h2>
+    <all-users />
   </section>
 </template>
 
 <script lang="ts" setup>
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
-import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
-import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
-import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
+import UserData from '@/components/common/UserData.vue';
+import AllUsers from '@/components/home/AllUsers.vue';
+
+import AsButton from '@/library/atoms/as-button/AsButton.vue';
 
 import { useAuthStore } from '@/stores/auth';
 
@@ -59,19 +43,20 @@ const logout = () => {
 
 <style lang="scss" scoped>
 .home-view {
-  display: flex;
+  &__section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 18px;
+  }
 
-  &__data {
+  &__title {
+    width: 100%;
+
+    @include font-sizing-selector('heading/small');
+  }
+
+  &__button {
     margin-bottom: 12px;
-  }
-
-  &__roles-badges {
-    display: inline-flex;
-    gap: 8px;
-  }
-
-  &__data-title {
-    @include font-sizing-selector('body/medium/semi');
   }
 }
 </style>

@@ -6,6 +6,7 @@ import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as AuthWebservice from '@/webservices/AuthWebservice';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
+import { createRandomUsersList } from '@/utils/mocks/user/mockUsers';
 
 jest.mock('@/webservices/AuthWebservice');
 jest.mock('vue-i18n', () => ({
@@ -20,9 +21,12 @@ jest.mock('vue-router', () => ({
 }));
 
 const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
+const logoutServiceMock = jest.spyOn(AuthWebservice, 'logoutService');
+const getAllUsersServiceMock = jest.spyOn(AuthWebservice, 'getAllUsersService');
 
 const mockUserAuthData = createRandomUserAuthData();
 const mockUserLoginValue = createRandomUser();
+const mockUsers = createRandomUsersList();
 
 describe('01 Auth store: login', () => {
   beforeEach(() => {
@@ -106,6 +110,7 @@ describe('02 Auth store: setLoginInProgress', () => {
     expect(authStore.isLoading).toBe(true);
   });
 });
+
 describe('03 Auth store: setLoginFailed', () => {
   beforeEach(() => {
     // creates a fresh pinia and make it active so it's automatically picked
@@ -128,6 +133,7 @@ describe('03 Auth store: setLoginFailed', () => {
     expect(authStore.userAuthData).toBeNull();
   });
 });
+
 describe('03 Auth store: setUserNotIsLogged', () => {
   beforeEach(() => {
     // creates a fresh pinia and make it active so it's automatically picked
@@ -168,5 +174,101 @@ describe('04 Auth store: setIsLogged', () => {
     expect(authStore.isLoading).toBe(false);
     expect(authStore.loginRequestStatus).toBe(RequestStatus.SUCCESS);
     expect(authStore.userAuthData).toStrictEqual(mockUserAuthData);
+  });
+});
+
+describe('05 Auth store: getAllUsers', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+    window.localStorage.clear();
+  });
+  it('05 - 01 Should get all user data', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const authStore = useAuthStore(pinia);
+
+    getAllUsersServiceMock.mockResolvedValue(mockUsers);
+
+    await authStore.getAllUsers();
+
+    expect(authStore.users).toStrictEqual(mockUsers);
+  });
+  it('05 - 02 Should get all user data error', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const authStore = useAuthStore(pinia);
+
+    getAllUsersServiceMock.mockRejectedValue(new Error('Login Failed'));
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    await authStore.getAllUsers();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
+    expect(authStore.users).toStrictEqual([]);
+  });
+  it('05 - 03 Should get all user data null', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const authStore = useAuthStore(pinia);
+
+    getAllUsersServiceMock.mockRejectedValue(
+      createRandomUsersList({ nullUser: true })
+    );
+
+    await authStore.getAllUsers();
+
+    expect(authStore.users).toStrictEqual([]);
+  });
+});
+
+describe('06 Auth store: logout', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+    window.localStorage.clear();
+  });
+  it('06 - 01 Should logout', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const authStore = useAuthStore(pinia);
+
+    logoutServiceMock.mockResolvedValue(undefined);
+
+    await authStore.logout();
+
+    expect(authStore.loginRequestStatus).toBe(RequestStatus.PENDING);
+    expect(authStore.isLogged).toBe(false);
+    expect(authStore.isLoading).toBe(false);
+    expect(authStore.userAuthData).toBeNull();
+  });
+  it('06 - 01 Should logout fail', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const authStore = useAuthStore(pinia);
+
+    logoutServiceMock.mockRejectedValue(new Error('Login Failed'));
+
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    await authStore.logout();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
+    expect(authStore.loginRequestStatus).toBe(RequestStatus.PENDING);
+    expect(authStore.isLogged).toBe(false);
+    expect(authStore.isLoading).toBe(false);
+    expect(authStore.userAuthData).toBeNull();
   });
 });

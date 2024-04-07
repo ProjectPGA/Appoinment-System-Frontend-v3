@@ -2,6 +2,10 @@
   "views": {
     "maintenancePage": {},
     "home": {
+      "titles": {
+        "currentUserTitle": "Usuario Actual",
+        "usersTitle": "Usuarios"
+      },
       "userData": {
         "name": "Nombre: ",
         "email": "Email: ",

@@ -10,10 +10,8 @@ export const authBaseUrl: string = apiPrefix('/auth');
 endpoints. Each property in the object represents a specific endpoint, and its value is a string
 that combines the `authBaseUrl` with a specific path for that endpoint. */
 export const authWebserviceBaseUrls = {
-  token: `${authBaseUrl}/token`,
   login: `${authBaseUrl}/login`,
   logout: `${authBaseUrl}/logout`,
   register: `${authBaseUrl}/register`,
-  checkmail: `${authBaseUrl}/checkmail`,
-  invitation: `${authBaseUrl}/invitation`,
+  getAllUsers: `${authBaseUrl}/users/all`,
 };
