@@ -6,3 +6,5 @@ $font-families-default: --apple-system, blinkmacsystemfont, helvetica, arial,
   'Segoe UI Symbol';
 $font-families-text-libre-franklin: $font-families-libre-franklin,
   $font-families-default;
+$main-font: $font-families-libre-franklin !default;
+$main-font-with-default: $font-families-text-libre-franklin !default;
