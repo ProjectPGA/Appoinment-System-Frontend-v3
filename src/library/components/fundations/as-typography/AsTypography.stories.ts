@@ -6,7 +6,7 @@ const meta: Meta<typeof AsTypographyTemplate> = {
   title: 'Fundations/Typography',
   component: AsTypographyTemplate,
   argTypes: {
-    head: {
+    category: {
       control: 'select',
       options: ['heading', 'body', 'button'],
     },
@@ -36,10 +36,10 @@ export const Typography: Story = {
     setup() {
       return { args };
     },
-    template: '<AsTypographyTemplate :args="args" />',
+    template: '<AsTypographyTemplate v-bind="args" />',
   }),
   args: {
-    head: 'body',
+    category: 'body',
     size: 'large',
     weight: 'regular',
   },
