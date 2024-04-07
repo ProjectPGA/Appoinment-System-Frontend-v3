@@ -30,7 +30,7 @@ import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import UserData from '@/components/common/UserData.vue';
 import AllUsers from '@/components/home/AllUsers.vue';
 
-import AsButton from '@/library/atoms/as-button/AsButton.vue';
+import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 
 import { useAuthStore } from '@/stores/auth';
 
