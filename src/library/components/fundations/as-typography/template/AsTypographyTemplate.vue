@@ -33,16 +33,24 @@ import AsTypographyTable from '@/library/components/fundations/as-typography/tem
 import { fontSizings } from '@/library/components/fundations/as-typography/constants';
 
 const props = defineProps<{
+  /**
+   * The category of font-sizing (i.e heading)
+   */
   category: string;
+  /**
+   * The size of font-sizing (i.e small)
+   */
   size: string;
+  /**
+   * The weight of font-sizing (i.e semi)
+   */
   weight?: string;
 }>();
 
 const classObject = computed(() => ({
   [`is-${props.category}`]: true,
   [`is-${props.size}`]: true,
-  [`is-${props.weight}`]:
-    props.weight && props.category !== 'heading' ? true : false,
+  [`is-${props.weight}`]: true,
 }));
 </script>
 <style lang="scss" scoped>
