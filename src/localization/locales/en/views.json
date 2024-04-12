@@ -4,7 +4,34 @@
     "home": {
       "titles": {
         "currentUserTitle": "Current User",
+        "createUserTitle": "Create user",
         "usersTitle": "Users"
+      },
+      "createUser": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Name"
+        },
+        "surname": {
+          "label": "Surname",
+          "placeholder": "Surname"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Email"
+        },
+        "roles": {
+          "label": "Roles",
+          "placeholder": "USER | ADMIN"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter the password"
+        },
+        "repeatPassword": {
+          "label": "Repeat the password",
+          "placeholder": "Repeat the password"
+        }
       },
       "userData": {
         "name": "Name: ",
