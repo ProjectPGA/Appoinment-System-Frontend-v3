@@ -31,7 +31,8 @@
         "repeatPassword": {
           "label": "Repeat the password",
           "placeholder": "Repeat the password"
-        }
+        },
+        "enterButton": "Create"
       },
       "userData": {
         "name": "Name: ",

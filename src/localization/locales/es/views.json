@@ -31,7 +31,8 @@
         "repeatPassword": {
           "label": "Repite la contraseña",
           "placeholder": "Repetir contraseña"
-        }
+        },
+        "enterButton": "Crear"
       },
       "userData": {
         "name": "Nombre: ",
