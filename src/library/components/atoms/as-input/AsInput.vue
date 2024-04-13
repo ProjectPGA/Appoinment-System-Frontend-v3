@@ -99,7 +99,6 @@ const classes = computed(() => ({
   'is-invalid': props.isInvalid,
   'is-extended': props.isExtended,
   [`is-${props.size || 'medium'}`]: true,
-  'is-checkbox': props.type === 'checkbox',
 }));
 
 const onInput = (event: Event) => {
