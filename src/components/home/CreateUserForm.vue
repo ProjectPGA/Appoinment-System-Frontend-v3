@@ -32,13 +32,24 @@
           :placeholder="$t('views.home.createUser.email.placeholder')"
         />
         <div>
-          <p>{{ $t('views.home.createUser.roles.label') }}</p>
-          <label for="admin" class="create-user-form__checkbox-label"
-            ><input-checkbox name="roles" value="ADMIN" /> Admin</label
-          >
-          <label for="user" class="create-user-form__checkbox-label"
-            ><input-checkbox name="roles" value="USER" /> User</label
-          >
+          <p class="create-user-form__checkboxs-title">
+            {{ $t('views.home.createUser.roles.label') }}
+          </p>
+          <as-checkbox
+            checkbox-id="admin-role"
+            name="roles"
+            checked-value="ADMIN"
+            label="Admin"
+          />
+          <as-checkbox
+            checkbox-id="user-role"
+            name="roles"
+            checked-value="USER"
+            label="User"
+          />
+          <span class="create-user-form__invalid-input">
+            {{ errors.roles }}
+          </span>
         </div>
       </div>
       <div class="create-user-form__inputs-container">
@@ -80,7 +91,7 @@ import { useAuthStore } from '@/stores/auth';
 import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 import AsInput from '@/library/components/atoms/as-input/AsInput.vue';
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
-import InputCheckbox from './InputCheckbox.vue';
+import AsCheckbox from '@/library/components/atoms/as-checkbox/AsCheckbox.vue';
 import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
 
 const toast = useToast();
@@ -91,6 +102,11 @@ const { defineField, errors, handleSubmit, values } = useForm({
     name: yup.string().required('Name is required'),
     surname: yup.string().required('Surname is required'),
     email: yup.string().email().required(),
+    roles: yup
+      .array()
+      .of(yup.string())
+      .min(1, 'Please select at least 1 role')
+      .required('Please select at least 1 role'),
     password: yup.string().min(6).required(),
     repeatPassword: yup
       .string()
@@ -131,11 +147,14 @@ const onSubmit = handleSubmit(registerUser, onInvalidSubmit);
     margin-bottom: 10px;
   }
 
-  &__checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin: 4px 0;
+  &__checkboxs-title {
+    margin-bottom: 4px;
+  }
+
+  &__invalid-input {
+    @include font-sizing-selector('body/medium/regular');
+
+    color: $main-color-fail;
   }
 }
 </style>
