@@ -1,0 +1,10 @@
+.as-checkbox {
+  &__label {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__input {
+    cursor: pointer;
+  }
+}
