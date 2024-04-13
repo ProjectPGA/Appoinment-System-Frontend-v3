@@ -1,5 +1,7 @@
-import { User } from '@/models/user/User';
-
 export interface RegisterRequest {
-  user: User;
+  email: string;
+  password: string;
+  name: string;
+  surname: string;
+  roles: [string];
 }
