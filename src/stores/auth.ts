@@ -10,11 +10,13 @@ import { RequestStatus } from '@/models/auth/RequestStatus';
 
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
+import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
+
 import {
   loginService,
   logoutService,
   getAllUsersService,
-  // registerService,
+  registerService,
   // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
 
@@ -125,17 +127,13 @@ export const useAuthStore = defineStore('auth', () => {
    * contains the data required for user registration. It may include fields such as `email`, `password`,
    * `firstName`, `lastName`, etc.
    */
-  // const register = async (registerData: RegisterRequest): Promise<void> => {
-  //   try {
-  //     setLoginInProgress();
-
-  //     const response: UserAuthData = await registerService(registerData);
-
-  //     response.user ? setIsLogged(response) : setUserNotisLogged();
-  //   } catch (error) {
-  //     setUserNotisLogged();
-  //   }
-  // };
+  const register = async (registerData: RegisterRequest): Promise<void> => {
+    try {
+      await registerService(registerData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   /**
    * The function `getAllUsers` asynchronously fetches user authentication data and updates the `users`
@@ -165,5 +163,6 @@ export const useAuthStore = defineStore('auth', () => {
     loginRequestStatus,
     setUserNotisLogged,
     setLoginInProgress,
+    register,
   };
 });
