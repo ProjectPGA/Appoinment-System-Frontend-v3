@@ -21,7 +21,8 @@
         "email": {
           "label": "Correo electrónico",
           "placeholder": "Correo electrónico",
-          "required": "Introduce un correo electrónico"
+          "required": "Introduce un correo electrónico",
+          "exist": "El correo electrónico ya existe"
         },
         "roles": {
           "title": "Roles",
@@ -44,7 +45,9 @@
           "placeholder": "Repetir contraseña",
           "invalid": "Las contraseñas deben coincidir"
         },
-        "enterButton": "Crear"
+        "enterButton": "Crear",
+        "error": "Ocurrió un error al crear el usuario",
+        "success": "Usuario creado con éxito"
       },
       "userData": {
         "name": "Nombre: ",

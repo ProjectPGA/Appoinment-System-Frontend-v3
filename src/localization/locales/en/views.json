@@ -22,7 +22,8 @@
           "label": "Email",
           "placeholder": "Email",
           "required": "Email is required",
-          "invalid": "Enter a valid email"
+          "invalid": "Enter a valid email",
+          "exist": "Email already exists"
         },
         "roles": {
           "title": "Roles",
@@ -46,7 +47,9 @@
           "invalid": "Passwords must match",
           "required": "Repeat the password"
         },
-        "enterButton": "Create"
+        "enterButton": "Create",
+        "error": "An error occurred while creating the user",
+        "success": "User successfully created"
       },
       "userData": {
         "name": "Name: ",
