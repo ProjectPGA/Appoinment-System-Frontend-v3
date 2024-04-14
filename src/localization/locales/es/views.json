@@ -10,27 +10,39 @@
       "createUser": {
         "name": {
           "label": "Nombre",
-          "placeholder": "Nombre"
+          "placeholder": "Nombre",
+          "required": "Introduce el nombre"
         },
         "surname": {
           "label": "Apellidos",
-          "placeholder": "Apellidos"
+          "placeholder": "Apellidos",
+          "required": "Introduce los apellidos"
         },
         "email": {
           "label": "Correo electrónico",
-          "placeholder": "Correo electrónico"
+          "placeholder": "Correo electrónico",
+          "required": "Introduce un correo electrónico"
         },
         "roles": {
-          "label": "Roles",
-          "placeholder": "USER | ADMIN"
+          "title": "Roles",
+          "admin": {
+            "label": "Administrador"
+          },
+          "user": {
+            "label": "Usuario"
+          },
+          "invalid": "Selecciona al menos un rol"
         },
         "password": {
           "label": "Contraseña",
-          "placeholder": "Introduce la contraseña"
+          "placeholder": "Introduce la contraseña",
+          "required": "Introduce una contraseña",
+          "invalid": "La contraseña debe tener al menos 6 caracteres"
         },
         "repeatPassword": {
           "label": "Repite la contraseña",
-          "placeholder": "Repetir contraseña"
+          "placeholder": "Repetir contraseña",
+          "invalid": "Las contraseñas deben coincidir"
         },
         "enterButton": "Crear"
       },

@@ -10,27 +10,41 @@
       "createUser": {
         "name": {
           "label": "Name",
-          "placeholder": "Name"
+          "placeholder": "Name",
+          "required": "Name is required"
         },
         "surname": {
           "label": "Surname",
-          "placeholder": "Surname"
+          "placeholder": "Surname",
+          "required": "Surname is required"
         },
         "email": {
           "label": "Email",
-          "placeholder": "Email"
+          "placeholder": "Email",
+          "required": "Email is required",
+          "invalid": "Enter a valid email"
         },
         "roles": {
-          "label": "Roles",
-          "placeholder": "USER | ADMIN"
+          "title": "Roles",
+          "admin": {
+            "label": "Administrator"
+          },
+          "user": {
+            "label": "User"
+          },
+          "invalid": "Select at least 1 role"
         },
         "password": {
           "label": "Password",
-          "placeholder": "Enter the password"
+          "placeholder": "Enter the password",
+          "required": "Password is required",
+          "invalid": "Password must be at least 6 characters"
         },
         "repeatPassword": {
           "label": "Repeat the password",
-          "placeholder": "Repeat the password"
+          "placeholder": "Repeat the password",
+          "invalid": "Passwords must match",
+          "required": "Repeat the password"
         },
         "enterButton": "Create"
       },
