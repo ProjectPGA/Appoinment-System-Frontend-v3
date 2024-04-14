@@ -27,7 +27,7 @@ const getAllUsersServiceMock = jest.spyOn(AuthWebservice, 'getAllUsersService');
 const registerServiceMock = jest.spyOn(AuthWebservice, 'registerService');
 
 const mockUserAuthData = createRandomUserAuthData();
-const mockUserLoginValue = createRandomUser();
+const userMock = createRandomUser();
 const mockUsers = createRandomUsersList();
 
 describe('01 Auth store: login', () => {
@@ -45,7 +45,7 @@ describe('01 Auth store: login', () => {
 
     loginServiceMock.mockResolvedValue(mockUserAuthData);
 
-    await authStore.login(mockUserLoginValue);
+    await authStore.login(userMock);
 
     expect(authStore.loginRequestStatus).toBe(RequestStatus.SUCCESS);
     expect(authStore.isLogged).toBe(true);
@@ -63,7 +63,7 @@ describe('01 Auth store: login', () => {
       createRandomUserAuthData({ nullUser: true })
     );
 
-    await authStore.login(mockUserLoginValue);
+    await authStore.login(userMock);
 
     expect(authStore.loginRequestStatus).toBe(RequestStatus.PENDING);
     expect(authStore.isLogged).toBe(false);
@@ -82,7 +82,7 @@ describe('01 Auth store: login', () => {
       .spyOn(console, 'error')
       .mockImplementation(() => {});
 
-    await authStore.login(mockUserLoginValue);
+    await authStore.login(userMock);
 
     expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
     expect(authStore.loginRequestStatus).toBe(RequestStatus.FAILURE);
@@ -305,7 +305,6 @@ describe('07 Auth store: register', () => {
       stubActions: false,
     });
     const authStore = useAuthStore(pinia);
-    const mockUser = createRandomUser();
 
     registerServiceMock.mockRejectedValue(new Error('Network error'));
 
@@ -313,7 +312,7 @@ describe('07 Auth store: register', () => {
       error: true,
     };
 
-    const response: RegisterUserResponse = await authStore.register(mockUser);
+    const response: RegisterUserResponse = await authStore.register(userMock);
 
     expect(response).toStrictEqual(expectedResponse);
   });
@@ -324,7 +323,6 @@ describe('07 Auth store: register', () => {
       stubActions: false,
     });
     const authStore = useAuthStore(pinia);
-    const mockUser = createRandomUser();
 
     registerServiceMock.mockRejectedValue({
       isAxiosError: true,
@@ -336,7 +334,7 @@ describe('07 Auth store: register', () => {
       status: 500,
     };
 
-    const response: RegisterUserResponse = await authStore.register(mockUser);
+    const response: RegisterUserResponse = await authStore.register(userMock);
 
     expect(response).toStrictEqual(expectedResponse);
   });
