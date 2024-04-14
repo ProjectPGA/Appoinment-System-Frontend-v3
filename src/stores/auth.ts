@@ -137,27 +137,30 @@ export const useAuthStore = defineStore('auth', () => {
     registerData: User
   ): Promise<RegisterUserResponse> => {
     try {
-      const result = await registerService(registerData);
+      const response: UserAuthData = await registerService(registerData);
 
-      const response = {
+      const successResult: RegisterUserResponse = {
         error: false,
-        result: result,
+        result: response,
       };
 
-      return response;
+      return successResult;
     } catch (error) {
       console.error(error);
 
       if (axios.isAxiosError(error)) {
-        return {
+        const axiosErrorResult: RegisterUserResponse = {
           error: true,
           status: error.response?.status,
         };
+        return axiosErrorResult;
       }
 
-      return {
+      const clientErrorResult: RegisterUserResponse = {
         error: true,
       };
+
+      return clientErrorResult;
     }
   };
 
