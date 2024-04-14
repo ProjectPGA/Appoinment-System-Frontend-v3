@@ -144,14 +144,14 @@ const registerUser = async () => {
   };
   const response = await authStore.register(userRegisterData);
 
-  if (response.error && response.status === 422) {
-    setFieldError('email', 'Email already exist');
-  } else {
-    toast.error('Ocurrió un error al crear el usuario');
+  if (response.error) {
+    response.status === 422
+      ? setFieldError('email', t('views.home.createUser.email.exist'))
+      : toast.error(t('views.home.createUser.error'));
   }
 
   if (!response.error) {
-    toast.success('El usuario se creó correctamente');
+    toast.success(t('views.home.createUser.success'));
     resetForm();
   }
 };
