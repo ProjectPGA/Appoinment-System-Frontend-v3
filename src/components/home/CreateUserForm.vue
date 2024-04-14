@@ -89,11 +89,12 @@ import * as yup from 'yup';
 import { useAuthStore } from '@/stores/auth';
 import { i18nGlobal } from '@/localization/i18n';
 
+import { User } from '@/models/user/User';
+
 import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 import AsInput from '@/library/components/atoms/as-input/AsInput.vue';
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 import AsCheckbox from '@/library/components/atoms/as-checkbox/AsCheckbox.vue';
-import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
 
 const toast = useToast();
 const authStore = useAuthStore();
@@ -135,7 +136,7 @@ const [email, emailAttrs] = defineField('email');
 const [repeatPassword, repeatPasswordAttrs] = defineField('repeatPassword');
 
 const registerUser = async () => {
-  const userRegisterData: RegisterRequest = {
+  const userRegisterData: User = {
     name: name.value,
     surname: surname.value,
     email: email.value,
