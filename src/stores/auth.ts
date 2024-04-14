@@ -12,6 +12,8 @@ import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
 import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
 
+import { AxiosError, AxiosResponse } from 'axios';
+
 import {
   loginService,
   logoutService,
@@ -120,6 +122,11 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
+  interface RegisterUserResponse {
+    error: boolean;
+    result: AxiosResponse | undefined | UserAuthData;
+  }
+
   /**
    * This is an asynchronous function that registers a user and sets their login status based on the
    * response.
@@ -127,11 +134,27 @@ export const useAuthStore = defineStore('auth', () => {
    * contains the data required for user registration. It may include fields such as `email`, `password`,
    * `firstName`, `lastName`, etc.
    */
-  const register = async (registerData: RegisterRequest): Promise<void> => {
+  const register = async (
+    registerData: RegisterRequest
+  ): Promise<RegisterUserResponse> => {
     try {
-      await registerService(registerData);
+      const result = await registerService(registerData);
+
+      const response = {
+        error: false,
+        result: result,
+      };
+
+      return response;
     } catch (error) {
-      console.error(error);
+      const errorResult = error as AxiosError;
+
+      const response = {
+        error: true,
+        result: errorResult.response,
+      };
+
+      return response;
     }
   };
 
