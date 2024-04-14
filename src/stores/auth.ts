@@ -12,8 +12,6 @@ import { RegisterUserResponse } from '@/models/auth/registerUser';
 
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
-import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
-
 import axios from 'axios';
 
 import {
@@ -23,6 +21,7 @@ import {
   registerService,
   // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
+import { User } from '@/models/user/User';
 
 export const useAuthStore = defineStore('auth', () => {
   const userAuthData = ref<UserAuthData | null>(null);
@@ -127,7 +126,7 @@ export const useAuthStore = defineStore('auth', () => {
   /**
    * The `register` function in TypeScript handles registration requests asynchronously, returning a
    * response object indicating success or failure.
-   * @param {RegisterRequest} registerData - Is of type `RegisterRequest`. It contains the data
+   * @param {User} registerData - Is of type `User`. It contains the data
    * needed to register a user, such as username, email, password, etc.
    * @returns Returns a Promise that resolves to a `RegisterUserResponse`
    * object. The `RegisterUserResponse` object contains an `error` property indicating if an error
@@ -135,7 +134,7 @@ export const useAuthStore = defineStore('auth', () => {
    * result of the registration or the error response in case of failure.
    */
   const register = async (
-    registerData: RegisterRequest
+    registerData: User
   ): Promise<RegisterUserResponse> => {
     try {
       const result = await registerService(registerData);
