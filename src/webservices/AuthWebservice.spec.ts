@@ -11,7 +11,6 @@ import { UserAuthData } from '@/models/user/UserAuthData';
 import * as AuthWebservice from './AuthWebservice';
 import { LoginRequest } from './models/auth/LoginRequest';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
-import { RegisterRequest } from './models/auth/RegisterRequest';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { authWebserviceBaseUrls } from './models/auth/AuthWebServiceBaseUrls';
 
@@ -105,18 +104,16 @@ describe('02 AuthWebservice: Check logout service', () => {
 
 describe('03 AuthWebservice: Check register service', () => {
   const registerUserMock: User = createRandomUser();
-  const registerRequestMock: RegisterRequest = {
-    user: registerUserMock,
-  };
+
   const axiosMockPost: MockAdapter.RequestHandler = axiosMock.onPost(
     authWebserviceBaseUrls.register,
-    registerRequestMock
+    registerUserMock
   );
 
   const checkToBeCalledWith = () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.register,
-      registerRequestMock,
+      registerUserMock,
       jsonHeaders
     );
   };
@@ -128,7 +125,7 @@ describe('03 AuthWebservice: Check register service', () => {
     axiosMockPost.reply(200, successResponseData);
 
     const response: UserAuthData =
-      await AuthWebservice.registerService(registerRequestMock);
+      await AuthWebservice.registerService(registerUserMock);
 
     expect(response).toEqual(successResponseData);
 
@@ -139,7 +136,7 @@ describe('03 AuthWebservice: Check register service', () => {
     axiosMockPost.reply(401);
 
     await expect(
-      AuthWebservice.registerService(registerRequestMock)
+      AuthWebservice.registerService(registerUserMock)
     ).rejects.toThrowError(errorMessage401);
 
     checkToBeCalledWith();
