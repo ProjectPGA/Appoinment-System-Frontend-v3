@@ -33,19 +33,19 @@
         />
         <div>
           <p class="create-user-form__checkboxs-title">
-            {{ $t('views.home.createUser.roles.label') }}
+            {{ $t('views.home.createUser.roles.title') }}
           </p>
           <as-checkbox
             checkbox-id="admin-role"
             name="roles"
             checked-value="ADMIN"
-            label="Admin"
+            :label="$t('views.home.createUser.roles.admin.label')"
           />
           <as-checkbox
             checkbox-id="user-role"
             name="roles"
             checked-value="USER"
-            label="User"
+            :label="$t('views.home.createUser.roles.user.label')"
           />
           <span class="create-user-form__invalid-input">
             {{ errors.roles }}
@@ -87,6 +87,7 @@ import { useToast } from 'vue-toastification';
 import * as yup from 'yup';
 
 import { useAuthStore } from '@/stores/auth';
+import { i18nGlobal } from '@/localization/i18n';
 
 import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 import AsInput from '@/library/components/atoms/as-input/AsInput.vue';
@@ -96,21 +97,31 @@ import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
 
 const toast = useToast();
 const authStore = useAuthStore();
+const { t } = i18nGlobal;
 
 const { defineField, errors, handleSubmit, values } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required('Name is required'),
-    surname: yup.string().required('Surname is required'),
-    email: yup.string().email().required(),
+    name: yup.string().required(t('views.home.createUser.name.required')),
+    surname: yup.string().required(t('views.home.createUser.surname.required')),
+    email: yup
+      .string()
+      .email()
+      .required(t('views.home.createUser.email.required')),
     roles: yup
       .array()
       .of(yup.string())
-      .min(1, 'Please select at least 1 role')
-      .required('Please select at least 1 role'),
-    password: yup.string().min(6).required(),
+      .min(1, t('views.home.createUser.roles.invalid'))
+      .required(t('views.home.createUser.roles.invalid')),
+    password: yup
+      .string()
+      .min(6, t('views.home.createUser.password.invalid'))
+      .required(t('views.home.createUser.password.required')),
     repeatPassword: yup
       .string()
-      .oneOf([yup.ref('password')], 'Passwords must match'),
+      .oneOf(
+        [yup.ref('password')],
+        t('views.home.createUser.repeatPassword.invalid')
+      ),
   }),
 });
 
