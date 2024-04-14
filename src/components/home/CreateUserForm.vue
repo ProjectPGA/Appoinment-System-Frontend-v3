@@ -99,31 +99,34 @@ const toast = useToast();
 const authStore = useAuthStore();
 const { t } = i18nGlobal;
 
-const { defineField, errors, handleSubmit, values } = useForm({
-  validationSchema: yup.object({
-    name: yup.string().required(t('views.home.createUser.name.required')),
-    surname: yup.string().required(t('views.home.createUser.surname.required')),
-    email: yup
-      .string()
-      .email()
-      .required(t('views.home.createUser.email.required')),
-    roles: yup
-      .array()
-      .of(yup.string())
-      .min(1, t('views.home.createUser.roles.invalid'))
-      .required(t('views.home.createUser.roles.invalid')),
-    password: yup
-      .string()
-      .min(6, t('views.home.createUser.password.invalid'))
-      .required(t('views.home.createUser.password.required')),
-    repeatPassword: yup
-      .string()
-      .oneOf(
-        [yup.ref('password')],
-        t('views.home.createUser.repeatPassword.invalid')
-      ),
-  }),
-});
+const { defineField, errors, handleSubmit, values, setFieldError, resetForm } =
+  useForm({
+    validationSchema: yup.object({
+      name: yup.string().required(t('views.home.createUser.name.required')),
+      surname: yup
+        .string()
+        .required(t('views.home.createUser.surname.required')),
+      email: yup
+        .string()
+        .email()
+        .required(t('views.home.createUser.email.required')),
+      roles: yup
+        .array()
+        .of(yup.string())
+        .min(1, t('views.home.createUser.roles.invalid'))
+        .required(t('views.home.createUser.roles.invalid')),
+      password: yup
+        .string()
+        .min(6, t('views.home.createUser.password.invalid'))
+        .required(t('views.home.createUser.password.required')),
+      repeatPassword: yup
+        .string()
+        .oneOf(
+          [yup.ref('password')],
+          t('views.home.createUser.repeatPassword.invalid')
+        ),
+    }),
+  });
 
 const [password, passwordAttrs] = defineField('password');
 const [name, nameAttrs] = defineField('name');
@@ -139,15 +142,21 @@ const registerUser = async () => {
     roles: values.roles,
     password: password.value,
   };
-  await authStore.register(userRegisterData);
-  toast.success('Usuario creado con éxito');
+  const response = await authStore.register(userRegisterData);
+
+  if (response.error && response.status === 422) {
+    setFieldError('email', 'Email already exist');
+  } else {
+    toast.error('Ocurrió un error al crear el usuario');
+  }
+
+  if (!response.error) {
+    toast.success('El usuario se creó correctamente');
+    resetForm();
+  }
 };
 
-const onInvalidSubmit = () => {
-  console.error('hola');
-};
-
-const onSubmit = handleSubmit(registerUser, onInvalidSubmit);
+const onSubmit = handleSubmit(registerUser);
 </script>
 
 <style lang="scss" scoped>
