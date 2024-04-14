@@ -8,11 +8,13 @@ import { UserAuthData } from '@/models/user/UserAuthData';
 
 import { RequestStatus } from '@/models/auth/RequestStatus';
 
+import { RegisterUserResponse } from '@/models/auth/registerUser';
+
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
 import { RegisterRequest } from '@/webservices/models/auth/RegisterRequest';
 
-import { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 
 import {
   loginService,
@@ -122,17 +124,15 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  interface RegisterUserResponse {
-    error: boolean;
-    result: AxiosResponse | undefined | UserAuthData;
-  }
-
   /**
-   * This is an asynchronous function that registers a user and sets their login status based on the
-   * response.
-   * @param {RegisterRequest} registerData - `registerData` is an object of type `RegisterRequest` which
-   * contains the data required for user registration. It may include fields such as `email`, `password`,
-   * `firstName`, `lastName`, etc.
+   * The `register` function in TypeScript handles registration requests asynchronously, returning a
+   * response object indicating success or failure.
+   * @param {RegisterRequest} registerData - Is of type `RegisterRequest`. It contains the data
+   * needed to register a user, such as username, email, password, etc.
+   * @returns Returns a Promise that resolves to a `RegisterUserResponse`
+   * object. The `RegisterUserResponse` object contains an `error` property indicating if an error
+   * occurred during the registration process, and a `result` property that holds either the successful
+   * result of the registration or the error response in case of failure.
    */
   const register = async (
     registerData: RegisterRequest
@@ -147,14 +147,18 @@ export const useAuthStore = defineStore('auth', () => {
 
       return response;
     } catch (error) {
-      const errorResult = error as AxiosError;
+      console.error(error);
 
-      const response = {
+      if (axios.isAxiosError(error)) {
+        return {
+          error: true,
+          status: error.response?.status,
+        };
+      }
+
+      return {
         error: true,
-        result: errorResult.response,
       };
-
-      return response;
     }
   };
 
