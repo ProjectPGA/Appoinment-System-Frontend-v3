@@ -22,7 +22,8 @@
     },
     "buttons": {
       "loginButton": "Log in",
-      "logoutButton": "Logout"
+      "logoutButton": "Logout",
+      "deleteButton": "Delete"
     },
     "notifications": {
       "success": {},
