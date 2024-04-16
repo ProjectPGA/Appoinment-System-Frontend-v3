@@ -3,6 +3,7 @@ import { User } from '@/models/user/User';
 import { UserRoles } from '@/models/user/UserRoles';
 
 export type RandomUserParams = {
+  _id?: string;
   email?: string;
   name?: string;
   surname?: string;
@@ -20,6 +21,7 @@ export type RandomUserParams = {
  */
 export function createRandomUser(params?: RandomUserParams): User {
   const {
+    _id = faker.string.fromCharacters('abcdef1234567890', 24),
     email = faker.internet.email(),
     name = faker.person.firstName(),
     surname = faker.person.lastName(),
@@ -28,6 +30,7 @@ export function createRandomUser(params?: RandomUserParams): User {
   } = params || {};
 
   return {
+    _id,
     email,
     name,
     surname,

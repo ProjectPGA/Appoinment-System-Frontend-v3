@@ -71,7 +71,7 @@ export const registerService: (
 };
 
 /**
- * The function `deleteUserService` sends a PUT request to a specific endpoint with the provided ID for
+ * The function `deleteUserService` sends a DELETE request to a specific endpoint with the provided ID for
  * deletion.
  */
 export const deleteUserService: (
