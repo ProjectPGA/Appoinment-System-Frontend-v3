@@ -5,6 +5,7 @@ import {
   createRandomLoginRequest,
   RandomLoginRequestParams,
 } from '@/utils/mocks/user/mockLoginRequest';
+
 import { User } from '@/models/user/User';
 import { jsonHeaders } from './consts';
 import { UserAuthData } from '@/models/user/UserAuthData';
@@ -14,6 +15,8 @@ import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import { RegisterRequest } from './models/auth/RegisterRequest';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { authWebserviceBaseUrls } from './models/auth/AuthWebServiceBaseUrls';
+
+import { faker } from '@faker-js/faker';
 
 // Global constants
 const axiosPostSpy = jest.spyOn(axios, 'post');
@@ -140,7 +143,7 @@ describe('03 AuthWebservice: Check register service', () => {
 
     await expect(
       AuthWebservice.registerService(registerRequestMock)
-    ).rejects.toThrowError(errorMessage401);
+    ).rejects.toThrow(errorMessage401);
 
     checkToBeCalledWith();
   });
@@ -172,6 +175,40 @@ describe('04 AuthWebservice: Check get All users service', () => {
   it('04 - 2 Should fail on get all users request', async () => {
     axiosMockGet.reply(401);
     await expect(AuthWebservice.getAllUsersService()).rejects.toThrow(
+      errorMessage401
+    );
+    checkToBeCalledWith();
+  });
+});
+
+describe('05 AuthWebservice: Delete user service', () => {
+  const id = faker.string.fromCharacters('abcdef1234567890', 24);
+
+  const axiosMockDelete: MockAdapter.RequestHandler = axiosMock.onAny(
+    authWebserviceBaseUrls.deleteUser + id,
+    {
+      withCredentials: true,
+    }
+  );
+
+  const axiosDeleteSpy = jest.spyOn(axios, 'delete');
+
+  const checkToBeCalledWith = () => {
+    expect(axiosDeleteSpy).toHaveBeenCalledWith(
+      authWebserviceBaseUrls.deleteUser + id,
+      jsonHeaders
+    );
+  };
+
+  it('05 - 1 Should succeed on delete user request', async () => {
+    axiosMockDelete.reply(200);
+    await AuthWebservice.deleteUserService(id);
+    checkToBeCalledWith();
+  });
+
+  it('05 - 2 Should fail on delete user request', async () => {
+    axiosMockDelete.reply(401);
+    await expect(AuthWebservice.deleteUserService(id)).rejects.toThrow(
       errorMessage401
     );
     checkToBeCalledWith();
