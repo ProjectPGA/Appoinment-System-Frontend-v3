@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="as-input-container" :class="containerClasses">
     <label class="as-input__label" :for="id">{{ label }}</label>
     <input
       :id="id"
@@ -99,6 +99,10 @@ const classes = computed(() => ({
   'is-invalid': props.isInvalid,
   'is-extended': props.isExtended,
   [`is-${props.size || 'medium'}`]: true,
+}));
+
+const containerClasses = computed(() => ({
+  'is-medium': props.size === 'medium' || false,
 }));
 
 const onInput = (event: Event) => {

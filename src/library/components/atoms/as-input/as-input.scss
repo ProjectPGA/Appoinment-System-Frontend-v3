@@ -1,3 +1,9 @@
+.as-input-container {
+  &.is-medium {
+    max-width: 216px;
+  }
+}
+
 .as-input {
   display: block;
   padding: 8px;
