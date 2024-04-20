@@ -32,7 +32,7 @@
           :placeholder="$t('views.home.createUser.email.placeholder')"
         />
         <div>
-          <p class="create-user-form__checkboxs-title">
+          <p class="create-user-form__checkboxes-title">
             {{ $t('views.home.createUser.roles.title') }}
           </p>
           <as-checkbox
@@ -168,7 +168,7 @@ const onSubmit = handleSubmit(registerUser);
     margin-bottom: 10px;
   }
 
-  &__checkboxs-title {
+  &__checkboxes-title {
     margin-bottom: 4px;
   }
 
