@@ -23,6 +23,7 @@ jest.mock('vue-router', () => ({
 
 const loginServiceMock = jest.spyOn(AuthWebservice, 'loginService');
 const logoutServiceMock = jest.spyOn(AuthWebservice, 'logoutService');
+const deleteUserServiceMock = jest.spyOn(AuthWebservice, 'deleteUserService');
 const getAllUsersServiceMock = jest.spyOn(AuthWebservice, 'getAllUsersService');
 const registerServiceMock = jest.spyOn(AuthWebservice, 'registerService');
 
@@ -252,7 +253,7 @@ describe('06 Auth store: logout', () => {
     expect(authStore.isLoading).toBe(false);
     expect(authStore.userAuthData).toBeNull();
   });
-  it('06 - 01 Should logout fail', async () => {
+  it('06 - 02 Should logout fail', async () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
@@ -337,5 +338,54 @@ describe('07 Auth store: register', () => {
     const response: RegisterUserResponse = await authStore.register(userMock);
 
     expect(response).toStrictEqual(expectedResponse);
+  });
+});
+
+describe('07 Auth store: delete User', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+    window.localStorage.clear();
+  });
+  it('07 - 01 Should delete a user', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const authStore = useAuthStore(pinia);
+
+    getAllUsersServiceMock.mockResolvedValue(mockUsers);
+
+    await authStore.getAllUsers();
+
+    expect(authStore.users).toStrictEqual(mockUsers);
+
+    deleteUserServiceMock.mockResolvedValue(undefined);
+
+    await authStore.deleteUser(mockUsers![0]._id);
+
+    expect(authStore.users).not.toContain(mockUsers![0]._id);
+  });
+
+  it('07 - 02 fail delete a user', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const authStore = useAuthStore(pinia);
+
+    getAllUsersServiceMock.mockResolvedValue(mockUsers);
+
+    await authStore.getAllUsers();
+
+    expect(authStore.users).toStrictEqual(mockUsers);
+
+    deleteUserServiceMock.mockRejectedValue(new Error('Login Failed'));
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    await authStore.deleteUser(mockUsers![0]._id);
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
   });
 });

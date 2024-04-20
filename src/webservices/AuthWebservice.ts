@@ -69,3 +69,13 @@ export const registerService: (
   );
   return response.data;
 };
+
+/**
+ * The function `deleteUserService` sends a DELETE request to a specific endpoint with the provided ID for
+ * deletion.
+ */
+export const deleteUserService: (
+  id: UserAuthData['_id']
+) => Promise<void> = async id => {
+  await axios.delete<void>(authWebserviceBaseUrls.deleteUser + id, jsonHeaders);
+};
