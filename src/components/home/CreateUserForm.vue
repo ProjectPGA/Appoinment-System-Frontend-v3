@@ -108,7 +108,7 @@ const { defineField, errors, handleSubmit, values, setFieldError, resetForm } =
         .required(t('views.home.createUser.surname.required')),
       email: yup
         .string()
-        .email()
+        .email(t('views.home.createUser.email.invalid'))
         .required(t('views.home.createUser.email.required')),
       roles: yup
         .array()
@@ -161,8 +161,6 @@ const onSubmit = handleSubmit(registerUser);
 
 <style lang="scss" scoped>
 .create-user-form {
-  max-width: 448px;
-
   &__inputs-container {
     display: flex;
     gap: 16px;

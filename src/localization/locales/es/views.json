@@ -21,6 +21,7 @@
         "email": {
           "label": "Correo electrónico",
           "placeholder": "Correo electrónico",
+          "invalid": "Introduce un correo electrónico válido",
           "required": "Introduce un correo electrónico",
           "exist": "El correo electrónico ya existe"
         },
