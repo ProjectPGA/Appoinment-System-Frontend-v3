@@ -13,6 +13,7 @@ import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 import {
   loginService,
   logoutService,
+  deleteUserService,
   getAllUsersService,
   // registerService,
   // checkInvitationalCodeService,
@@ -143,11 +144,33 @@ export const useAuthStore = defineStore('auth', () => {
    */
   const getAllUsers = async (): Promise<void> => {
     try {
+      isLoading.value = true;
+
       const response: UserAuthData[] | null = await getAllUsersService();
 
       users.value = response;
     } catch (error) {
       console.error(error);
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  /**
+   * The function `deleteUser` is an asynchronous function that deletes a user by calling the
+   * `deleteUserService` function with the provided `id`, handling any errors that may occur.
+   * @param {string} id - The `id` parameter in the `deleteUser` function is a string that represents
+   * the unique identifier of the user that you want to delete.
+   */
+  const deleteUser = async (id: UserAuthData['_id']): Promise<void> => {
+    try {
+      isLoading.value = true;
+      await deleteUserService(id);
+      await getAllUsers();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      isLoading.value = false;
     }
   };
 
@@ -158,6 +181,7 @@ export const useAuthStore = defineStore('auth', () => {
     userAuthData,
     getAllUsers,
     isLogged,
+    deleteUser,
     isLoading,
     setIsLogged,
     setLoginFailed,
