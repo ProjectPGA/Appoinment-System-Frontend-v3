@@ -8,7 +8,10 @@ import { UserAuthData } from '@/models/user/UserAuthData';
 
 import { RequestStatus } from '@/models/auth/RequestStatus';
 
-import { RegisterUserResponse } from '@/models/auth/registerUser';
+import {
+  RegisterUserRequest,
+  RegisterUserResponse,
+} from '@/models/auth/registerUser';
 
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
@@ -22,7 +25,6 @@ import {
   registerService,
   // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
-import { User } from '@/models/user/User';
 
 export const useAuthStore = defineStore('auth', () => {
   const userAuthData = ref<UserAuthData | null>(null);
@@ -135,7 +137,7 @@ export const useAuthStore = defineStore('auth', () => {
    * result of the registration or the error response in case of failure.
    */
   const register = async (
-    registerData: User
+    registerData: RegisterUserRequest
   ): Promise<RegisterUserResponse> => {
     try {
       const response: UserAuthData = await registerService(registerData);

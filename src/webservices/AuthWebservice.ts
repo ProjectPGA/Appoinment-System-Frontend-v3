@@ -5,7 +5,7 @@ import { jsonHeaders } from './consts';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from './models/auth/LoginRequest';
 import { authWebserviceBaseUrls } from './models/auth/AuthWebServiceBaseUrls';
-import { User } from '@/models/user/User';
+import { RegisterUserRequest } from '@/models/auth/registerUser';
 
 /**
  * This is a function that sends a login request to a server and returns user data.
@@ -60,7 +60,7 @@ export const getAllUsersService: () => Promise<
  * `response.data` property is then returned as the result of the `Promise`.
  */
 export const registerService: (
-  params: User
+  params: RegisterUserRequest
 ) => Promise<UserAuthData> = async params => {
   const response = await axios.post<UserAuthData>(
     authWebserviceBaseUrls.register,
