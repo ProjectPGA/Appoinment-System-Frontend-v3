@@ -161,6 +161,8 @@ const onSubmit = handleSubmit(registerUser);
 
 <style lang="scss" scoped>
 .create-user-form {
+  max-width: 448px;
+
   &__inputs-container {
     display: flex;
     gap: 16px;
