@@ -101,7 +101,7 @@ const { t } = i18nGlobal;
 
 const { defineField, errors, handleSubmit, values, setFieldError, resetForm } =
   useForm({
-    validationSchema: yup.object({
+    validationSchema: yup.object().shape({
       name: yup.string().required(t('views.home.createUser.name.required')),
       surname: yup
         .string()
