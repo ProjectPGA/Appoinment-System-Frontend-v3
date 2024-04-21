@@ -280,7 +280,7 @@ describe('07 Auth store: register', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it('06 - 01 Should register', async () => {
+  it('07 - 01 Should register', async () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
@@ -300,7 +300,7 @@ describe('07 Auth store: register', () => {
     expect(response).toStrictEqual(expectedResponse);
   });
 
-  it('06 - 01 Should handle network error', async () => {
+  it('07 - 02 Should handle network error', async () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
@@ -318,7 +318,7 @@ describe('07 Auth store: register', () => {
     expect(response).toStrictEqual(expectedResponse);
   });
 
-  it('06 - 01 Should handle 500 Internal Server Error', async () => {
+  it('07 - 03 Should handle 500 Internal Server Error', async () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
@@ -341,12 +341,12 @@ describe('07 Auth store: register', () => {
   });
 });
 
-describe('07 Auth store: delete User', () => {
+describe('08 Auth store: delete User', () => {
   afterEach(() => {
     jest.resetAllMocks();
     window.localStorage.clear();
   });
-  it('07 - 01 Should delete a user', async () => {
+  it('08 - 01 Should delete a user', async () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
@@ -366,7 +366,7 @@ describe('07 Auth store: delete User', () => {
     expect(authStore.users).not.toContain(mockUsers![0]._id);
   });
 
-  it('07 - 02 fail delete a user', async () => {
+  it('08 - 02 fail delete a user', async () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
