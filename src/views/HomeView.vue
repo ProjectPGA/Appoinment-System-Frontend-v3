@@ -1,23 +1,31 @@
 <template>
   <button-translation />
   <section class="home-view__section">
-    <h1 class="home-view__title">
-      {{ $t('views.home.titles.currentUserTitle') }}
-    </h1>
-    <user-data :user="authStore.userAuthData">
-      <as-button
-        :label="$t('common.buttons.logoutButton')"
-        size="medium"
-        class="home-view__button"
-        @click="logout()"
-      />
-      <as-button
-        class="home-view__button"
-        secondary
-        label="Get all users"
-        @click="authStore.getAllUsers"
-      />
-    </user-data>
+    <div>
+      <h1 class="home-view__title">
+        {{ $t('views.home.titles.currentUserTitle') }}
+      </h1>
+      <user-data :user="authStore.userAuthData">
+        <as-button
+          :label="$t('common.buttons.logoutButton')"
+          size="medium"
+          class="home-view__button"
+          @click="logout()"
+        />
+        <as-button
+          class="home-view__button"
+          secondary
+          label="Get all users"
+          @click="authStore.getAllUsers"
+        />
+      </user-data>
+    </div>
+    <div>
+      <h2 class="home-view__title">
+        {{ $t('views.home.titles.createUserTitle') }}
+      </h2>
+      <create-user-form />
+    </div>
   </section>
   <section class="home-view__section">
     <h2 class="home-view__title">{{ $t('views.home.titles.usersTitle') }}</h2>
@@ -29,6 +37,7 @@
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import UserData from '@/components/common/UserData.vue';
 import AllUsers from '@/components/home/AllUsers.vue';
+import CreateUserForm from '@/components/home/CreateUserForm.vue';
 
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 

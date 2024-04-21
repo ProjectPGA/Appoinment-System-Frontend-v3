@@ -4,7 +4,51 @@
     "home": {
       "titles": {
         "currentUserTitle": "Usuario Actual",
+        "createUserTitle": "Crear Usuario",
         "usersTitle": "Usuarios"
+      },
+      "createUser": {
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Nombre",
+          "required": "Introduce el nombre"
+        },
+        "surname": {
+          "label": "Apellidos",
+          "placeholder": "Apellidos",
+          "required": "Introduce los apellidos"
+        },
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Correo electrónico",
+          "invalid": "Introduce un correo electrónico válido",
+          "required": "Introduce un correo electrónico",
+          "exist": "El correo electrónico ya existe"
+        },
+        "roles": {
+          "title": "Roles",
+          "admin": {
+            "label": "Administrador"
+          },
+          "user": {
+            "label": "Usuario"
+          },
+          "invalid": "Selecciona al menos un rol"
+        },
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "Introduce la contraseña",
+          "required": "Introduce una contraseña",
+          "invalid": "La contraseña debe tener al menos 6 caracteres"
+        },
+        "repeatPassword": {
+          "label": "Repite la contraseña",
+          "placeholder": "Repetir contraseña",
+          "invalid": "Las contraseñas deben coincidir"
+        },
+        "enterButton": "Crear",
+        "error": "Ocurrió un error al crear el usuario",
+        "success": "Usuario creado con éxito"
       },
       "userData": {
         "name": "Nombre: ",

@@ -17,16 +17,16 @@ const props = withDefaults(
     /**
      * size of the card
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | '';
   }>(),
   {
     isExtended: false,
-    size: 'medium',
+    size: '',
   }
 );
 
 const classes = computed(() => ({
   'is-extended': props.isExtended,
-  [`is-${props.size || 'medium'}`]: true,
+  [`is-${props.size}`]: !!props.size,
 }));
 </script>

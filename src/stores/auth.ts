@@ -8,14 +8,21 @@ import { UserAuthData } from '@/models/user/UserAuthData';
 
 import { RequestStatus } from '@/models/auth/RequestStatus';
 
+import {
+  RegisterUserRequest,
+  RegisterUserResponse,
+} from '@/models/auth/registerUser';
+
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
+
+import axios from 'axios';
 
 import {
   loginService,
   logoutService,
   deleteUserService,
   getAllUsersService,
-  // registerService,
+  registerService,
   // checkInvitationalCodeService,
 } from '@/webservices/AuthWebservice';
 
@@ -120,23 +127,45 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   /**
-   * This is an asynchronous function that registers a user and sets their login status based on the
-   * response.
-   * @param {RegisterRequest} registerData - `registerData` is an object of type `RegisterRequest` which
-   * contains the data required for user registration. It may include fields such as `email`, `password`,
-   * `firstName`, `lastName`, etc.
+   * The `register` function in TypeScript handles registration requests asynchronously, returning a
+   * response object indicating success or failure.
+   * @param {User} registerData - Is of type `User`. It contains the data
+   * needed to register a user, such as username, email, password, etc.
+   * @returns Returns a Promise that resolves to a `RegisterUserResponse`
+   * object. The `RegisterUserResponse` object contains an `error` property indicating if an error
+   * occurred during the registration process, and a `result` property that holds either the successful
+   * result of the registration or the error response in case of failure.
    */
-  // const register = async (registerData: RegisterRequest): Promise<void> => {
-  //   try {
-  //     setLoginInProgress();
+  const register = async (
+    registerData: RegisterUserRequest
+  ): Promise<RegisterUserResponse> => {
+    try {
+      const response: UserAuthData = await registerService(registerData);
 
-  //     const response: UserAuthData = await registerService(registerData);
+      const successResult: RegisterUserResponse = {
+        error: false,
+        result: response,
+      };
 
-  //     response.user ? setIsLogged(response) : setUserNotisLogged();
-  //   } catch (error) {
-  //     setUserNotisLogged();
-  //   }
-  // };
+      return successResult;
+    } catch (error) {
+      console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        const axiosErrorResult: RegisterUserResponse = {
+          error: true,
+          status: error.response?.status,
+        };
+        return axiosErrorResult;
+      }
+
+      const clientErrorResult: RegisterUserResponse = {
+        error: true,
+      };
+
+      return clientErrorResult;
+    }
+  };
 
   /**
    * The function `getAllUsers` asynchronously fetches user authentication data and updates the `users`
@@ -189,5 +218,6 @@ export const useAuthStore = defineStore('auth', () => {
     loginRequestStatus,
     setUserNotisLogged,
     setLoginInProgress,
+    register,
   };
 });
