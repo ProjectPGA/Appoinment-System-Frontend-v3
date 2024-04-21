@@ -53,7 +53,7 @@ const authStore = useAuthStore();
 const emailRegEx: RegExp = new RegExp(FormRegEx.EMAIL);
 
 const { errors, handleSubmit, defineField } = useForm({
-  validationSchema: yup.object({
+  validationSchema: yup.object().shape({
     email: yup
       .string()
       .required(t('common.notifications.error.invalidSubmit'))
