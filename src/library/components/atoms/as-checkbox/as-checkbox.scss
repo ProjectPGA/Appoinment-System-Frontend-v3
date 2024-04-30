@@ -54,8 +54,8 @@
   }
 
   &__input {
-    display: none;
-    visibility: hidden;
+    position: absolute;
+    opacity: 0;
 
     &:checked + .as-checkbox__mark {
       background: $main-color-medium-dark;
@@ -77,6 +77,12 @@
       .as-checkbox__mark {
         stroke-dashoffset: 0;
       }
+    }
+
+    &:focus-visible + .as-checkbox__mark {
+      transition: none;
+      outline: 1px solid $main-color-medium-dark;
+      outline-offset: 1px;
     }
   }
 }
