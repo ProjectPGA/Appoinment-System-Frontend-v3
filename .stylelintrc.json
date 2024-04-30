@@ -23,7 +23,7 @@
       "left": ["rem", "%", "em"]
     },
     "scale-unlimited/declaration-strict-value": [
-      ["/color$/"],
+      ["/color$/", "/stroke$/"],
       { "disableFix": true }
     ]
   }
