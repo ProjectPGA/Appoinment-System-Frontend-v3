@@ -1,6 +1,6 @@
 <template>
-  <label class="as-checkbox__label" :for="checkboxId"
-    ><input
+  <label class="as-checkbox__label" :for="checkboxId">
+    <input
       :id="checkboxId"
       class="as-checkbox__input"
       :checked="checked"
@@ -8,8 +8,18 @@
       :name="name"
       type="checkbox"
       @change="handleChange"
-    />{{ label }}</label
-  >
+    />{{ label }}
+    <span class="as-checkbox__mark"
+      ><svg
+        class="as-checkbox__mark-icon"
+        width="12px"
+        height="10px"
+        viewbox="0 0 12 10"
+      >
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+      </svg>
+    </span>
+  </label>
 </template>
 <script lang="ts" setup>
 import './as-checkbox.scss';
