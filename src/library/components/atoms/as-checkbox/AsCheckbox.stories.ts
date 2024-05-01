@@ -21,9 +21,6 @@ const meta = {
     checkedValue: 'example',
     checkboxId: 'example',
     label: 'Checkbox',
-    disabled: false,
-    isChecked: true,
-    isIndeterminate: false,
   }, // default value
 } satisfies Meta<typeof AsCheckbox>;
 
@@ -34,8 +31,45 @@ type Story = StoryObj<typeof meta>;
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Normal: Story = {
+export const Unchecked: Story = {
   args: {
-    name: 'test',
+    name: 'Checkbox',
+  },
+};
+
+export const Checked: Story = {
+  args: {
+    name: 'Checkbox',
+    isChecked: true,
+  },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    name: 'Checkbox',
+    isIndeterminate: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    name: 'Checkbox',
+    disabled: true,
+  },
+};
+
+export const CheckedAndDisabled: Story = {
+  args: {
+    name: 'Checkbox',
+    isChecked: true,
+    disabled: true,
+  },
+};
+
+export const IndeterminateAndDisabled: Story = {
+  args: {
+    name: 'Checkbox',
+    isIndeterminate: true,
+    disabled: true,
   },
 };
