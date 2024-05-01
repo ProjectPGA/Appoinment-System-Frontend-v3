@@ -1,10 +1,101 @@
 .as-checkbox {
+  &__mark {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid $main-color-medium-light;
+    transition: all 0.2s ease;
+
+    &::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background: $main-color-medium-dark;
+      display: block;
+      transform: scale(0);
+      opacity: 1;
+      border-radius: 50%;
+    }
+  }
+
   &__label {
-    display: flex;
+    @include font-sizing-selector('body/large/regular');
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
     gap: 4px;
+    -webkit-tap-highlight-color: $main-color-transparent;
+
+    &:hover {
+      .as-checkbox__mark {
+        border-color: $main-color-medium-dark;
+      }
+    }
+
+    &:has(.as-checkbox__input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__mark-icon {
+    @include checkbox-icon-styles(3px, 2px);
+  }
+
+  &__line-icon {
+    @include checkbox-icon-styles(7px, 2px);
   }
 
   &__input {
-    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+
+    &:checked + .as-checkbox__mark,
+    &:indeterminate + .as-checkbox__mark {
+      background: $main-color-medium-dark;
+      border-color: $main-color-medium-dark;
+      animation: check-animation 0.4s ease;
+
+      &::before {
+        transform: scale(3);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease;
+      }
+    }
+
+    &:checked + .as-checkbox__mark .as-checkbox__mark-icon {
+      stroke-dashoffset: 0;
+    }
+
+    &:indeterminate + .as-checkbox__mark {
+      .as-checkbox__line-icon {
+        stroke-dashoffset: 0;
+      }
+
+      .as-checkbox__mark-icon {
+        stroke-dashoffset: 16px;
+      }
+    }
+
+    &:focus-visible + .as-checkbox__mark {
+      transition: none;
+      outline: 1px solid $main-color-medium-dark;
+      outline-offset: 1px;
+    }
+  }
+}
+
+@keyframes check-animation {
+  50% {
+    transform: scale(0.9);
   }
 }
