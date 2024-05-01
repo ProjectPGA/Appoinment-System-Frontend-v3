@@ -35,11 +35,32 @@
         border-color: $main-color-medium-dark;
       }
     }
+
+    &:has(.as-checkbox__input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 
   &__mark-icon {
     position: absolute;
     top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: $main-color-light;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &__line-icon {
+    position: absolute;
+    top: 7px;
     left: 2px;
     fill: none;
     stroke: $main-color-light;
@@ -76,6 +97,32 @@
     &:checked {
       .as-checkbox__mark {
         stroke-dashoffset: 0;
+      }
+    }
+
+    &:indeterminate {
+      .as-checkbox__mark {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    &:indeterminate + .as-checkbox__mark {
+      background: $main-color-medium-dark;
+      border-color: $main-color-medium-dark;
+      animation: check-animation 0.4s ease;
+
+      .as-checkbox__line-icon {
+        stroke-dashoffset: 0;
+      }
+
+      .as-checkbox__mark-icon {
+        stroke-dashoffset: 16px;
+      }
+
+      &::before {
+        transform: scale(3);
+        opacity: 0;
+        transition: all 0.5s ease;
       }
     }
 
