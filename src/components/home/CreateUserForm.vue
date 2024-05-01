@@ -35,18 +35,20 @@
           <p class="create-user-form__checkboxes-title">
             {{ $t('views.home.createUser.roles.title') }}
           </p>
-          <as-checkbox
-            checkbox-id="admin-role"
-            name="roles"
-            checked-value="ADMIN"
-            :label="$t('views.home.createUser.roles.admin.label')"
-          />
-          <as-checkbox
-            checkbox-id="user-role"
-            name="roles"
-            checked-value="USER"
-            :label="$t('views.home.createUser.roles.user.label')"
-          />
+          <div class="create-user-form__checkboxes-container">
+            <as-checkbox
+              checkbox-id="admin-role"
+              name="roles"
+              checked-value="ADMIN"
+              :label="$t('views.home.createUser.roles.admin.label')"
+            />
+            <as-checkbox
+              checkbox-id="user-role"
+              name="roles"
+              checked-value="USER"
+              :label="$t('views.home.createUser.roles.user.label')"
+            />
+          </div>
           <span class="create-user-form__invalid-input">
             {{ errors.roles }}
           </span>
@@ -165,6 +167,13 @@ const onSubmit = handleSubmit(registerUser);
     display: flex;
     gap: 16px;
     margin-bottom: 10px;
+  }
+
+  &__checkboxes-container {
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   &__checkboxes-title {
