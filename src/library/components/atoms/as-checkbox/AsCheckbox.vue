@@ -3,8 +3,10 @@
     <input
       :id="checkboxId"
       class="as-checkbox__input"
-      :checked="checked"
+      :checked="isChecked || checked"
       :value="checkedValue"
+      :disabled="disabled"
+      :indeterminate="isIndeterminate"
       :name="name"
       type="checkbox"
       @change="handleChange"
@@ -17,6 +19,15 @@
         viewbox="0 0 12 10"
       >
         <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+      </svg>
+      <svg
+        class="as-checkbox__line-icon"
+        width="12px"
+        height="2px"
+        viewBox="0 0 12 2"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="1" y1="1" x2="11" y2="1" />
       </svg>
     </span>
   </label>
@@ -41,6 +52,18 @@ const props = defineProps({
   label: {
     type: String,
     required: true,
+  },
+  disabled: {
+    type: Boolean,
+    required: false,
+  },
+  isChecked: {
+    type: Boolean,
+    required: false,
+  },
+  isIndeterminate: {
+    type: Boolean,
+    required: false,
   },
 });
 // The `name` is returned in a function because we want to make sure it stays reactive
