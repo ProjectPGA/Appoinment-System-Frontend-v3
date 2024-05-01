@@ -13,12 +13,17 @@ const meta = {
     checkedValue: String,
     checkboxId: String,
     label: String,
+    disabled: Boolean,
+    isChecked: Boolean,
   },
   args: {
     name: 'example',
     checkedValue: 'example',
     checkboxId: 'example',
     label: 'Checkbox',
+    disabled: false,
+    isChecked: true,
+    isIndeterminate: false,
   }, // default value
 } satisfies Meta<typeof AsCheckbox>;
 
