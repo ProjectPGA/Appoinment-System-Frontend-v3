@@ -27,7 +27,7 @@
           v-for="(items, index) in props.user?.roles"
           :key="index"
           :label="items"
-          :class="{ 'is-success': items === 'ADMIN' }"
+          :class="{ 'is-success': items === UserRoles.ADMIN }"
         />
       </span>
     </p>
@@ -38,6 +38,8 @@
 <script lang="ts" setup>
 import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
+
+import { UserRoles } from '@/models/user/UserRoles';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 

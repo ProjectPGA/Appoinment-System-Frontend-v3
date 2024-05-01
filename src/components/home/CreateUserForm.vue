@@ -39,13 +39,13 @@
             <as-checkbox
               checkbox-id="admin-role"
               name="roles"
-              checked-value="ADMIN"
+              :checked-value="UserRoles.ADMIN"
               :label="$t('views.home.createUser.roles.admin.label')"
             />
             <as-checkbox
               checkbox-id="user-role"
               name="roles"
-              checked-value="USER"
+              :checked-value="UserRoles.USER"
               :label="$t('views.home.createUser.roles.user.label')"
             />
           </div>
@@ -90,6 +90,8 @@ import * as yup from 'yup';
 
 import { useAuthStore } from '@/stores/auth';
 import { i18nGlobal } from '@/localization/i18n';
+
+import { UserRoles } from '@/models/user/UserRoles';
 
 import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 import AsInput from '@/library/components/atoms/as-input/AsInput.vue';
