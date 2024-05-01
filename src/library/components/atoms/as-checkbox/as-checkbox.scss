@@ -32,6 +32,7 @@
     flex-direction: row-reverse;
     align-items: center;
     gap: 4px;
+    -webkit-tap-highlight-color: $main-color-transparent;
 
     &:hover {
       .as-checkbox__mark {
