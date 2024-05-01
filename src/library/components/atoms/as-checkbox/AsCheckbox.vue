@@ -36,36 +36,39 @@
 import './as-checkbox.scss';
 import { useField } from 'vee-validate';
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  checkedValue: {
-    type: String,
-    required: true,
-  },
-  checkboxId: {
-    type: String,
-    required: true,
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-  },
-  isChecked: {
-    type: Boolean,
-    required: false,
-  },
-  isIndeterminate: {
-    type: Boolean,
-    required: false,
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    /**
+     * Name of the checkbox
+     */
+    name: string;
+    /**
+     * Value of the checkbox
+     */
+    checkedValue: string;
+    /**
+     * Id of the checkbox
+     */
+    checkboxId: string;
+    /**
+     * Label of the checkbox
+     */
+    label: string;
+    /**
+     * Disabled state
+     */
+    disabled?: boolean;
+    /**
+     * Checked state
+     */
+    isChecked?: boolean;
+    /**
+     * Indeterminate state
+     */
+    isIndeterminate: boolean;
+  }>(),
+  { disabled: false, isChecked: false, isIndeterminate: false }
+);
 // The `name` is returned in a function because we want to make sure it stays reactive
 // If the name changes you want `useField` to be able to pick it up
 const { handleChange, checked } = useField(() => props.name, undefined, {
