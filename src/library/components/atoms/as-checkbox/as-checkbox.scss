@@ -23,11 +23,14 @@
   }
 
   &__label {
+    @include font-sizing-selector('body/large/regular');
+
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     display: inline-flex;
     flex-direction: row-reverse;
+    align-items: center;
     gap: 4px;
 
     &:hover {
