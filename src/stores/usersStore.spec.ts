@@ -4,7 +4,7 @@ import { useUsersStore } from './users';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as UsersWebservice from '@/webservices/users/UsersWebservice';
 import { createRandomUsersList } from '@/utils/mocks/user/mockUsers';
-import { RegisterUserResponse } from '@/models/auth/registerUser';
+import { RegisterUserResponse } from '@/models/user/registerUser';
 
 jest.mock('@/webservices/users/UsersWebservice');
 jest.mock('vue-i18n', () => ({
@@ -28,7 +28,7 @@ const registerServiceMock = jest.spyOn(UsersWebservice, 'registerService');
 const userMock = createRandomUser();
 const mockUsers = createRandomUsersList();
 
-describe('01 Auth store: getAllUsers', () => {
+describe('01 Users store: getAllUsers', () => {
   afterEach(() => {
     jest.resetAllMocks();
     window.localStorage.clear();
@@ -80,7 +80,7 @@ describe('01 Auth store: getAllUsers', () => {
   });
 });
 
-describe('02 Auth store: register', () => {
+describe('02 Users store: register', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -145,7 +145,7 @@ describe('02 Auth store: register', () => {
   });
 });
 
-describe('03 Auth store: delete User', () => {
+describe('03 Users store: delete User', () => {
   afterEach(() => {
     jest.resetAllMocks();
     window.localStorage.clear();

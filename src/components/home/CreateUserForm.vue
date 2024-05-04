@@ -97,7 +97,7 @@ import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 import AsInput from '@/library/components/atoms/as-input/AsInput.vue';
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 import AsCheckbox from '@/library/components/atoms/as-checkbox/AsCheckbox.vue';
-import { RegisterUserRequest } from '@/models/auth/registerUser';
+import { RegisterUserRequest } from '@/models/user/registerUser';
 
 const toast = useToast();
 const usersStore = useUsersStore();

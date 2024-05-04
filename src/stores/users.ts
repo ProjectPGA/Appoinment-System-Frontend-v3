@@ -6,7 +6,7 @@ import { UserAuthData } from '@/models/user/UserAuthData';
 import {
   RegisterUserRequest,
   RegisterUserResponse,
-} from '@/models/auth/registerUser';
+} from '@/models/user/registerUser';
 
 import axios from 'axios';
 

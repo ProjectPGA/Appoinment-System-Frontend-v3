@@ -4,7 +4,7 @@ import { jsonHeaders } from '../consts';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { usersWebserviceBaseUrls } from '@/webservices/models/users/UsersWebServiceBaseUrls';
-import { RegisterUserRequest } from '@/models/auth/registerUser';
+import { RegisterUserRequest } from '@/models/user/registerUser';
 
 /**
  * The function getAllUsersService makes a GET request to retrieve all users from a specified API
