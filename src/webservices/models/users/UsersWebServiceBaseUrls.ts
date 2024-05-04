@@ -10,7 +10,7 @@ export const usersBaseUrl: string = apiPrefix('/users');
 endpoints. Each property in the object represents a specific endpoint, and its value is a string
 that combines the `authBaseUrl` with a specific path for that endpoint. */
 export const usersWebserviceBaseUrls = {
-  register: `${usersBaseUrl}/users/register`,
-  deleteUser: `${usersBaseUrl}/users/`,
-  getAllUsers: `${usersBaseUrl}/users/all`,
+  register: `${usersBaseUrl}/register`,
+  deleteUser: `${usersBaseUrl}/`,
+  getAllUsers: `${usersBaseUrl}/all`,
 };
