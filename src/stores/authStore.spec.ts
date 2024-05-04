@@ -119,7 +119,7 @@ describe('03 Auth store: setLoginFailed', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it('01 - 1 Should change store values to set login failed', () => {
+  it('03 - 1 Should change store values to set login failed', () => {
     const authStore = useAuthStore();
 
     authStore.setLoginFailed();
@@ -131,7 +131,7 @@ describe('03 Auth store: setLoginFailed', () => {
   });
 });
 
-describe('03 Auth store: setUserNotIsLogged', () => {
+describe('04 Auth store: setUserNotIsLogged', () => {
   beforeEach(() => {
     // creates a fresh pinia and make it active so it's automatically picked
     // up by any useStore() call without having to pass it to it:
@@ -142,7 +142,7 @@ describe('03 Auth store: setUserNotIsLogged', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it('01 - 1 Should change store values to set user not logged', () => {
+  it('04 - 1 Should change store values to set user not logged', () => {
     const authStore = useAuthStore();
 
     authStore.setUserNotisLogged();
@@ -154,12 +154,12 @@ describe('03 Auth store: setUserNotIsLogged', () => {
   });
 });
 
-describe('04 Auth store: setIsLogged', () => {
+describe('05 Auth store: setIsLogged', () => {
   afterEach(() => {
     jest.resetAllMocks();
     window.localStorage.clear();
   });
-  it('04 - 01 Should change store values to set user is logged', () => {
+  it('05 - 01 Should change store values to set user is logged', () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
@@ -174,7 +174,7 @@ describe('04 Auth store: setIsLogged', () => {
   });
 });
 
-describe('05 Auth store: logout', () => {
+describe('06 Auth store: logout', () => {
   afterEach(() => {
     jest.resetAllMocks();
     window.localStorage.clear();
