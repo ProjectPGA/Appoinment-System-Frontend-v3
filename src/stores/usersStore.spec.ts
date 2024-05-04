@@ -6,7 +6,7 @@ import * as UsersWebservice from '@/webservices/users/UsersWebService';
 import { createRandomUsersList } from '@/utils/mocks/user/mockUsers';
 import { RegisterUserResponse } from '@/models/user/registerUser';
 
-jest.mock('@/webservices/users/UsersWebservice');
+jest.mock('@/webservices/users/UsersWebService');
 jest.mock('vue-i18n', () => ({
   useI18n: () => ({
     t: (key: string) => key,

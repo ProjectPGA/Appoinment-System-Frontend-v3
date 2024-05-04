@@ -7,7 +7,7 @@ import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as AuthWebservice from '@/webservices/auth/AuthWebService';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 
-jest.mock('@/webservices/auth/AuthWebservice');
+jest.mock('@/webservices/auth/AuthWebService');
 jest.mock('vue-i18n', () => ({
   useI18n: () => ({
     t: (key: string) => key,
