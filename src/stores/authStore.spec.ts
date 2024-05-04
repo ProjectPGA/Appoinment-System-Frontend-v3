@@ -98,7 +98,7 @@ describe('02 Auth store: setLoginInProgress', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it('01 - 1 Should change store values to set login in progress', () => {
+  it('02 - 1 Should change store values to set login in progress', () => {
     const authStore = useAuthStore();
 
     authStore.setLoginInProgress();
