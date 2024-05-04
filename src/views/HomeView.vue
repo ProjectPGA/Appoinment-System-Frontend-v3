@@ -16,7 +16,7 @@
           class="home-view__button"
           secondary
           label="Get all users"
-          @click="authStore.getAllUsers"
+          @click="usersStore.getAllUsers"
         />
       </user-data>
     </div>
@@ -42,8 +42,10 @@ import CreateUserForm from '@/components/home/CreateUserForm.vue';
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 
 import { useAuthStore } from '@/stores/auth';
+import { useUsersStore } from '@/stores/users';
 
 const authStore = useAuthStore();
+const usersStore = useUsersStore();
 
 const logout = () => {
   authStore.logout();
