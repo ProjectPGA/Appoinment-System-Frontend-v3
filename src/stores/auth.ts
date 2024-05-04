@@ -10,7 +10,7 @@ import { RequestStatus } from '@/models/auth/RequestStatus';
 
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
-import { loginService, logoutService } from '@/webservices/auth/AuthWebservice';
+import { loginService, logoutService } from '@/webservices/auth/AuthWebService';
 
 export const useAuthStore = defineStore('auth', () => {
   const userAuthData = ref<UserAuthData | null>(null);

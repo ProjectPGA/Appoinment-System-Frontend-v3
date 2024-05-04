@@ -4,7 +4,7 @@ import { setActivePinia, createPinia } from 'pinia';
 import { useAuthStore } from './auth';
 import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
-import * as AuthWebservice from '@/webservices/auth/AuthWebservice';
+import * as AuthWebservice from '@/webservices/auth/AuthWebService';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 
 jest.mock('@/webservices/auth/AuthWebservice');

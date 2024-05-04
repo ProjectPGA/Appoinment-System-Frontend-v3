@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { User } from '@/models/user/User';
 import { jsonHeaders } from '../consts';
 import { UserAuthData } from '@/models/user/UserAuthData';
-import * as UsersWebservice from './UsersWebservice';
+import * as UsersWebservice from './UsersWebService';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { usersWebserviceBaseUrls } from '@/webservices/models/users/UsersWebServiceBaseUrls';

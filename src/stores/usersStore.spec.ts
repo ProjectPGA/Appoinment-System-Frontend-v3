@@ -2,7 +2,7 @@ import { createTestingPinia } from '@pinia/testing';
 
 import { useUsersStore } from './users';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
-import * as UsersWebservice from '@/webservices/users/UsersWebservice';
+import * as UsersWebservice from '@/webservices/users/UsersWebService';
 import { createRandomUsersList } from '@/utils/mocks/user/mockUsers';
 import { RegisterUserResponse } from '@/models/user/registerUser';
 

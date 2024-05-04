@@ -14,7 +14,7 @@ import {
   deleteUserService,
   getAllUsersService,
   registerService,
-} from '@/webservices/users/UsersWebservice';
+} from '@/webservices/users/UsersWebService';
 
 export const useUsersStore = defineStore('users', () => {
   const userAuthData = ref<UserAuthData | null>(null);
