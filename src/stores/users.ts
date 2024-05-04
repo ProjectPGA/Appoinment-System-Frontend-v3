@@ -16,7 +16,7 @@ import {
   registerService,
 } from '@/webservices/users/UsersWebservice';
 
-export const useUsersStore = defineStore('auth', () => {
+export const useUsersStore = defineStore('users', () => {
   const userAuthData = ref<UserAuthData | null>(null);
   const users = ref<UserAuthData[] | null>([]);
   const isLoading = ref<boolean>(false);
