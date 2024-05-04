@@ -88,7 +88,7 @@ import { useForm } from 'vee-validate';
 import { useToast } from 'vue-toastification';
 import * as yup from 'yup';
 
-import { useAuthStore } from '@/stores/auth';
+import { useUsersStore } from '@/stores/users';
 import { i18nGlobal } from '@/localization/i18n';
 
 import { UserRoles } from '@/models/user/UserRoles';
@@ -100,7 +100,7 @@ import AsCheckbox from '@/library/components/atoms/as-checkbox/AsCheckbox.vue';
 import { RegisterUserRequest } from '@/models/auth/registerUser';
 
 const toast = useToast();
-const authStore = useAuthStore();
+const usersStore = useUsersStore();
 const { t } = i18nGlobal;
 
 const { defineField, errors, handleSubmit, values, setFieldError, resetForm } =
@@ -146,7 +146,7 @@ const registerUser = async () => {
     roles: values.roles,
     password: password.value,
   };
-  const response = await authStore.register(userRegisterData);
+  const response = await usersStore.register(userRegisterData);
 
   if (response.error) {
     response.status === 422
