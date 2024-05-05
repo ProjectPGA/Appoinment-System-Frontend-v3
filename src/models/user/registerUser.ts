@@ -1,5 +1,5 @@
 import { UserAuthData } from '@/models/user/UserAuthData';
-import { User } from '../user/User';
+import { User } from './User';
 
 export interface RegisterUserResponse {
   error: boolean;

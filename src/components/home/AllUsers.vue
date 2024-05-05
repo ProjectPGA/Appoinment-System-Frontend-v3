@@ -1,11 +1,15 @@
 <template>
-  <user-data v-for="(user, index) in authStore.users" :key="index" :user="user">
+  <user-data
+    v-for="(user, index) in usersStore.users"
+    :key="index"
+    :user="user"
+  >
     <div class="all-users__footer">
       <as-button
         :label="$t('common.buttons.deleteButton')"
-        @click="authStore.deleteUser(user._id)"
-      />
-      <as-button secondary label="Editar" @click="openModal" />
+        @click="usersStore.deleteUser(user._id)"
+      >
+      </as-button>
     </div>
   </user-data>
   <div>
@@ -25,10 +29,11 @@ import ModalComponent from '@/components/common/ModalComponent.vue';
 
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 
-import { useAuthStore } from '@/stores/auth';
+import { useUsersStore } from '@/stores/users';
+
 import { ref } from 'vue';
 
-const authStore = useAuthStore();
+const usersStore = useUsersStore();
 
 const isModalOpened = ref(false);
 
