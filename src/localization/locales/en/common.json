@@ -23,6 +23,7 @@
     "buttons": {
       "loginButton": "Log in",
       "logoutButton": "Logout",
+      "getAllUsersButton": "get all users",
       "deleteButton": "Delete"
     },
     "notifications": {

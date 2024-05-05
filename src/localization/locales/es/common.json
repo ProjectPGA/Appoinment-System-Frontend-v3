@@ -23,6 +23,7 @@
     "buttons": {
       "deleteButton": "Borrar",
       "loginButton": "Acceder",
+      "getAllUsersButton": "Ver Usuarios",
       "logoutButton": "Cerrar sesión"
     },
     "notifications": {

@@ -15,7 +15,7 @@
         <as-button
           class="home-view__button"
           secondary
-          label="Get all users"
+          :label="$t('common.buttons.getAllUsersButton')"
           @click="usersStore.getAllUsers"
         />
       </user-data>
@@ -36,6 +36,8 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue';
+
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import UserData from '@/components/common/UserData.vue';
 import AllUsers from '@/components/home/AllUsers.vue';
@@ -53,6 +55,9 @@ const usersStore = useUsersStore();
 const logout = () => {
   authStore.logout();
 };
+onMounted(() => {
+  usersStore.getAllUsers();
+});
 </script>
 
 <style lang="scss" scoped>
