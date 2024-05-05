@@ -13,6 +13,9 @@ import { faker } from '@faker-js/faker';
 
 // Global constants
 const axiosPostSpy = jest.spyOn(axios, 'post');
+const axiosGetSpy = jest.spyOn(axios, 'get');
+const axiosPutSpy = jest.spyOn(axios, 'put');
+
 const axiosMock: MockAdapter = new MockAdapter(axios);
 
 // Primitive global constants
@@ -70,8 +73,6 @@ describe('02 UsersWebservice: Check get All users service', () => {
     { withCredentials: true }
   );
 
-  const axiosGetSpy = jest.spyOn(axios, 'get');
-
   const checkToBeCalledWith = () => {
     expect(axiosGetSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.getAllUsers,
@@ -126,6 +127,49 @@ describe('03 UsersWebservice: Delete user service', () => {
     await expect(UsersWebservice.deleteUserService(id)).rejects.toThrow(
       errorMessage401
     );
+    checkToBeCalledWith();
+  });
+});
+
+describe('04 UsersWebservice: Check update service', () => {
+  const updateUserMock: User = createRandomUser();
+
+  const axiosMockPut: MockAdapter.RequestHandler = axiosMock.onPut(
+    usersWebserviceBaseUrls.updateUser + updateUserMock._id,
+    updateUserMock
+  );
+
+  const checkToBeCalledWith = () => {
+    expect(axiosPutSpy).toHaveBeenCalledWith(
+      usersWebserviceBaseUrls.updateUser + updateUserMock._id,
+      updateUserMock,
+      jsonHeaders
+    );
+  };
+
+  it('04 - 1 Should succeed update service request', async () => {
+    const successResponseData: UserAuthData | null =
+      createRandomUserAuthData(updateUserMock);
+
+    axiosMockPut.reply(200, successResponseData);
+
+    const response: UserAuthData = await UsersWebservice.updateUserService(
+      updateUserMock._id,
+      updateUserMock
+    );
+
+    expect(response).toEqual(successResponseData);
+
+    checkToBeCalledWith();
+  });
+
+  it('04 - 2 Should fail update service request', async () => {
+    axiosMockPut.reply(401);
+
+    await expect(
+      UsersWebservice.updateUserService(updateUserMock._id, updateUserMock)
+    ).rejects.toThrow(errorMessage401);
+
     checkToBeCalledWith();
   });
 });
