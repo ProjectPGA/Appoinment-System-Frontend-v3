@@ -8,26 +8,31 @@
       <as-button
         :label="$t('common.buttons.deleteButton')"
         @click="usersStore.deleteUser(user._id)"
-      >
-      </as-button>
+      />
+      <as-button secondary label="Editar" @click="openModal(user._id)" />
     </div>
   </user-data>
   <div>
-    <modal-component
+    <as-modal
       name="first-modal"
       :is-open="isModalOpened"
       @modal-close="closeModal"
       @submit="submitHandler"
     >
-    </modal-component>
+      <template #content>
+        <user-form :user-id="userToEdit" is-update @user-updated="closeModal" />
+      </template>
+    </as-modal>
   </div>
 </template>
 
 <script lang="ts" setup>
 import UserData from '@/components/common/UserData.vue';
-import ModalComponent from '@/components/common/ModalComponent.vue';
 
+import AsModal from '@/library/components/molecules/as-modal/AsModal.vue';
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
+
+import UserForm from '@/components/home/UserForm.vue';
 
 import { useUsersStore } from '@/stores/users';
 
@@ -36,8 +41,10 @@ import { ref } from 'vue';
 const usersStore = useUsersStore();
 
 const isModalOpened = ref(false);
+const userToEdit = ref('');
 
-const openModal = () => {
+const openModal = (userId: string) => {
+  userToEdit.value = userId;
   isModalOpened.value = true;
 };
 const closeModal = () => {

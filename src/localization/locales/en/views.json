@@ -7,7 +7,7 @@
         "createUserTitle": "Create user",
         "usersTitle": "Users"
       },
-      "createUser": {
+      "userForm": {
         "name": {
           "label": "Name",
           "placeholder": "Name",
@@ -47,9 +47,12 @@
           "invalid": "Passwords must match",
           "required": "Repeat the password"
         },
-        "enterButton": "Create",
-        "error": "An error occurred while creating the user",
-        "success": "User successfully created"
+        "enterButtonCreate": "Create",
+        "enterButtonUpdate": "Update",
+        "errorCreate": "An error occurred while updating the user",
+        "errorUpdate": "An error occurred while creating the user",
+        "successCreate": "User successfully created",
+        "successUpdate": "User successfully updated"
       },
       "userData": {
         "name": "Name: ",
