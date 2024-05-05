@@ -9,4 +9,5 @@ export enum iconName {
   EYE_LOW_VISION = 'fa-eye-low-vision',
   CIRCLE_EXCLAMATION = 'fa-circle-exclamation',
   GLOBE = 'fa-globe',
+  XMARK = 'fa-xmark',
 }
