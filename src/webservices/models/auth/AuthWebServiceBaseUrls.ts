@@ -12,7 +12,4 @@ that combines the `authBaseUrl` with a specific path for that endpoint. */
 export const authWebserviceBaseUrls = {
   login: `${authBaseUrl}/login`,
   logout: `${authBaseUrl}/logout`,
-  register: `${authBaseUrl}/users/register`,
-  deleteUser: `${authBaseUrl}/users/`,
-  getAllUsers: `${authBaseUrl}/users/all`,
 };

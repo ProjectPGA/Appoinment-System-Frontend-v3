@@ -1,8 +1,12 @@
 <template>
-  <user-data v-for="(user, index) in authStore.users" :key="index" :user="user">
+  <user-data
+    v-for="(user, index) in usersStore.users"
+    :key="index"
+    :user="user"
+  >
     <as-button
       :label="$t('common.buttons.deleteButton')"
-      @click="authStore.deleteUser(user._id)"
+      @click="usersStore.deleteUser(user._id)"
     >
     </as-button>
   </user-data>
@@ -13,7 +17,7 @@ import UserData from '@/components/common/UserData.vue';
 
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 
-import { useAuthStore } from '@/stores/auth';
+import { useUsersStore } from '@/stores/users';
 
-const authStore = useAuthStore();
+const usersStore = useUsersStore();
 </script>
