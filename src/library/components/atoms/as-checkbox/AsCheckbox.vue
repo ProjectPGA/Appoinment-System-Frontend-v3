@@ -65,7 +65,7 @@ const props = withDefaults(
     /**
      * Indeterminate state
      */
-    isIndeterminate: boolean;
+    isIndeterminate?: boolean;
   }>(),
   { disabled: false, isChecked: false, isIndeterminate: false }
 );

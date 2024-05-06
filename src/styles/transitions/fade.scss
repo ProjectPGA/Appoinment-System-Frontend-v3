@@ -1,9 +1,13 @@
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.5s ease;
+
+  & .wrapper {
+    transition: all 0.2s ease;
+  }
 }
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
-  transition: opacity 0.5s;
+  opacity: 0;
 }

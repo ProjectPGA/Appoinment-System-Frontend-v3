@@ -5,6 +5,7 @@ import { jsonHeaders } from '../consts';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { usersWebserviceBaseUrls } from '@/webservices/models/users/UsersWebServiceBaseUrls';
 import { RegisterUserRequest } from '@/models/user/registerUser';
+import { UpdateUserRequest } from '@/models/user/updateUser';
 
 /**
  * The function getAllUsersService makes a GET request to retrieve all users from a specified API
@@ -52,4 +53,20 @@ export const deleteUserService: (
     usersWebserviceBaseUrls.deleteUser + id,
     jsonHeaders
   );
+};
+
+/**
+ * The function `deleteUserService` sends a DELETE request to a specific endpoint with the provided ID for
+ * deletion.
+ */
+export const updateUserService: (
+  id: UserAuthData['_id'],
+  params: UpdateUserRequest
+) => Promise<UserAuthData> = async (id, params) => {
+  const response = await axios.put<UserAuthData>(
+    usersWebserviceBaseUrls.updateUser + id,
+    params,
+    jsonHeaders
+  );
+  return response.data;
 };

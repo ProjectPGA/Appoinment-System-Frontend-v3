@@ -7,7 +7,7 @@
         "createUserTitle": "Crear Usuario",
         "usersTitle": "Usuarios"
       },
-      "createUser": {
+      "userForm": {
         "name": {
           "label": "Nombre",
           "placeholder": "Nombre",
@@ -46,9 +46,12 @@
           "placeholder": "Repetir contraseña",
           "invalid": "Las contraseñas deben coincidir"
         },
-        "enterButton": "Crear",
-        "error": "Ocurrió un error al crear el usuario",
-        "success": "Usuario creado con éxito"
+        "enterButtonCreate": "Crear",
+        "enterButtonUpdate": "Actualizar",
+        "errorCreate": "Ocurrió un error al crear el usuario",
+        "errorUpdate": "Ocurrió un error al actualizar el usuario",
+        "successCreate": "Usuario creado con éxito",
+        "successUpdate": "Usuario actualizado con éxito"
       },
       "userData": {
         "name": "Nombre: ",
