@@ -1,4 +1,4 @@
-import axios from 'axios';
+import http from '@/webservices/models/http';
 
 import { jsonHeaders } from '../consts';
 
@@ -16,7 +16,7 @@ import { authWebserviceBaseUrls } from '../models/auth/AuthWebServiceBaseUrls';
 export const loginService: (
   params: LoginRequest
 ) => Promise<UserAuthData | null> = async params => {
-  const response = await axios.post<UserAuthData>(
+  const response = await http.post<UserAuthData>(
     authWebserviceBaseUrls.login,
     params,
     jsonHeaders
@@ -29,7 +29,7 @@ export const loginService: (
  * @returns The function `logoutService` returns a Promise that resolves to `void`. It sends a GET
  */
 export const logoutService: () => Promise<void> = async () => {
-  await axios.get<void>(authWebserviceBaseUrls.logout, {
+  await http.get<void>(authWebserviceBaseUrls.logout, {
     withCredentials: true,
   });
 };
