@@ -8,11 +8,17 @@ import {
   RegisterUserResponse,
 } from '@/models/user/registerUser';
 
+import {
+  UpdateUserRequest,
+  UpdateUserResponse,
+} from '@/models/user/updateUser';
+
 import axios from 'axios';
 
 import {
   deleteUserService,
   getAllUsersService,
+  updateUserService,
   registerService,
 } from '@/webservices/users/UsersWebService';
 
@@ -44,6 +50,8 @@ export const useUsersStore = defineStore('users', () => {
         error: false,
         result: response,
       };
+
+      await getAllUsers();
 
       return successResult;
     } catch (error) {
@@ -101,9 +109,52 @@ export const useUsersStore = defineStore('users', () => {
     }
   };
 
+  /**
+   * The function `deleteUser` is an asynchronous function that deletes a user by calling the
+   * `deleteUserService` function with the provided `id`, handling any errors that may occur.
+   * @param {string} id - The `id` parameter in the `deleteUser` function is a string that represents
+   * the unique identifier of the user that you want to delete.
+   */
+  const updateUser = async (
+    id: UserAuthData['_id'],
+    userData: UpdateUserRequest
+  ): Promise<UpdateUserResponse> => {
+    try {
+      isLoading.value = true;
+      const response = await updateUserService(id, userData);
+
+      const successResult: UpdateUserResponse = {
+        error: false,
+        result: response,
+      };
+
+      await getAllUsers();
+
+      return successResult;
+    } catch (error) {
+      console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        const axiosErrorResult: RegisterUserResponse = {
+          error: true,
+          status: error.response?.status,
+        };
+        return axiosErrorResult;
+      }
+
+      const clientErrorResult: RegisterUserResponse = {
+        error: true,
+      };
+
+      return clientErrorResult;
+    } finally {
+      isLoading.value = false;
+    }
+  };
   return {
     users,
     userAuthData,
+    updateUser,
     getAllUsers,
     deleteUser,
     isLoading,

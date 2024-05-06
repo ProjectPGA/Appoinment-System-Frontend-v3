@@ -23,7 +23,9 @@
     "buttons": {
       "loginButton": "Log in",
       "logoutButton": "Logout",
-      "deleteButton": "Delete"
+      "getAllUsersButton": "get all users",
+      "deleteButton": "Delete",
+      "editButton": "Edit"
     },
     "notifications": {
       "success": {},

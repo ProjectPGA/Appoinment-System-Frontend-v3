@@ -5,6 +5,7 @@ import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as UsersWebservice from '@/webservices/users/UsersWebService';
 import { createRandomUsersList } from '@/utils/mocks/user/mockUsers';
 import { RegisterUserResponse } from '@/models/user/registerUser';
+import { UpdateUserResponse } from '@/models/user/updateUser';
 
 jest.mock('@/webservices/users/UsersWebService');
 jest.mock('vue-i18n', () => ({
@@ -19,6 +20,7 @@ jest.mock('vue-router', () => ({
 }));
 
 const deleteUserServiceMock = jest.spyOn(UsersWebservice, 'deleteUserService');
+const updateUserServiceMock = jest.spyOn(UsersWebservice, 'updateUserService');
 const getAllUsersServiceMock = jest.spyOn(
   UsersWebservice,
   'getAllUsersService'
@@ -191,5 +193,104 @@ describe('03 Users store: delete User', () => {
     await usersStore.deleteUser(mockUsers![0]._id);
 
     expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
+  });
+});
+
+describe('04 Users store: update User', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+    window.localStorage.clear();
+  });
+  it('04 - 01 Should update a user', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const usersStore = useUsersStore(pinia);
+
+    getAllUsersServiceMock.mockResolvedValue(mockUsers);
+
+    await usersStore.getAllUsers();
+
+    expect(usersStore.users).toStrictEqual(mockUsers);
+
+    const newName = 'Updated Name';
+    mockUsers![0].name = newName;
+
+    const mockUser = mockUsers![0];
+
+    updateUserServiceMock.mockResolvedValue(mockUser);
+
+    await usersStore.updateUser(mockUsers![0]._id, mockUser);
+
+    expect(usersStore.users![0].name).toStrictEqual(newName);
+  });
+
+  it('04 - 02 Should handle network update a user', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const usersStore = useUsersStore(pinia);
+
+    getAllUsersServiceMock.mockResolvedValue(mockUsers);
+
+    await usersStore.getAllUsers();
+
+    expect(usersStore.users).toStrictEqual(mockUsers);
+
+    updateUserServiceMock.mockRejectedValue(new Error('Network error'));
+    const expectedResponse = {
+      error: true,
+    };
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    const response: UpdateUserResponse = await usersStore.updateUser(
+      mockUsers![0]._id,
+      mockUsers![0]
+    );
+
+    expect(response).toStrictEqual(expectedResponse);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
+  });
+
+  it('04 - 03 Should handle 500 Internal Server Error', async () => {
+    const pinia = createTestingPinia({
+      // Example of other aproach to pinia testing
+      stubActions: false,
+    });
+    const usersStore = useUsersStore(pinia);
+
+    getAllUsersServiceMock.mockResolvedValue(mockUsers);
+
+    await usersStore.getAllUsers();
+
+    expect(usersStore.users).toStrictEqual(mockUsers);
+
+    updateUserServiceMock.mockRejectedValue({
+      isAxiosError: true,
+      response: { status: 500 },
+    });
+    const expectedResponse = {
+      error: true,
+      status: 500,
+    };
+    const expectedResponseConsole = {
+      isAxiosError: true,
+      response: { status: 500 },
+    };
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    const response: UpdateUserResponse = await usersStore.updateUser(
+      mockUsers![0]._id,
+      mockUsers![0]
+    );
+
+    expect(response).toStrictEqual(expectedResponse);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expectedResponseConsole);
   });
 });

@@ -21,9 +21,11 @@
       "passwordPlaceholder": "Contraseña"
     },
     "buttons": {
-      "deleteButton": "Borrar",
       "loginButton": "Acceder",
-      "logoutButton": "Cerrar sesión"
+      "getAllUsersButton": "Ver Usuarios",
+      "logoutButton": "Cerrar sesión",
+      "deleteButton": "Borrar",
+      "editButton": "Editar"
     },
     "notifications": {
       "success": {},
