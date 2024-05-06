@@ -24,7 +24,8 @@
       "loginButton": "Log in",
       "logoutButton": "Logout",
       "getAllUsersButton": "get all users",
-      "deleteButton": "Delete"
+      "deleteButton": "Delete",
+      "editButton": "Edit"
     },
     "notifications": {
       "success": {},

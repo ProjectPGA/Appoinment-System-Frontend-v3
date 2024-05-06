@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import UserData from '@/components/common/UserData.vue';
@@ -55,7 +55,7 @@ const usersStore = useUsersStore();
 const logout = () => {
   authStore.logout();
 };
-onMounted(() => {
+onBeforeMount(() => {
   usersStore.getAllUsers();
 });
 </script>

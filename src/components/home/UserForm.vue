@@ -87,7 +87,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 import { useForm } from 'vee-validate';
 import { useToast } from 'vue-toastification';
 import * as yup from 'yup';
@@ -153,7 +153,9 @@ const [surname, surnameAttrs] = defineField('surname');
 const [email, emailAttrs] = defineField('email');
 const [repeatPassword, repeatPasswordAttrs] = defineField('repeatPassword');
 
-const sendUserData = async () => {
+// The `sendUserData` function is responsible for handling the submission of user data either for
+// updating an existing user or creating a new user. Here's a breakdown of what the function does:
+const sendUserData = async (): Promise<void> => {
   let response = null;
 
   if (props.isUpdate) {
@@ -195,8 +197,12 @@ const sendUserData = async () => {
   }
 };
 
+// The `const onSubmit = handleSubmit(sendUserData);` line is defining a function called `onSubmit`
+// that is responsible for handling the form submission. It uses the `handleSubmit` function provided
+// by VeeValidate to wrap the `sendUserData` function.
 const onSubmit = handleSubmit(sendUserData);
-onMounted(() => {
+
+onBeforeMount(() => {
   if (!props.userId || !usersStore.users || !usersStore.users.length) {
     return;
   }
