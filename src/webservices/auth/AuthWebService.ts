@@ -1,35 +1,54 @@
 import http from '@/webservices/models/http';
 
-import { jsonHeaders } from '../consts';
+import { jsonHeaders } from '@/webservices/consts';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
-import { LoginRequest } from '../models/auth/LoginRequest';
-import { authWebserviceBaseUrls } from '../models/auth/AuthWebServiceBaseUrls';
+import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
+import { authWebserviceBaseUrls } from '@/webservices/models/auth/AuthWebServiceBaseUrls';
 
 /**
- * This is a function that sends a login request to a server and returns user data.
- * @returns The `loginService` function is returning a Promise that resolves to an object of type
- * `UserAuthData`. This object is obtained by making a POST request to the `/login` endpoint with
- * the `params` object as the request body and `jsonHeaders` as the request headers. The
- * `response.data` property is then returned as the result of the Promise.
+ * The loginService function sends a POST request to a specified URL with login
+ * parameters and returns user authentication data.
+ *
+ * @param params - The `params` parameter in the `loginService` function is of type `LoginRequest`,
+ * which likely contains the necessary data for a user to log in, such as username and password.
+ *
+ * @param [raw=false] - The `raw` parameter in the `loginService` function is a boolean flag that
+ * indicates how the error handler should behave. If `raw` is set to `true` global error handling
+ * will not check for error on global errors.
+ *
+ * @returns The loginService function returns a Promise that resolves to either a UserAuthData object
+ * or null.
  */
 export const loginService: (
-  params: LoginRequest
-) => Promise<UserAuthData | null> = async params => {
+  params: LoginRequest,
+  raw?: boolean
+) => Promise<UserAuthData | null> = async (params, raw = false) => {
+  const requestParams = {
+    ...params,
+    raw,
+  };
+
   const response = await http.post<UserAuthData>(
     authWebserviceBaseUrls.login,
-    params,
+    requestParams,
     jsonHeaders
   );
   return response.data;
 };
 
 /**
- * This function sends a request to the server to log out the user.
- * @returns The function `logoutService` returns a Promise that resolves to `void`. It sends a GET
+ * The `logoutService` function in TypeScript logs out a user by making a request to the logout
+ * endpoint with optional raw data.
+ * @param [raw=false] - The `raw` parameter in the `logoutService` function is a boolean parameter that
+ * indicates how the error handler should behave. If `raw` is set to `true` global error handling
+ * will not check for error on global errors.
  */
-export const logoutService: () => Promise<void> = async () => {
+export const logoutService: (raw?: boolean) => Promise<void> = async (
+  raw = false
+) => {
   await http.get<void>(authWebserviceBaseUrls.logout, {
     withCredentials: true,
+    raw,
   });
 };
