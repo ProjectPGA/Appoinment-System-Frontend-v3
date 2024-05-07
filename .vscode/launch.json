@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Vite debug",
       "webRoot": "${workspaceFolder}",
-      "url": "http://localhost:4521"
+      "url": "http://localhost:5173"
     }
   ]
 }
