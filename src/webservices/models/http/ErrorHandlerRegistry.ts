@@ -8,9 +8,20 @@ import { HttpData } from '@/webservices/models/http/HttpData';
 
 import axios from 'axios';
 
-// type guard to identify that is an ErrorHandlerObject
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isErrorHandlerObject(value: any): value is ErrorHandlerObject {
+/**
+ * The function `isErrorHandlerObject` checks if a value is of type `ErrorHandlerObject`.
+ *
+ * @param {ErrorHandlerObject | boolean | undefined} value - The `value` parameter in the
+ * `isErrorHandlerObject` function can be of type `ErrorHandlerObject`, `boolean`, or `undefined`.
+ *
+ * @returns The function `isErrorHandlerObject` is checking if the `value` parameter is of type
+ * `ErrorHandlerObject`. If the `value` is an object and contains the keys 'message', 'after', or
+ * 'before', then it returns `true`, indicating that the `value` is an `ErrorHandlerObject`. Otherwise,
+ * it returns `false`.
+ */
+function isErrorHandlerObject(
+  value: ErrorHandlerObject | boolean | undefined
+): value is ErrorHandlerObject {
   if (typeof value === 'object') {
     return ['message', 'after', 'before'].some(key => key in value);
   }
