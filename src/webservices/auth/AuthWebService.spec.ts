@@ -84,20 +84,16 @@ describe('02 AuthWebservice: Check logout service', () => {
 
   const axiosGetSpy = jest.spyOn(http, 'get');
 
-  const checkToBeCalledWith = () => {
+  it('02 - 1 Should succeed on logout request', async () => {
+    axiosMockGet.reply(200);
+    await AuthWebservice.logoutService();
     expect(axiosGetSpy).toHaveBeenCalledWith(
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        raw: true,
+        raw: false,
       }
     );
-  };
-
-  it('02 - 1 Should succeed on logout request', async () => {
-    axiosMockGet.reply(200);
-    await AuthWebservice.logoutService(true);
-    checkToBeCalledWith();
   });
 
   it('02 - 2 Should fail on logout request', async () => {
@@ -105,6 +101,12 @@ describe('02 AuthWebservice: Check logout service', () => {
     await expect(AuthWebservice.logoutService(true)).rejects.toThrow(
       errorMessage401
     );
-    checkToBeCalledWith();
+    expect(axiosGetSpy).toHaveBeenCalledWith(
+      `${authWebserviceBaseUrls.logout}`,
+      {
+        withCredentials: true,
+        raw: true,
+      }
+    );
   });
 });
