@@ -10,7 +10,7 @@ import { JsonHeaders } from './models/http/JsonHeaders';
  *
  * @returns An object of type JsonHeaders is being returned
  */
-export const getJsonHeaders: (throwGlobalErrors: boolean) => JsonHeaders = (
+export const getJsonHeaders: (throwGlobalErrors?: boolean) => JsonHeaders = (
   throwGlobalErrors = false
 ) => {
   const jsonHeaders: JsonHeaders = {
