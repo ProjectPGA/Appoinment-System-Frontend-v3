@@ -48,6 +48,6 @@ export const logoutService: (raw?: boolean) => Promise<void> = async (
 ) => {
   await http.get<void>(authWebserviceBaseUrls.logout, {
     withCredentials: true,
-    raw,
+    raw: raw,
   });
 };
