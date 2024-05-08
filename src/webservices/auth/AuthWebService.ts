@@ -1,6 +1,6 @@
 import axiosInstance from '@/webservices/models/http';
 
-import { jsonHeaders } from '@/webservices/consts';
+import { getJsonHeaders } from '../utils';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
@@ -24,14 +24,10 @@ export const loginService: (
   params: LoginRequest,
   raw?: boolean
 ) => Promise<UserAuthData | null> = async (params, raw = false) => {
-  const jsonHeadersRequest = {
-    ...jsonHeaders,
-    raw: raw,
-  };
   const response = await axiosInstance.post<UserAuthData>(
     authWebserviceBaseUrls.login,
     params,
-    jsonHeadersRequest
+    getJsonHeaders(raw)
   );
   return response.data;
 };
