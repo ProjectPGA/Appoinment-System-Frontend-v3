@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { THttpError, globalErrorHandlers } from './http/ErrorHandler';
+import { THttpError, globalErrorHandlers } from './ErrorHandler';
 import ErrorHandlerRegistry from '@/webservices/models/http/ErrorHandlerRegistry';
 
 declare module 'axios' {
@@ -26,6 +26,6 @@ function createHttpInstance() {
   return instance;
 }
 
-const http: AxiosInstance = createHttpInstance();
+const axiosInstance: AxiosInstance = createHttpInstance();
 
-export default http;
+export default axiosInstance;
