@@ -34,11 +34,13 @@ describe('01 UsersWebservice: Check register service', () => {
     registerUserMock
   );
 
-  const checkToBeCalledWith: (raw?: boolean) => void = (raw = false) => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.register,
       registerUserMock,
-      getJsonHeaders(raw)
+      getJsonHeaders(throwGlobalErrors)
     );
   };
 
@@ -73,12 +75,14 @@ describe('02 UsersWebservice: Check get All users service', () => {
     { withCredentials: true }
   );
 
-  const checkToBeCalledWith: (raw?: boolean) => void = (raw = false) => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosGetSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.getAllUsers,
       {
         withCredentials: true,
-        raw: raw,
+        throwGlobalErrors: throwGlobalErrors,
       }
     );
   };
@@ -110,10 +114,12 @@ describe('03 UsersWebservice: Delete user service', () => {
 
   const axiosDeleteSpy = jest.spyOn(axiosInstance, 'delete');
 
-  const checkToBeCalledWith: (raw?: boolean) => void = (raw = false) => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosDeleteSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.deleteUser + id,
-      getJsonHeaders(raw)
+      getJsonHeaders(throwGlobalErrors)
     );
   };
 
@@ -140,11 +146,13 @@ describe('04 UsersWebservice: Check update service', () => {
     updateUserMock
   );
 
-  const checkToBeCalledWith: (raw?: boolean) => void = (raw = false) => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosPutSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.updateUser + updateUserMock._id,
       updateUserMock,
-      getJsonHeaders(raw)
+      getJsonHeaders(throwGlobalErrors)
     );
   };
 

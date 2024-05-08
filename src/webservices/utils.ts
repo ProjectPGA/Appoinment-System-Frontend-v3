@@ -1,10 +1,12 @@
-export const getJsonHeaders: (raw: boolean) => object = (raw = false) => {
+export const getJsonHeaders: (throwGlobalErrors: boolean) => object = (
+  throwGlobalErrors = false
+) => {
   return {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
     withCredentials: true,
-    raw: raw,
+    throwGlobalErrors: throwGlobalErrors,
   };
 };

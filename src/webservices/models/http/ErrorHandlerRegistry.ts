@@ -182,7 +182,7 @@ export default class ErrorHandlerRegistry {
       const config = error?.config;
       const data = response?.data as HttpData;
 
-      if (!direct && config?.raw) throw error;
+      if (!direct && config?.throwGlobalErrors) throw error;
 
       const seekers = [
         data?.code,

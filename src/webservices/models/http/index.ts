@@ -4,7 +4,7 @@ import ErrorHandlerRegistry from '@/webservices/models/http/ErrorHandlerRegistry
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
-    raw?: boolean;
+    throwGlobalErrors?: boolean;
     silent?: boolean;
   }
 }

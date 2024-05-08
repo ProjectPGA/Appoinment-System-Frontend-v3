@@ -13,37 +13,43 @@ import { authWebserviceBaseUrls } from '@/webservices/models/auth/AuthWebService
  * @param params - The `params` parameter in the `loginService` function is of type `LoginRequest`,
  * which likely contains the necessary data for a user to log in, such as username and password.
  *
- * @param [raw=false] - The `raw` parameter in the `loginService` function is a boolean flag that
- * indicates how the error handler should behave. If `raw` is set to `true` global error handling
- * will not check for error on global errors.
+ * @param [throwGlobalErrors=false] - The `throwGlobalErrors` parameter in the `getAllUsersService`
+ * function is a boolean flag that indicates whether global errors should be thrown or not during the
+ * API request. If `throwGlobalErrors` is set to `true`, any global errors encountered during the
+ * request will be thrown
  *
  * @returns The loginService function returns a Promise that resolves to either a UserAuthData object
  * or null.
  */
 export const loginService: (
   params: LoginRequest,
-  raw?: boolean
-) => Promise<UserAuthData | null> = async (params, raw = false) => {
+  throwGlobalErrors?: boolean
+) => Promise<UserAuthData | null> = async (
+  params,
+  throwGlobalErrors = false
+) => {
   const response = await axiosInstance.post<UserAuthData>(
     authWebserviceBaseUrls.login,
     params,
-    getJsonHeaders(raw)
+    getJsonHeaders(throwGlobalErrors)
   );
   return response.data;
 };
 
 /**
  * The `logoutService` function in TypeScript logs out a user by making a request to the logout
- * endpoint with optional raw data.
- * @param [raw=false] - The `raw` parameter in the `logoutService` function is a boolean parameter that
- * indicates how the error handler should behave. If `raw` is set to `true` global error handling
- * will not check for error on global errors.
+ * endpoint with optional throwGlobalErrors data.
+ *
+ * @param [throwGlobalErrors=false] - The `throwGlobalErrors` parameter in the `getAllUsersService`
+ * function is a boolean flag that indicates whether global errors should be thrown or not during the
+ * API request. If `throwGlobalErrors` is set to `true`, any global errors encountered during the
+ * request will be thrown
  */
-export const logoutService: (raw?: boolean) => Promise<void> = async (
-  raw = false
-) => {
+export const logoutService: (
+  throwGlobalErrors?: boolean
+) => Promise<void> = async (throwGlobalErrors = false) => {
   await axiosInstance.get<void>(authWebserviceBaseUrls.logout, {
     withCredentials: true,
-    raw: raw,
+    throwGlobalErrors: throwGlobalErrors,
   });
 };

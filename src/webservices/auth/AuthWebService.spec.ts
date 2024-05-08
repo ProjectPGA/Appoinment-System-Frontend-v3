@@ -86,7 +86,7 @@ describe('02 AuthWebservice: Check logout service', () => {
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        raw: false,
+        throwGlobalErrors: false,
       }
     );
   });
@@ -100,7 +100,7 @@ describe('02 AuthWebservice: Check logout service', () => {
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        raw: true,
+        throwGlobalErrors: true,
       }
     );
   });
