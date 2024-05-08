@@ -1,8 +1,8 @@
-import axiosInstance from '../models/http';
+import axiosInstance from '@/webservices/models/http';
 import MockAdapter from 'axios-mock-adapter';
 
 import { User } from '@/models/user/User';
-import { getJsonHeaders } from '../utils';
+import { getJsonHeaders } from '@/webservices/utils';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import * as UsersWebservice from './UsersWebService';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';

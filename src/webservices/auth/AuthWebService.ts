@@ -1,6 +1,6 @@
 import axiosInstance from '@/webservices/models/http';
 
-import { getJsonHeaders } from '../utils';
+import { getJsonHeaders } from '@/webservices/utils';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';

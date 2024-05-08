@@ -7,13 +7,13 @@ import {
 } from '@/utils/mocks/user/mockLoginRequest';
 
 import { User } from '@/models/user/User';
-import { getJsonHeaders } from '../utils';
+import { getJsonHeaders } from '@/webservices/utils';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import * as AuthWebservice from './AuthWebService';
-import { LoginRequest } from '../models/auth/LoginRequest';
+import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
-import { authWebserviceBaseUrls } from '../models/auth/AuthWebServiceBaseUrls';
+import { authWebserviceBaseUrls } from '@/webservices/models/auth/AuthWebServiceBaseUrls';
 
 // Global constants
 const axiosPostSpy = jest.spyOn(axiosInstance, 'post');

@@ -1,5 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
-import { THttpError, globalErrorHandlers } from './ErrorHandler';
+import {
+  THttpError,
+  globalErrorHandlers,
+} from '@/webservices/models/http/ErrorHandler';
 import ErrorHandlerRegistry from '@/webservices/models/http/ErrorHandlerRegistry';
 
 declare module 'axios' {
