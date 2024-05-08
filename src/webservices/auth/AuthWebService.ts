@@ -1,4 +1,4 @@
-import http from '@/webservices/models/http';
+import axiosInstance from '@/webservices/models/http';
 
 import { jsonHeaders } from '@/webservices/consts';
 
@@ -28,7 +28,7 @@ export const loginService: (
     ...jsonHeaders,
     raw: raw,
   };
-  const response = await http.post<UserAuthData>(
+  const response = await axiosInstance.post<UserAuthData>(
     authWebserviceBaseUrls.login,
     params,
     jsonHeadersRequest
@@ -46,7 +46,7 @@ export const loginService: (
 export const logoutService: (raw?: boolean) => Promise<void> = async (
   raw = false
 ) => {
-  await http.get<void>(authWebserviceBaseUrls.logout, {
+  await axiosInstance.get<void>(authWebserviceBaseUrls.logout, {
     withCredentials: true,
     raw: raw,
   });

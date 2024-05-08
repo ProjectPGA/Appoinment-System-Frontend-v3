@@ -1,4 +1,4 @@
-import http from '@/webservices/models/http';
+import axiosInstance from '@/webservices/models/http';
 import MockAdapter from 'axios-mock-adapter';
 
 import {
@@ -16,8 +16,8 @@ import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { authWebserviceBaseUrls } from '../models/auth/AuthWebServiceBaseUrls';
 
 // Global constants
-const axiosPostSpy = jest.spyOn(http, 'post');
-const axiosMock: MockAdapter = new MockAdapter(http);
+const axiosPostSpy = jest.spyOn(axiosInstance, 'post');
+const axiosMock: MockAdapter = new MockAdapter(axiosInstance);
 
 // Primitive global constants
 const errorMessage401: string = 'Request failed with status code 401';
@@ -82,7 +82,7 @@ describe('02 AuthWebservice: Check logout service', () => {
     { withCredentials: true }
   );
 
-  const axiosGetSpy = jest.spyOn(http, 'get');
+  const axiosGetSpy = jest.spyOn(axiosInstance, 'get');
 
   it('02 - 1 Should succeed on logout request', async () => {
     axiosMockGet.reply(200);
