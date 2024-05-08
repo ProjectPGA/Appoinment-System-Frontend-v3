@@ -24,15 +24,14 @@ export const loginService: (
   params: LoginRequest,
   raw?: boolean
 ) => Promise<UserAuthData | null> = async (params, raw = false) => {
-  const requestParams = {
-    ...params,
-    raw,
+  const jsonHeadersRequest = {
+    ...jsonHeaders,
+    raw: raw,
   };
-
   const response = await http.post<UserAuthData>(
     authWebserviceBaseUrls.login,
-    requestParams,
-    jsonHeaders
+    params,
+    jsonHeadersRequest
   );
   return response.data;
 };
