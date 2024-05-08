@@ -19,9 +19,16 @@ export interface ErrorHandlerMany {
 }
 
 export const globalErrorHandlers: ErrorHandlerMany = {
-  '404': { message: 'API Page Not Found!' },
+  '400': { message: 'Bad Request' },
   '401': {
     message: 'Unauthorized!',
   },
-  '500': { message: 'Server Error' },
+  '403': { message: 'Forbidden' },
+  '404': { message: 'Not Found' },
+  '408': { message: 'Request Timeout' },
+  '429': { message: 'Too Many Requests' },
+  '500': { message: 'Internal Server Error' },
+  '502': { message: 'Bad Gateway' },
+  '503': { message: 'Service Unavailable' },
+  '504': { message: 'Gateway Timeout' },
 };
