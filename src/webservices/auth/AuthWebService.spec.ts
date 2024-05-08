@@ -51,7 +51,7 @@ describe('01 AuthWebservice: Check loginService', () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.login,
       loginRequestParams,
-      getJsonHeaders(false)
+      getJsonHeaders()
     );
   });
 
@@ -86,7 +86,6 @@ describe('02 AuthWebservice: Check logout service', () => {
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        throwGlobalErrors: false,
       }
     );
   });
