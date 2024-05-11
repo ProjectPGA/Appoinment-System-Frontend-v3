@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosError, HttpStatusCode } from 'axios';
 
 export type THttpError = Error | AxiosError | null;
 
@@ -19,16 +19,16 @@ export interface ErrorHandlerMany {
 }
 
 export const globalErrorHandlers: ErrorHandlerMany = {
-  '400': { message: 'Bad Request' },
-  '401': {
+  [HttpStatusCode.BadRequest]: { message: 'Bad Request' },
+  [HttpStatusCode.Unauthorized]: {
     message: 'Unauthorized!',
   },
-  '403': { message: 'Forbidden' },
-  '404': { message: 'Not Found' },
-  '408': { message: 'Request Timeout' },
-  '429': { message: 'Too Many Requests' },
-  '500': { message: 'Internal Server Error' },
-  '502': { message: 'Bad Gateway' },
-  '503': { message: 'Service Unavailable' },
-  '504': { message: 'Gateway Timeout' },
+  [HttpStatusCode.Forbidden]: { message: 'Forbidden' },
+  [HttpStatusCode.NotFound]: { message: 'Not Found' },
+  [HttpStatusCode.RequestTimeout]: { message: 'Request Timeout' },
+  [HttpStatusCode.TooManyRequests]: { message: 'Too Many Requests' },
+  [HttpStatusCode.InternalServerError]: { message: 'Internal Server Error' },
+  [HttpStatusCode.BadGateway]: { message: 'Bad Gateway' },
+  [HttpStatusCode.ServiceUnavailable]: { message: 'Service Unavailable' },
+  [HttpStatusCode.GatewayTimeout]: { message: 'Gateway Timeout' },
 };
