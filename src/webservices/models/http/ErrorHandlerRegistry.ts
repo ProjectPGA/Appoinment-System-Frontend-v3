@@ -6,6 +6,8 @@ import {
 } from '@/webservices/models/http/ErrorHandler';
 import { HttpData } from '@/webservices/models/http/HttpData';
 
+import { faro } from '@grafana/faro-web-sdk';
+
 import axios from 'axios';
 
 /**
@@ -157,8 +159,13 @@ export default class ErrorHandlerRegistry {
    * @returns true
    */
   handleErrorObject(error: THttpError, options: ErrorHandlerObject = {}) {
+    const errorMessage =
+      error?.message ?? 'Unrecoverrable error!! Error is null!';
+
     options?.before?.(error, options);
+    faro.api.pushError(new Error(errorMessage));
     options?.after?.(error, options);
+
     return true;
   }
 
