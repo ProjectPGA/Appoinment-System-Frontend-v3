@@ -1,8 +1,7 @@
+import { RawAxiosRequestHeaders } from 'axios';
+
 export interface JsonHeaders {
-  headers: {
-    'Content-Type': string;
-    Accept: string;
-  };
+  headers: RawAxiosRequestHeaders;
   withCredentials: boolean;
   throwGlobalErrors: boolean;
 }
