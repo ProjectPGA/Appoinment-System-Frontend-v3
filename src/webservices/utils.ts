@@ -18,8 +18,6 @@ export const getRequestConfig: (
     Accept: 'application/json',
   });
 
-  headers.set('withCredentials', true);
-
   const requestConfig: AxiosRequestConfig = {
     headers: headers,
     withCredentials: true,
