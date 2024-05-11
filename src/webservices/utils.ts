@@ -1,7 +1,7 @@
-import { JsonHeaders } from './models/http/JsonHeaders';
+import { AxiosHeaders, AxiosRequestConfig } from 'axios';
 
 /**
- * The function `getJsonHeaders` returns an object with headers for JSON content and an option to throw
+ * The function `getRequestConfig` returns an object with headers for JSON content and an option to throw
  * global errors.
  *
  * @param [throwGlobalErrors=false] - The `throwGlobalErrors` parameter is a boolean flag that
@@ -10,16 +10,20 @@ import { JsonHeaders } from './models/http/JsonHeaders';
  *
  * @returns An object of type JsonHeaders is being returned
  */
-export const getJsonHeaders: (throwGlobalErrors?: boolean) => JsonHeaders = (
-  throwGlobalErrors = false
-) => {
-  const jsonHeaders: JsonHeaders = {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
+export const getRequestConfig: (
+  throwGlobalErrors?: boolean
+) => AxiosRequestConfig = (throwGlobalErrors = false) => {
+  const headers: AxiosHeaders = new AxiosHeaders({
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  });
+
+  headers.set('withCredentials', true);
+
+  const requestConfig: AxiosRequestConfig = {
+    headers: headers,
     withCredentials: true,
     throwGlobalErrors: throwGlobalErrors,
   };
-  return jsonHeaders;
+  return requestConfig;
 };
