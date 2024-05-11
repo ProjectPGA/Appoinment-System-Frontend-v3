@@ -2,7 +2,7 @@ import axiosInstance from '@/webservices/models/http';
 import MockAdapter from 'axios-mock-adapter';
 
 import { User } from '@/models/user/User';
-import { getJsonHeaders } from '@/webservices/utils';
+import { getRequestConfig } from '@/webservices/utils';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import * as UsersWebservice from './UsersWebService';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
@@ -40,7 +40,7 @@ describe('01 UsersWebservice: Check register service', () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.register,
       registerUserMock,
-      getJsonHeaders(throwGlobalErrors)
+      getRequestConfig(throwGlobalErrors)
     );
   };
 
@@ -119,7 +119,7 @@ describe('03 UsersWebservice: Delete user service', () => {
   ) => {
     expect(axiosDeleteSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.deleteUser + id,
-      getJsonHeaders(throwGlobalErrors)
+      getRequestConfig(throwGlobalErrors)
     );
   };
 
@@ -152,7 +152,7 @@ describe('04 UsersWebservice: Check update service', () => {
     expect(axiosPutSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.updateUser + updateUserMock._id,
       updateUserMock,
-      getJsonHeaders(throwGlobalErrors)
+      getRequestConfig(throwGlobalErrors)
     );
   };
 

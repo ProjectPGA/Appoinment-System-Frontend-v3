@@ -1,6 +1,6 @@
 import axiosInstance from '@/webservices/models/http';
 
-import { getJsonHeaders } from '@/webservices/utils';
+import { getRequestConfig } from '@/webservices/utils';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
@@ -31,7 +31,7 @@ export const loginService: (
   const response = await axiosInstance.post<UserAuthData>(
     authWebserviceBaseUrls.login,
     params,
-    getJsonHeaders(throwGlobalErrors)
+    getRequestConfig(throwGlobalErrors)
   );
   return response.data;
 };

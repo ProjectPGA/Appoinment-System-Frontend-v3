@@ -1,6 +1,6 @@
 import axiosInstance from '@/webservices/models/http';
 
-import { getJsonHeaders } from '@/webservices/utils';
+import { getRequestConfig } from '@/webservices/utils';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 import { usersWebserviceBaseUrls } from '@/webservices/models/users/UsersWebServiceBaseUrls';
@@ -44,7 +44,7 @@ export const getAllUsersService: (
  * @returns The `registerService` function is returning a Promise that resolves to a `UserAuthData`
  * object. This object is obtained from the response of a POST request made using `axiosInstance.post`
  * to the `usersWebserviceBaseUrls.register` endpoint with the provided `params` and headers obtained
- * from `getJsonHeaders(throwGlobalErrors)`.
+ * from `getRequestConfig(throwGlobalErrors)`.
  */
 export const registerService: (
   params: RegisterUserRequest,
@@ -53,7 +53,7 @@ export const registerService: (
   const response = await axiosInstance.post<UserAuthData>(
     usersWebserviceBaseUrls.register,
     params,
-    getJsonHeaders(throwGlobalErrors)
+    getRequestConfig(throwGlobalErrors)
   );
   return response.data;
 };
@@ -79,7 +79,7 @@ export const deleteUserService: (
 ) => Promise<void> = async (id, throwGlobalErrors = false) => {
   await axiosInstance.delete<void>(
     usersWebserviceBaseUrls.deleteUser + id,
-    getJsonHeaders(throwGlobalErrors)
+    getRequestConfig(throwGlobalErrors)
   );
 };
 
@@ -99,7 +99,7 @@ export const deleteUserService: (
  * @returns - The `updateUserService` function is returning a Promise that resolves to a `UserAuthData`
  * object. This object is obtained from the response of a PUT request made using `axiosInstance.put`
  * to the `usersWebserviceBaseUrls.updateUser` endpoint with the provided, `id`, `params` and headers obtained
- * from `getJsonHeaders(throwGlobalErrors)`.
+ * from `getRequestConfig(throwGlobalErrors)`.
  */
 export const updateUserService: (
   id: UserAuthData['_id'],
@@ -109,7 +109,7 @@ export const updateUserService: (
   const response = await axiosInstance.put<UserAuthData>(
     usersWebserviceBaseUrls.updateUser + id,
     params,
-    getJsonHeaders(throwGlobalErrors)
+    getRequestConfig(throwGlobalErrors)
   );
   return response.data;
 };

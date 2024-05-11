@@ -7,7 +7,7 @@ import {
 } from '@/utils/mocks/user/mockLoginRequest';
 
 import { User } from '@/models/user/User';
-import { getJsonHeaders } from '@/webservices/utils';
+import { getRequestConfig } from '@/webservices/utils';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import * as AuthWebservice from './AuthWebService';
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
@@ -51,7 +51,7 @@ describe('01 AuthWebservice: Check loginService', () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.login,
       loginRequestParams,
-      getJsonHeaders()
+      getRequestConfig()
     );
   });
 
@@ -66,7 +66,7 @@ describe('01 AuthWebservice: Check loginService', () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.login,
       loginRequestMock,
-      getJsonHeaders(true)
+      getRequestConfig(true)
     );
   });
 });
