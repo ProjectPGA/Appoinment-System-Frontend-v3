@@ -364,21 +364,54 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
 });
 
 describe('06 - ErrorHandlerRegistry: constructor', () => {
-  it('06 - 01 Create a ErrorHandlerRegistry with parent', () => {
+  it('06 - 01 Create a ErrorHandlerRegistry with parent and throw the error of the parent Registry', () => {
     const parentErrorHandlerRegistry = new ErrorHandlerRegistry(undefined, {
-      56: {
-        message: 'test',
+      [HttpStatusCode.NotAcceptable]: {
+        message: 'Parent Not Acceptable Error',
       },
     });
+
+    const parentNotAcceptableErrorHandler = parentErrorHandlerRegistry.find(
+      HttpStatusCode.NotAcceptable.toString()
+    ) as ErrorHandlerObject;
+
     const errorHandlerRegistry = new ErrorHandlerRegistry(
       parentErrorHandlerRegistry,
       errorHandlers
     );
 
-    const axiosError = new AxiosError('Locked', '56');
+    const findParentErrorHandlerFuntionSpy = jest.spyOn(
+      parentErrorHandlerRegistry,
+      'find'
+    );
+
+    const axiosError = new AxiosError(
+      'Axios Not Acceptable Error',
+      HttpStatusCode.NotAcceptable.toString()
+    );
+
+    const handleErrorObjectSpy = jest.spyOn(
+      errorHandlerRegistry,
+      'handleErrorObject'
+    );
+
+    const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
     const response = errorHandlerRegistry.resposeErrorHandler(axiosError);
 
+    console.info(parentNotAcceptableErrorHandler);
+
     expect(response).toBe(true);
+    expect(findParentErrorHandlerFuntionSpy).toHaveBeenCalledWith(
+      HttpStatusCode.NotAcceptable.toString()
+    );
+    expect(handleErrorObjectSpy).toHaveBeenCalledWith(
+      axiosError,
+      parentNotAcceptableErrorHandler
+    );
+    expect(handleErrorSpy).toHaveBeenCalled();
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(parentNotAcceptableErrorHandler.message)
+    );
   });
 });
