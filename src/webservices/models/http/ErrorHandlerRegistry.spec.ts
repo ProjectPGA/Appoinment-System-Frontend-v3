@@ -9,6 +9,8 @@ import ErrorHandlerRegistry, {
   isErrorHandlerObject,
 } from './ErrorHandlerRegistry';
 
+import { GlobalErrorHandlerMessages } from './ErrorHandler';
+
 jest.mock('@grafana/faro-web-sdk', () => {
   const faroMock = {
     faro: {
@@ -31,6 +33,7 @@ enum errorHandlerMessages {
   Unauthorized = 'Error Handler Unauthorized',
   Forbidden = 'Error Handler Forbidden',
   BadGateway = 'Error Handler BadGateway',
+  Error = 'Error Handler Generic Error',
 }
 
 const errorHandlers = {
@@ -52,7 +55,7 @@ const errorHandlers = {
     }),
   [HttpStatusCode.Conflict]: {},
   Error: {
-    message: 'Generic Error',
+    message: errorHandlerMessages.Error,
   },
   [HttpStatusCode.Locked]: {
     after: jest
@@ -251,23 +254,25 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
 });
 
 describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
-  it('05 - 01 Receive error in null and must trow an error', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
+  const errorHandlerRegistry = new ErrorHandlerRegistry(
+    undefined,
+    errorHandlers
+  );
 
+  const handleErrorObjectSpy = jest.spyOn(
+    errorHandlerRegistry,
+    'handleErrorObject'
+  );
+
+  const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
+
+  it('05 - 01 Receive error in null and must trow an error', () => {
     expect(() => {
       errorHandlerRegistry.resposeErrorHandler(null);
-    }).toThrow('Unrecoverrable error!! Error is null!');
+    }).toThrow(GlobalErrorHandlerMessages.Unrecoverrable);
   });
 
   it('05 - 02 Receive error in null and must throw an error', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
-
     const headers: AxiosHeaders = new AxiosHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -298,57 +303,35 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
       axiosResponse
     );
 
-    const handleErrorObjectSpy = jest.spyOn(
-      errorHandlerRegistry,
-      'handleErrorObject'
-    );
-
-    const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
-
     const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
 
     expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
-      message: 'Basic error throwed',
+      message: axiosError.response?.data.description,
     });
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error('Basic error throwed')
+      new Error(axiosError.response?.data.description)
     );
   });
 
   it('05 - 03 Receive an error instanceof Error instead AxiosError and must use handleError function correctly', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
-
     const errorInstance = new Error('Error typeof Error');
-
-    const handleErrorObjectSpy = jest.spyOn(
-      errorHandlerRegistry,
-      'handleErrorObject'
-    );
-
-    const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
     const errorResponse =
       errorHandlerRegistry.resposeErrorHandler(errorInstance);
 
     expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(errorInstance, {
-      message: 'Generic Error',
+      message: errorHandlerMessages.Error,
     });
     expect(handleErrorSpy).toHaveBeenCalled();
-    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Generic Error'));
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(errorHandlerMessages.Error)
+    );
   });
 
   it('05 - 04 Receive an error that is not typeof Error or AxiosError and must throw the error', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
-
     // Use any to force an error object that is not typeof Error or AxiosError
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const personalizedError: any = {
@@ -357,10 +340,10 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
 
     expect(() => {
       errorHandlerRegistry.resposeErrorHandler(personalizedError);
-    }).toThrow('Other Error');
+    }).toThrow(personalizedError.message);
   });
 
-  it('05 - 07 Receive an error that not contain a message property in the errorHandler config. Must throw the message of the error instance', () => {
+  it('05 - 05 Receive an error that not contain a message property in the errorHandler config. Must throw the message of the error instance', () => {
     const errorHandlerRegistry = new ErrorHandlerRegistry(
       undefined,
       errorHandlers
@@ -371,13 +354,11 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
       HttpStatusCode.Locked.toString()
     );
 
-    console.info(axiosError);
-
     const response = errorHandlerRegistry.resposeErrorHandler(axiosError);
 
     expect(response).toBe(true);
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error('Axios locked error')
+      new Error(axiosError.message)
     );
   });
 });
