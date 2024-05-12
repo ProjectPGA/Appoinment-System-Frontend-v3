@@ -2,6 +2,10 @@ import { AxiosError, HttpStatusCode } from 'axios';
 
 export type THttpError = Error | AxiosError | null;
 
+export enum GlobalErrorHandlerMessages {
+  Unrecoverrable = 'Unrecoverrable error!! Error is null!',
+}
+
 export interface ErrorHandlerObject {
   after?(error?: THttpError, options?: ErrorHandlerObject): void;
   before?(error?: THttpError, options?: ErrorHandlerObject): void;
