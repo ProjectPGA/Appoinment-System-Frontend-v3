@@ -1,4 +1,10 @@
-import { AxiosError, HttpStatusCode } from 'axios';
+import {
+  AxiosError,
+  AxiosHeaders,
+  AxiosResponse,
+  HttpStatusCode,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import ErrorHandlerRegistry, {
   isErrorHandlerObject,
 } from './ErrorHandlerRegistry';
@@ -46,6 +52,29 @@ const errorHandlers = {
       };
     }),
   [HttpStatusCode.Conflict]: {},
+  Error: {
+    message: 'Generic Error',
+  },
+  [HttpStatusCode.Locked]: {
+    after: jest
+      .fn()
+      .mockImplementation(
+        (error?: THttpError, options?: ErrorHandlerObject) => {
+          const errorMessage = options?.message ?? error?.message;
+
+          return errorMessage;
+        }
+      ),
+    before: jest
+      .fn()
+      .mockImplementation(
+        (error?: THttpError, options?: ErrorHandlerObject) => {
+          const errorMessage = options?.message ?? error?.message;
+
+          return errorMessage;
+        }
+      ),
+  },
 };
 
 describe('01 ErrorHanlderRegistry: isErrorHanlderObject function', () => {
@@ -121,14 +150,19 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     );
     const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
-    const errorToTest = new AxiosError('Forbidden', '403');
+    const axiosError = new AxiosError(
+      'Forbidden',
+      HttpStatusCode.Forbidden.toString()
+    );
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(errorToTest);
+    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
 
     expect(errorResponse).toBe(true);
-    expect(handleErrorObjectSpy).toHaveBeenCalled();
+    expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
+      message: 'Forbidden',
+    });
     expect(handleErrorSpy).toHaveBeenCalled();
-    expect(faro.api.pushError).toHaveBeenCalled();
+    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Forbidden'));
   });
 
   it('04 - 02 Should use handleError function, not throw error to grafana and return false', () => {
@@ -267,5 +301,157 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledTimes(0);
+  });
+});
+
+describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
+  it('05 - 01 Receive error in null and must trow an error', () => {
+    const errorHandlerRegistry = new ErrorHandlerRegistry(
+      undefined,
+      errorHandlers
+    );
+
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(null);
+    }).toThrow('Unrecoverrable error!! Error is null!');
+  });
+
+  it('05 - 02 Receive error in null and must throw an error', () => {
+    const errorHandlerRegistry = new ErrorHandlerRegistry(
+      undefined,
+      errorHandlers
+    );
+
+    const headers: AxiosHeaders = new AxiosHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    const requestConfig: InternalAxiosRequestConfig = {
+      headers: headers,
+    };
+
+    const axiosResponse: AxiosResponse = {
+      data: {
+        code: 2,
+        description: 'Basic error throwed',
+      },
+      status: 4,
+      statusText: 'Error',
+      headers: {
+        Accept: 'application/json',
+      },
+      config: requestConfig,
+    };
+
+    const axiosError = new AxiosError(
+      'Basic error',
+      '2',
+      undefined,
+      undefined,
+      axiosResponse
+    );
+
+    const handleErrorObjectSpy = jest.spyOn(
+      errorHandlerRegistry,
+      'handleErrorObject'
+    );
+
+    const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
+
+    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+
+    expect(errorResponse).toBe(true);
+    expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
+      message: 'Basic error throwed',
+    });
+    expect(handleErrorSpy).toHaveBeenCalled();
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error('Basic error throwed')
+    );
+  });
+
+  it('05 - 03 Receive an error instanceof Error instead AxiosError and must use handleError function correctly', () => {
+    const errorHandlerRegistry = new ErrorHandlerRegistry(
+      undefined,
+      errorHandlers
+    );
+
+    const errorInstance = new Error('Error typeof Error');
+
+    const handleErrorObjectSpy = jest.spyOn(
+      errorHandlerRegistry,
+      'handleErrorObject'
+    );
+
+    const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
+
+    const errorResponse =
+      errorHandlerRegistry.resposeErrorHandler(errorInstance);
+
+    expect(errorResponse).toBe(true);
+    expect(handleErrorObjectSpy).toHaveBeenCalledWith(errorInstance, {
+      message: 'Generic Error',
+    });
+    expect(handleErrorSpy).toHaveBeenCalled();
+    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Generic Error'));
+  });
+
+  it('05 - 04 Receive an error that is not typeof Error or AxiosError and must throw the error', () => {
+    const errorHandlerRegistry = new ErrorHandlerRegistry(
+      undefined,
+      errorHandlers
+    );
+
+    // Use any to force an error object that is not typeof Error or AxiosError
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const personalizedError: any = {
+      message: 'Other Error',
+    };
+
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(personalizedError);
+    }).toThrow('Other Error');
+  });
+
+  it('05 - 07 Receive an error that not contain a message property in the errorHandler config. Must throw the message of the error instance', () => {
+    const errorHandlerRegistry = new ErrorHandlerRegistry(
+      undefined,
+      errorHandlers
+    );
+
+    const axiosError = new AxiosError(
+      'Axios locked error',
+      HttpStatusCode.Locked.toString()
+    );
+
+    console.info(axiosError);
+
+    const response = errorHandlerRegistry.resposeErrorHandler(axiosError);
+
+    expect(response).toBe(true);
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error('Axios locked error')
+    );
+  });
+});
+
+describe('06 - ErrorHandlerRegistry: constructor', () => {
+  it('06 - 01 Create a ErrorHandlerRegistry with parent', () => {
+    const parentErrorHandlerRegistry = new ErrorHandlerRegistry(undefined, {
+      56: {
+        message: 'test',
+      },
+    });
+    const errorHandlerRegistry = new ErrorHandlerRegistry(
+      parentErrorHandlerRegistry,
+      errorHandlers
+    );
+
+    const axiosError = new AxiosError('Locked', '56');
+
+    const response = errorHandlerRegistry.resposeErrorHandler(axiosError);
+
+    expect(response).toBe(true);
   });
 });
