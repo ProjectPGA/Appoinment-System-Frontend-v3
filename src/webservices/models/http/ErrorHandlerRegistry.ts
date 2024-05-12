@@ -2,6 +2,7 @@ import {
   ErrorHandler,
   ErrorHandlerMany,
   ErrorHandlerObject,
+  GlobalErrorHandlerMessages,
   THttpError,
 } from '@/webservices/models/http/ErrorHandler';
 import { HttpData } from '@/webservices/models/http/HttpData';
@@ -191,7 +192,7 @@ export default class ErrorHandlerRegistry {
     direct?: boolean
   ) {
     if (error === null) {
-      throw new Error('Unrecoverrable error!! Error is null!');
+      throw new Error(GlobalErrorHandlerMessages.Unrecoverrable);
     }
 
     if (axios.isAxiosError(error)) {
