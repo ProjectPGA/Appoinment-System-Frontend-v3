@@ -399,8 +399,6 @@ describe('06 - ErrorHandlerRegistry: constructor', () => {
 
     const response = errorHandlerRegistry.resposeErrorHandler(axiosError);
 
-    console.info(parentNotAcceptableErrorHandler);
-
     expect(response).toBe(true);
     expect(findParentErrorHandlerFuntionSpy).toHaveBeenCalledWith(
       HttpStatusCode.NotAcceptable.toString()
