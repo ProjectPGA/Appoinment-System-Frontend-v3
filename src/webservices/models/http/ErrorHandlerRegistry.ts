@@ -158,9 +158,8 @@ export default class ErrorHandlerRegistry {
    * @param {ErrorHandlerObject} options - The `options` parameter is an object with the different options configured for the error.
    * @returns true
    */
-  handleErrorObject(error: THttpError, options: ErrorHandlerObject = {}) {
-    const errorMessage =
-      error?.message ?? 'Unrecoverrable error!! Error is null!';
+  handleErrorObject(error: THttpError, options: ErrorHandlerObject) {
+    const errorMessage = options?.message ?? error?.message;
 
     options?.before?.(error, options);
     faro.api.pushError(new Error(errorMessage));
