@@ -77,7 +77,7 @@ const errorHandlers = {
   },
 };
 
-describe('01 ErrorHanlderRegistry: isErrorHanlderObject function', () => {
+describe('01 ErrorHanlderRegistry: isErrorHandlerObject function', () => {
   it('01 - 01 Should return true', () => {
     const handlerErrorObject = {
       message: 'Hello test',
@@ -98,35 +98,35 @@ describe('01 ErrorHanlderRegistry: isErrorHanlderObject function', () => {
 });
 
 describe('02 ErrorHandlerRegistry: register function', () => {
-  it('02 - 01 Should register an error handler', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
+  const errorHandlerRegistry = new ErrorHandlerRegistry(
+    undefined,
+    errorHandlers
+  );
 
+  it('02 - 01 Should register an error handler', () => {
     const findResultToBeUndefined = errorHandlerRegistry.find('Not valid key');
 
     expect(findResultToBeUndefined).toBe(undefined);
 
-    errorHandlerRegistry.register(HttpStatusCode.Unauthorized.toString(), {
-      message: 'Unauthorized!',
+    errorHandlerRegistry.register(HttpStatusCode.FailedDependency.toString(), {
+      message: 'Failed Dependency',
     });
 
-    const findResultToFound = errorHandlerRegistry.find(
-      HttpStatusCode.Unauthorized.toString()
+    const findResult = errorHandlerRegistry.find(
+      HttpStatusCode.FailedDependency.toString()
     );
 
-    expect(findResultToFound).toEqual({ message: 'Unauthorized!' });
+    expect(findResult).toEqual({ message: 'Failed Dependency' });
   });
 });
 
 describe('03 ErrorHandlerRegistry: unregister function', () => {
-  it('03 - 01 Should unregister an error handler', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
+  const errorHandlerRegistry = new ErrorHandlerRegistry(
+    undefined,
+    errorHandlers
+  );
 
+  it('03 - 01 Should unregister an error handler', () => {
     errorHandlerRegistry.unregister(HttpStatusCode.Unauthorized.toString());
 
     const findResult = errorHandlerRegistry.find(
@@ -138,12 +138,11 @@ describe('03 ErrorHandlerRegistry: unregister function', () => {
 });
 
 describe('04 ErrorHandlerRegistry: handleError function', () => {
+  const errorHandlerRegistry = new ErrorHandlerRegistry(
+    undefined,
+    errorHandlers
+  );
   it('04 - 01 Should use handleError function, throw error to grafana and return true', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
-
     const handleErrorObjectSpy = jest.spyOn(
       errorHandlerRegistry,
       'handleErrorObject'
