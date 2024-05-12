@@ -21,7 +21,7 @@ import axios from 'axios';
  * 'before', then it returns `true`, indicating that the `value` is an `ErrorHandlerObject`. Otherwise,
  * it returns `false`.
  */
-function isErrorHandlerObject(
+export function isErrorHandlerObject(
   value: ErrorHandlerObject | boolean | undefined
 ): value is ErrorHandlerObject {
   if (typeof value === 'object') {
