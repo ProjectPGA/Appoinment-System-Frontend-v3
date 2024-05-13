@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axiosInstance from '@/webservices/models/http';
 import MockAdapter from 'axios-mock-adapter';
 
 import { User } from '@/models/user/User';
-import { jsonHeaders } from '../consts';
+import { getRequestConfig } from '@/webservices/utils';
 import { UserAuthData } from '@/models/user/UserAuthData';
 import * as UsersWebservice from './UsersWebService';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
@@ -12,11 +12,11 @@ import { usersWebserviceBaseUrls } from '@/webservices/models/users/UsersWebServ
 import { faker } from '@faker-js/faker';
 
 // Global constants
-const axiosPostSpy = jest.spyOn(axios, 'post');
-const axiosGetSpy = jest.spyOn(axios, 'get');
-const axiosPutSpy = jest.spyOn(axios, 'put');
+const axiosPostSpy = jest.spyOn(axiosInstance, 'post');
+const axiosGetSpy = jest.spyOn(axiosInstance, 'get');
+const axiosPutSpy = jest.spyOn(axiosInstance, 'put');
 
-const axiosMock: MockAdapter = new MockAdapter(axios);
+const axiosMock: MockAdapter = new MockAdapter(axiosInstance);
 
 // Primitive global constants
 const errorMessage401: string = 'Request failed with status code 401';
@@ -34,11 +34,13 @@ describe('01 UsersWebservice: Check register service', () => {
     registerUserMock
   );
 
-  const checkToBeCalledWith = () => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.register,
       registerUserMock,
-      jsonHeaders
+      getRequestConfig(throwGlobalErrors)
     );
   };
 
@@ -60,10 +62,10 @@ describe('01 UsersWebservice: Check register service', () => {
     axiosMockPost.reply(401);
 
     await expect(
-      UsersWebservice.registerService(registerUserMock)
+      UsersWebservice.registerService(registerUserMock, true)
     ).rejects.toThrowError(errorMessage401);
 
-    checkToBeCalledWith();
+    checkToBeCalledWith(true);
   });
 });
 
@@ -73,11 +75,14 @@ describe('02 UsersWebservice: Check get All users service', () => {
     { withCredentials: true }
   );
 
-  const checkToBeCalledWith = () => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosGetSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.getAllUsers,
       {
         withCredentials: true,
+        throwGlobalErrors: throwGlobalErrors,
       }
     );
   };
@@ -90,10 +95,10 @@ describe('02 UsersWebservice: Check get All users service', () => {
 
   it('02 - 2 Should fail on get all users request', async () => {
     axiosMockGet.reply(401);
-    await expect(UsersWebservice.getAllUsersService()).rejects.toThrow(
+    await expect(UsersWebservice.getAllUsersService(true)).rejects.toThrow(
       errorMessage401
     );
-    checkToBeCalledWith();
+    checkToBeCalledWith(true);
   });
 });
 
@@ -107,12 +112,14 @@ describe('03 UsersWebservice: Delete user service', () => {
     }
   );
 
-  const axiosDeleteSpy = jest.spyOn(axios, 'delete');
+  const axiosDeleteSpy = jest.spyOn(axiosInstance, 'delete');
 
-  const checkToBeCalledWith = () => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosDeleteSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.deleteUser + id,
-      jsonHeaders
+      getRequestConfig(throwGlobalErrors)
     );
   };
 
@@ -124,10 +131,10 @@ describe('03 UsersWebservice: Delete user service', () => {
 
   it('03 - 2 Should fail on delete user request', async () => {
     axiosMockDelete.reply(401);
-    await expect(UsersWebservice.deleteUserService(id)).rejects.toThrow(
+    await expect(UsersWebservice.deleteUserService(id, true)).rejects.toThrow(
       errorMessage401
     );
-    checkToBeCalledWith();
+    checkToBeCalledWith(true);
   });
 });
 
@@ -139,11 +146,13 @@ describe('04 UsersWebservice: Check update service', () => {
     updateUserMock
   );
 
-  const checkToBeCalledWith = () => {
+  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
+    throwGlobalErrors = false
+  ) => {
     expect(axiosPutSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.updateUser + updateUserMock._id,
       updateUserMock,
-      jsonHeaders
+      getRequestConfig(throwGlobalErrors)
     );
   };
 
@@ -167,9 +176,13 @@ describe('04 UsersWebservice: Check update service', () => {
     axiosMockPut.reply(401);
 
     await expect(
-      UsersWebservice.updateUserService(updateUserMock._id, updateUserMock)
+      UsersWebservice.updateUserService(
+        updateUserMock._id,
+        updateUserMock,
+        true
+      )
     ).rejects.toThrow(errorMessage401);
 
-    checkToBeCalledWith();
+    checkToBeCalledWith(true);
   });
 });
