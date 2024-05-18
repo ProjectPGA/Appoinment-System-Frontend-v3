@@ -31,7 +31,6 @@ const app = createApp(App);
 const head = createHead();
 
 import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
-import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 initializeFaro({
   url: 'https://faro-collector-prod-us-west-0.grafana.net/collect/9ec2a2c60392b9885f0d81aeaffe6237',
@@ -44,10 +43,6 @@ initializeFaro({
   instrumentations: [
     // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
     ...getWebInstrumentations(),
-
-    // Initialization of the tracing package.
-    // This packages is optional because it increases the bundle size noticeably. Only add it if you want tracing data.
-    new TracingInstrumentation(),
   ],
 });
 
