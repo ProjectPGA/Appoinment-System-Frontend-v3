@@ -42,10 +42,14 @@ export const useUsersStore = defineStore('users', () => {
    */
   const register = async (
     registerData: RegisterUserRequest
-  ): Promise<RegisterUserResponse | void> => {
+  ): Promise<RegisterUserResponse> => {
     try {
-      await registerService(registerData);
+      const response = await registerService(registerData);
       await getAllUsers();
+
+      return {
+        result: response,
+      };
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosErrorResult: RegisterUserResponse = {
@@ -108,12 +112,16 @@ export const useUsersStore = defineStore('users', () => {
   const updateUser = async (
     id: UserAuthData['_id'],
     userData: UpdateUserRequest
-  ): Promise<UpdateUserResponse | void> => {
+  ): Promise<UpdateUserResponse> => {
     try {
       isLoading.value = true;
-      await updateUserService(id, userData);
+      const response = await updateUserService(id, userData);
 
       await getAllUsers();
+
+      return {
+        result: response,
+      };
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosErrorResult: RegisterUserResponse = {
