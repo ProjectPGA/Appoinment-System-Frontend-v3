@@ -2,7 +2,7 @@ import { UserAuthData } from '@/models/user/UserAuthData';
 import { User } from './User';
 
 export interface RegisterUserResponse {
-  error: boolean;
+  error?: boolean;
   result?: UserAuthData;
   status?: string;
 }
