@@ -182,7 +182,7 @@ const sendUserData = async (): Promise<void> => {
     return;
   }
   if (response.error) {
-    response.status === 422
+    response.status === '422'
       ? setFieldError('email', t('views.home.userForm.email.exist'))
       : props.isUpdate
         ? toast.error(t('views.home.userForm.errorUpdate'))
