@@ -42,25 +42,15 @@ export const useUsersStore = defineStore('users', () => {
    */
   const register = async (
     registerData: RegisterUserRequest
-  ): Promise<RegisterUserResponse> => {
+  ): Promise<RegisterUserResponse | void> => {
     try {
-      const response: UserAuthData = await registerService(registerData);
-
-      const successResult: RegisterUserResponse = {
-        error: false,
-        result: response,
-      };
-
+      await registerService(registerData);
       await getAllUsers();
-
-      return successResult;
     } catch (error) {
-      console.error(error);
-
       if (axios.isAxiosError(error)) {
         const axiosErrorResult: RegisterUserResponse = {
           error: true,
-          status: error.response?.status,
+          status: error.code,
         };
         return axiosErrorResult;
       }
@@ -118,26 +108,17 @@ export const useUsersStore = defineStore('users', () => {
   const updateUser = async (
     id: UserAuthData['_id'],
     userData: UpdateUserRequest
-  ): Promise<UpdateUserResponse> => {
+  ): Promise<UpdateUserResponse | void> => {
     try {
       isLoading.value = true;
-      const response = await updateUserService(id, userData);
-
-      const successResult: UpdateUserResponse = {
-        error: false,
-        result: response,
-      };
+      await updateUserService(id, userData);
 
       await getAllUsers();
-
-      return successResult;
     } catch (error) {
-      console.error(error);
-
       if (axios.isAxiosError(error)) {
         const axiosErrorResult: RegisterUserResponse = {
           error: true,
-          status: error.response?.status,
+          status: error.code,
         };
         return axiosErrorResult;
       }
