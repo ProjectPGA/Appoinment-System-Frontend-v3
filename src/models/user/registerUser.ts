@@ -4,7 +4,7 @@ import { User } from './User';
 export interface RegisterUserResponse {
   error: boolean;
   result?: UserAuthData;
-  status?: number;
+  status?: string;
 }
 
 export interface RegisterUserRequest extends Omit<User, '_id'> {}
