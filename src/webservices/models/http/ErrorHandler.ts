@@ -1,4 +1,7 @@
 import { AxiosError, HttpStatusCode } from 'axios';
+import { i18nGlobal } from '@/localization/i18n';
+
+const { t } = i18nGlobal;
 
 export type THttpError = Error | AxiosError | null;
 
@@ -58,7 +61,17 @@ export const globalErrorHandlers: ErrorHandlerMany = {
   [AxiosError.ECONNABORTED]: GlobalErrorHandlerMessages.ECONNABORTED,
   [AxiosError.ERR_NETWORK]: GlobalErrorHandlerMessages.ERR_NETWORK,
   [AxiosError.ERR_INVALID_URL]: GlobalErrorHandlerMessages.ERR_INVALID_URL,
-  [AxiosError.ERR_BAD_REQUEST]: GlobalErrorHandlerMessages.ERR_BAD_REQUEST,
+  [AxiosError.ERR_BAD_REQUEST]: (error?: THttpError) => {
+    const axiosError = error as AxiosError;
+
+    if (axiosError?.response?.status === 422) {
+      throw new AxiosError(t('views.home.userForm.email.exist'), '422');
+    }
+
+    return {
+      message: GlobalErrorHandlerMessages.ERR_BAD_REQUEST,
+    };
+  },
   [AxiosError.ERR_DEPRECATED]: GlobalErrorHandlerMessages.ERR_DEPRECATED,
   [AxiosError.ERR_BAD_OPTION_VALUE]:
     GlobalErrorHandlerMessages.ERR_BAD_OPTION_VALUE,
