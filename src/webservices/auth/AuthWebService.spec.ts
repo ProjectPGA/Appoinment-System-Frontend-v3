@@ -66,7 +66,7 @@ describe('01 AuthWebservice: Check loginService', () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.login,
       loginRequestMock,
-      getRequestConfig(true)
+      getRequestConfig()
     );
   });
 });
@@ -86,7 +86,6 @@ describe('02 AuthWebservice: Check logout service', () => {
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        throwGlobalErrors: false,
       }
     );
   });
@@ -100,7 +99,6 @@ describe('02 AuthWebservice: Check logout service', () => {
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        throwGlobalErrors: true,
       }
     );
   });

@@ -34,13 +34,11 @@ describe('01 UsersWebservice: Check register service', () => {
     registerUserMock
   );
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.register,
       registerUserMock,
-      getRequestConfig(throwGlobalErrors)
+      getRequestConfig()
     );
   };
 
@@ -62,10 +60,10 @@ describe('01 UsersWebservice: Check register service', () => {
     axiosMockPost.reply(401);
 
     await expect(
-      UsersWebservice.registerService(registerUserMock, true)
+      UsersWebservice.registerService(registerUserMock)
     ).rejects.toThrowError(errorMessage401);
 
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
   });
 });
 
@@ -75,14 +73,11 @@ describe('02 UsersWebservice: Check get All users service', () => {
     { withCredentials: true }
   );
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosGetSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.getAllUsers,
       {
         withCredentials: true,
-        throwGlobalErrors: throwGlobalErrors,
       }
     );
   };
@@ -95,10 +90,10 @@ describe('02 UsersWebservice: Check get All users service', () => {
 
   it('02 - 2 Should fail on get all users request', async () => {
     axiosMockGet.reply(401);
-    await expect(UsersWebservice.getAllUsersService(true)).rejects.toThrow(
+    await expect(UsersWebservice.getAllUsersService()).rejects.toThrow(
       errorMessage401
     );
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
   });
 });
 
@@ -114,12 +109,10 @@ describe('03 UsersWebservice: Delete user service', () => {
 
   const axiosDeleteSpy = jest.spyOn(axiosInstance, 'delete');
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosDeleteSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.deleteUser + id,
-      getRequestConfig(throwGlobalErrors)
+      getRequestConfig()
     );
   };
 
@@ -131,10 +124,10 @@ describe('03 UsersWebservice: Delete user service', () => {
 
   it('03 - 2 Should fail on delete user request', async () => {
     axiosMockDelete.reply(401);
-    await expect(UsersWebservice.deleteUserService(id, true)).rejects.toThrow(
+    await expect(UsersWebservice.deleteUserService(id)).rejects.toThrow(
       errorMessage401
     );
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
   });
 });
 
@@ -146,13 +139,11 @@ describe('04 UsersWebservice: Check update service', () => {
     updateUserMock
   );
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosPutSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.updateUser + updateUserMock._id,
       updateUserMock,
-      getRequestConfig(throwGlobalErrors)
+      getRequestConfig()
     );
   };
 
@@ -176,13 +167,9 @@ describe('04 UsersWebservice: Check update service', () => {
     axiosMockPut.reply(401);
 
     await expect(
-      UsersWebservice.updateUserService(
-        updateUserMock._id,
-        updateUserMock,
-        true
-      )
+      UsersWebservice.updateUserService(updateUserMock._id, updateUserMock)
     ).rejects.toThrow(errorMessage401);
 
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
   });
 });

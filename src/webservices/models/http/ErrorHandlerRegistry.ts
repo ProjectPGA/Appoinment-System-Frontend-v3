@@ -176,31 +176,20 @@ export default class ErrorHandlerRegistry {
    * @param {ErrorHandlerRegistry} this - The `this` parameter contain the ErrorHanlderRegistry instance
    * @param {THttpError} error - The `error` parameter in the `responseErrorHandler` function
    * represents the error object that is being handled.
-   * @param {boolean} [direct] - The `direct` parameter in the `responseErrorHandler` function is an
-   * optional boolean parameter. It is used to determine whether to handle the error directly without
-   * any additional processing. If `direct` is set to `true`, the error will be thrown without further
-   * handling.
    *
    * @returns The `resposeErrorHandler` function returns the result of handling the error based on
    * different conditions. It could return the result of calling `this.handleError` method with
    * specific parameters, or it could return the result of handling an error object with a message. If
    * none of these conditions are met, it will throw the original error.
    */
-  resposeErrorHandler(
-    this: ErrorHandlerRegistry,
-    error: THttpError,
-    direct?: boolean
-  ) {
+  resposeErrorHandler(this: ErrorHandlerRegistry, error: THttpError) {
     if (error === null) {
       throw new Error(GlobalErrorHandlerMessages.Unrecoverrable);
     }
 
     if (axios.isAxiosError(error)) {
       const response = error?.response;
-      const config = error?.config;
       const data = response?.data as HttpData;
-
-      if (!direct && config?.throwGlobalErrors) throw error;
 
       const seekers = [
         data?.code,
@@ -214,18 +203,15 @@ export default class ErrorHandlerRegistry {
 
       if (!result) {
         if (data?.code && data?.description) {
-          return this.handleErrorObject(error, {
+          this.handleErrorObject(error, {
             message: data?.description,
           });
         }
       }
-
-      return result;
     } else if (error instanceof Error) {
-      return this.handleError(error.name, error);
+      this.handleError(error.name, error);
     }
 
-    //if nothings works, throw away
     throw error;
   }
 }
