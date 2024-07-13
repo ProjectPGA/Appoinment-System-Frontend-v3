@@ -24,7 +24,6 @@ jest.mock('@grafana/faro-web-sdk', () => {
 
 import { faro } from '@grafana/faro-web-sdk';
 import { ErrorHandlerObject, THttpError } from './ErrorHandler';
-
 beforeEach(() => {
   jest.clearAllMocks();
 });
@@ -152,15 +151,16 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
 
   const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
-  it('04 - 01 Should use handleError function, throw error to grafana and return true', () => {
+  it('04 - 01 Should use handleError function, send error to grafana and throw the error.', () => {
     const axiosError = new AxiosError(
-      'Axios Error Forbidden',
+      errorHandlerMessages.Forbidden,
       HttpStatusCode.Forbidden.toString()
     );
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow(errorHandlerMessages.Forbidden);
 
-    expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
       message: errorHandlerMessages.Forbidden,
     });
@@ -170,26 +170,28 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     );
   });
 
-  it('04 - 02 Should use handleError function, not throw error to grafana and return false', () => {
+  it('04 - 02 Should use handleError function, not send error to grafana and throw the error', () => {
     const axiosError = new AxiosError('Not valid key', 'Not valid key');
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow('Not valid key');
 
     expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledTimes(0);
-    expect(errorResponse).toBe(false);
   });
 
-  it('04 - 03 Throw handler type of string', () => {
+  it('04 - 03 Throw handler type of string, send error to grafana and throw the error.', () => {
     const axiosError = new AxiosError(
-      'Axios Error Bad Gateway',
+      errorHandlerMessages.BadGateway,
       HttpStatusCode.BadGateway.toString()
     );
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow(errorHandlerMessages.BadGateway);
 
-    expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
       message: errorHandlerMessages.BadGateway,
     });
@@ -199,7 +201,7 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     );
   });
 
-  it('04 - 04 Throw handler type of function that return true and responseErrorHandler function return true', () => {
+  it('04 - 04 Throw handler type of function that return true, send error to grafana and throw the error.', () => {
     const errorHandlerFunction = errorHandlerRegistry.find(
       HttpStatusCode.GatewayTimeout.toString()
     );
@@ -209,9 +211,10 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
       HttpStatusCode.GatewayTimeout.toString()
     );
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow('Axios Error Gateway time out');
 
-    expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(errorHandlerFunction).toHaveBeenCalledWith(axiosError);
@@ -220,15 +223,16 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     );
   });
 
-  it('04 - 05 Throw handler type of function that return an ErrorHandlerObject and responseErrorHandler function return true', () => {
+  it('04 - 05 Throw handler type of function that return an ErrorHandlerObject, send error to grafana and throw the error.', () => {
     const axiosError = new AxiosError(
       'Axios Internal Server Error',
       HttpStatusCode.InternalServerError.toString()
     );
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow('Axios Internal Server Error');
 
-    expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
       message: axiosError.message,
     });
@@ -238,15 +242,16 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     );
   });
 
-  it('04 - 06 Throw empty handler and handleError function must return false', () => {
+  it('04 - 06 Throw empty handler, not send error to grafana and throw the error.', () => {
     const axiosError = new AxiosError(
       'Axios Conflict Error',
       HttpStatusCode.Conflict.toString()
     );
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow('Axios Conflict Error');
 
-    expect(errorResponse).toBe(false);
     expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledTimes(0);
@@ -266,13 +271,17 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
 
   const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
-  it('05 - 01 Receive error in null and must trow an error', () => {
+  it('05 - 01 Receive error in null, not send error to grafana and throw the error.', () => {
     expect(() => {
       errorHandlerRegistry.resposeErrorHandler(null);
     }).toThrow(GlobalErrorHandlerMessages.Unrecoverrable);
+
+    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
+    expect(handleErrorSpy).toHaveBeenCalledTimes(0);
+    expect(faro.api.pushError).toHaveBeenCalledTimes(0);
   });
 
-  it('05 - 02 Receive error in null and must throw an error', () => {
+  it('05 - 02 Receive error not added in erroHandler, must send the error to grafana and throw an error.', () => {
     const headers: AxiosHeaders = new AxiosHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -303,9 +312,10 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
       axiosResponse
     );
 
-    const errorResponse = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow('Basic error');
 
-    expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
       message: axiosError.response?.data.description,
     });
@@ -315,13 +325,13 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
     );
   });
 
-  it('05 - 03 Receive an error instanceof Error instead AxiosError and must use handleError function correctly', () => {
+  it('05 - 03 Receive an error instanceof Error instead AxiosError and must send the error to grafana and throw an error.', () => {
     const errorInstance = new Error('Error typeof Error');
 
-    const errorResponse =
+    expect(() => {
       errorHandlerRegistry.resposeErrorHandler(errorInstance);
+    }).toThrow('Error typeof Error');
 
-    expect(errorResponse).toBe(true);
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(errorInstance, {
       message: errorHandlerMessages.Error,
     });
@@ -331,7 +341,7 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
     );
   });
 
-  it('05 - 04 Receive an error that is not typeof Error or AxiosError and must throw the error', () => {
+  it('05 - 04 Receive an error that is not typeof Error or AxiosError and must throw the error.', () => {
     // Use any to force an error object that is not typeof Error or AxiosError
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const personalizedError: any = {
@@ -343,7 +353,7 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
     }).toThrow(personalizedError.message);
   });
 
-  it('05 - 05 Receive an error that not contain a message property in the errorHandler config. Must throw the message of the error instance', () => {
+  it('05 - 05 Receive an error that not contain a message property in the errorHandler config. Must send to grafana the message of the error instance and throw the error.', () => {
     const errorHandlerRegistry = new ErrorHandlerRegistry(
       undefined,
       errorHandlers
@@ -354,9 +364,10 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
       HttpStatusCode.Locked.toString()
     );
 
-    const response = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow('Axios locked error');
 
-    expect(response).toBe(true);
     expect(faro.api.pushError).toHaveBeenCalledWith(
       new Error(axiosError.message)
     );
@@ -364,7 +375,7 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
 });
 
 describe('06 - ErrorHandlerRegistry: constructor', () => {
-  it('06 - 01 Create a ErrorHandlerRegistry with parent and throw the error of the parent Registry', () => {
+  it('06 - 01 Create a ErrorHandlerRegistry with parent, must send the error message of the parent Registry to grafana and throw the error.', () => {
     const parentErrorHandlerRegistry = new ErrorHandlerRegistry(undefined, {
       [HttpStatusCode.NotAcceptable]: {
         message: 'Parent Not Acceptable Error',
@@ -397,9 +408,10 @@ describe('06 - ErrorHandlerRegistry: constructor', () => {
 
     const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
-    const response = errorHandlerRegistry.resposeErrorHandler(axiosError);
+    expect(() => {
+      errorHandlerRegistry.resposeErrorHandler(axiosError);
+    }).toThrow('Axios Not Acceptable Error');
 
-    expect(response).toBe(true);
     expect(findParentErrorHandlerFuntionSpy).toHaveBeenCalledWith(
       HttpStatusCode.NotAcceptable.toString()
     );
