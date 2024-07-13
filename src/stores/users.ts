@@ -44,7 +44,7 @@ export const useUsersStore = defineStore('users', () => {
     registerData: RegisterUserRequest
   ): Promise<RegisterUserResponse> => {
     try {
-      const response: UserAuthData = await registerService(registerData, true);
+      const response: UserAuthData = await registerService(registerData);
 
       const successResult: RegisterUserResponse = {
         error: false,
@@ -121,7 +121,7 @@ export const useUsersStore = defineStore('users', () => {
   ): Promise<UpdateUserResponse> => {
     try {
       isLoading.value = true;
-      const response = await updateUserService(id, userData, true);
+      const response = await updateUserService(id, userData);
 
       const successResult: UpdateUserResponse = {
         error: false,

@@ -82,13 +82,10 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       setLoginInProgress();
 
-      const response: UserAuthData | null = await loginService(
-        {
-          email: loginData.email,
-          password: loginData.password,
-        },
-        true
-      );
+      const response: UserAuthData | null = await loginService({
+        email: loginData.email,
+        password: loginData.password,
+      });
 
       response ? setIsLogged(response) : setUserNotisLogged();
     } catch (error) {
@@ -104,7 +101,7 @@ export const useAuthStore = defineStore('auth', () => {
    */
   const logout = async (): Promise<void> => {
     try {
-      await logoutService(true);
+      await logoutService();
 
       setUserNotisLogged();
       router.push({ name: 'Login' });
