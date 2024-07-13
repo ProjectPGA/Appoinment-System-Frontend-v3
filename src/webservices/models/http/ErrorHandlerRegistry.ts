@@ -159,7 +159,7 @@ export default class ErrorHandlerRegistry {
    * @param {ErrorHandlerObject} options - The `options` parameter is an object with the different options configured for the error.
    * @returns true
    */
-  handleErrorObject(error: THttpError, options: ErrorHandlerObject) {
+  handleErrorObject(error: THttpError, options?: ErrorHandlerObject) {
     const errorMessage = options?.message ?? error?.message;
 
     options?.before?.(error, options);
@@ -184,7 +184,13 @@ export default class ErrorHandlerRegistry {
    */
   resposeErrorHandler(this: ErrorHandlerRegistry, error: THttpError) {
     if (error === null) {
-      throw new Error(GlobalErrorHandlerMessages.Unrecoverrable);
+      const unrecoverableError = new Error(
+        GlobalErrorHandlerMessages.Unrecoverrable
+      );
+
+      this.handleErrorObject(unrecoverableError);
+
+      throw unrecoverableError;
     }
 
     if (axios.isAxiosError(error)) {
@@ -209,7 +215,10 @@ export default class ErrorHandlerRegistry {
         }
       }
     } else if (error instanceof Error) {
+      console.info(error.name);
       this.handleError(error.name, error);
+    } else {
+      this.handleErrorObject(error);
     }
 
     throw error;
