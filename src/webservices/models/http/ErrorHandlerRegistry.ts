@@ -208,14 +208,11 @@ export default class ErrorHandlerRegistry {
       const result = this.handleError(seekers, error);
 
       if (!result) {
-        if (data?.code && data?.description) {
-          this.handleErrorObject(error, {
-            message: data?.description,
-          });
+        if (error && error.message) {
+          this.handleErrorObject(error);
         }
       }
     } else if (error instanceof Error) {
-      console.info(error.name);
       this.handleError(error.name, error);
     } else {
       this.handleErrorObject(error);
