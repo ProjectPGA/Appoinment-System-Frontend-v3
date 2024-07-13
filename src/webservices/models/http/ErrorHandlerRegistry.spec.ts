@@ -271,17 +271,19 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
 
   const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
-  it('05 - 01 Receive error in null, not send error to grafana and throw the error.', () => {
+  it('05 - 01 Receive error in null, send unrecoverrable error message to grafana and throw the error.', () => {
     expect(() => {
       errorHandlerRegistry.resposeErrorHandler(null);
     }).toThrow(GlobalErrorHandlerMessages.Unrecoverrable);
 
-    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
+    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(1);
     expect(handleErrorSpy).toHaveBeenCalledTimes(0);
-    expect(faro.api.pushError).toHaveBeenCalledTimes(0);
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.Unrecoverrable)
+    );
   });
 
-  it('05 - 02 Receive error not added in erroHandler, must send the error to grafana and throw an error.', () => {
+  it('05 - 02 Receive error not added in errorHandler, must send the error to grafana and throw an error.', () => {
     const headers: AxiosHeaders = new AxiosHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -341,7 +343,7 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
     );
   });
 
-  it('05 - 04 Receive an error that is not typeof Error or AxiosError and must throw the error.', () => {
+  it('05 - 04 Receive an error that is not typeof Error or AxiosError, must sent to grafana the message and throw the error.', () => {
     // Use any to force an error object that is not typeof Error or AxiosError
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const personalizedError: any = {
@@ -351,6 +353,10 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
     expect(() => {
       errorHandlerRegistry.resposeErrorHandler(personalizedError);
     }).toThrow(personalizedError.message);
+    expect(handleErrorSpy).toHaveBeenCalledTimes(0);
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(personalizedError.message)
+    );
   });
 
   it('05 - 05 Receive an error that not contain a message property in the errorHandler config. Must send to grafana the message of the error instance and throw the error.', () => {
