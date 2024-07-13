@@ -170,16 +170,16 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     );
   });
 
-  it('04 - 02 Should use handleError function, not send error to grafana and throw the error', () => {
+  it('04 - 02 Should use handleError function, send error to grafana and throw the error', () => {
     const axiosError = new AxiosError('Not valid key', 'Not valid key');
 
     expect(() => {
       errorHandlerRegistry.resposeErrorHandler(axiosError);
     }).toThrow('Not valid key');
 
-    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
+    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(1);
     expect(handleErrorSpy).toHaveBeenCalled();
-    expect(faro.api.pushError).toHaveBeenCalledTimes(0);
+    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Not valid key'));
   });
 
   it('04 - 03 Throw handler type of string, send error to grafana and throw the error.', () => {
@@ -242,7 +242,7 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
     );
   });
 
-  it('04 - 06 Throw empty handler, not send error to grafana and throw the error.', () => {
+  it('04 - 06 Throw empty handler, send error to grafana and throw the error.', () => {
     const axiosError = new AxiosError(
       'Axios Conflict Error',
       HttpStatusCode.Conflict.toString()
@@ -252,9 +252,11 @@ describe('04 ErrorHandlerRegistry: handleError function', () => {
       errorHandlerRegistry.resposeErrorHandler(axiosError);
     }).toThrow('Axios Conflict Error');
 
-    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
+    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(1);
     expect(handleErrorSpy).toHaveBeenCalled();
-    expect(faro.api.pushError).toHaveBeenCalledTimes(0);
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error('Axios Conflict Error')
+    );
   });
 });
 
@@ -318,13 +320,9 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
       errorHandlerRegistry.resposeErrorHandler(axiosError);
     }).toThrow('Basic error');
 
-    expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
-      message: axiosError.response?.data.description,
-    });
+    expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError);
     expect(handleErrorSpy).toHaveBeenCalled();
-    expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(axiosError.response?.data.description)
-    );
+    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Basic error'));
   });
 
   it('05 - 03 Receive an error instanceof Error instead AxiosError and must send the error to grafana and throw an error.', () => {
