@@ -1,0 +1,22 @@
+.as-notification {
+  display: inline-block;
+  background-color: $colors-danger-80;
+  color: $colors-neutral-white-10;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 6px;
+  border-radius: 1.5rem;
+
+  @include font-sizing-selector('body/small/regular');
+
+  text-align: center;
+  line-height: 1.5rem;
+
+  &.is-small {
+    min-width: 0.25rem;
+    max-width: 0.25rem;
+    height: 0.25rem;
+    padding: 0;
+    border-radius: 0.25rem;
+  }
+}
