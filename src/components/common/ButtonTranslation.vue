@@ -4,13 +4,13 @@
     size="medium"
     @click="changeLanguage()"
   >
-    <font-awesome-icon :icon="iconType.SOLID + ' ' + iconName.GLOBE" />
+    <font-awesome-icon :icon="IconType.SOLID + ' ' + IconName.GLOBE" />
     <span class="button-translations__locale">{{ $i18n.locale }}</span>
   </as-button>
 </template>
 <script lang="ts" setup>
 import { changeLanguage } from '@/utils/functionUtils/localizationFunctions';
-import { iconType, iconName } from '@/models/icons/fontawesome/iconsDictionary';
+import { IconType, IconName } from '@/models/icons/fontawesome/iconsDictionary';
 
 import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 </script>
