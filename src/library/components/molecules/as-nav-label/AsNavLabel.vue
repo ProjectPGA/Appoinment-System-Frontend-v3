@@ -2,8 +2,8 @@
   <div
     class="as-nav-label"
     :class="[
-      props.size ? `is-${props.size}` : '',
       props.state ? `is-${props.state}` : '',
+      { 'is-mobile': props.isMobile, 'is-small': props.isSmall },
     ]"
   >
     <div class="as-nav-label__left-section">
@@ -16,12 +16,12 @@
     <div class="as-nav-label__right-section">
       <AsNotification
         class="as-nav-label__notification-icon"
-        :is-small="props.size === 'mobile'"
-        :quantity="12"
+        :is-small="props.isMobile || (props.isMobile && props.isSmall)"
+        :quantity="props.notificationQuantity"
       />
       <font-awesome-icon
         class="as-nav-label__right-icon"
-        :icon="props.rightIconType + ' ' + $props.rightIconName"
+        :icon="props.rightIconType + ' ' + props.rightIconName"
       />
     </div>
   </div>
@@ -63,7 +63,15 @@ const props = withDefaults(
     /**
      * Set component size
      */
-    size?: string;
+    isSmall?: boolean;
+    /**
+     * Set if is mobile variant
+     */
+    isMobile?: boolean;
+    /**
+     * Set notification quantity
+     */
+    notificationQuantity?: number;
   }>(),
   {
     labelText: 'Label',
@@ -72,7 +80,9 @@ const props = withDefaults(
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: '',
-    size: '',
+    isSmall: false,
+    isMobile: false,
+    notificationQuantity: 0,
   }
 );
 </script>
