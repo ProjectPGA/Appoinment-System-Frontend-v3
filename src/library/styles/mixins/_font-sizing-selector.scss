@@ -33,14 +33,17 @@ $font-size-map: (
   'button/medium/bold': $font-size-medium,
   'button/small/regular': $font-size-small,
   'button/small/semi': $font-size-small,
-  'button/small/bold': $font-size-small
+  'button/small/bold': $font-size-small,
+  'button/extrasmall/regular': $font-size-xxs,
+  'button/extrasmall/semi': $font-size-xxs,
+  'button/extrasmall/bold': $font-size-xxs
 );
 $font-weight-map: (
   // Headings
   'heading/extralarge': $font-weight-130,
   'heading/large': $font-weight-130,
   'heading/medium': $font-weight-130,
-  'heading/small': $font-weight-130,
+  'heading/small': $font-weight-150,
 
   // Body Text
   'body/extralarge/regular': $font-weight-100,
@@ -65,7 +68,10 @@ $font-weight-map: (
   'button/medium/bold': $font-weight-150,
   'button/small/regular': $font-weight-100,
   'button/small/semi': $font-weight-120,
-  'button/small/bold': $font-weight-150
+  'button/small/bold': $font-weight-150,
+  'button/extrasmall/regular': $font-weight-100,
+  'button/extrasmall/semi': $font-weight-120,
+  'button/extrasmall/bold': $font-weight-130
 );
 $line-height-map: (
   // Headings
@@ -97,7 +103,10 @@ $line-height-map: (
   'button/medium/bold': $line-height-button-medium-bold,
   'button/small/regular': $line-height-button-small-regular,
   'button/small/semi': $line-height-button-small-semi,
-  'button/small/bold': $line-height-button-small-bold
+  'button/small/bold': $line-height-button-small-bold,
+  'button/extrasmall/regular': $line-height-button-extrasmall-regular,
+  'button/extrasmall/semi': $line-height-button-extrasmall-semi,
+  'button/extrasmall/bold': $line-height-button-extrasmall-bold
 );
 
 @use 'sass:map';
