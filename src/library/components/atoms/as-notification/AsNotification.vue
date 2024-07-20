@@ -1,5 +1,9 @@
 <template>
-  <div class="as-notification" :class="{ 'is-small': $props.isSmall }">
+  <div
+    v-if="props.quantity"
+    class="as-notification"
+    :class="{ 'is-small': $props.isSmall }"
+  >
     <span v-show="!isSmall">{{ props.quantity }}</span>
   </div>
 </template>
