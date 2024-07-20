@@ -101,7 +101,7 @@
     display: grid;
     place-content: center;
 
-    .as-nav-label {
+    & .as-nav-label {
       &__text {
         display: none;
       }
@@ -110,10 +110,24 @@
         display: none;
       }
 
+      &__left-section {
+        display: inline-block;
+      }
+
       &__notification-icon {
         position: absolute;
-        top: 17px;
-        right: 17.19px;
+        top: 16.8px;
+        right: 16.8px;
+      }
+    }
+
+    &.is-small {
+      width: 46px;
+      height: 46px;
+
+      & .as-nav-label__notification-icon {
+        top: 12.8px;
+        right: 12.8px;
       }
     }
   }
