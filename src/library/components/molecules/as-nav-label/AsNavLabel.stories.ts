@@ -14,7 +14,6 @@ const meta = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['', 'small', 'mobile'] },
     leftIconType: {
       control: 'select',
       options: getIconTypeValues(),
@@ -43,6 +42,9 @@ const meta = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: '',
+    notificationQuantity: 12,
+    isSmall: false,
+    isMobile: false,
   }, // default value
 } satisfies Meta<typeof AsNavLabel>;
 
@@ -61,6 +63,7 @@ export const Normal: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: '',
+    notificationQuantity: 12,
   },
 };
 export const NormalActive: Story = {
@@ -71,6 +74,7 @@ export const NormalActive: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: 'active',
+    notificationQuantity: 12,
   },
 };
 export const NormalHover: Story = {
@@ -81,6 +85,7 @@ export const NormalHover: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: 'hover',
+    notificationQuantity: 12,
   },
 };
 export const Small: Story = {
@@ -91,7 +96,8 @@ export const Small: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: '',
-    size: 'small',
+    isSmall: true,
+    notificationQuantity: 12,
   },
 };
 export const SmallActive: Story = {
@@ -102,7 +108,8 @@ export const SmallActive: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: 'active',
-    size: 'small',
+    isSmall: true,
+    notificationQuantity: 12,
   },
 };
 export const SmallHover: Story = {
@@ -113,7 +120,8 @@ export const SmallHover: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: 'hover',
-    size: 'small',
+    isSmall: true,
+    notificationQuantity: 12,
   },
 };
 export const Mobile: Story = {
@@ -124,7 +132,8 @@ export const Mobile: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: '',
-    size: 'mobile',
+    isMobile: true,
+    notificationQuantity: 12,
   },
 };
 export const MobileActive: Story = {
@@ -135,7 +144,8 @@ export const MobileActive: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: 'active',
-    size: 'mobile',
+    isMobile: true,
+    notificationQuantity: 12,
   },
 };
 export const MobileHover: Story = {
@@ -146,6 +156,46 @@ export const MobileHover: Story = {
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
     state: 'hover',
-    size: 'mobile',
+    isMobile: true,
+    notificationQuantity: 12,
+  },
+};
+export const MobileSmall: Story = {
+  args: {
+    labelText: 'Label',
+    leftIconType: IconType.SOLID,
+    leftIconName: IconName.CALENDAR_CHECK,
+    rightIconType: IconType.SOLID,
+    rightIconName: IconName.ANGLE_DOWN,
+    state: '',
+    isMobile: true,
+    isSmall: true,
+    notificationQuantity: 12,
+  },
+};
+export const MobileSmallActive: Story = {
+  args: {
+    labelText: 'Label',
+    leftIconType: IconType.SOLID,
+    leftIconName: IconName.CALENDAR_CHECK,
+    rightIconType: IconType.SOLID,
+    rightIconName: IconName.ANGLE_DOWN,
+    state: 'active',
+    isMobile: true,
+    isSmall: true,
+    notificationQuantity: 12,
+  },
+};
+export const MobileSmallHover: Story = {
+  args: {
+    labelText: 'Label',
+    leftIconType: IconType.SOLID,
+    leftIconName: IconName.CALENDAR_CHECK,
+    rightIconType: IconType.SOLID,
+    rightIconName: IconName.ANGLE_DOWN,
+    state: 'hover',
+    isMobile: true,
+    isSmall: true,
+    notificationQuantity: 12,
   },
 };
