@@ -14,6 +14,21 @@ import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { authWebserviceBaseUrls } from '@/webservices/models/auth/AuthWebServiceBaseUrls';
+import { GlobalErrorHandlerMessages } from '@/webservices/models/http/ErrorHandler';
+
+jest.mock('@grafana/faro-web-sdk', () => {
+  const faroMock = {
+    faro: {
+      api: {
+        pushError: jest.fn(),
+      },
+    },
+  };
+  return faroMock;
+});
+
+import { faro } from '@grafana/faro-web-sdk';
+import { HttpStatusCode } from 'axios';
 
 // Global constants
 const axiosPostSpy = jest.spyOn(axiosInstance, 'post');
@@ -55,18 +70,24 @@ describe('01 AuthWebservice: Check loginService', () => {
     );
   });
 
-  it('01 - 2 Should fail on login request', async () => {
+  it('01 - 2 Should fail on login request and send error message to grafana using faro', async () => {
     const loginRequestMock: LoginRequest = createRandomLoginRequest();
 
-    axiosMock.onPost(authWebserviceBaseUrls.login, loginRequestMock).reply(401);
-    await expect(
-      AuthWebservice.loginService(loginRequestMock, true)
-    ).rejects.toThrow(errorMessage401);
+    axiosMock
+      .onPost(authWebserviceBaseUrls.login, loginRequestMock)
+      .reply(HttpStatusCode.Unauthorized);
+    await expect(AuthWebservice.loginService(loginRequestMock)).rejects.toThrow(
+      errorMessage401
+    );
 
     expect(axiosPostSpy).toHaveBeenCalledWith(
       authWebserviceBaseUrls.login,
       loginRequestMock,
-      getRequestConfig(true)
+      getRequestConfig()
+    );
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.Unauthorized)
     );
   });
 });
@@ -80,28 +101,30 @@ describe('02 AuthWebservice: Check logout service', () => {
   const axiosGetSpy = jest.spyOn(axiosInstance, 'get');
 
   it('02 - 1 Should succeed on logout request', async () => {
-    axiosMockGet.reply(200);
+    axiosMockGet.reply(HttpStatusCode.Ok);
     await AuthWebservice.logoutService();
     expect(axiosGetSpy).toHaveBeenCalledWith(
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        throwGlobalErrors: false,
       }
     );
   });
 
-  it('02 - 2 Should fail on logout request', async () => {
-    axiosMockGet.reply(401);
-    await expect(AuthWebservice.logoutService(true)).rejects.toThrow(
+  it('02 - 2 Should fail on logout request and send error message to grafana using faro', async () => {
+    axiosMockGet.reply(HttpStatusCode.Unauthorized);
+    await expect(AuthWebservice.logoutService()).rejects.toThrow(
       errorMessage401
     );
     expect(axiosGetSpy).toHaveBeenCalledWith(
       `${authWebserviceBaseUrls.logout}`,
       {
         withCredentials: true,
-        throwGlobalErrors: true,
       }
+    );
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.Unauthorized)
     );
   });
 });
