@@ -8,6 +8,8 @@
     }
 
     &__text {
+      max-width: 60px;
+
       @include font-sizing-selector('button/extrasmall/regular');
     }
   }
@@ -88,6 +90,10 @@
   &__text {
     @include font-sizing-selector('button/small/regular');
 
+    max-width: 129px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: $colors-black-60;
   }
 
