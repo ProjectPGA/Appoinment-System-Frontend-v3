@@ -4,7 +4,7 @@
     class="as-notification"
     :class="{ 'is-small': $props.isSmall }"
   >
-    <span v-show="!isSmall">{{ props.quantity }}</span>
+    <span class="as-notification__quantity">{{ props.quantity }}</span>
   </div>
 </template>
 <script lang="ts" setup>
