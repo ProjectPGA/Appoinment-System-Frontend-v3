@@ -1,3 +1,59 @@
+// Component mixins
+@mixin as-nav-label-small-styles() {
+  width: 188px;
+
+  .as-nav-label {
+    &__notification-icon {
+      order: 1;
+    }
+
+    &__text {
+      @include font-sizing-selector('button/extrasmall/regular');
+    }
+  }
+}
+
+@mixin as-nav-label-mobile-styles() {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 54px;
+  padding: 4px;
+  display: grid;
+  place-content: center;
+
+  & .as-nav-label {
+    &__text {
+      display: none;
+    }
+
+    &__right-icon {
+      display: none;
+    }
+
+    &__left-section {
+      display: inline-block;
+    }
+
+    &__notification-icon {
+      position: absolute;
+      top: 16.8px;
+      right: 16.8px;
+    }
+  }
+
+  &.is-small {
+    width: 46px;
+    height: 46px;
+
+    & .as-nav-label__notification-icon {
+      top: 12.8px;
+      right: 12.8px;
+    }
+  }
+}
+
+// Component styles
 .as-nav-label {
   border-radius: 4px;
   padding: 15px 20px;
@@ -27,24 +83,12 @@
     display: flex;
     align-items: center;
     gap: 16px;
-
-    @media (width <= 375px) {
-      display: none;
-    }
   }
 
   &__text {
     @include font-sizing-selector('button/small/regular');
 
     color: $colors-black-60;
-
-    @media (width <= 768px) {
-      @include font-sizing-selector('button/extrasmall/regular');
-    }
-
-    @media (width <= 375px) {
-      display: none;
-    }
   }
 
   &:hover,
@@ -79,56 +123,18 @@
   }
 
   &.is-small {
-    width: 188px;
+    @include as-nav-label-small-styles;
+  }
 
-    .as-nav-label {
-      &__notification-icon {
-        order: 1;
-      }
-
-      &__text {
-        @include font-sizing-selector('button/extrasmall/regular');
-      }
-    }
+  @media (width <= 1024px) {
+    @include as-nav-label-small-styles;
   }
 
   &.is-mobile {
-    position: relative;
-    width: 54px;
-    height: 54px;
-    border-radius: 54px;
-    padding: 4px;
-    display: grid;
-    place-content: center;
+    @include as-nav-label-mobile-styles;
+  }
 
-    & .as-nav-label {
-      &__text {
-        display: none;
-      }
-
-      &__right-icon {
-        display: none;
-      }
-
-      &__left-section {
-        display: inline-block;
-      }
-
-      &__notification-icon {
-        position: absolute;
-        top: 16.8px;
-        right: 16.8px;
-      }
-    }
-
-    &.is-small {
-      width: 46px;
-      height: 46px;
-
-      & .as-nav-label__notification-icon {
-        top: 12.8px;
-        right: 12.8px;
-      }
-    }
+  @media (width <= 768px) {
+    @include as-nav-label-mobile-styles;
   }
 }
