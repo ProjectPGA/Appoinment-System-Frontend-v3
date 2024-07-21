@@ -2,8 +2,13 @@
   <div
     class="as-nav-label"
     :class="[
-      props.state ? `is-${props.state}` : '',
-      { 'is-mobile': props.isMobile, 'is-small': props.isSmall },
+      {
+        'is-mobile': props.isMobile,
+        'is-small': props.isSmall,
+        'is-active': props.active,
+        'is-hover': props.hover,
+        'is-disabled': props.disabled,
+      },
     ]"
   >
     <div class="as-nav-label__left-section">
@@ -43,7 +48,7 @@ const props = withDefaults(
     /**
      * Label left icon type (font-awesome)
      */
-    leftIconType: IconType;
+    leftIconType?: IconType;
     /**
      * Label left icon name (font-awesome)
      */
@@ -51,15 +56,11 @@ const props = withDefaults(
     /**
      * Label right icon type (font-awesome)
      */
-    rightIconType: IconType;
+    rightIconType?: IconType;
     /**
      * Label right icon name (font-awesome)
      */
     rightIconName: IconName;
-    /**
-     * Set disabled state
-     */
-    state?: '' | 'hover' | 'active' | 'disabled';
     /**
      * Set component size
      */
@@ -68,6 +69,18 @@ const props = withDefaults(
      * Set if is mobile variant
      */
     isMobile?: boolean;
+    /**
+     * Set active state
+     */
+    active?: boolean;
+    /**
+     * Set hover state
+     */
+    hover?: boolean;
+    /**
+     * Set disabled state
+     */
+    disabled?: boolean;
     /**
      * Set notification quantity
      */
@@ -79,9 +92,6 @@ const props = withDefaults(
     leftIconName: IconName.CALENDAR_CHECK,
     rightIconType: IconType.SOLID,
     rightIconName: IconName.ANGLE_DOWN,
-    state: '',
-    isSmall: false,
-    isMobile: false,
     notificationQuantity: 0,
   }
 );
