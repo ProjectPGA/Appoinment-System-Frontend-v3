@@ -21,6 +21,22 @@ const axiosMock: MockAdapter = new MockAdapter(axiosInstance);
 // Primitive global constants
 const errorMessage401: string = 'Request failed with status code 401';
 
+// Mocks
+jest.mock('@grafana/faro-web-sdk', () => {
+  const faroMock = {
+    faro: {
+      api: {
+        pushError: jest.fn(),
+      },
+    },
+  };
+  return faroMock;
+});
+
+import { faro } from '@grafana/faro-web-sdk';
+import { HttpStatusCode } from 'axios';
+import { GlobalErrorHandlerMessages } from '../models/http/ErrorHandler';
+
 beforeEach(() => {
   axiosMock.reset();
   jest.clearAllMocks();
@@ -34,13 +50,11 @@ describe('01 UsersWebservice: Check register service', () => {
     registerUserMock
   );
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosPostSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.register,
       registerUserMock,
-      getRequestConfig(throwGlobalErrors)
+      getRequestConfig()
     );
   };
 
@@ -48,7 +62,7 @@ describe('01 UsersWebservice: Check register service', () => {
     const successResponseData: UserAuthData | null =
       createRandomUserAuthData(registerUserMock);
 
-    axiosMockPost.reply(200, successResponseData);
+    axiosMockPost.reply(HttpStatusCode.Ok, successResponseData);
 
     const response: UserAuthData =
       await UsersWebservice.registerService(registerUserMock);
@@ -58,14 +72,18 @@ describe('01 UsersWebservice: Check register service', () => {
     checkToBeCalledWith();
   });
 
-  it('01 - 2 Should fail register service request', async () => {
-    axiosMockPost.reply(401);
+  it('01 - 2 Should fail register service request and send error to grafana using faro', async () => {
+    axiosMockPost.reply(HttpStatusCode.Unauthorized);
 
     await expect(
-      UsersWebservice.registerService(registerUserMock, true)
+      UsersWebservice.registerService(registerUserMock)
     ).rejects.toThrowError(errorMessage401);
 
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.Unauthorized)
+    );
   });
 });
 
@@ -75,30 +93,31 @@ describe('02 UsersWebservice: Check get All users service', () => {
     { withCredentials: true }
   );
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosGetSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.getAllUsers,
       {
         withCredentials: true,
-        throwGlobalErrors: throwGlobalErrors,
       }
     );
   };
 
   it('02 - 1 Should succeed on get all users request', async () => {
-    axiosMockGet.reply(200);
+    axiosMockGet.reply(HttpStatusCode.Ok);
     await UsersWebservice.getAllUsersService();
     checkToBeCalledWith();
   });
 
-  it('02 - 2 Should fail on get all users request', async () => {
-    axiosMockGet.reply(401);
-    await expect(UsersWebservice.getAllUsersService(true)).rejects.toThrow(
+  it('02 - 2 Should fail on get all users request and send error to grafana using faro', async () => {
+    axiosMockGet.reply(HttpStatusCode.Unauthorized);
+    await expect(UsersWebservice.getAllUsersService()).rejects.toThrow(
       errorMessage401
     );
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.Unauthorized)
+    );
   });
 });
 
@@ -114,27 +133,29 @@ describe('03 UsersWebservice: Delete user service', () => {
 
   const axiosDeleteSpy = jest.spyOn(axiosInstance, 'delete');
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosDeleteSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.deleteUser + id,
-      getRequestConfig(throwGlobalErrors)
+      getRequestConfig()
     );
   };
 
   it('03 - 1 Should succeed on delete user request', async () => {
-    axiosMockDelete.reply(200);
+    axiosMockDelete.reply(HttpStatusCode.Ok);
     await UsersWebservice.deleteUserService(id);
     checkToBeCalledWith();
   });
 
-  it('03 - 2 Should fail on delete user request', async () => {
-    axiosMockDelete.reply(401);
-    await expect(UsersWebservice.deleteUserService(id, true)).rejects.toThrow(
+  it('03 - 2 Should fail on delete user request and send error message to grafana using faro', async () => {
+    axiosMockDelete.reply(HttpStatusCode.Unauthorized);
+    await expect(UsersWebservice.deleteUserService(id)).rejects.toThrow(
       errorMessage401
     );
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.Unauthorized)
+    );
   });
 });
 
@@ -146,13 +167,11 @@ describe('04 UsersWebservice: Check update service', () => {
     updateUserMock
   );
 
-  const checkToBeCalledWith: (throwGlobalErrors?: boolean) => void = (
-    throwGlobalErrors = false
-  ) => {
+  const checkToBeCalledWith: () => void = () => {
     expect(axiosPutSpy).toHaveBeenCalledWith(
       usersWebserviceBaseUrls.updateUser + updateUserMock._id,
       updateUserMock,
-      getRequestConfig(throwGlobalErrors)
+      getRequestConfig()
     );
   };
 
@@ -160,7 +179,7 @@ describe('04 UsersWebservice: Check update service', () => {
     const successResponseData: UserAuthData | null =
       createRandomUserAuthData(updateUserMock);
 
-    axiosMockPut.reply(200, successResponseData);
+    axiosMockPut.reply(HttpStatusCode.Ok, successResponseData);
 
     const response: UserAuthData = await UsersWebservice.updateUserService(
       updateUserMock._id,
@@ -172,17 +191,17 @@ describe('04 UsersWebservice: Check update service', () => {
     checkToBeCalledWith();
   });
 
-  it('04 - 2 Should fail update service request', async () => {
-    axiosMockPut.reply(401);
+  it('04 - 2 Should fail update service request and send the error message to grafana using faro', async () => {
+    axiosMockPut.reply(HttpStatusCode.Unauthorized);
 
     await expect(
-      UsersWebservice.updateUserService(
-        updateUserMock._id,
-        updateUserMock,
-        true
-      )
+      UsersWebservice.updateUserService(updateUserMock._id, updateUserMock)
     ).rejects.toThrow(errorMessage401);
 
-    checkToBeCalledWith(true);
+    checkToBeCalledWith();
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.Unauthorized)
+    );
   });
 });
