@@ -132,15 +132,11 @@
     @include as-nav-label-small-styles;
   }
 
-  @media (width <= 1024px) {
-    @include as-nav-label-small-styles;
-  }
-
   &.is-mobile {
     @include as-nav-label-mobile-styles;
   }
 
-  @media (width <= 768px) {
+  @include mq-touch {
     @include as-nav-label-mobile-styles;
   }
 }

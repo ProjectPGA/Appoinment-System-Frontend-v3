@@ -30,7 +30,7 @@
     @include as-notification-small-styles;
   }
 
-  @media (width <= 768px) {
+  @include mq-touch {
     @include as-notification-small-styles;
   }
 }

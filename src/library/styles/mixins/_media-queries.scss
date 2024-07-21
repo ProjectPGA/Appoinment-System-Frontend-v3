@@ -1,0 +1,11 @@
+@mixin mq-touch() {
+  @media (width <= 1023px) {
+    @content;
+  }
+}
+
+@mixin mq-destkop() {
+  @media (width >= 1024px) {
+    @content;
+  }
+}
