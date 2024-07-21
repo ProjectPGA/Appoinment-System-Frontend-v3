@@ -1,16 +1,5 @@
 <template>
-  <div
-    class="as-nav-label"
-    :class="[
-      {
-        'is-mobile': props.isMobile,
-        'is-small': props.isSmall,
-        'is-active': props.active,
-        'is-hover': props.hover,
-        'is-disabled': props.disabled,
-      },
-    ]"
-  >
+  <div class="as-nav-label" :class="navLabelClasses">
     <div class="as-nav-label__left-section">
       <font-awesome-icon
         class="as-nav-label__left-icon"
@@ -38,6 +27,15 @@ import AsNotification from '@/library/components/atoms/as-notification/AsNotific
 import { IconType, IconName } from '@/models/icons/fontawesome/iconsDictionary';
 
 import './as-nav-label.scss';
+import { computed } from 'vue';
+
+const navLabelClasses = computed(() => ({
+  'is-mobile': props.isMobile,
+  'is-small': props.isSmall,
+  'is-active': props.active,
+  'is-hover': props.hover,
+  'is-disabled': props.disabled,
+}));
 
 const props = withDefaults(
   defineProps<{
