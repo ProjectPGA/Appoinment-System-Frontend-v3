@@ -70,7 +70,7 @@ const classObject = computed(() => ({
   &__customizable-example {
     border-radius: 4px;
     padding: 4px 8px;
-    background-color: $colors-neutral-white-10;
+    background-color: $colors-white-10;
   }
 
   &__customizable-classes {

@@ -9,7 +9,7 @@
           <div class="as-modal__header">
             <font-awesome-icon
               class="as-modal__close"
-              :icon="iconType.SOLID + ' ' + iconName.XMARK"
+              :icon="IconType.SOLID + ' ' + IconName.XMARK"
               @click="emit('modal-close')"
             />
             <slot name="header"> </slot>
@@ -31,7 +31,7 @@ import './as-modal.scss';
 
 import { ref } from 'vue';
 
-import { iconType, iconName } from '@/models/icons/fontawesome/iconsDictionary';
+import { IconType, IconName } from '@/models/icons/fontawesome/iconsDictionary';
 
 import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 

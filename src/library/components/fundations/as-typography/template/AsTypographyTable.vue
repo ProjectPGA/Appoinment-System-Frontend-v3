@@ -69,7 +69,7 @@ defineProps<AsTypography>();
     @include font-sizing-selector('body/medium/semi');
 
     background-color: $main-color-dark;
-    color: $colors-neutral-white-20;
+    color: $colors-white-20;
   }
 
   &__table-head-cell {
@@ -81,7 +81,7 @@ defineProps<AsTypography>();
     background-color: $colors-info-10;
 
     &:not(:last-child) {
-      border-bottom: 1px solid $colors-neutral-white-10;
+      border-bottom: 1px solid $colors-white-10;
     }
   }
 
