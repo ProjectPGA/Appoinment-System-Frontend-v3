@@ -28,8 +28,8 @@ $config: (
 
 // Mixins for generating spacing utilities
 @mixin generate-spacing-utilities {
-  @each $property, $prop-abbr in map.get($config, 'properties') {
-    @each $direction, $dir-abbr in map.get($config, 'directions') {
+  @each $property, $prop-abbreviation in map.get($config, 'properties') {
+    @each $direction, $dir-abbreviation in map.get($config, 'directions') {
       $full-property: if(
         $direction == '',
         $property,
@@ -37,7 +37,7 @@ $config: (
       );
 
       @for $i from 0 through map.get($config, 'levels') - 1 {
-        .#{$prop-abbr}#{$dir-abbr}-#{$i} {
+        .#{$prop-abbreviation}#{$dir-abbreviation}-#{$i} {
           #{$full-property}: calculate-spacing($i);
         }
       }
