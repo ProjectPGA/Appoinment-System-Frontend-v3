@@ -1,27 +1,48 @@
 .as-button {
-  background-color: $main-color-dark;
-  color: $main-color-light;
-  width: fit-content;
+  background-color: $colors-white-10;
+  color: $colors-black-90;
+  border: 1px solid $colors-black-90;
+  width: 16.69rem;
+  height: 3.5rem;
   font-size: 1rem;
-  border-radius: 6px;
-  padding: 7px 15px;
-  border: 0;
+  text-align: center;
+  border-radius: 4px;
   cursor: pointer;
 
+  &:hover {
+    background-color: $colors-black-60;
+    box-shadow: $element-basic-shadow;
+    color: $colors-white-10;
+  }
+
   &.is-primary {
-    background-color: $main-color-dark;
+    background-color: $colors-primary-60;
+    border: unset;
+
+    &:hover {
+      background-color: $colors-primary-80;
+      box-shadow: $element-basic-shadow;
+    }
   }
 
   &.is-secondary {
-    background-color: $main-color-medium-dark;
+    background-color: $colors-secondary-60;
+    color: $colors-white-10;
+    border: unset;
+
+    &:hover {
+      background-color: $colors-secondary-80;
+      box-shadow: $element-basic-shadow;
+    }
   }
 
   &.is-large {
-    font-size: 1.25rem;
-    padding: 10px 20px;
+    width: 361px;
+    height: 56px;
   }
 
   &.is-small {
-    font-size: 0.75rem;
+    width: 172px;
+    height: 48px;
   }
 }

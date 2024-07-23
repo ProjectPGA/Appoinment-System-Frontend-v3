@@ -1,7 +1,8 @@
 <template>
   <as-button
     class="button-translations"
-    size="medium"
+    primary
+    size="small"
     @click="changeLanguage()"
   >
     <font-awesome-icon :icon="IconType.SOLID + ' ' + IconName.GLOBE" />
