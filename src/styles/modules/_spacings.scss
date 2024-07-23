@@ -1,33 +1,49 @@
+@use 'sass:map';
+
 // Variables
 $base-unit: 0.25rem;
-$padding-levels: 5;
+$levels: 5;
+
+// Configuration
+$config: (
+  base-unit: $base-unit,
+  levels: $levels,
+  properties: (
+    padding: p,
+    margin: m,
+  ),
+  directions: (
+    '': '',
+    top: t,
+    right: r,
+    bottom: b,
+    left: l,
+  ),
+);
 
 // Function to calculate spacing
 @function calculate-spacing($level) {
-  @return $level * $base-unit;
+  @return $level * map.get($config, 'base-unit');
 }
 
-// Mixin for generating spacing utilities
-@mixin generate-spacing-utilities(
-  $property,
-  $abbreviation,
-  $abbreviationZone: ''
-) {
-  @for $i from 0 through $padding-levels - 1 {
-    .#{$abbreviation}#{$abbreviationZone}-#{$i} {
-      #{$property}: calculate-spacing($i);
+// Mixins for generating spacing utilities
+@mixin generate-spacing-utilities {
+  @each $property, $prop-abbr in map.get($config, 'properties') {
+    @each $direction, $dir-abbr in map.get($config, 'directions') {
+      $full-property: if(
+        $direction == '',
+        $property,
+        #{$property}-#{$direction}
+      );
+
+      @for $i from 0 through map.get($config, 'levels') - 1 {
+        .#{$prop-abbr}#{$dir-abbr}-#{$i} {
+          #{$full-property}: calculate-spacing($i);
+        }
+      }
     }
   }
 }
 
-// Generate padding utilities
-@include generate-spacing-utilities('padding', 'p');
-@include generate-spacing-utilities('padding-right', 'p', 'r');
-@include generate-spacing-utilities('padding-left', 'p', 'l');
-@include generate-spacing-utilities('padding-top', 'p', 't');
-@include generate-spacing-utilities('padding-bottom', 'p', 'l');
-@include generate-spacing-utilities('margin', 'm');
-@include generate-spacing-utilities('margin-right', 'm', 'r');
-@include generate-spacing-utilities('margin-left', 'm', 'l');
-@include generate-spacing-utilities('margin-top', 'm', 't');
-@include generate-spacing-utilities('margin-bottom', 'm', 'l');
+// Generate all spacing utilities
+@include generate-spacing-utilities;
