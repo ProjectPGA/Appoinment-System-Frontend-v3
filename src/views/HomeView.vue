@@ -1,5 +1,4 @@
 <template>
-  <button-translation />
   <section class="home-view__section">
     <div>
       <h1 class="home-view__title">
@@ -38,7 +37,6 @@
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue';
 
-import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import UserData from '@/components/common/UserData.vue';
 import AllUsers from '@/components/home/AllUsers.vue';
 import UserForm from '@/components/home/UserForm.vue';
