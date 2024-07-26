@@ -1,18 +1,33 @@
 import { createWebHistory, createRouter } from 'vue-router';
-import { RouteRecordRaw } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
+import { RouteNames, RouteRecordRawAppointment } from '@/models/routes/Routes';
 
-export const routes: RouteRecordRaw[] = [
+export const routes: RouteRecordRawAppointment[] = [
   {
     path: '/login',
-    name: 'Login',
+    name: RouteNames.LOGIN,
     component: () => import('@/views/LoginView.vue'),
   },
   {
     path: '/',
-    name: 'home',
+    name: RouteNames.HOME,
     component: () => import('@/views/HomeView.vue'),
+  },
+  {
+    path: '/users',
+    name: RouteNames.USERS,
+    component: () => import('@/views/UsersView.vue'),
+  },
+  {
+    path: '/appointments',
+    name: RouteNames.APPOINTMENTS,
+    component: () => import('@/views/AppointmentsView.vue'),
+  },
+  {
+    path: '/register-user',
+    name: RouteNames.REGISTER_USER,
+    component: () => import('@/views/RegisterUserView.vue'),
   },
 ];
 
