@@ -7,6 +7,9 @@
       },
       "loading": {
         "altText": "Loading icon"
+      },
+      "sidebar": {
+        "title": "Appoint"
       }
     },
     "title": {
