@@ -1,8 +1,10 @@
+/* stylelint-disable selector-max-type */
+
 /* Variables definition */
 :root {
   /* Colors */
   --primary-color: #172b3a;
-  --secondary-color: #ffffff;
+  --secondary-color: #fff;
 
   /* Typografy */
   --principal-typografy: 'Libre Franklin', helvetica, arial, verdana, tahoma,
@@ -69,7 +71,6 @@ em {
   font-size: inherit;
   font-weight: inherit;
   font-style: inherit;
-  color: inherit;
 }
 
 /* Avoid pseudoelements of quotes issues */
@@ -94,9 +95,6 @@ textarea,
 select,
 button,
 label {
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
   display: block;
 }
 
@@ -111,9 +109,6 @@ td {
 /* Typography configuration for the web */
 body {
   min-height: 100vh;
-
-  /* (Optional) */
-  font-smooth: always;
 
   /* (Optional) */
   -webkit-font-smoothing: antialiased;
