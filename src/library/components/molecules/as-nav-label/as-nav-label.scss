@@ -10,7 +10,7 @@
     &__text {
       max-width: 60px;
 
-      @include font-sizing-selector('button/extrasmall/regular');
+      @include font-sizing-selector('button/small/regular');
     }
   }
 }
@@ -88,7 +88,7 @@
   }
 
   &__text {
-    @include font-sizing-selector('button/small/regular');
+    @include font-sizing-selector('button/medium/regular');
 
     max-width: 129px;
     white-space: nowrap;
