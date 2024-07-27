@@ -29,6 +29,11 @@ export const routes: RouteRecordRawAppointment[] = [
     name: RouteNames.REGISTER_USER,
     component: () => import('@/views/RegisterUserView.vue'),
   },
+  {
+    path: '/my-account',
+    name: RouteNames.MY_ACCOUNT,
+    component: () => import('@/views/MyAccountView.vue'),
+  },
 ];
 
 const router = createRouter({
