@@ -66,6 +66,9 @@
         "noAccount": "Don't have an account?",
         "accessToInvitation": "Click here to redeem your invitation code."
       }
+    },
+    "appointments": {
+      "title": "Hello from Appointments view"
     }
   }
 }
