@@ -69,6 +69,9 @@
     },
     "appointments": {
       "title": "Hello from Appointments view"
+    },
+    "myAccount": {
+      "title": "My Account"
     }
   }
 }

@@ -68,6 +68,9 @@
     },
     "appointments": {
       "title": "Hola desde la vista de citas"
+    },
+    "myAccount": {
+      "title": "Mi Cuenta"
     }
   }
 }
