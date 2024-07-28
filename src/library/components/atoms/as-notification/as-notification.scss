@@ -1,9 +1,7 @@
 // Component mixins
 @mixin as-notification-small-styles {
-  min-width: 0.25rem;
-  max-width: 0.25rem;
+  width: 0.25rem;
   height: 0.25rem;
-  padding: 0;
   border-radius: 0.25rem;
 
   & .as-notification__quantity {
@@ -16,15 +14,14 @@
   display: inline-block;
   background-color: $colors-danger-80;
   color: $colors-white-10;
-  min-width: 1.5rem;
+  width: 1.5rem;
   height: 1.5rem;
-  padding: 0 6px;
   border-radius: 1.5rem;
 
   @include font-sizing-selector('body/small/regular');
 
   text-align: center;
-  line-height: 1.5rem;
+  line-height: 200%;
 
   &.is-small {
     @include as-notification-small-styles;
