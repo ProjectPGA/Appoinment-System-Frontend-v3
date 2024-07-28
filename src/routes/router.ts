@@ -12,7 +12,7 @@ export const routes: RouteRecordRawAppointment[] = [
   {
     path: '/',
     name: RouteNames.HOME,
-    component: () => import('@/views/HomeView.vue'),
+    component: () => import('@/views/AppointmentsView.vue'),
   },
   {
     path: '/users',

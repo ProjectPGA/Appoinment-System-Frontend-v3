@@ -21,6 +21,7 @@
               <as-nav-label
                 label-text="Appointments"
                 :active="
+                  router.currentRoute.value.name == RouteNames.HOME ||
                   router.currentRoute.value.name == RouteNames.APPOINTMENTS
                 "
                 :right-icon-name="IconName.ANGLE_RIGHT"
