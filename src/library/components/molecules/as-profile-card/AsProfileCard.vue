@@ -68,7 +68,7 @@ const props = withDefaults(
     userName: 'Name',
     userSurname: 'Surname',
     userEmail: 'email@email.com',
-    isActive: false,
+    active: false,
   }
 );
 </script>
