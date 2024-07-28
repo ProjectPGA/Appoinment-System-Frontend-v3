@@ -43,7 +43,7 @@
   &__nav-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: $spacing-medium;
 
     @include mq-touch {
       align-items: center;
