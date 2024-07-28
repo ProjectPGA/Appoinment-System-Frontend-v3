@@ -68,7 +68,7 @@ const classObject = computed(() => ({
   }
 
   &__customizable-example {
-    border-radius: 4px;
+    border-radius: $border-radius-xs;
     padding: 4px 8px;
     background-color: $colors-white-10;
   }
