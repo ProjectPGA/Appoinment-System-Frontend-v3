@@ -1,0 +1,56 @@
+.main-layout {
+  display: flex;
+  height: 100vh;
+
+  &__content {
+    overflow-y: auto;
+  }
+}
+
+.main-sidebar {
+  padding: 24px;
+  box-shadow: 5px 0 18px 0 rgb(0 0 0 / 4%);
+  background-color: $colors-white-10;
+  display: grid;
+  grid-template-rows: [first-row] max-content [second-row] max-content [third-row] auto [last-row] max-content;
+  height: 100%;
+
+  &__title {
+    @include font-sizing-selector('heading/small');
+
+    grid-row-start: first-row;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+
+    @include mq-touch {
+      justify-content: center;
+    }
+  }
+
+  &__title-text {
+    @include mq-touch {
+      display: none;
+    }
+  }
+
+  &__main-nav {
+    grid-row-start: second-row;
+    margin-top: 24px;
+  }
+
+  &__nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include mq-touch {
+      align-items: center;
+    }
+  }
+
+  &__footer {
+    grid-row-start: last-row;
+  }
+}
