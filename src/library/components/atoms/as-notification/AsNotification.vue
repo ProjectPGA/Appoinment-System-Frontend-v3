@@ -4,7 +4,12 @@
     class="as-notification"
     :class="{ 'is-small': $props.isSmall }"
   >
-    <span class="as-notification__quantity">{{ props.quantity }}</span>
+    <span class="as-notification__quantity">
+      {{
+        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
+        props.quantity >= 99 ? '+99' : props.quantity
+      }}</span
+    >
   </div>
 </template>
 <script lang="ts" setup>
