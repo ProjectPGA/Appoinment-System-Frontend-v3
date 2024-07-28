@@ -7,8 +7,8 @@
           src="/img/appointment-logo.svg"
           width="32"
           height="30"
-          title="Appointment Logo"
-          alt="Appointment Logo Image"
+          :title="$t('common.components.sidebar.titleImgAlt')"
+          :alt="$t('common.components.sidebar.titleImgTitle')"
         />
         <span class="main-sidebar__title-text">{{
           $t('common.components.sidebar.title')
@@ -17,9 +17,11 @@
       <nav class="main-sidebar__main-nav">
         <ul class="main-sidebar__nav-container">
           <li>
-            <router-link to="/appointments">
+            <router-link :to="RoutePaths.APPOINTMENTS">
               <as-nav-label
-                label-text="Appointments"
+                :label-text="
+                  $t('common.components.sidebar.navItems.appointments')
+                "
                 :active="
                   router.currentRoute.value.name == RouteNames.HOME ||
                   router.currentRoute.value.name == RouteNames.APPOINTMENTS
@@ -29,9 +31,9 @@
             </router-link>
           </li>
           <li>
-            <router-link to="/users">
+            <router-link :to="RoutePaths.USERS">
               <as-nav-label
-                label-text="Users"
+                :label-text="$t('common.components.sidebar.navItems.users')"
                 :active="router.currentRoute.value.name == RouteNames.USERS"
                 :left-icon-name="IconName.USERS"
                 :right-icon-name="IconName.ANGLE_RIGHT"
@@ -39,9 +41,11 @@
             </router-link>
           </li>
           <li>
-            <router-link to="/register-user">
+            <router-link :to="RoutePaths.REGISTER_USER">
               <as-nav-label
-                label-text="To Register"
+                :label-text="
+                  $t('common.components.sidebar.navItems.toRegister')
+                "
                 :active="
                   router.currentRoute.value.name == RouteNames.REGISTER_USER
                 "
@@ -52,7 +56,7 @@
           </li>
           <li>
             <as-nav-label
-              label-text="Chat Bot"
+              :label-text="$t('common.components.sidebar.navItems.chatBot')"
               :left-icon-name="IconName.COMMENTS"
               :right-icon-name="IconName.ANGLE_RIGHT"
               disabled
@@ -64,21 +68,23 @@
         <ul class="main-sidebar__nav-container">
           <li>
             <as-nav-label
-              label-text="Configuration"
+              :label-text="
+                $t('common.components.sidebar.navItems.configuration')
+              "
               :left-icon-name="IconName.GEAR"
               :right-icon-name="IconName.ANGLE_RIGHT"
             />
           </li>
           <li>
             <as-nav-label
-              label-text="Log out"
+              :label-text="$t('common.components.sidebar.navItems.logOut')"
               :left-icon-name="IconName.ARROW_RIGHT_FROM_BRACKET"
               :right-icon-name="IconName.ANGLE_RIGHT"
               @click="logout()"
             />
           </li>
           <li>
-            <router-link to="/my-account">
+            <router-link :to="RoutePaths.MY_ACCOUNT">
               <as-profile-card
                 :profile-image-url="authStore.userAuthData?.imageUrl"
                 :user-name="authStore.userAuthData?.name"
@@ -107,7 +113,7 @@ import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 
 import { useAuthStore } from '@/stores/auth';
 import { RouterLink, useRouter } from 'vue-router';
-import { RouteNames } from '@/models/routes/Routes';
+import { RouteNames, RoutePaths } from '@/models/routes/Routes';
 
 const router = useRouter();
 
