@@ -11,9 +11,11 @@ const meta = {
   argTypes: {},
   args: {
     profileImageUrl: '/img/default-profile-image.webp',
+    profileImageUrlSmall: '/img/default-profile-image-40.webp',
     userName: 'OpenSlot',
     userSurname: 'Studio',
     userEmail: 'hola@openslotstudio.com',
+    active: false,
   }, // default value
 } satisfies Meta<typeof AsProfileCard>;
 
@@ -27,8 +29,10 @@ type Story = StoryObj<typeof meta>;
 export const Normal: Story = {
   args: {
     profileImageUrl: '/img/default-profile-image.webp',
+    profileImageUrlSmall: '/img/default-profile-image-40.webp',
     userName: 'OpenSlot',
     userSurname: 'Studio',
     userEmail: 'hola@openslotstudio.com',
+    active: false,
   },
 };
