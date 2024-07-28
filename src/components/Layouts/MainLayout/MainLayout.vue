@@ -87,6 +87,7 @@
             <router-link :to="RoutePaths.MY_ACCOUNT">
               <as-profile-card
                 :profile-image-url="authStore.userAuthData?.imageUrl"
+                :profile-image-url-small="authStore.userAuthData?.imageUrlSmall"
                 :user-name="authStore.userAuthData?.name"
                 :user-surname="authStore.userAuthData?.surname"
                 :user-email="authStore.userAuthData?.email"
