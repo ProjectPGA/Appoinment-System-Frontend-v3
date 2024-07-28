@@ -7,5 +7,5 @@ export interface User {
   surname: string;
   roles: UserRoles[];
   password: string;
-  imageUrl: string;
+  imageUrl?: string;
 }
