@@ -8,4 +8,5 @@ export interface User {
   roles: UserRoles[];
   password: string;
   imageUrl?: string;
+  imageUrlSmall?: string;
 }
