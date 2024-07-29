@@ -7,7 +7,7 @@
     <span class="as-notification__quantity">
       {{
         // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
-        props.quantity >= 99 ? '+99' : props.quantity
+        props.quantity >= 100 ? '+99' : props.quantity
       }}</span
     >
   </div>
