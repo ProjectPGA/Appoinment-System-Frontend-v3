@@ -1,15 +1,15 @@
 <template>
-  <form @submit="onSubmit">
+  <form class="login-form" @submit="onSubmit">
     <as-input
       id="email-input-login"
       v-model="email"
       v-bind="emailAttrs"
       class="login-form__input"
       type="email"
+      is-extended
       :is-invalid="errors.email ? true : false"
       :subtag="errors.email"
       :data-cy="'input-email-' + page"
-      :label="$t('common.inputs.emailInputLabel')"
       :placeholder="$t('common.inputs.emailInputLabel')"
     />
     <as-input
@@ -18,16 +18,17 @@
       v-bind="passwordAttrs"
       class="login-form__input"
       type="password"
+      is-extended
       :subtag="errors.password"
       :is-invalid="errors.password ? true : false"
       :data-cy="'input-password-' + page"
-      :label="$t('common.inputs.passwordInputLabel')"
       :placeholder="$t('common.inputs.passwordInputLabel')"
     />
     <as-button
       :data-cy="'submit-' + page"
       :label="$t('common.buttons.loginButton')"
       size="medium"
+      secondary
       @click="onSubmit"
     />
   </form>

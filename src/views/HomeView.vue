@@ -8,12 +8,13 @@
       <user-data :user="authStore.userAuthData">
         <as-button
           :label="$t('common.buttons.logoutButton')"
-          size="medium"
+          size="small"
           class="home-view__button"
           @click="logout()"
         />
         <as-button
           class="home-view__button"
+          size="small"
           secondary
           :label="$t('common.buttons.getAllUsersButton')"
           @click="usersStore.getAllUsers"

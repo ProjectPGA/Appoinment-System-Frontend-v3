@@ -2,6 +2,11 @@
   &.is-medium {
     max-width: 216px;
   }
+
+  &.is-extended {
+    width: 100%;
+    max-width: unset;
+  }
 }
 
 .as-input {
