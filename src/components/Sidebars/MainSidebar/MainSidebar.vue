@@ -16,16 +16,3 @@ import MainSidebarLayout from '@/components/Layouts/MainSidebarLayout/MainSideba
 import MainSidebarNavContentMain from '@/components/Sidebars/MainSidebar/MainSidebarNavContentMain.vue';
 import MainSidebarNavContentFooter from '@/components/Sidebars/MainSidebar/MainSidebarNavContentFooter.vue';
 </script>
-<style lang="scss" scoped>
-.main-sidebar {
-  &__nav-container {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-medium;
-
-    @include mq-touch {
-      align-items: center;
-    }
-  }
-}
-</style>
