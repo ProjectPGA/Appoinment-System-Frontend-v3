@@ -3,8 +3,10 @@
   box-shadow: 5px 0 18px 0 rgb(0 0 0 / 4%);
   background-color: $colors-white-10;
   display: grid;
-  grid-template-rows: [first-row] max-content [second-row] max-content [third-row] 16px auto [last-row] max-content;
+  grid-template-rows: [first-row] max-content [second-row] max-content [third-row] $spacing-medium auto [last-row] max-content;
   height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
 
   &__title {
     @include font-sizing-selector('heading/small');
