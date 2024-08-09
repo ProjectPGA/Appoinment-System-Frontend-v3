@@ -1,0 +1,52 @@
+.as-profile-card {
+  padding: 12px;
+  border-radius: $border-radius-xs;
+  display: flex;
+  align-items: center;
+  gap: $spacing-medium;
+  background-color: $colors-white-10;
+  max-width: 260px;
+
+  @include font-sizing-selector('body/small/regular');
+
+  @include mq-touch {
+    border-radius: $border-radius-round;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $colors-white-20;
+  }
+
+  &:active,
+  &.is-active {
+    background-color: $colors-primary-10;
+  }
+
+  &__image {
+    background-color: $colors-primary-60;
+    width: 54px;
+    height: 54px;
+    border-radius: $border-radius-round;
+
+    @include mq-touch {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &__user-info {
+    @include mq-touch {
+      display: none;
+    }
+  }
+
+  &__user-name {
+    margin-bottom: 4px;
+    color: $colors-info-100;
+  }
+
+  &__user-email {
+    color: $colors-black-10;
+  }
+}

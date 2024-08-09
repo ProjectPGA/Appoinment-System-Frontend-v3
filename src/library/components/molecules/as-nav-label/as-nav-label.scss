@@ -10,7 +10,7 @@
     &__text {
       max-width: 60px;
 
-      @include font-sizing-selector('button/extrasmall/regular');
+      @include font-sizing-selector('button/small/regular');
     }
   }
 }
@@ -19,7 +19,7 @@
   position: relative;
   width: 54px;
   height: 54px;
-  border-radius: 54px;
+  border-radius: $border-radius-round;
   padding: 4px;
   display: grid;
   place-content: center;
@@ -57,13 +57,14 @@
 
 // Component styles
 .as-nav-label {
-  border-radius: 4px;
+  border-radius: $border-radius-xs;
   padding: 15px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 260px;
   cursor: pointer;
+  background-color: $colors-white-10;
 
   &__left-section {
     display: flex;
@@ -88,7 +89,7 @@
   }
 
   &__text {
-    @include font-sizing-selector('button/small/regular');
+    @include font-sizing-selector('button/medium/regular');
 
     max-width: 129px;
     white-space: nowrap;

@@ -7,6 +7,19 @@
       },
       "loading": {
         "altText": "Icono de carga"
+      },
+      "sidebar": {
+        "title": "Appoint",
+        "titleImgAlt": "Logo de 'Appointments'",
+        "titleImgTitle": "Imagen del logo de 'Appointments'",
+        "navItems": {
+          "appointments": "Citas",
+          "toRegister": "Registar",
+          "users": "Usuarios",
+          "chatBot": "Chat Bot",
+          "configuration": "Configuración",
+          "logOut": "Cerrar sesión"
+        }
       }
     },
     "title": {

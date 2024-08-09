@@ -9,6 +9,11 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import type { Preview } from '@storybook/vue3';
 import '../src/styles/main.scss';
 
+import {
+  MINIMAL_VIEWPORTS,
+  INITIAL_VIEWPORTS,
+} from '@storybook/addon-viewport';
+
 setup(app => {
   library.add(far, fas, fab);
   app.component('font-awesome-icon', FontAwesomeIcon);
@@ -21,6 +26,12 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    viewport: {
+      viewports: {
+        ...MINIMAL_VIEWPORTS,
+        ...INITIAL_VIEWPORTS,
       },
     },
   },
