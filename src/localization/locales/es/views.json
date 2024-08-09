@@ -65,6 +65,12 @@
         "noAccount": "¿No tienes cuenta?",
         "accessToInvitation": "Pulsa aquí para canjear tu código de invitación."
       }
+    },
+    "appointments": {
+      "title": "Hola desde la vista de citas"
+    },
+    "myAccount": {
+      "title": "Mi Cuenta"
     }
   }
 }

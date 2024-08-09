@@ -4,10 +4,11 @@
     class="as-notification"
     :class="{ 'is-small': $props.isSmall }"
   >
-    <span class="as-notification__quantity">{{ props.quantity }}</span>
+    <span class="as-notification__quantity"> {{ notificationQuantity }}</span>
   </div>
 </template>
 <script lang="ts" setup>
+import { computed } from 'vue';
 import './as-notification.scss';
 
 const props = defineProps<{
@@ -20,4 +21,8 @@ const props = defineProps<{
    */
   quantity?: number;
 }>();
+
+const notificationQuantity = computed(() =>
+  props.quantity && props.quantity >= 100 ? '+99' : props.quantity
+);
 </script>

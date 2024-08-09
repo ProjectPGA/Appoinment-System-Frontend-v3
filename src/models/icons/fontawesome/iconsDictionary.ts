@@ -15,4 +15,9 @@ export enum IconName {
   ANGLE_RIGHT = 'fa-angle-right',
   ANGLE_DOWN = 'fa-angle-down',
   ANGLE_LEFT = 'fa-angle-left',
+  USERS = 'fa-users',
+  USER_PLUS = 'fa-user-plus',
+  COMMENTS = 'fa-comments',
+  GEAR = 'fa-gear',
+  ARROW_RIGHT_FROM_BRACKET = 'fa-arrow-right-from-bracket',
 }

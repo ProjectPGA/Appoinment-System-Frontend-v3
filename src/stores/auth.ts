@@ -11,6 +11,7 @@ import { RequestStatus } from '@/models/auth/RequestStatus';
 import { LoginRequest } from '@/webservices/models/auth/LoginRequest';
 
 import { loginService, logoutService } from '@/webservices/auth/AuthWebService';
+import { RouteNames } from '@/models/routes/Routes';
 
 export const useAuthStore = defineStore('auth', () => {
   const userAuthData = ref<UserAuthData | null>(null);
@@ -65,7 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
     isLogged.value = true;
     userAuthData.value = user;
 
-    router.push({ name: 'home' });
+    router.push({ name: RouteNames.HOME });
   };
 
   // GLOBAL METHODS
