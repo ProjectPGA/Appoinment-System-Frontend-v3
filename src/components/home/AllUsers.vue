@@ -7,11 +7,14 @@
     <div class="all-users__footer">
       <as-button
         :label="$t('common.buttons.deleteButton')"
+        size="small"
+        class="mr-2"
         @click="usersStore.deleteUser(user._id)"
       />
       <as-button
-        secondary
         :label="$t('common.buttons.editButton')"
+        size="small"
+        primary
         @click="openModal(user._id)"
       />
     </div>

@@ -1,0 +1,49 @@
+@use 'sass:map';
+
+// Variables
+$base-unit: 4px;
+$levels: 5;
+
+// Configuration
+$config: (
+  base-unit: $base-unit,
+  levels: $levels,
+  properties: (
+    padding: p,
+    margin: m,
+  ),
+  directions: (
+    '': '',
+    top: t,
+    right: r,
+    bottom: b,
+    left: l,
+  ),
+);
+
+// Function to calculate spacing
+@function calculate-spacing($level) {
+  @return $level * map.get($config, 'base-unit');
+}
+
+// Mixins for generating spacing utilities
+@mixin generate-spacing-utilities {
+  @each $property, $prop-abbreviation in map.get($config, 'properties') {
+    @each $direction, $dir-abbreviation in map.get($config, 'directions') {
+      $full-property: if(
+        $direction == '',
+        $property,
+        #{$property}-#{$direction}
+      );
+
+      @for $i from 0 through map.get($config, 'levels') - 1 {
+        .#{$prop-abbreviation}#{$dir-abbreviation}-#{$i} {
+          #{$full-property}: calculate-spacing($i);
+        }
+      }
+    }
+  }
+}
+
+// Generate all spacing utilities
+@include generate-spacing-utilities;

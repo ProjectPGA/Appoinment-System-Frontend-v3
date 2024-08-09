@@ -103,6 +103,7 @@ const classes = computed(() => ({
 
 const containerClasses = computed(() => ({
   'is-medium': props.size === 'medium' || false,
+  'is-extended': props.isExtended,
 }));
 
 const onInput = (event: Event) => {

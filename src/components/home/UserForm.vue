@@ -75,7 +75,7 @@
         :placeholder="$t('views.home.userForm.repeatPassword.placeholder')"
       />
     </div>
-    <as-button type="submit">
+    <as-button type="submit" primary>
       <span v-if="!isUpdate">
         {{ $t('views.home.userForm.enterButtonCreate') }}
       </span>
