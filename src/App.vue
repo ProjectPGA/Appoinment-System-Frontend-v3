@@ -10,17 +10,15 @@ import { useAuthStore } from '@/stores/auth';
 
 import { useCookies } from '@vueuse/integrations/useCookies';
 
-const { logout } = useAuthStore();
+const authStore = useAuthStore();
 
 const cookies = useCookies();
 
 cookies.addChangeListener(changedCookie => {
   if (changedCookie.name === 'Authenticated' && !changedCookie.value) {
-    logout();
+    authStore.logout();
   }
 });
-
-const authStore = useAuthStore();
 
 const isLoading = computed(() => authStore.isLoading);
 </script>
