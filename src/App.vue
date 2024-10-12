@@ -8,6 +8,18 @@ import MainLayout from './components/Layouts/MainLayout/MainLayout.vue';
 
 import { useAuthStore } from '@/stores/auth';
 
+import { useCookies } from '@vueuse/integrations/useCookies';
+
+const { logout } = useAuthStore();
+
+const cookies = useCookies();
+
+cookies.addChangeListener(changedCookie => {
+  if (changedCookie.name === 'Authenticated' && !changedCookie.value) {
+    logout();
+  }
+});
+
 const authStore = useAuthStore();
 
 const isLoading = computed(() => authStore.isLoading);
