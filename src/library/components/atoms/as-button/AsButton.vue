@@ -1,10 +1,3 @@
-<template>
-  <button type="button" class="as-button" :class="classes" @click="onClick">
-    {{ label }}
-    <slot />
-  </button>
-</template>
-
 <script lang="ts" setup>
 import './as-button.scss';
 import { computed } from 'vue';
@@ -45,3 +38,10 @@ const onClick = () => {
   emit('click');
 };
 </script>
+
+<template>
+  <button type="button" class="as-button" :class="classes" @click="onClick">
+    {{ label }}
+    <slot />
+  </button>
+</template>

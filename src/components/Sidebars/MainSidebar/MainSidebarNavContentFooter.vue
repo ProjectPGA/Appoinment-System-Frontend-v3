@@ -1,35 +1,6 @@
-<template>
-  <ul class="nav-container">
-    <li>
-      <as-nav-label
-        :label-text="$t('common.components.sidebar.navItems.configuration')"
-        :left-icon-name="IconName.GEAR"
-        :right-icon-name="IconName.ANGLE_RIGHT"
-      />
-    </li>
-    <li>
-      <as-nav-label
-        :label-text="$t('common.components.sidebar.navItems.logOut')"
-        :left-icon-name="IconName.ARROW_RIGHT_FROM_BRACKET"
-        :right-icon-name="IconName.ANGLE_RIGHT"
-        @click="logout()"
-      />
-    </li>
-    <li>
-      <router-link :to="RoutePaths.MY_ACCOUNT">
-        <as-profile-card
-          :profile-image-url="authStore.userAuthData?.imageUrl"
-          :profile-image-url-small="authStore.userAuthData?.imageUrlSmall"
-          :user-name="authStore.userAuthData?.name"
-          :user-surname="authStore.userAuthData?.surname"
-          :user-email="authStore.userAuthData?.email"
-          :active="router.currentRoute.value.name == RouteNames.MY_ACCOUNT"
-        />
-      </router-link>
-    </li>
-  </ul>
-</template>
 <script lang="ts" setup>
+import { RouterLink } from 'vue-router';
+
 import { IconName } from '@/models/icons/fontawesome/iconsDictionary';
 import { RoutePaths, RouteNames } from '@/models/routes/Routes';
 import { useAuthStore } from '@/stores/auth';
@@ -46,6 +17,39 @@ const logout = () => {
   authStore.logout();
 };
 </script>
+
+<template>
+  <ul class="nav-container">
+    <li>
+      <AsNavLabel
+        :labelText="$t('common.components.sidebar.navItems.configuration')"
+        :leftIconName="IconName.GEAR"
+        :rightIconName="IconName.ANGLE_RIGHT"
+      />
+    </li>
+    <li>
+      <AsNavLabel
+        :labelText="$t('common.components.sidebar.navItems.logOut')"
+        :leftIconName="IconName.ARROW_RIGHT_FROM_BRACKET"
+        :rightIconName="IconName.ANGLE_RIGHT"
+        @click="logout()"
+      />
+    </li>
+    <li>
+      <RouterLink :to="RoutePaths.MY_ACCOUNT">
+        <AsProfileCard
+          :profileImageUrl="authStore.userAuthData?.imageUrl"
+          :profileImageUrlSmall="authStore.userAuthData?.imageUrlSmall"
+          :userName="authStore.userAuthData?.name"
+          :userSurname="authStore.userAuthData?.surname"
+          :userEmail="authStore.userAuthData?.email"
+          :active="router.currentRoute.value.name == RouteNames.MY_ACCOUNT"
+        />
+      </RouterLink>
+    </li>
+  </ul>
+</template>
+
 <style lang="scss" scoped>
 .nav-container {
   display: flex;

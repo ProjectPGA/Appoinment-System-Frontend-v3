@@ -1,25 +1,3 @@
-<template>
-  <div class="as-input-container" :class="containerClasses">
-    <label class="as-input__label" :for="id">{{ label }}</label>
-    <input
-      :id="id"
-      class="as-input"
-      :class="classes"
-      :value="modelValue"
-      :placeholder="placeholder"
-      :type="type"
-      :data-cy="dataCy"
-      @input="onInput"
-      @change="onChange"
-      @blur="onBlur"
-    />
-    <sub class="as-input__subtag" :class="{ 'is-invalid': isInvalid }">
-      {{ subtag }}</sub
-    >
-    <slot />
-  </div>
-</template>
-
 <script lang="ts" setup>
 import './as-input.scss';
 import { computed } from 'vue';
@@ -91,7 +69,12 @@ const props = withDefaults(
   }
 );
 
-const emit = defineEmits(['update:modelValue', 'change', 'blur', 'input']);
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+  (e: 'change'): void;
+  (e: 'blur'): void;
+  (e: 'input'): void;
+}>();
 
 const classes = computed(() => ({
   'is-primary': props.primary,
@@ -118,3 +101,25 @@ const onBlur = () => {
   emit('blur');
 };
 </script>
+
+<template>
+  <div class="as-input-container" :class="containerClasses">
+    <label class="as-input__label" :for="id">{{ label }}</label>
+    <input
+      :id="id"
+      class="as-input"
+      :class="classes"
+      :value="modelValue"
+      :placeholder="placeholder"
+      :type="type"
+      :data-cy="dataCy"
+      @input="onInput"
+      @change="onChange"
+      @blur="onBlur"
+    />
+    <sub class="as-input__subtag" :class="{ 'is-invalid': isInvalid }">
+      {{ subtag }}</sub
+    >
+    <slot />
+  </div>
+</template>

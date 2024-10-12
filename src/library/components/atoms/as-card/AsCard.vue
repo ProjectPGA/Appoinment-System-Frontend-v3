@@ -1,9 +1,3 @@
-<template>
-  <article class="as-card" :class="classes">
-    <slot />
-  </article>
-</template>
-
 <script lang="ts" setup>
 import './as-card.scss';
 import { computed } from 'vue';
@@ -30,3 +24,9 @@ const classes = computed(() => ({
   [`is-${props.size}`]: !!props.size,
 }));
 </script>
+
+<template>
+  <article class="as-card" :class="classes">
+    <slot />
+  </article>
+</template>

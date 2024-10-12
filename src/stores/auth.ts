@@ -1,8 +1,8 @@
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+// import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
-import { useToast } from 'vue-toastification';
+// import useToast from 'vue-toastification';
 
 import { UserAuthData } from '@/models/user/UserAuthData';
 
@@ -20,8 +20,8 @@ export const useAuthStore = defineStore('auth', () => {
   const isRegisterProcess = ref<boolean>(false);
   const loginRequestStatus = ref<RequestStatus>(RequestStatus.IN_PROGRESS);
 
-  const toast = useToast();
-  const { t } = useI18n();
+  // const toast = useToast();
+  // const { t } = useI18n();
   const router = useRouter();
 
   // Common private Methods
@@ -88,10 +88,14 @@ export const useAuthStore = defineStore('auth', () => {
         password: loginData.password,
       });
 
-      response ? setIsLogged(response) : setUserNotisLogged();
+      if (response) {
+        setIsLogged(response);
+      } else {
+        setUserNotisLogged();
+      }
     } catch (error) {
       setLoginFailed();
-      toast.error(t('common.notifications.error.loginFailure'));
+      // toast.error(t('common.notifications.error.loginFailure'));
       console.error(error);
     }
   };

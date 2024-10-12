@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  imgSrc: string;
+  title: string;
+}>();
+</script>
+
 <template>
   <aside class="main-sidebar-layout">
     <h1 class="main-sidebar-layout__title">
@@ -18,12 +25,7 @@
     </nav>
   </aside>
 </template>
-<script lang="ts" setup>
-const props = defineProps<{
-  imgSrc: string;
-  title: string;
-}>();
-</script>
+
 <style lang="scss" scoped>
 @import 'main-sidebar-layout';
 </style>

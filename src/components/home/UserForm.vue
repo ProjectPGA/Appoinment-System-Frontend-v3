@@ -1,95 +1,8 @@
-<template>
-  <form class="update-user-form" @submit="onSubmit">
-    <div class="update-user-form__inputs-container">
-      <as-input
-        :id="`${props.isUpdate ? 'update' : 'create'}-user-name`"
-        v-model="name"
-        v-bind="nameAttrs"
-        :subtag="errors.name"
-        :is-invalid="!!errors.name"
-        :label="$t('views.home.userForm.name.label')"
-        :placeholder="$t('views.home.userForm.name.placeholder')"
-      />
-      <as-input
-        :id="`${props.isUpdate ? 'update' : 'create'}-user-surname`"
-        v-model="surname"
-        v-bind="surnameAttrs"
-        :subtag="errors.surname"
-        :is-invalid="!!errors.surname"
-        :label="$t('views.home.userForm.surname.label')"
-        :placeholder="$t('views.home.userForm.surname.placeholder')"
-      />
-    </div>
-    <div class="update-user-form__inputs-container">
-      <as-input
-        :id="`${props.isUpdate ? 'update' : 'create'}-user-email`"
-        v-model="email"
-        v-bind="emailAttrs"
-        :subtag="errors.email"
-        :is-invalid="!!errors.email"
-        :label="$t('views.home.userForm.email.label')"
-        :placeholder="$t('views.home.userForm.email.placeholder')"
-      />
-      <div>
-        <p class="update-user-form__checkboxes-title">
-          {{ $t('views.home.userForm.roles.title') }}
-        </p>
-        <div class="update-user-form__checkboxes-container">
-          <as-checkbox
-            :checkbox-id="`${props.isUpdate ? 'update' : 'create'}-admin-role`"
-            name="roles"
-            :checked-value="UserRoles.ADMIN"
-            :label="$t('views.home.userForm.roles.admin.label')"
-          />
-          <as-checkbox
-            :checkbox-id="`${props.isUpdate ? 'update' : 'create'}-user-role`"
-            name="roles"
-            :checked-value="UserRoles.USER"
-            :label="$t('views.home.userForm.roles.user.label')"
-          />
-        </div>
-        <span class="update-user-form__invalid-input">
-          {{ errors.roles }}
-        </span>
-      </div>
-    </div>
-    <div class="update-user-form__inputs-container">
-      <as-input
-        :id="`${props.isUpdate ? 'update' : 'create'}-user-password`"
-        v-model="password"
-        v-bind="passwordAttrs"
-        type="password"
-        :subtag="errors.password"
-        :is-invalid="!!errors.password"
-        :label="$t('views.home.userForm.password.label')"
-        :placeholder="$t('views.home.userForm.password.placeholder')"
-      />
-      <as-input
-        :id="`${props.isUpdate ? 'update' : 'create'}-user-repeat-password`"
-        v-model="repeatPassword"
-        v-bind="repeatPasswordAttrs"
-        type="password"
-        :subtag="errors.repeatPassword"
-        :is-invalid="!!errors.repeatPassword"
-        :label="$t('views.home.userForm.repeatPassword.label')"
-        :placeholder="$t('views.home.userForm.repeatPassword.placeholder')"
-      />
-    </div>
-    <as-button type="submit" primary>
-      <span v-if="!isUpdate">
-        {{ $t('views.home.userForm.enterButtonCreate') }}
-      </span>
-      <span v-if="isUpdate">
-        {{ $t('views.home.userForm.enterButtonUpdate') }}
-      </span>
-    </as-button>
-  </form>
-</template>
-
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue';
 import { useForm } from 'vee-validate';
-import { useToast } from 'vue-toastification';
+// import useToast from 'vue-toastification';
+
 import * as yup from 'yup';
 
 import { useUsersStore } from '@/stores/users';
@@ -103,22 +16,20 @@ import AsCheckbox from '@/library/components/atoms/as-checkbox/AsCheckbox.vue';
 import { RegisterUserRequest } from '@/models/user/registerUser';
 import { UpdateUserRequest } from '@/models/user/updateUser';
 
-const toast = useToast();
+interface Props {
+  userId: string;
+  isUpdate: boolean;
+}
+
+const props = defineProps<Props>();
+
+const emit = defineEmits<{
+  (e: 'userUpdated'): void;
+}>();
+
+// const toast = useToast();
 const usersStore = useUsersStore();
 const { t } = i18nGlobal;
-
-const emit = defineEmits(['user-updated']);
-
-const props = defineProps({
-  userId: {
-    type: String,
-    default: '',
-  },
-  isUpdate: {
-    type: Boolean,
-    default: false,
-  },
-});
 
 const { defineField, errors, handleSubmit, values, setFieldError, resetForm } =
   useForm({
@@ -165,9 +76,11 @@ const sendUserData = async (): Promise<void> => {
       email: email.value,
       roles: values.roles,
       password: password.value,
+      updatedAt: new Date(),
     };
+
     response = await usersStore.updateUser(props.userId, userUpdateData);
-    emit('user-updated');
+    emit('userUpdated');
   } else {
     const userRegisterData: RegisterUserRequest = {
       name: name.value,
@@ -182,17 +95,23 @@ const sendUserData = async (): Promise<void> => {
     return;
   }
   if (response.error) {
-    response.status === 422
-      ? setFieldError('email', t('views.home.userForm.email.exist'))
-      : props.isUpdate
-        ? toast.error(t('views.home.userForm.errorUpdate'))
-        : toast.error(t('views.home.userForm.errorCreate'));
+    if (response.status === 422) {
+      setFieldError('email', t('views.home.userForm.email.exist'));
+    } else {
+      if (props.isUpdate) {
+        // toast.error(t('views.home.userForm.errorUpdate'));
+      } else {
+        // toast.error(t('views.home.userForm.errorCreate'));
+      }
+    }
   }
 
   if (!response.error) {
-    props.isUpdate
-      ? toast.success(t('views.home.userForm.successUpdate'))
-      : toast.success(t('views.home.userForm.successCreate'));
+    if (props.isUpdate) {
+      // toast.success(t('views.home.userForm.successUpdate'));
+    } else {
+      // toast.success(t('views.home.userForm.successCreate'));
+    }
     resetForm();
   }
 };
@@ -217,6 +136,94 @@ onBeforeMount(() => {
   }
 });
 </script>
+
+<template>
+  <form class="update-user-form" @submit="onSubmit">
+    <div class="update-user-form__inputs-container">
+      <AsInput
+        :id="`${props.isUpdate ? 'update' : 'create'}-user-name`"
+        v-model="name"
+        v-bind="nameAttrs"
+        :subtag="errors.name"
+        :isInvalid="!!errors.name"
+        :label="$t('views.home.userForm.name.label')"
+        :placeholder="$t('views.home.userForm.name.placeholder')"
+      />
+      <AsInput
+        :id="`${props.isUpdate ? 'update' : 'create'}-user-surname`"
+        v-model="surname"
+        v-bind="surnameAttrs"
+        :subtag="errors.surname"
+        :isInvalid="!!errors.surname"
+        :label="$t('views.home.userForm.surname.label')"
+        :placeholder="$t('views.home.userForm.surname.placeholder')"
+      />
+    </div>
+    <div class="update-user-form__inputs-container">
+      <AsInput
+        :id="`${props.isUpdate ? 'update' : 'create'}-user-email`"
+        v-model="email"
+        v-bind="emailAttrs"
+        :subtag="errors.email"
+        :isInvalid="!!errors.email"
+        :label="$t('views.home.userForm.email.label')"
+        :placeholder="$t('views.home.userForm.email.placeholder')"
+      />
+      <div>
+        <p class="update-user-form__checkboxes-title">
+          {{ $t('views.home.userForm.roles.title') }}
+        </p>
+        <div class="update-user-form__checkboxes-container">
+          <AsCheckbox
+            :checkboxId="`${props.isUpdate ? 'update' : 'create'}-admin-role`"
+            name="roles"
+            :checkedValue="UserRoles.ADMIN"
+            :label="$t('views.home.userForm.roles.admin.label')"
+          />
+          <AsCheckbox
+            :checkboxId="`${props.isUpdate ? 'update' : 'create'}-user-role`"
+            name="roles"
+            :checkedValue="UserRoles.USER"
+            :label="$t('views.home.userForm.roles.user.label')"
+          />
+        </div>
+        <span class="update-user-form__invalid-input">
+          {{ errors.roles }}
+        </span>
+      </div>
+    </div>
+    <div class="update-user-form__inputs-container">
+      <AsInput
+        :id="`${props.isUpdate ? 'update' : 'create'}-user-password`"
+        v-model="password"
+        v-bind="passwordAttrs"
+        type="password"
+        :subtag="errors.password"
+        :isInvalid="!!errors.password"
+        :label="$t('views.home.userForm.password.label')"
+        :placeholder="$t('views.home.userForm.password.placeholder')"
+      />
+      <AsInput
+        :id="`${props.isUpdate ? 'update' : 'create'}-user-repeat-password`"
+        v-model="repeatPassword"
+        v-bind="repeatPasswordAttrs"
+        type="password"
+        :subtag="errors.repeatPassword"
+        :isInvalid="!!errors.repeatPassword"
+        :label="$t('views.home.userForm.repeatPassword.label')"
+        :placeholder="$t('views.home.userForm.repeatPassword.placeholder')"
+      />
+    </div>
+    <AsButton type="submit" primary>
+      <span v-if="!isUpdate">
+        {{ $t('views.home.userForm.enterButtonCreate') }}
+      </span>
+      <span v-if="isUpdate">
+        {{ $t('views.home.userForm.enterButtonUpdate') }}
+      </span>
+    </AsButton>
+  </form>
+</template>
 
 <style lang="scss" scoped>
 .update-user-form {

@@ -1,42 +1,7 @@
-<template>
-  <form class="login-form" @submit="onSubmit">
-    <as-input
-      id="email-input-login"
-      v-model="email"
-      v-bind="emailAttrs"
-      class="login-form__input"
-      type="email"
-      is-extended
-      :is-invalid="errors.email ? true : false"
-      :subtag="errors.email"
-      :data-cy="'input-email-' + page"
-      :placeholder="$t('common.inputs.emailInputLabel')"
-    />
-    <as-input
-      id="password-input-login"
-      v-model="password"
-      v-bind="passwordAttrs"
-      class="login-form__input"
-      type="password"
-      is-extended
-      :subtag="errors.password"
-      :is-invalid="errors.password ? true : false"
-      :data-cy="'input-password-' + page"
-      :placeholder="$t('common.inputs.passwordInputLabel')"
-    />
-    <as-button
-      :data-cy="'submit-' + page"
-      :label="$t('common.buttons.loginButton')"
-      size="medium"
-      secondary
-      @click="onSubmit"
-    />
-  </form>
-</template>
 <script lang="ts" setup>
 import { Ref, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useToast } from 'vue-toastification';
+// import { useToast } from 'vue-toastification';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 
@@ -47,7 +12,7 @@ import AsButton from '@/library/components/atoms/as-button/AsButton.vue';
 import AsInput from '@/library/components/atoms/as-input/AsInput.vue';
 
 const { t } = i18nGlobal;
-const toast = useToast();
+// const toast = useToast();
 
 const authStore = useAuthStore();
 
@@ -75,7 +40,7 @@ const page: Ref<string> = ref('login-page');
 // function displays an error toast message using the `vue-toastification` library, informing the user
 // that the form submission was invalid.
 function onInvalidSubmit(): void {
-  toast.error(t('common.notifications.error.invalidSubmit'));
+  // toast.error(t('common.notifications.error.invalidSubmit'));
 }
 
 /**
@@ -97,6 +62,42 @@ async function startLogin(): Promise<void> {
 // function that is executed when the form is submitted but fails validation.
 const onSubmit = handleSubmit(startLogin, onInvalidSubmit);
 </script>
+
+<template>
+  <form class="login-form" @submit="onSubmit">
+    <AsInput
+      id="email-input-login"
+      v-model="email"
+      v-bind="emailAttrs"
+      class="login-form__input"
+      type="email"
+      isExtended
+      :isInvalid="errors.email ? true : false"
+      :subtag="errors.email"
+      :data-cy="'input-email-' + page"
+      :placeholder="$t('common.inputs.emailInputLabel')"
+    />
+    <AsInput
+      id="password-input-login"
+      v-model="password"
+      v-bind="passwordAttrs"
+      class="login-form__input"
+      type="password"
+      isExtended
+      :subtag="errors.password"
+      :isInvalid="errors.password ? true : false"
+      :data-cy="'input-password-' + page"
+      :placeholder="$t('common.inputs.passwordInputLabel')"
+    />
+    <AsButton
+      :data-cy="'submit-' + page"
+      :label="$t('common.buttons.loginButton')"
+      size="medium"
+      secondary
+      @click="onSubmit"
+    />
+  </form>
+</template>
 
 <style lang="scss" scoped>
 .login-form {

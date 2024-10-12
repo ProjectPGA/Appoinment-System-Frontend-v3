@@ -1,41 +1,11 @@
-<template>
-  <div class="as-nav-label" :class="navLabelClasses">
-    <div class="as-nav-label__left-section">
-      <font-awesome-icon
-        class="as-nav-label__left-icon"
-        :icon="props.leftIconType + ' ' + props.leftIconName"
-      />
-      <span class="as-nav-label__text">{{ props.labelText }}</span>
-    </div>
-    <div class="as-nav-label__right-section">
-      <AsNotification
-        class="as-nav-label__notification-icon"
-        :is-small="props.isMobile || (props.isMobile && props.isSmall)"
-        :quantity="props.notificationQuantity"
-      />
-      <font-awesome-icon
-        class="as-nav-label__right-icon"
-        :icon="props.rightIconType + ' ' + props.rightIconName"
-      />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import AsNotification from '@/library/components/atoms/as-notification/AsNotification.vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { IconType, IconName } from '@/models/icons/fontawesome/iconsDictionary';
 
 import './as-nav-label.scss';
 import { computed } from 'vue';
-
-const navLabelClasses = computed(() => ({
-  'is-mobile': props.isMobile,
-  'is-small': props.isSmall,
-  'is-active': props.active,
-  'is-hover': props.hover,
-  'is-disabled': props.disabled,
-}));
 
 const props = withDefaults(
   defineProps<{
@@ -93,4 +63,35 @@ const props = withDefaults(
     notificationQuantity: 0,
   }
 );
+
+const navLabelClasses = computed(() => ({
+  'is-mobile': props.isMobile,
+  'is-small': props.isSmall,
+  'is-active': props.active,
+  'is-hover': props.hover,
+  'is-disabled': props.disabled,
+}));
 </script>
+
+<template>
+  <div class="as-nav-label" :class="navLabelClasses">
+    <div class="as-nav-label__left-section">
+      <FontAwesomeIcon
+        class="as-nav-label__left-icon"
+        :icon="props.leftIconType + ' ' + props.leftIconName"
+      />
+      <span class="as-nav-label__text">{{ props.labelText }}</span>
+    </div>
+    <div class="as-nav-label__right-section">
+      <AsNotification
+        class="as-nav-label__notification-icon"
+        :isSmall="props.isMobile || (props.isMobile && props.isSmall)"
+        :quantity="props.notificationQuantity"
+      />
+      <FontAwesomeIcon
+        class="as-nav-label__right-icon"
+        :icon="props.rightIconType + ' ' + props.rightIconName"
+      />
+    </div>
+  </div>
+</template>

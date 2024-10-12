@@ -1,15 +1,6 @@
-<template>
-  <router-link :to="props.to">
-    <as-nav-label
-      :label-text="props.labelText"
-      :active="props.active"
-      :left-icon-name="props.leftIconName"
-      :right-icon-name="IconName.ANGLE_RIGHT"
-      :disabled="props.disabled"
-    />
-  </router-link>
-</template>
 <script lang="ts" setup>
+import { RouterLink } from 'vue-router';
+
 import { RoutePaths } from '@/models/routes/Routes';
 import { IconName } from '@/models/icons/fontawesome/iconsDictionary';
 
@@ -23,3 +14,15 @@ const props = defineProps<{
   disabled?: boolean;
 }>();
 </script>
+
+<template>
+  <RouterLink :to="props.to">
+    <AsNavLabel
+      :labelText="props.labelText"
+      :active="props.active"
+      :leftIconName="props.leftIconName"
+      :rightIconName="IconName.ANGLE_RIGHT"
+      :disabled="props.disabled"
+    />
+  </RouterLink>
+</template>

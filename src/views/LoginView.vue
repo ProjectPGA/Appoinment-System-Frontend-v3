@@ -1,20 +1,21 @@
-<template>
-  <button-translation />
-  <section class="login-view">
-    <as-card class="login-view__form">
-      <h1 class="login-view__title">
-        {{ $t('common.title.login') }}
-      </h1>
-      <main-login-form />
-    </as-card>
-  </section>
-</template>
-
 <script lang="ts" setup>
 import MainLoginForm from '@/components/Login/MainLoginForm.vue';
 import ButtonTranslation from '@/components/common/ButtonTranslation.vue';
 import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
 </script>
+
+<template>
+  <ButtonTranslation />
+  <section class="login-view">
+    <AsCard class="login-view__form">
+      <h1 class="login-view__title">
+        {{ $t('common.title.login') }}
+      </h1>
+      <MainLoginForm />
+    </AsCard>
+  </section>
+</template>
+
 <style lang="scss" scoped>
 .login-view {
   display: flex;

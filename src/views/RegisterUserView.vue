@@ -1,16 +1,3 @@
-<template>
-  <section class="register-user-view__section">
-    <div>
-      <h1 class="register-user-view__title">
-        {{ $t('views.home.titles.createUserTitle') }}
-      </h1>
-      <as-card>
-        <user-form />
-      </as-card>
-    </div>
-  </section>
-</template>
-
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue';
 
@@ -26,6 +13,19 @@ onBeforeMount(() => {
   usersStore.getAllUsers();
 });
 </script>
+
+<template>
+  <section class="register-user-view__section">
+    <div>
+      <h1 class="register-user-view__title">
+        {{ $t('views.home.titles.createUserTitle') }}
+      </h1>
+      <AsCard>
+        <UserForm />
+      </AsCard>
+    </div>
+  </section>
+</template>
 
 <style lang="scss" scoped>
 .register-user-view {

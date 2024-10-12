@@ -16,7 +16,7 @@ import {
 
 setup(app => {
   library.add(far, fas, fab);
-  app.component('font-awesome-icon', FontAwesomeIcon);
+  app.component('FontAwesomeIcon', FontAwesomeIcon);
 });
 
 const preview: Preview = {

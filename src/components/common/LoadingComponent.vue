@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <section class="loading-container">
     <article class="loading-content">
@@ -10,8 +12,6 @@
     </article>
   </section>
 </template>
-
-<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .loading-container {

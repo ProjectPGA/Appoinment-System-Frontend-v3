@@ -1,3 +1,5 @@
+<script lang="ts" setup></script>
+
 <template>
   <section class="appointments-view__section">
     <h1 class="appointments-view__title">
@@ -5,7 +7,7 @@
     </h1>
   </section>
 </template>
-<script lang="ts" setup></script>
+
 <style lang="scss" scoped>
 .appointments-view {
   &__section {

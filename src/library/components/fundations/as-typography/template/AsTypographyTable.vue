@@ -1,4 +1,11 @@
 <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
+<script lang="ts" setup>
+import { AsTypography } from '@/library/models/fundations/AsTypography';
+import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
+
+defineProps<AsTypography>();
+</script>
+
 <template>
   <section class="typography">
     <article>
@@ -46,12 +53,7 @@
     </article>
   </section>
 </template>
-<script lang="ts" setup>
-import { AsTypography } from '@/library/models/fundations/AsTypography';
-import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
 
-defineProps<AsTypography>();
-</script>
 <style lang="scss" scoped>
 .typography {
   margin-bottom: 24px;

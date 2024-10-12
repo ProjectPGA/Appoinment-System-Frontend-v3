@@ -7,7 +7,9 @@ import { Locales } from '@/localization/locales/locales';
  * (Spanish), it sets the locale value to `Locales.EN` (English), and vice versa.
  */
 export function changeLanguage(): void {
-  i18nGlobal.locale === Locales.ES
-    ? (i18nGlobal.locale = Locales.EN)
-    : (i18nGlobal.locale = Locales.ES);
+  if (i18nGlobal.locale === Locales.ES) {
+    i18nGlobal.locale = Locales.EN;
+  } else {
+    i18nGlobal.locale = Locales.ES;
+  }
 }

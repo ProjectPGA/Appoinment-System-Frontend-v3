@@ -1,10 +1,3 @@
-<template>
-  <span class="as-badge" :class="classes">
-    {{ label }}
-    <slot />
-  </span>
-</template>
-
 <script lang="ts" setup>
 import './as-badge.scss';
 import { computed } from 'vue';
@@ -37,3 +30,10 @@ const classes = computed(() => ({
   'is-highlight': props.highlight,
 }));
 </script>
+
+<template>
+  <span class="as-badge" :class="classes">
+    {{ label }}
+    <slot />
+  </span>
+</template>

@@ -1,4 +1,32 @@
 <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
+<script lang="ts" setup>
+import { computed } from 'vue';
+import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
+import AsTypographyTable from '@/library/components/fundations/as-typography/template/AsTypographyTable.vue';
+import { fontSizings } from '@/library/components/fundations/as-typography/constants';
+
+const props = defineProps<{
+  /**
+   * The category of font-sizing (i.e heading)
+   */
+  category: string;
+  /**
+   * The size of font-sizing (i.e small)
+   */
+  size: string;
+  /**
+   * The weight of font-sizing (i.e semi)
+   */
+  weight?: string;
+}>();
+
+const classObject = computed(() => ({
+  [`is-${props.category}`]: true,
+  [`is-${props.size}`]: true,
+  [`is-${props.weight}`]: true,
+}));
+</script>
+
 <template>
   <section class="story">
     <h1 class="story__title as-typography is-heading is-medium">
@@ -27,33 +55,7 @@
     />
   </section>
 </template>
-<script lang="ts" setup>
-import { computed } from 'vue';
-import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
-import AsTypographyTable from '@/library/components/fundations/as-typography/template/AsTypographyTable.vue';
-import { fontSizings } from '@/library/components/fundations/as-typography/constants';
 
-const props = defineProps<{
-  /**
-   * The category of font-sizing (i.e heading)
-   */
-  category: string;
-  /**
-   * The size of font-sizing (i.e small)
-   */
-  size: string;
-  /**
-   * The weight of font-sizing (i.e semi)
-   */
-  weight?: string;
-}>();
-
-const classObject = computed(() => ({
-  [`is-${props.category}`]: true,
-  [`is-${props.size}`]: true,
-  [`is-${props.weight}`]: true,
-}));
-</script>
 <style lang="scss" scoped>
 .story {
   &__title {

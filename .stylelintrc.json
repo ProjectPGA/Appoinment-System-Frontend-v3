@@ -21,10 +21,6 @@
       "bottom": ["rem", "%", "em"],
       "right": ["rem", "%", "em"],
       "left": ["rem", "%", "em"]
-    },
-    "scale-unlimited/declaration-strict-value": [
-      ["/color$/", "/stroke$/"],
-      { "disableFix": true }
-    ]
+    }
   }
 }

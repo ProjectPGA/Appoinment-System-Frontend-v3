@@ -1,37 +1,3 @@
-<template>
-  <user-data
-    v-for="(user, index) in usersStore.users"
-    :key="index"
-    :user="user"
-  >
-    <div class="all-users__footer">
-      <as-button
-        :label="$t('common.buttons.deleteButton')"
-        size="small"
-        class="mr-2"
-        @click="usersStore.deleteUser(user._id)"
-      />
-      <as-button
-        :label="$t('common.buttons.editButton')"
-        size="small"
-        primary
-        @click="openModal(user._id)"
-      />
-    </div>
-  </user-data>
-  <div>
-    <as-modal
-      name="first-modal"
-      :is-open="isModalOpened"
-      @modal-close="closeModal"
-    >
-      <template #content>
-        <user-form :user-id="userToEdit" is-update @user-updated="closeModal" />
-      </template>
-    </as-modal>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import UserData from '@/components/common/UserData.vue';
 
@@ -65,6 +31,36 @@ const closeModal = () => {
   isModalOpened.value = false;
 };
 </script>
+
+<template>
+  <UserData v-for="(user, index) in usersStore.users" :key="index" :user="user">
+    <div class="all-users__footer">
+      <AsButton
+        :label="$t('common.buttons.deleteButton')"
+        size="small"
+        class="mr-2"
+        @click="usersStore.deleteUser(user._id)"
+      />
+      <AsButton
+        :label="$t('common.buttons.editButton')"
+        size="small"
+        primary
+        @click="openModal(user._id)"
+      />
+    </div>
+  </UserData>
+  <div>
+    <AsModal
+      name="first-modal"
+      :isOpen="isModalOpened"
+      @modalClose="closeModal"
+    >
+      <template #content>
+        <UserForm :userId="userToEdit" isUpdate @userUpdated="closeModal" />
+      </template>
+    </AsModal>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .all-users {

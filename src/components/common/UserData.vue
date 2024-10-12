@@ -1,5 +1,18 @@
+<script lang="ts" setup>
+import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
+import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
+
+import { UserRoles } from '@/models/user/UserRoles';
+
+import { UserAuthData } from '@/models/user/UserAuthData';
+
+const props = defineProps<{
+  user: UserAuthData | null;
+}>();
+</script>
+
 <template>
-  <as-card class="user-data">
+  <AsCard class="user-data">
     <p class="user-data__data">
       <span class="user-data__data-title">{{
         $t('views.home.userData.email')
@@ -32,21 +45,8 @@
       </span>
     </p>
     <slot />
-  </as-card>
+  </AsCard>
 </template>
-
-<script lang="ts" setup>
-import AsCard from '@/library/components/atoms/as-card/AsCard.vue';
-import AsBadge from '@/library/components/atoms/as-badge/AsBadge.vue';
-
-import { UserRoles } from '@/models/user/UserRoles';
-
-import { UserAuthData } from '@/models/user/UserAuthData';
-
-const props = defineProps<{
-  user: UserAuthData | null;
-}>();
-</script>
 
 <style lang="scss" scoped>
 .user-data {
