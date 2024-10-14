@@ -70,7 +70,7 @@ const sendUserData = async (): Promise<void> => {
   let response = null;
 
   if (props.isUpdate) {
-    const userUpdateData = {
+    const userUpdateData: UpdateUserRequest = {
       name: name.value,
       surname: surname.value,
       email: email.value,
