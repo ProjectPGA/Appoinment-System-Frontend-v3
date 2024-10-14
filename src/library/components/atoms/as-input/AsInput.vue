@@ -47,7 +47,7 @@ const props = withDefaults(
     /**
      * id of the input
      */
-    id: string;
+    id?: string;
     /**
      * label of the input
      */
