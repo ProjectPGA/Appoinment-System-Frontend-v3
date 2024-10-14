@@ -7,4 +7,6 @@ export interface UpdateUserResponse {
   status?: number;
 }
 
-export interface UpdateUserRequest extends Omit<User, '_id'> {}
+export interface UpdateUserRequest extends Omit<User, '_id'> {
+  updatedAt?: Date;
+}

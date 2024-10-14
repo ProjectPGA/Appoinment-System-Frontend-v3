@@ -94,8 +94,7 @@ describe('01 AuthWebservice: Check loginService', () => {
 
 describe('02 AuthWebservice: Check logout service', () => {
   const axiosMockGet: MockAdapter.RequestHandler = axiosMock.onGet(
-    `${authWebserviceBaseUrls.logout}`,
-    { withCredentials: true }
+    `${authWebserviceBaseUrls.logout}`
   );
 
   const axiosGetSpy = jest.spyOn(axiosInstance, 'get');

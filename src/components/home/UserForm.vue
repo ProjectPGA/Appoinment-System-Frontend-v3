@@ -17,8 +17,8 @@ import { RegisterUserRequest } from '@/models/user/registerUser';
 import { UpdateUserRequest } from '@/models/user/updateUser';
 
 interface Props {
-  userId: string;
-  isUpdate: boolean;
+  userId?: string;
+  isUpdate?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -79,8 +79,12 @@ const sendUserData = async (): Promise<void> => {
       updatedAt: new Date(),
     };
 
-    response = await usersStore.updateUser(props.userId, userUpdateData);
-    emit('userUpdated');
+    if (props.userId) {
+      response = await usersStore.updateUser(props.userId, userUpdateData);
+      emit('userUpdated');
+    } else {
+      console.error('sendUserData - Error: userId is not available');
+    }
   } else {
     const userRegisterData: RegisterUserRequest = {
       name: name.value,

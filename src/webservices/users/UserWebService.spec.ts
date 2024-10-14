@@ -89,8 +89,7 @@ describe('01 UsersWebservice: Check register service', () => {
 
 describe('02 UsersWebservice: Check get All users service', () => {
   const axiosMockGet: MockAdapter.RequestHandler = axiosMock.onGet(
-    usersWebserviceBaseUrls.getAllUsers,
-    { withCredentials: true }
+    usersWebserviceBaseUrls.getAllUsers
   );
 
   const checkToBeCalledWith: () => void = () => {
@@ -125,10 +124,7 @@ describe('03 UsersWebservice: Delete user service', () => {
   const id = faker.string.fromCharacters('abcdef1234567890', 24);
 
   const axiosMockDelete: MockAdapter.RequestHandler = axiosMock.onAny(
-    usersWebserviceBaseUrls.deleteUser + id,
-    {
-      withCredentials: true,
-    }
+    usersWebserviceBaseUrls.deleteUser + id
   );
 
   const axiosDeleteSpy = jest.spyOn(axiosInstance, 'delete');

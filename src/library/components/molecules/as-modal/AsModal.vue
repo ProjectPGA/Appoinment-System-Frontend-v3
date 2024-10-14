@@ -12,7 +12,7 @@ import { onClickOutside } from '@vueuse/core';
 
 interface Props {
   isOpen: boolean;
-  hasFooter: boolean;
+  hasFooter?: boolean;
 }
 
 const props = defineProps<Props>();
