@@ -7,6 +7,4 @@ export interface RegisterUserResponse {
   status?: number;
 }
 
-export interface RegisterUserRequest extends Omit<User, '_id'> {
-  updatedAt: Date;
-}
+export interface RegisterUserRequest extends Omit<User, '_id'> {}

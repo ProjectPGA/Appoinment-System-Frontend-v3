@@ -4,6 +4,4 @@ export interface Language {
   culture: string;
 }
 
-export interface LanguageOption extends Language {
-  disabled: boolean;
-}
+export interface LanguageOption extends Language {}
