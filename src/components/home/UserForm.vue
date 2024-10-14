@@ -83,7 +83,7 @@ const sendUserData = async (): Promise<void> => {
       response = await usersStore.updateUser(props.userId, userUpdateData);
       emit('userUpdated');
     } else {
-      console.log('sendUserData - Error: userId is not available');
+      console.error('sendUserData - Error: userId is not available');
     }
   } else {
     const userRegisterData: RegisterUserRequest = {
