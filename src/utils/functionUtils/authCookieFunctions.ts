@@ -1,7 +1,6 @@
 import { CookieNames } from '@/models/cookies/CookieNames';
 import { useAuthStore } from '@/stores/auth';
 import { useCookies } from '@vueuse/integrations/useCookies';
-
 /**
  * Sets up a listener for changes in authentication cookies and
  * logs out the user if the authentication cookie is removed.
@@ -15,17 +14,17 @@ export const setupAuthCookieListener = () => {
 
   cookies.addChangeListener(changedCookie => {
     if (
-      changedCookie.name === CookieNames.AUTHENTICATED &&
+      changedCookie.name === CookieNames.AUTHENTICATED.toString() &&
       !changedCookie.value
     ) {
-      authStore.logout();
+      void authStore.logout();
     }
   });
 
   return {
     checkAuthentication: () => {
       if (!cookies.get(CookieNames.AUTHENTICATED)) {
-        authStore.logout();
+        void authStore.logout();
       }
     },
   };

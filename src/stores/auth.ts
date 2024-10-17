@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('auth', () => {
   /**
    * This function sets the user's login status to not logged in and clears their user data.
    */
-  const setUserNotisLogged = (): void => {
+  const setUserNotIsLogged = (): void => {
     loginRequestStatus.value = RequestStatus.PENDING;
     isLoading.value = false;
     isLogged.value = false;
@@ -60,13 +60,13 @@ export const useAuthStore = defineStore('auth', () => {
    * @param {UserAuthData} user - UserAuthData, which is likely an interface or type defining the shape of user
    * data, such as an object with properties like name, email, and access tokens.
    */
-  const setIsLogged = (user: UserAuthData): void => {
+  const setIsLogged = async (user: UserAuthData): Promise<void> => {
     loginRequestStatus.value = RequestStatus.SUCCESS;
     isLoading.value = false;
     isLogged.value = true;
     userAuthData.value = user;
 
-    router.push({ name: RouteNames.HOME });
+    await router.push({ name: RouteNames.HOME });
   };
 
   // GLOBAL METHODS
@@ -89,9 +89,9 @@ export const useAuthStore = defineStore('auth', () => {
       });
 
       if (response) {
-        setIsLogged(response);
+        await setIsLogged(response);
       } else {
-        setUserNotisLogged();
+        setUserNotIsLogged();
       }
     } catch (error) {
       setLoginFailed();
@@ -108,11 +108,11 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       await logoutService();
 
-      setUserNotisLogged();
-      router.push({ name: 'Login' });
+      setUserNotIsLogged();
+      await router.push({ name: 'Login' });
     } catch (error) {
       console.error(error);
-      setUserNotisLogged();
+      setUserNotIsLogged();
     }
   };
 
@@ -126,7 +126,7 @@ export const useAuthStore = defineStore('auth', () => {
     setLoginFailed,
     isRegisterProcess,
     loginRequestStatus,
-    setUserNotisLogged,
+    setUserNotIsLogged,
     setLoginInProgress,
   };
 });

@@ -145,7 +145,7 @@ describe('04 Auth store: setUserNotIsLogged', () => {
   it('04 - 1 Should change store values to set user not logged', () => {
     const authStore = useAuthStore();
 
-    authStore.setUserNotisLogged();
+    authStore.setUserNotIsLogged();
 
     expect(authStore.loginRequestStatus).toBe(RequestStatus.PENDING);
     expect(authStore.isLoading).toBe(false);
@@ -159,13 +159,13 @@ describe('05 Auth store: setIsLogged', () => {
     jest.resetAllMocks();
     window.localStorage.clear();
   });
-  it('05 - 01 Should change store values to set user is logged', () => {
+  it('05 - 01 Should change store values to set user is logged', async () => {
     const pinia = createTestingPinia({
       // Example of other aproach to pinia testing
       stubActions: false,
     });
     const authStore = useAuthStore(pinia);
-    authStore.setIsLogged(mockUserAuthData!);
+    await authStore.setIsLogged(mockUserAuthData!);
 
     expect(authStore.isLogged).toBe(true);
     expect(authStore.isLoading).toBe(false);

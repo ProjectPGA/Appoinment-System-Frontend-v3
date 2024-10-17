@@ -4,6 +4,8 @@ import ts from 'typescript-eslint';
 import vue from 'eslint-plugin-vue';
 import prettier from 'eslint-plugin-prettier/recommended';
 import vueI18n from '@intlify/eslint-plugin-vue-i18n';
+import pluginCypress from 'eslint-plugin-cypress/flat';
+import vueTsEslintConfig from '@vue/eslint-config-typescript';
 
 export default [
   ...vueI18n.configs['flat/recommended'],
@@ -25,6 +27,14 @@ export default [
     },
   },
 
+  // cypress
+  pluginCypress.configs.recommended,
+  pluginCypress.configs.globals,
+  {
+    rules: {
+      'cypress/no-unnecessary-waiting': 'off',
+    },
+  },
   {
     languageOptions: {
       globals: {
@@ -82,6 +92,19 @@ export default [
       },
     },
   },
+  ...vueTsEslintConfig({ extends: ['recommendedTypeChecked'] }),
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.vue'],
+    rules: {
+      // Turn off the recommended rules that you don't need.
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
+
+      // Turn on other rules that you need.
+      '@typescript-eslint/require-array-sort-compare': 'error',
+      '@typescript-eslint/no-empty-object-type': 'warn',
+    },
+  },
+
   {
     rules: {
       'vue/multi-word-component-names': 'off',
