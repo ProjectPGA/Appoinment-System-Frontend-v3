@@ -12,7 +12,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["node", "vue", "jest"],
+    "types": ["node", "vue", "jest", "@types/jest"],
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -20,6 +20,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
+    "src/**/*.spec.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     ".storybook/**/*.ts",

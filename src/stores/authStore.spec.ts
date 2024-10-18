@@ -6,6 +6,7 @@ import { RequestStatus } from '@/models/auth/RequestStatus';
 import { createRandomUser } from '@/utils/mocks/user/mockUser';
 import * as AuthWebservice from '@/webservices/auth/AuthWebService';
 import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
+import { expect, jest } from '@jest/globals';
 
 jest.mock('@/webservices/auth/AuthWebService');
 jest.mock('vue-i18n', () => ({

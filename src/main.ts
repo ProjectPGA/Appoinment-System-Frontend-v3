@@ -1,5 +1,5 @@
 // import Toast, { PluginOptions, POSITION } from 'vue-toastification';
-import '@types/jest';
+
 import { createPersistedState } from 'pinia-plugin-persistedstate';
 import { createHead } from '@vueuse/head';
 import { createPinia } from 'pinia';

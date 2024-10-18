@@ -16,6 +16,8 @@ import { createRandomUserAuthData } from '@/utils/mocks/user/mockUserAuthData';
 import { authWebserviceBaseUrls } from '@/webservices/models/auth/AuthWebServiceBaseUrls';
 import { GlobalErrorHandlerMessages } from '@/webservices/models/http/ErrorHandler';
 
+import { expect, jest } from '@jest/globals';
+
 jest.mock('@grafana/faro-web-sdk', () => {
   const faroMock = {
     faro: {

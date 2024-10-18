@@ -2,7 +2,7 @@ import { i18nGlobal } from './i18n';
 import { Locales } from './locales/locales';
 import { messages } from './locales/messages';
 import { changeLanguage } from '@/utils/functionUtils/localizationFunctions';
-
+import { expect } from '@jest/globals';
 const i18n = i18nGlobal;
 
 const originalLocale = i18n.locale; // Save initial languaje
