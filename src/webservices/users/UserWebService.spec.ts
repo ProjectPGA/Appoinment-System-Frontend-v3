@@ -11,10 +11,16 @@ import { usersWebserviceBaseUrls } from '@/webservices/models/users/UsersWebServ
 
 import { faker } from '@faker-js/faker';
 
+import { expect, jest } from '@jest/globals';
+
+// Seed faker for consistent test data
+faker.seed(12345);
+
 // Global constants
 const axiosPostSpy = jest.spyOn(axiosInstance, 'post');
 const axiosGetSpy = jest.spyOn(axiosInstance, 'get');
 const axiosPutSpy = jest.spyOn(axiosInstance, 'put');
+const axiosDeleteSpy = jest.spyOn(axiosInstance, 'delete');
 
 const axiosMock: MockAdapter = new MockAdapter(axiosInstance);
 
@@ -77,12 +83,26 @@ describe('01 UsersWebservice: Check register service', () => {
 
     await expect(
       UsersWebservice.registerService(registerUserMock)
-    ).rejects.toThrowError(errorMessage401);
+    ).rejects.toThrow(errorMessage401);
 
     checkToBeCalledWith();
 
     expect(faro.api.pushError).toHaveBeenCalledWith(
       new Error(GlobalErrorHandlerMessages.Unauthorized)
+    );
+  });
+
+  it('01 - 3 Should handle 500 Internal Server Error and send error to grafana using faro', async () => {
+    axiosMockPost.reply(HttpStatusCode.InternalServerError);
+
+    await expect(
+      UsersWebservice.registerService(registerUserMock)
+    ).rejects.toThrow('Request failed with status code 500');
+
+    checkToBeCalledWith();
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.InternalServerError)
     );
   });
 });
@@ -102,8 +122,15 @@ describe('02 UsersWebservice: Check get All users service', () => {
   };
 
   it('02 - 1 Should succeed on get all users request', async () => {
-    axiosMockGet.reply(HttpStatusCode.Ok);
-    await UsersWebservice.getAllUsersService();
+    const successResponseData: UserAuthData[] = [
+      createRandomUserAuthData() as UserAuthData,
+      createRandomUserAuthData() as UserAuthData,
+    ];
+
+    axiosMockGet.reply(HttpStatusCode.Ok, successResponseData);
+
+    const response = await UsersWebservice.getAllUsersService();
+    expect(response).toEqual(successResponseData);
     checkToBeCalledWith();
   });
 
@@ -118,16 +145,21 @@ describe('02 UsersWebservice: Check get All users service', () => {
       new Error(GlobalErrorHandlerMessages.Unauthorized)
     );
   });
+
+  it('02 - 3 Should handle empty response data', async () => {
+    axiosMockGet.reply(HttpStatusCode.Ok, null);
+    const response = await UsersWebservice.getAllUsersService();
+    expect(response).toBeNull();
+    checkToBeCalledWith();
+  });
 });
 
 describe('03 UsersWebservice: Delete user service', () => {
   const id = faker.string.fromCharacters('abcdef1234567890', 24);
 
-  const axiosMockDelete: MockAdapter.RequestHandler = axiosMock.onAny(
+  const axiosMockDelete: MockAdapter.RequestHandler = axiosMock.onDelete(
     usersWebserviceBaseUrls.deleteUser + id
   );
-
-  const axiosDeleteSpy = jest.spyOn(axiosInstance, 'delete');
 
   const checkToBeCalledWith: () => void = () => {
     expect(axiosDeleteSpy).toHaveBeenCalledWith(
@@ -138,7 +170,8 @@ describe('03 UsersWebservice: Delete user service', () => {
 
   it('03 - 1 Should succeed on delete user request', async () => {
     axiosMockDelete.reply(HttpStatusCode.Ok);
-    await UsersWebservice.deleteUserService(id);
+    const response = await UsersWebservice.deleteUserService(id);
+    expect(response).toBeUndefined();
     checkToBeCalledWith();
   });
 
@@ -151,6 +184,20 @@ describe('03 UsersWebservice: Delete user service', () => {
 
     expect(faro.api.pushError).toHaveBeenCalledWith(
       new Error(GlobalErrorHandlerMessages.Unauthorized)
+    );
+  });
+
+  it('03 - 3 Should handle 500 Internal Server Error and send error message to grafana using faro', async () => {
+    axiosMockDelete.reply(HttpStatusCode.InternalServerError);
+
+    await expect(UsersWebservice.deleteUserService(id)).rejects.toThrow(
+      'Request failed with status code 500'
+    );
+
+    checkToBeCalledWith();
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.InternalServerError)
     );
   });
 });
@@ -198,6 +245,20 @@ describe('04 UsersWebservice: Check update service', () => {
 
     expect(faro.api.pushError).toHaveBeenCalledWith(
       new Error(GlobalErrorHandlerMessages.Unauthorized)
+    );
+  });
+
+  it('04 - 3 Should handle 500 Internal Server Error and send error message to grafana using faro', async () => {
+    axiosMockPut.reply(HttpStatusCode.InternalServerError);
+
+    await expect(
+      UsersWebservice.updateUserService(updateUserMock._id, updateUserMock)
+    ).rejects.toThrow('Request failed with status code 500');
+
+    checkToBeCalledWith();
+
+    expect(faro.api.pushError).toHaveBeenCalledWith(
+      new Error(GlobalErrorHandlerMessages.InternalServerError)
     );
   });
 });

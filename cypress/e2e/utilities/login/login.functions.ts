@@ -10,9 +10,10 @@ const BASE_URL = Cypress.env('base_url');
  */
 function waitForLoginStatusChange(): Cypress.Chainable<string> {
   return cy.getAllLocalStorage().then(result => {
-    const resultJSON: Cypress.Storable = result[BASE_URL].auth;
+    const resultJSON: string | null =
+      typeof result[BASE_URL].auth === 'string' ? result[BASE_URL].auth : null;
     const loginRequestStatus: string | null = resultJSON
-      ? JSON.parse(resultJSON.toString()).loginRequestStatus
+      ? JSON.parse(resultJSON).loginRequestStatus
       : null;
 
     return loginRequestStatus === RequestStatus.IN_PROGRESS

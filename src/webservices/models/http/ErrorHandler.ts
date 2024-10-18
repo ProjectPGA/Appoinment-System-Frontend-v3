@@ -3,7 +3,7 @@ import { AxiosError, HttpStatusCode } from 'axios';
 export type THttpError = Error | AxiosError | null;
 
 export enum GlobalErrorHandlerMessages {
-  Unrecoverrable = 'Unrecoverable error!! Error is null!',
+  Unrecoverable = 'Unrecoverable error!! Error is null!',
   BadRequest = 'The server could not understand the request due to invalid syntax.',
   Unauthorized = 'You are not authorized to access this resource. Please authenticate yourself.',
   Forbidden = 'Access to the requested resource is forbidden.',

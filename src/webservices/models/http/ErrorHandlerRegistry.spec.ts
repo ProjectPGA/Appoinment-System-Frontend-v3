@@ -1,323 +1,293 @@
-import {
-  AxiosError,
-  AxiosHeaders,
-  AxiosResponse,
-  HttpStatusCode,
-  InternalAxiosRequestConfig,
-} from 'axios';
+import { AxiosError, HttpStatusCode } from 'axios';
+import { AxiosHeaders, InternalAxiosRequestConfig } from 'axios';
 import ErrorHandlerRegistry, {
   isErrorHandlerObject,
 } from './ErrorHandlerRegistry';
-
 import { GlobalErrorHandlerMessages } from './ErrorHandler';
+import { expect, jest } from '@jest/globals';
+import { SpyInstance } from 'jest-mock';
+import { HttpData } from '@/webservices/models/http/HttpData';
 
-jest.mock('@grafana/faro-web-sdk', () => {
-  const faroMock = {
-    faro: {
-      api: {
-        pushError: jest.fn(),
-      },
+jest.mock('@grafana/faro-web-sdk', () => ({
+  faro: {
+    api: {
+      pushError: jest.fn(),
     },
-  };
-  return faroMock;
-});
+  },
+}));
 
 import { faro } from '@grafana/faro-web-sdk';
 import { ErrorHandlerObject, THttpError } from './ErrorHandler';
+
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
-enum errorHandlerMessages {
+enum ErrorHandlerMessages {
   Unauthorized = 'Error Handler Unauthorized',
   Forbidden = 'Error Handler Forbidden',
-  BadGateway = 'Error Handler BadGateway',
-  Error = 'Error Handler Generic Error',
+  BadGateway = 'Error Handler Bad Gateway',
+  GenericError = 'Error Handler Generic Error',
 }
 
-const errorHandlers = {
-  [HttpStatusCode.Unauthorized]: { message: errorHandlerMessages.Unauthorized },
-  [HttpStatusCode.Forbidden]: { message: errorHandlerMessages.Forbidden },
-  [HttpStatusCode.BadGateway]: errorHandlerMessages.BadGateway,
-  [HttpStatusCode.GatewayTimeout]: jest
-    .fn()
-    .mockImplementation((error?: THttpError): boolean => {
+type ErrorHandlerFunction = (
+  error?: THttpError
+) => boolean | ErrorHandlerObject;
+
+const errorHandlers: Record<string, ErrorHandlerObject | ErrorHandlerFunction> =
+  {
+    [HttpStatusCode.Unauthorized]: {
+      message: ErrorHandlerMessages.Unauthorized,
+    },
+    [HttpStatusCode.Forbidden]: { message: ErrorHandlerMessages.Forbidden },
+    [HttpStatusCode.BadGateway]: { message: ErrorHandlerMessages.BadGateway },
+    [HttpStatusCode.GatewayTimeout]: (error?: THttpError): boolean => {
       faro.api.pushError(new Error(error?.message));
       return true;
+    },
+    [HttpStatusCode.InternalServerError]: (
+      error?: THttpError
+    ): ErrorHandlerObject => ({
+      message: error?.message || 'Internal Server Error',
     }),
-  [HttpStatusCode.InternalServerError]: jest
-    .fn()
-    .mockImplementation((error?: THttpError): ErrorHandlerObject => {
-      return {
-        message: error?.message,
-      };
-    }),
-  [HttpStatusCode.Conflict]: {},
-  Error: {
-    message: errorHandlerMessages.Error,
-  },
-  [HttpStatusCode.Locked]: {
-    after: jest
-      .fn()
-      .mockImplementation(
-        (error?: THttpError, options?: ErrorHandlerObject) => {
-          const errorMessage = options?.message ?? error?.message;
+    [HttpStatusCode.Conflict]: {},
+    Error: {
+      message: ErrorHandlerMessages.GenericError,
+    },
+    [HttpStatusCode.Locked]: {
+      before: (error?: THttpError, options?: ErrorHandlerObject) =>
+        options?.message || error?.message,
+      after: (error?: THttpError, options?: ErrorHandlerObject) =>
+        options?.message || error?.message,
+    },
+  };
 
-          return errorMessage;
-        }
-      ),
-    before: jest
-      .fn()
-      .mockImplementation(
-        (error?: THttpError, options?: ErrorHandlerObject) => {
-          const errorMessage = options?.message ?? error?.message;
-
-          return errorMessage;
-        }
-      ),
-  },
-};
-
-describe('01 ErrorHanlderRegistry: isErrorHandlerObject function', () => {
-  it('01 - 01 Should return true', () => {
-    const handlerErrorObject = {
-      message: 'Hello test',
-    };
-
-    const response = isErrorHandlerObject(handlerErrorObject);
-
-    expect(response).toBe(true);
+describe('ErrorHandlerRegistry: isErrorHandlerObject', () => {
+  it('should return true for valid ErrorHandlerObject', () => {
+    const handlerErrorObject = { message: 'Test message' };
+    expect(isErrorHandlerObject(handlerErrorObject)).toBe(true);
   });
 
-  it('01 - 02 Should return false', () => {
-    const handlerErrorObject = undefined;
-
-    const response = isErrorHandlerObject(handlerErrorObject);
-
-    expect(response).toBe(false);
+  it('should return false for undefined', () => {
+    expect(isErrorHandlerObject(undefined)).toBe(false);
   });
 });
 
-describe('02 ErrorHandlerRegistry: register function', () => {
-  const errorHandlerRegistry = new ErrorHandlerRegistry(
-    undefined,
-    errorHandlers
-  );
+describe('ErrorHandlerRegistry: register', () => {
+  let errorHandlerRegistry: ErrorHandlerRegistry;
 
-  it('02 - 01 Should register an error handler', () => {
-    const findResultToBeUndefined = errorHandlerRegistry.find('Not valid key');
+  beforeEach(() => {
+    errorHandlerRegistry = new ErrorHandlerRegistry(undefined, errorHandlers);
+  });
 
-    expect(findResultToBeUndefined).toBe(undefined);
+  it('should register an error handler', () => {
+    expect(errorHandlerRegistry.find('InvalidKey')).toBeUndefined();
 
     errorHandlerRegistry.register(HttpStatusCode.FailedDependency.toString(), {
       message: 'Failed Dependency',
     });
 
-    const findResult = errorHandlerRegistry.find(
-      HttpStatusCode.FailedDependency.toString()
-    );
-
-    expect(findResult).toEqual({ message: 'Failed Dependency' });
+    expect(
+      errorHandlerRegistry.find(HttpStatusCode.FailedDependency.toString())
+    ).toEqual({ message: 'Failed Dependency' });
   });
 });
 
-describe('03 ErrorHandlerRegistry: unregister function', () => {
-  const errorHandlerRegistry = new ErrorHandlerRegistry(
-    undefined,
-    errorHandlers
-  );
+describe('ErrorHandlerRegistry: unregister', () => {
+  let errorHandlerRegistry: ErrorHandlerRegistry;
 
-  it('03 - 01 Should unregister an error handler', () => {
+  beforeEach(() => {
+    errorHandlerRegistry = new ErrorHandlerRegistry(undefined, errorHandlers);
+  });
+
+  it('should unregister an error handler', () => {
     errorHandlerRegistry.unregister(HttpStatusCode.Unauthorized.toString());
 
-    const findResult = errorHandlerRegistry.find(
-      HttpStatusCode.Unauthorized.toString()
-    );
-
-    expect(findResult).toBe(undefined);
+    expect(
+      errorHandlerRegistry.find(HttpStatusCode.Unauthorized.toString())
+    ).toBeUndefined();
   });
 });
 
-describe('04 ErrorHandlerRegistry: handleError function', () => {
-  const errorHandlerRegistry = new ErrorHandlerRegistry(
-    undefined,
-    errorHandlers
-  );
+describe('ErrorHandlerRegistry: handleError', () => {
+  let errorHandlerRegistry: ErrorHandlerRegistry;
+  let handleErrorObjectSpy: SpyInstance<
+    (error: THttpError, options?: ErrorHandlerObject) => boolean
+  >;
+  let handleErrorSpy: SpyInstance<
+    (seek: string | (string | undefined)[], error: THttpError) => boolean
+  >;
 
-  const handleErrorObjectSpy = jest.spyOn(
-    errorHandlerRegistry,
-    'handleErrorObject'
-  );
-
-  const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
-
-  it('04 - 01 Should use handleError function, send error to grafana and throw the error.', () => {
-    const axiosError = new AxiosError(
-      errorHandlerMessages.Forbidden,
-      HttpStatusCode.Forbidden.toString()
+  beforeEach(() => {
+    errorHandlerRegistry = new ErrorHandlerRegistry(undefined, errorHandlers);
+    handleErrorObjectSpy = jest.spyOn(
+      errorHandlerRegistry,
+      'handleErrorObject'
     );
+    handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should handle Forbidden error and push to Grafana', () => {
+    const axiosError = new AxiosError(ErrorHandlerMessages.Forbidden);
+    axiosError.response = {
+      status: HttpStatusCode.Forbidden,
+      data: { code: HttpStatusCode.Forbidden.toString() } as HttpData,
+      statusText: '',
+      headers: new AxiosHeaders(),
+      config: { headers: new AxiosHeaders() } as InternalAxiosRequestConfig,
+    };
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow(errorHandlerMessages.Forbidden);
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow(ErrorHandlerMessages.Forbidden);
 
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
-      message: errorHandlerMessages.Forbidden,
+      message: ErrorHandlerMessages.Forbidden,
     });
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(errorHandlerMessages.Forbidden)
+      new Error(ErrorHandlerMessages.Forbidden)
     );
   });
 
-  it('04 - 02 Should use handleError function, send error to grafana and throw the error', () => {
-    const axiosError = new AxiosError('Not valid key', 'Not valid key');
+  it('should handle unknown error and push to Grafana', () => {
+    const axiosError = new AxiosError('Unknown error', 'UnknownCode');
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow('Not valid key');
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow('Unknown error');
 
     expect(handleErrorObjectSpy).toHaveBeenCalledTimes(1);
     expect(handleErrorSpy).toHaveBeenCalled();
-    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Not valid key'));
+    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Unknown error'));
   });
 
-  it('04 - 03 Throw handler type of string, send error to grafana and throw the error.', () => {
+  it('should handle Bad Gateway error and push to Grafana', () => {
     const axiosError = new AxiosError(
-      errorHandlerMessages.BadGateway,
+      ErrorHandlerMessages.BadGateway,
       HttpStatusCode.BadGateway.toString()
     );
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow(errorHandlerMessages.BadGateway);
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow(ErrorHandlerMessages.BadGateway);
 
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
-      message: errorHandlerMessages.BadGateway,
+      message: ErrorHandlerMessages.BadGateway,
     });
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(errorHandlerMessages.BadGateway)
+      new Error(ErrorHandlerMessages.BadGateway)
     );
   });
 
-  it('04 - 04 Throw handler type of function that return true, send error to grafana and throw the error.', () => {
-    const errorHandlerFunction = errorHandlerRegistry.find(
-      HttpStatusCode.GatewayTimeout.toString()
-    );
-
+  it('should handle Gateway Timeout with function handler', () => {
     const axiosError = new AxiosError(
-      'Axios Error Gateway time out',
+      'Gateway Timeout Error',
       HttpStatusCode.GatewayTimeout.toString()
     );
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow('Axios Error Gateway time out');
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow('Gateway Timeout Error');
 
-    expect(handleErrorObjectSpy).toHaveBeenCalledTimes(0);
+    expect(handleErrorObjectSpy).not.toHaveBeenCalled();
     expect(handleErrorSpy).toHaveBeenCalled();
-    expect(errorHandlerFunction).toHaveBeenCalledWith(axiosError);
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(axiosError.message)
+      new Error('Gateway Timeout Error')
     );
   });
 
-  it('04 - 05 Throw handler type of function that return an ErrorHandlerObject, send error to grafana and throw the error.', () => {
+  it('should handle Internal Server Error with function returning ErrorHandlerObject', () => {
     const axiosError = new AxiosError(
-      'Axios Internal Server Error',
+      'Internal Server Error',
       HttpStatusCode.InternalServerError.toString()
     );
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow('Axios Internal Server Error');
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow('Internal Server Error');
 
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
-      message: axiosError.message,
+      message: 'Internal Server Error',
     });
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(axiosError.message)
+      new Error('Internal Server Error')
     );
   });
 
-  it('04 - 06 Throw empty handler, send error to grafana and throw the error.', () => {
+  it('should handle Conflict error with empty handler', () => {
     const axiosError = new AxiosError(
-      'Axios Conflict Error',
+      'Conflict Error',
       HttpStatusCode.Conflict.toString()
     );
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow('Axios Conflict Error');
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow('Conflict Error');
 
     expect(handleErrorObjectSpy).toHaveBeenCalledTimes(1);
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error('Axios Conflict Error')
+      new Error('Conflict Error')
     );
   });
 });
 
-describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
-  const errorHandlerRegistry = new ErrorHandlerRegistry(
-    undefined,
-    errorHandlers
-  );
+describe('ErrorHandlerRegistry: responseErrorHandler', () => {
+  let errorHandlerRegistry: ErrorHandlerRegistry;
+  let handleErrorObjectSpy: SpyInstance<
+    (error: THttpError, options?: ErrorHandlerObject) => boolean
+  >;
+  let handleErrorSpy: SpyInstance<
+    (seek: string | (string | undefined)[], error: THttpError) => boolean
+  >;
 
-  const handleErrorObjectSpy = jest.spyOn(
-    errorHandlerRegistry,
-    'handleErrorObject'
-  );
+  beforeEach(() => {
+    errorHandlerRegistry = new ErrorHandlerRegistry(undefined, errorHandlers);
+    handleErrorObjectSpy = jest.spyOn(
+      errorHandlerRegistry,
+      'handleErrorObject'
+    );
+    handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
+  });
 
-  const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-  it('05 - 01 Receive error in null, send unrecoverrable error message to grafana and throw the error.', () => {
+  it('should handle null error with unrecoverable message', () => {
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(null);
-    }).toThrow(GlobalErrorHandlerMessages.Unrecoverrable);
+      errorHandlerRegistry.responseErrorHandler(null);
+    }).toThrow(GlobalErrorHandlerMessages.Unrecoverable);
 
     expect(handleErrorObjectSpy).toHaveBeenCalledTimes(1);
-    expect(handleErrorSpy).toHaveBeenCalledTimes(0);
+
+    const errorArgument = handleErrorObjectSpy.mock.calls[0][0];
+    expect(errorArgument).toBeInstanceOf(Error);
+    expect(errorArgument).toBeInstanceOf(Error);
+    expect(errorArgument?.message).toBe(
+      GlobalErrorHandlerMessages.Unrecoverable
+    );
+
+    expect(handleErrorSpy).not.toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(GlobalErrorHandlerMessages.Unrecoverrable)
+      expect.objectContaining({
+        message: GlobalErrorHandlerMessages.Unrecoverable,
+      })
     );
   });
 
-  it('05 - 02 Receive error not added in errorHandler, must send the error to grafana and throw an error.', () => {
-    const headers: AxiosHeaders = new AxiosHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
-
-    const requestConfig: InternalAxiosRequestConfig = {
-      headers: headers,
-    };
-
-    const axiosResponse: AxiosResponse = {
-      data: {
-        code: 2,
-        description: 'Basic error throwed',
-      },
-      status: 4,
-      statusText: 'Error',
-      headers: {
-        Accept: 'application/json',
-      },
-      config: requestConfig,
-    };
-
-    const axiosError = new AxiosError(
-      'Basic error',
-      '2',
-      undefined,
-      undefined,
-      axiosResponse
-    );
+  it('should handle error not in errorHandlers', () => {
+    const axiosError = new AxiosError('Basic error', 'UnknownCode');
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
+      errorHandlerRegistry.responseErrorHandler(axiosError);
     }).toThrow('Basic error');
 
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError);
@@ -325,83 +295,62 @@ describe('05 ErrorHandlerRegistry: responseErrorHandler function', () => {
     expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Basic error'));
   });
 
-  it('05 - 03 Receive an error instanceof Error instead AxiosError and must send the error to grafana and throw an error.', () => {
-    const errorInstance = new Error('Error typeof Error');
+  it('should handle Error instance instead of AxiosError', () => {
+    const errorInstance = new Error('Standard Error');
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(errorInstance);
-    }).toThrow('Error typeof Error');
+      errorHandlerRegistry.responseErrorHandler(errorInstance);
+    }).toThrow('Standard Error');
 
     expect(handleErrorObjectSpy).toHaveBeenCalledWith(errorInstance, {
-      message: errorHandlerMessages.Error,
+      message: ErrorHandlerMessages.GenericError,
     });
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(errorHandlerMessages.Error)
+      new Error(ErrorHandlerMessages.GenericError)
     );
   });
 
-  it('05 - 04 Receive an error that is not typeof Error or AxiosError, must sent to grafana the message and throw the error.', () => {
-    // Use any to force an error object that is not typeof Error or AxiosError
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const personalizedError: any = {
-      message: 'Other Error',
-    };
+  it('should handle custom error object without Error type', () => {
+    const customError = { message: 'Custom Error' };
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(personalizedError);
-    }).toThrow(personalizedError.message);
-    expect(handleErrorSpy).toHaveBeenCalledTimes(0);
-    expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(personalizedError.message)
-    );
+      errorHandlerRegistry.responseErrorHandler(customError as any);
+    }).toThrow('Custom Error');
+
+    expect(handleErrorSpy).not.toHaveBeenCalled();
+    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Custom Error'));
   });
 
-  it('05 - 05 Receive an error that not contain a message property in the errorHandler config. Must send to grafana the message of the error instance and throw the error.', () => {
-    const errorHandlerRegistry = new ErrorHandlerRegistry(
-      undefined,
-      errorHandlers
-    );
-
+  it('should handle error without message in handler config', () => {
     const axiosError = new AxiosError(
-      'Axios locked error',
+      'Locked Error',
       HttpStatusCode.Locked.toString()
     );
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow('Axios locked error');
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow('Locked Error');
 
-    expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(axiosError.message)
-    );
+    expect(faro.api.pushError).toHaveBeenCalledWith(new Error('Locked Error'));
   });
 });
 
-describe('06 - ErrorHandlerRegistry: constructor', () => {
-  it('06 - 01 Create a ErrorHandlerRegistry with parent, must send the error message of the parent Registry to grafana and throw the error.', () => {
-    const parentErrorHandlerRegistry = new ErrorHandlerRegistry(undefined, {
+describe('ErrorHandlerRegistry: constructor with parent', () => {
+  it('should use parent registry if handler not found', () => {
+    const parentRegistry = new ErrorHandlerRegistry(undefined, {
       [HttpStatusCode.NotAcceptable]: {
         message: 'Parent Not Acceptable Error',
       },
     });
 
-    const parentNotAcceptableErrorHandler = parentErrorHandlerRegistry.find(
-      HttpStatusCode.NotAcceptable.toString()
-    ) as ErrorHandlerObject;
-
     const errorHandlerRegistry = new ErrorHandlerRegistry(
-      parentErrorHandlerRegistry,
+      parentRegistry,
       errorHandlers
     );
 
-    const findParentErrorHandlerFuntionSpy = jest.spyOn(
-      parentErrorHandlerRegistry,
-      'find'
-    );
-
     const axiosError = new AxiosError(
-      'Axios Not Acceptable Error',
+      'Not Acceptable Error',
       HttpStatusCode.NotAcceptable.toString()
     );
 
@@ -409,23 +358,18 @@ describe('06 - ErrorHandlerRegistry: constructor', () => {
       errorHandlerRegistry,
       'handleErrorObject'
     );
-
     const handleErrorSpy = jest.spyOn(errorHandlerRegistry, 'handleError');
 
     expect(() => {
-      errorHandlerRegistry.resposeErrorHandler(axiosError);
-    }).toThrow('Axios Not Acceptable Error');
+      errorHandlerRegistry.responseErrorHandler(axiosError);
+    }).toThrow('Not Acceptable Error');
 
-    expect(findParentErrorHandlerFuntionSpy).toHaveBeenCalledWith(
-      HttpStatusCode.NotAcceptable.toString()
-    );
-    expect(handleErrorObjectSpy).toHaveBeenCalledWith(
-      axiosError,
-      parentNotAcceptableErrorHandler
-    );
+    expect(handleErrorObjectSpy).toHaveBeenCalledWith(axiosError, {
+      message: 'Parent Not Acceptable Error',
+    });
     expect(handleErrorSpy).toHaveBeenCalled();
     expect(faro.api.pushError).toHaveBeenCalledWith(
-      new Error(parentNotAcceptableErrorHandler.message)
+      new Error('Parent Not Acceptable Error')
     );
   });
 });

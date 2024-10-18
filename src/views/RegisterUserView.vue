@@ -9,8 +9,8 @@ import { useUsersStore } from '@/stores/users';
 
 const usersStore = useUsersStore();
 
-onBeforeMount(() => {
-  usersStore.getAllUsers();
+onBeforeMount(async () => {
+  await usersStore.getAllUsers();
 });
 </script>
 

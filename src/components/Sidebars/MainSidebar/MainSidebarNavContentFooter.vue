@@ -13,8 +13,12 @@ const router = useRouter();
 
 const authStore = useAuthStore();
 
-const logout = () => {
-  authStore.logout();
+const logout = async () => {
+  try {
+    await authStore.logout();
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
 };
 </script>
 

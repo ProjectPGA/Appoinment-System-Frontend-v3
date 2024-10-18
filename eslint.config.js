@@ -1,11 +1,13 @@
-import globals from 'globals';
 import js from '@eslint/js';
 import ts from 'typescript-eslint';
 import vue from 'eslint-plugin-vue';
 import prettier from 'eslint-plugin-prettier/recommended';
 import vueI18n from '@intlify/eslint-plugin-vue-i18n';
+import pluginCypress from 'eslint-plugin-cypress/flat';
+import jest from 'eslint-plugin-jest';
 
 export default [
+  // i18n
   ...vueI18n.configs['flat/recommended'],
   {
     rules: {
@@ -25,12 +27,11 @@ export default [
     },
   },
 
+  // cypress
+  pluginCypress.configs.recommended,
   {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
+    rules: {
+      'cypress/no-unnecessary-waiting': 'off',
     },
   },
 
@@ -82,6 +83,7 @@ export default [
       },
     },
   },
+
   {
     rules: {
       'vue/multi-word-component-names': 'off',
@@ -140,5 +142,11 @@ export default [
     rules: {
       'prettier/prettier': 'warn',
     },
+  },
+
+  // jest
+  {
+    files: ['src/**/*.spec.ts', 'src/**/*.spec.tsx'],
+    ...jest.configs['flat/recommended'],
   },
 ];

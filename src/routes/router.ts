@@ -45,10 +45,11 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async to => {
-  if (!useAuthStore().isLogged && to.name !== RouteNames.LOGIN) {
+router.beforeEach(to => {
+  const authStore = useAuthStore();
+  if (!authStore.isLogged && to.name !== RouteNames.LOGIN) {
     return { name: RouteNames.LOGIN };
-  } else if (useAuthStore().isLogged && to.name === RouteNames.LOGIN) {
+  } else if (authStore.isLogged && to.name === RouteNames.LOGIN) {
     return { name: RouteNames.HOME };
   }
 });

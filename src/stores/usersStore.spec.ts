@@ -7,6 +7,8 @@ import { createRandomUsersList } from '@/utils/mocks/user/mockUsers';
 import { RegisterUserResponse } from '@/models/user/registerUser';
 import { UpdateUserResponse } from '@/models/user/updateUser';
 
+import { expect, jest } from '@jest/globals';
+
 jest.mock('@/webservices/users/UsersWebService');
 jest.mock('vue-i18n', () => ({
   useI18n: () => ({

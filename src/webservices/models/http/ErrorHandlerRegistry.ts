@@ -177,15 +177,15 @@ export default class ErrorHandlerRegistry {
    * @param {THttpError} error - The `error` parameter in the `responseErrorHandler` function
    * represents the error object that is being handled.
    *
-   * @returns The `resposeErrorHandler` function returns the result of handling the error based on
+   * @returns The `responseErrorHandler` function returns the result of handling the error based on
    * different conditions. It could return the result of calling `this.handleError` method with
    * specific parameters, or it could return the result of handling an error object with a message. If
    * none of these conditions are met, it will throw the original error.
    */
-  resposeErrorHandler(this: ErrorHandlerRegistry, error: THttpError) {
+  responseErrorHandler(this: ErrorHandlerRegistry, error: THttpError) {
     if (error === null) {
       const unrecoverableError = new Error(
-        GlobalErrorHandlerMessages.Unrecoverrable
+        GlobalErrorHandlerMessages.Unrecoverable
       );
 
       this.handleErrorObject(unrecoverableError);

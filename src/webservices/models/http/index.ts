@@ -23,7 +23,7 @@ globalHandlers.registerMany(globalErrorHandlers);
 function createHttpInstance() {
   const instance = axios.create({});
   const responseError = (error: THttpError) =>
-    globalHandlers.resposeErrorHandler(error);
+    globalHandlers.responseErrorHandler(error);
   instance.interceptors.response.use(undefined, responseError);
   return instance;
 }

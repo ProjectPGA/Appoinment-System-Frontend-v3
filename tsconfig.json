@@ -12,11 +12,21 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["node", "vue", "jest"],
+    "types": ["node", "vue", "jest", "@types/jest"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    ".storybook/**/*.ts",
+    "cypress/**/*.ts",
+    "cypress.config.ts",
+    "jest.config.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

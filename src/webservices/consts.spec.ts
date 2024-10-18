@@ -1,4 +1,5 @@
 import { BASE_URL, apiPrefix } from './consts';
+import { expect } from '@jest/globals';
 
 describe('01 BASE_URL const', () => {
   it('01 - 1 Should be the value of VITE_API_URL', () => {
