@@ -43,6 +43,7 @@ export default defineConfig({
         additionalData: `
           @import "/src/styles/utilities.scss";
         `,
+        silenceDeprecations: ['import'], // !important: Remove when change import to new syntax use,forwards,backward...
       },
     },
   },
